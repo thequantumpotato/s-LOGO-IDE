@@ -1,4 +1,4 @@
-package BackEnd;
+package backend;
 
 /**
  * represents a turtle on the screen
