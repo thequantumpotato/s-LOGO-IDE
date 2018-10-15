@@ -1,4 +1,7 @@
-package BackEnd.src.backend;
+package backend_external;
+
+import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 
 /**
  * represents a turtle on the screen
@@ -9,7 +12,7 @@ public class Turtle {
     private double size;
     private Color color;
     private ImageView imageView;
-    private Pen pen;
+//    private Pen pen;
 
     public Turtle(){
 

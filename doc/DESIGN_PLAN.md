@@ -15,8 +15,8 @@ DESIGN_PLAN.md
         * The controller is the communicator between the View class and the Model class. Whenever an external API needs to be called from View or Model class, the controller will pass the command to the other side.
         * When the program starts, the controller instance will be initialized. It will contain a view instance and a model instance.
     * Model
-        * The model contains the Model class, Turtle class, the Interpreter class, and the Command class. The Model class is responsible for holding the Turtle instance and the Interpreter instance. Once a user input string comes in from the Controller, the Model class uses the interpreter to parse the input and calls appropriate method on the turtle. After the coordinate of Turtle instance has been changed, the View calls backend external API to get Turtle instance's postion and display it on the View.
-        * The interpreter is responsible for parsing the string input and call the appropriate function on the turtle. If the string from a command is a variable or a function, the Model calls the internal API to add the variable or the function to the backend.
+        * The model contains the Model class, Turtle class, the Interpreter class, and the Command class. The Model class is responsible for holding the Turtle instance and the Interpreter instance. Once a user input string comes in from the Controller, the Model class uses the interpreter to parse the input and calls appropriate method on the turtle. After the coordinate of Turtle instance has been changed, the View calls backend_external external API to get Turtle instance's postion and display it on the View.
+        * The interpreter is responsible for parsing the string input and call the appropriate function on the turtle. If the string from a command is a variable or a function, the Model calls the internal API to add the variable or the function to the backend_external.
         * The turtle encapsulates the possible movements and functions that the turtle can do on the GUI panel. It contains the internal API that the interpreter can call once the interpreter parses the user command. It also contains the coordinate (including the x and y coordinate and the angle).
 
 ### Design Overview
@@ -26,7 +26,7 @@ DESIGN_PLAN.md
     * We plan to make our API extendable by using interfaces. For example, we plan to create a 'SubView' interface that allows us to have other classes implement it. For example, we would want a CommandView class and VariableView class that implement the SubView interface. That way, if anyone ever needs to create a new type of View, there will already be a set of methods that that new class needs to implement.
 
 * Front-End External API:
-    * This API will be used to control the user display by other classes in the program. It will update values in the User interface such as the displayed values of the custom-defined variables/functions or being told to display an error message. The backend will manage the UI through this API.
+    * This API will be used to control the user display by other classes in the program. It will update values in the User interface such as the displayed values of the custom-defined variables/functions or being told to display an error message. The backend_external will manage the UI through this API.
     * We decided to try and limit the scope of this API, as we feel as though we don't necessarily want the Front-end classes to be called too much by the back-end. The main front-end class, View, will exist only in the Controller class and main class, and the only methods it can call on View, for now, are updating the variable names to be displayed, and signaling the View to display an error.
 
 * Back-End Internal API:
@@ -118,7 +118,7 @@ Class.forName("Command").getDeclaredMethod("fd").invoke(Command object, 50);
 ```
 Use Cases (2 per person):
 * **Jose**
-    * Working on the backend, and primarily focusing on the way the input commands are parsed and then fed to the Command class to execute on the model (or turtle).
+    * Working on the backend_external, and primarily focusing on the way the input commands are parsed and then fed to the Command class to execute on the model (or turtle).
     * *Use case 1*: Parsing the "fd50" command (invalid command)
         * The Front-end Doesn't worry about validating a command to see if it is valid or not, that is why the Controllerclass has a public method passCommand() that allows the View to pass the responsibility over.
         * Once the command string is in the Controller, the first thing that happens is the Controller calls the parse method of the Interpreter class. This method validates that the command is indeed a valid one, and if not an IllegalCommandException is thrown. Since this command is not valid by the rules of Logo (no space between fd and 50), an  illegalCommandException is thrown, and an error message is displayed to the user.

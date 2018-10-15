@@ -1,4 +1,4 @@
-package BackEnd.src.backend;
+package backend_external;
 
 public class Model {
     private Interpreter interpreter;
