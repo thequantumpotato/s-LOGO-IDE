@@ -1,6 +1,7 @@
 import javafx.application.Application;
 import javafx.stage.Stage;
-
+import frontend_external.*;
+import backend_external.*;
 
 public class Controller extends Application {
 

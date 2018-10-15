@@ -1,4 +1,4 @@
-package backend_external;
+import backend_external.Interpreter;
 
 public class Model {
     private Interpreter interpreter;
