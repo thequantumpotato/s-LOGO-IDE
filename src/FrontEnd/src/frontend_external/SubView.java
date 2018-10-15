@@ -1,3 +1,5 @@
+package frontend_external;
+
 import javafx.scene.Node;
 
 public interface SubView {

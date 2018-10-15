@@ -10,7 +10,7 @@ DESIGN_PLAN.md
 * Primary architecture of the design
     * View
         * The view is what the user will see and will contain all the components which the user will interact with. It will take uesr input and pass it to a controller, and will receive updates from the back end as to how to update itself.
-        * View class has the following components: CommandView, HistoryView, FunctionView, and DisplayView
+        * View class has the following components: frontend_external.CommandView, frontend_external.HistoryView, frontend_external.FunctionView, and frontend_external.DisplayView
     * Controller
         * The controller is the communicator between the View class and the Model class. Whenever an external API needs to be called from View or Model class, the controller will pass the command to the other side.
         * When the program starts, the controller instance will be initialized. It will contain a view instance and a model instance.
@@ -23,7 +23,7 @@ DESIGN_PLAN.md
 ![API Design Overview](Slogo_team07_API_Design_Overview.png)
 * Front-End Internal API:
     * This API allows the user interface to manage its appearance, through manipulating elements such as text displays and other variable display elements such as the turtle sprite and the color of the pen. Additionally, this API will pass information to the View class such as the text from the textbox input.
-    * We plan to make our API extendable by using interfaces. For example, we plan to create a 'SubView' interface that allows us to have other classes implement it. For example, we would want a CommandView class and VariableView class that implement the SubView interface. That way, if anyone ever needs to create a new type of View, there will already be a set of methods that that new class needs to implement.
+    * We plan to make our API extendable by using interfaces. For example, we plan to create a 'frontend_external.SubView' interface that allows us to have other classes implement it. For example, we would want a frontend_external.CommandView class and frontend_external.VariableView class that implement the frontend_external.SubView interface. That way, if anyone ever needs to create a new type of View, there will already be a set of methods that that new class needs to implement.
 
 * Front-End External API:
     * This API will be used to control the user display by other classes in the program. It will update values in the User interface such as the displayed values of the custom-defined variables/functions or being told to display an error message. The backend_external will manage the UI through this API.
@@ -48,8 +48,8 @@ _Also see the project 'doc' folder for the interfaces and explanation of each in
 * External: between the two sub-groups
 
     * ```ViewExternalAPI```: communicates with back-end external through the Controller
-        * displayVars(Map<String, String>) will be called by the Controller when a new variable is added to the Model. It will update the view of the VariableView.
-        * displayFunctions(Map<String, String>) will be called by the Controller when a new functionf is added to the Model. It will update the view of the FunctionView.
+        * displayVars(Map<String, String>) will be called by the Controller when a new variable is added to the Model. It will update the view of the frontend_external.VariableView.
+        * displayFunctions(Map<String, String>) will be called by the Controller when a new functionf is added to the Model. It will update the view of the frontend_external.FunctionView.
         * displayError(String) will be called when the interpreter detects an error, such as entering an undefined command or multiple commands.
 
     * ```ModelExternalAPI```: contains Back-End External API methods that Front-End calls after it receives user command input
@@ -59,20 +59,20 @@ _Also see the project 'doc' folder for the interfaces and explanation of each in
 * Internal: between each sub-group and its future programmers (maintainers)
     * ```ViewInternalAPI```:
         * ```View``` is an aggregate of all the subcomponents in UI
-            * runCommand(String) is called from the CommandView whenever a command is submitted. It then passes the string to the Controller.
+            * runCommand(String) is called from the frontend_external.CommandView whenever a command is submitted. It then passes the string to the Controller.
             * changeBgColor(Color) changes the background color when the user changes the background color choice in the UI.
             * changePenColor(Color) changes the pen color when the user changes the pen color choice in UI.
             * changeTurtleImg(Image) changes the turtle's image when the user upload a picture to be the turtle.
-            * ```SubView``` Interface contains method getView(), which returns a Node
-                * ```CommandView``` implements ```SubView```
+            * ```frontend_external.SubView``` Interface contains method getView(), which returns a Node
+                * ```frontend_external.CommandView``` implements ```frontend_external.SubView```
                     * Textbox with a event handler. When "enter" key is pressed, it can get the string, pass the string into the View by calling runCommand(String), and clears the text.
-                * ```HistoryView``` implements ```SubView```
+                * ```frontend_external.HistoryView``` implements ```frontend_external.SubView```
                     * A ScrollPanel that contains all the history command
-                * ```DisplayView``` implements ```SubView```
+                * ```frontend_external.DisplayView``` implements ```frontend_external.SubView```
                     * A Panel displaying the image of the turtle
-                * ```VariableView``` implements ```SubView```
+                * ```frontend_external.VariableView``` implements ```frontend_external.SubView```
                     * A ScrollPanel displaying all the variables that the user defines
-                * ```FunctionView``` implements ```SubView```
+                * ```frontend_external.FunctionView``` implements ```frontend_external.SubView```
                     * A ScrollPanel displaying all the functions that the user defines
             * By having subView be an interface, we can have all of our different panels implement it, and in the future if we want other panels in our design, we will be easily able to implement them.
     * ```ModelInternalAPI```: Turtle contains the internal API that the Interpreter class calls after parsing user input. The turtle will be responsible for calling the front-end external API to move on the grid. It includes the following methods:
@@ -102,12 +102,12 @@ The user types 'fd 50' in the command window, and sees the turtle move in the di
 Note, clearly show the flow of calls to public methods needed to complete this example, indicating which class contains each method called. It is not necessary to understand exactly how parsing works in order to complete this example, just what the result of parsing the command will be.
 Additionally, each member of the team should create two use cases of their own (and example code) for the part of the project for which they intend to take responsibility. These can still be done as a group, but should represent a variety of areas of the overall project.
 
-* When the user inputs the command 'fd 50', our CommandView class calls the runCommond(String) in the ViewInternalAPI. Inside this method, parseCommand(String) method in the ModelExternalAPI will be called, inside which the Interpreter class will call Interpreter.parse('fd 50').
+* When the user inputs the command 'fd 50', our frontend_external.CommandView class calls the runCommond(String) in the ViewInternalAPI. Inside this method, parseCommand(String) method in the ModelExternalAPI will be called, inside which the Interpreter class will call Interpreter.parse('fd 50').
 * While parsing, if the command is not valid, the Controller sends an exception back to the View via the public method displayError(String).
 * If it is valid, the Interpreter continues to check if the command is an action of defining a variable or function. If so, it will call addVar(String, String) or addFunction(String, String) to add the variable or the function into their corresponding map.
 * If the command is valid and not defining a variable of function returns an arrayList of parsed strings, so for example the arrayList would be of size 2 and contain the items "Forward" and "50". Then, we do reflection on the arrayList, and call the appropriate commands of the Command class. So within the Controller we would call Command.Forward(50), and inside the Command class the method Forward would call Model.Forward(50). The turtle then moves forward 50 units, and since the turtle is within the root of the application, the change is displayed immediately. We will now list the methods called
 
-* CommandView: View.runCommand("fd 50"), which calls Controller.runCommand("fd 50")
+* frontend_external.CommandView: View.runCommand("fd 50"), which calls Controller.runCommand("fd 50")
 * Controller: Interpreter.parse('fd 50'), inside which we call Interpreter.validate("fd 50"), an internal method to check whether the command is valid or not.
 * Controller: Command.Forward(ArrayList<("Forward", "50")>)
 * Command: Model.Forward("50")
@@ -132,7 +132,7 @@ Use Cases (2 per person):
         * Inside View class, it will then create a new Alert with the Error type. The string will be used as the content of the alert and will be shown in the window.
     * *Use case 2*: display variables after the map of variables is updated
         * After the interpreter identifies a variable, it calls the addVar(String, String) method in the ModelInternalAPI, which appends the new variable into the myVars (a HashMap) within the Model and let Controller call the displayVar(myVars).
-        * Inside View class, it calls VariableView, passing it with the updated myVars and let it display on the VariableView.
+        * Inside View class, it calls frontend_external.VariableView, passing it with the updated myVars and let it display on the frontend_external.VariableView.
 * **Harry**
     * *Use case 1*: receive forward 50 command and move the turtle 50 unit distance forward
         * When the interpreter returns a list of cleaned, validated String, the controller class uses a hash map to find the appropriate command object and call its run() method.
