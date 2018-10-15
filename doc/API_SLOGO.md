@@ -23,7 +23,7 @@ Model View Controller
     * GUI class
         * LogoPanel
             * Display
-        * HistoryPanel
+        * HistoryView
             * Contains a ArrayList of commands, passed from Command Class
             * Update command once a new command is typed
         * InputPanel
