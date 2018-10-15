@@ -1,5 +1,3 @@
-package backend_external;
-
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 
