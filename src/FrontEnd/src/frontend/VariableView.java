@@ -1,9 +1,9 @@
-package frontend_external;
+package frontend;
 
 import javafx.scene.Node;
 import javafx.scene.Parent;
 
-public class CommandView implements SubView {
+public class VariableView implements SubView {
 
     @Override
     public Node getView() {

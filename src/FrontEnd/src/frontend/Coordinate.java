@@ -1,4 +1,4 @@
-package frontend_external;
+package frontend;
 
 public class Coordinate {
     private int x;

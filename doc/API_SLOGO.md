@@ -1,7 +1,7 @@
 SLogo Architecture Design: Team 07
 ===
 1. What is the result of parsing and who receives it?
-    * The result of parsing is a set of commands that are able       to be understood by our Turtle class. For example, if the
+    * The result of parsing is a set of commands that are able       to be understood by our backend.Turtle class. For example, if the
     
     
 2. When does parsing need to take place and what does it need to start properly?
@@ -14,26 +14,26 @@ SLogo Architecture Design: Team 07
     * The turtle would move based on the command given
 ---
 # CLASSES
-Model View Controller
+backend.Model View frontend.Controller
 
-* Main
+* frontend.Main
     * Instantiates the GUI
 
 * GUI (displays info from Grid)
     * GUI class
         * LogoPanel
             * Display
-        * frontend_external.HistoryView
+        * frontend.HistoryView
             * Contains a ArrayList of commands, passed from Command Class
             * Update command once a new command is typed
         * InputPanel
             * Get the input and pass to Interpreter
     * Methods
         * step() to start simulation
-* Controller
+* frontend.Controller
     * detect change in input
     * detect change in turtle position
-* Turtle
+* backend.Turtle
     * Point getPosition()
     * void move(Point p)
     * void rotate(double theta)
@@ -45,7 +45,7 @@ Model View Controller
         * Creates command classes if the command is valid. For example if the command is "fd 50", we could create a forwardCommand class. 
 * Command (Abstract Super Class containing common methods)
     * update Method implemented by subclasses
-    * update(Turtle t)
+    * update(backend.Turtle t)
         * Forward Subclass
         * Draw Circle
         * Rotate

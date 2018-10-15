@@ -1,4 +1,4 @@
-//Controller Interface
+//frontend.Controller Interface
 interface ControllerEx {
     
     public void parseCommand(String command);
