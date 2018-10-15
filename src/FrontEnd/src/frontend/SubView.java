@@ -1,4 +1,4 @@
-package frontend_external;
+package frontend;
 
 import javafx.scene.Node;
 

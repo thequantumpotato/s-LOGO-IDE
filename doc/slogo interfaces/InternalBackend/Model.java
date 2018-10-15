@@ -1,6 +1,6 @@
-//Internal Backend API Model
+//Internal Backend API backend.Model
 
-// These are the methods that are called within the backend_external
+// These are the methods that are called within the backend
 interface Model {
 	private void moveForward(double moveAmount);
 
