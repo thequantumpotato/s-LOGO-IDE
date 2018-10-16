@@ -1,5 +1,12 @@
 package frontend;
 
+/**
+ * A customized class to keep track of the position and angle of the turtle.
+ * It uses integer instead of double because usually in the command the numbers are all integers.
+ *
+ * @author Vincent Liu
+ */
+
 public class Coordinate {
     private int x;
     private int y;
