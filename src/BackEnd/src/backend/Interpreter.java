@@ -15,7 +15,7 @@ public class Interpreter {
 
     private List<Map.Entry<String, Pattern>> mySymbols;
     private List<String> myCommands;
-
+    private static final String WHITESPACE = "\\s+";
 
     /**
      * Create an empty parser.
@@ -31,8 +31,9 @@ public class Interpreter {
     /**
      * Return the arrayList<String></String> back to the Controller of all of the commands
      */
-    public List<String> parse(String[] text) {
-        for (var t : text) {
+    public List<String> parse(String text) {
+        String[] textArr = text.split(WHITESPACE);
+        for (var t : textArr) {
             if (t.trim().length() > 0) {
                 myCommands.add(getSymbol(t));
                 System.out.println(getSymbol(t));
@@ -81,50 +82,9 @@ public class Interpreter {
     public static void main(String[] args) {
         //TESTING
         var parser = new Interpreter();
-        String WHITESPACE = "\\s+";
-        String[] examples = {
-                "",
-                "# foo",
-                "foo #",
-                "#",
-                "fd",
-                "FD",
-                "forwardd",
-                "equalp",
-                "equal?",
-                "equal??",
-                "+",
-                "SuM",
-                "-",
-                "*",
-                "/",
-                "%",
-                "~",
-                "+not",
-                "not+",
-                "++",
-                "+*+",
-                "or",
-                "FOR",
-                "allOrNothing",
-                "all_or_nothing",
-                "allOr_nothing?",
-                "allOr?nothing_",
-                ":allornothing",
-                "PI",
-                "90",
-                "9.09",
-                "9.0.0",
-                "[",
-                "]",
-                "(",
-                ")"
-        };
 
-        // try against different inputs
         // note, this simple "algorithm" will not handle SLogo comments
-        //parser.parse(examples);
-        String userInput = "fd 50 rt 90 BACK :distance Left :angle";
-        parser.parse(userInput.split(WHITESPACE));
+        String userInput = "fd 50 rt 90 BACK :distance Left :angle Fd50";
+        parser.parse(userInput);
     }
 }
