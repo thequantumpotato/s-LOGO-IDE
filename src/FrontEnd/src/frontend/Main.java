@@ -7,6 +7,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        primaryStage.setResizable(false);
         Controller myController = new Controller(primaryStage);
     }
 
