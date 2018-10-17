@@ -1,4 +1,4 @@
-module slogo.team07.frontend.external {
+module FrontEnd {
     requires javafx.base;
     requires javafx.graphics;
     requires javafx.controls;

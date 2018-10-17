@@ -51,28 +51,25 @@ public class View {
     public static final String TURTLE_IMAGE = "turtle.png";
     public static final String TITLE = "SLogo";
     public static final String STYLESHEET = "style.css";
+    public final int SCREEN_WIDTH = 1000;
+    public final int SCREEN_HEIGHT = 700;
+    public final int FRAMES_PER_SECOND = 60;
+    public final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
+    public final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
     private DisplayView myDisplayView;
     private CommandView myCommandView;
     private VariableView myVariableView;
     private FunctionView myFunctionView;
     private HistoryView myHistoryView;
     private SettingView mySettingView;
-
     private GridPane root;
     private Scene myScene;
     private Controller myController;
     private Stage myStage;
     private Timeline animation;
-
     private int elapsedTime;
 
-    public final int SCREEN_WIDTH = 1000;
-    public final int SCREEN_HEIGHT = 700;
-    public final int FRAMES_PER_SECOND = 60;
-    public final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
-    public final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
-
-    public View(Stage primaryStage, Controller myController_){
+    public View(Stage primaryStage, Controller myController_) {
         myController = myController_;
         myStage = primaryStage;
         root = new GridPane();
@@ -95,9 +92,9 @@ public class View {
         row4.setPercentHeight(10);
 
         root.getColumnConstraints().addAll(column1, column2, column3);
-        root.getRowConstraints().addAll(row1, row2, row3,row4);
+        root.getRowConstraints().addAll(row1, row2, row3, row4);
 
-        myDisplayView = new DisplayView(this,new Image(this.getClass().getClassLoader().getResourceAsStream(TURTLE_IMAGE)));
+        myDisplayView = new DisplayView(this, new Image(this.getClass().getClassLoader().getResourceAsStream(TURTLE_IMAGE)));
 
         //myDisplayView.updateTurtle(new Coordinate(600,600,123));
         myCommandView = new CommandView(this);
@@ -114,15 +111,15 @@ public class View {
         root.add(myDisplayView.getView(), 1, 0, 1, 2);
         root.add(myVariableView.getView(), 2, 0, 1, 1);
         root.add(myFunctionView.getView(), 2, 1, 1, 1);
-        root.add(myHistoryView.getView(), 0, 2,3,1);
-        root.add(myCommandView.getView(), 0, 3,3,1);
+        root.add(myHistoryView.getView(), 0, 2, 3, 1);
+        root.add(myCommandView.getView(), 0, 3, 3, 1);
 
         myScene = new Scene(root, SCREEN_WIDTH, SCREEN_HEIGHT);
         myScene.getStylesheets().add(STYLESHEET);
         startView();
     }
 
-    public void startView(){
+    public void startView() {
 
         myStage.setScene(myScene);
         myStage.setTitle(TITLE);
@@ -134,7 +131,9 @@ public class View {
         animation.play();
     }
 
-    /**     Internal APIs    **/
+    /**
+     * Internal APIs
+     **/
     public void changeBgColor(Color bgColor) {
         // myDisplayView.changeBgColor();
     }
@@ -152,7 +151,9 @@ public class View {
     }
 
 
-    /**     External APIs    **/
+    /**
+     * External APIs
+     **/
     public void displayVars(Map<String, String> variables) {
 
     }
@@ -169,7 +170,9 @@ public class View {
         alert.showAndWait();
     }
 
-    /**     Other methods    **/
+    /**
+     * Other methods
+     **/
     public void step(double elapsedTime, Stage stage) {
         /*this.elapsedTime++;
         root.getChildren().remove(myDisplayView);

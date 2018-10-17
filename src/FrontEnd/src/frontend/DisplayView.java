@@ -6,9 +6,6 @@ import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
@@ -37,10 +34,10 @@ public class DisplayView implements SubView {
 
     public DisplayView(View myView_, Image image) {
         myView = myView_;
-        scrollPane  = new ScrollPane();
+        scrollPane = new ScrollPane();
         Group root = new Group();
         //create bg
-        bg = new Rectangle(800,800,Color.WHITE);
+        bg = new Rectangle(800, 800, Color.WHITE);
 
         //create turtle
         /** TO DO: Set the default turtle location to the center of the displayView */
@@ -80,20 +77,20 @@ public class DisplayView implements SubView {
         turtleView.setImage(newTurtleImg);
     }
 
-    public void updateTurtle(Coordinate newpos){
-        if(newpos.getX()>bg.getWidth()||newpos.getY()>bg.getHeight()){
-            bg.setHeight(Math.max(newpos.getX(),newpos.getY()));
-            bg.setWidth(Math.max(newpos.getX(),newpos.getY()));
+    public void updateTurtle(Coordinate newpos) {
+        if (newpos.getX() > bg.getWidth() || newpos.getY() > bg.getHeight()) {
+            bg.setHeight(Math.max(newpos.getX(), newpos.getY()));
+            bg.setWidth(Math.max(newpos.getX(), newpos.getY()));
         }
-        TranslateTransition xt = new TranslateTransition(Duration.seconds(5),turtleView);
-        xt.setByX(newpos.getX()-turtleView.getX());
-        xt.setByY(newpos.getY()-turtleView.getY());
+        TranslateTransition xt = new TranslateTransition(Duration.seconds(5), turtleView);
+        xt.setByX(newpos.getX() - turtleView.getX());
+        xt.setByY(newpos.getY() - turtleView.getY());
         turtleView.setRotate(newpos.getAngle());
         xt.play();
 
     }
 
-    private void drawPath(){
+    private void drawPath() {
         // temporary method, fill in implementation later
     }
 

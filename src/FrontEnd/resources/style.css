@@ -4,19 +4,19 @@
  */
 
 .button {
-    -fx-text-fill:white;
-    -fx-font-family:"Arial";
+    -fx-text-fill: white;
+    -fx-font-family: "Arial";
     -fx-font-size: 14px;
-    -fx-font-weight:bold;
+    -fx-font-weight: bold;
     -fx-pref-width: 100px;
-    -fx-background-color:linear-gradient(#61a2b1,#2A5058);
+    -fx-background-color: linear-gradient(#61a2b1, #2A5058);
 }
 
 .button:hover {
-    -fx-background-color:linear-gradient(#5192a1,#1A4048);
+    -fx-background-color: linear-gradient(#5192a1, #1A4048);
 }
 
-.root{
+.root {
     -fx-background-color: white;
     -fx-padding: 15;
     -fx-hgap: 10;
@@ -24,42 +24,42 @@
     -fx-background-radius: 5.0;
 }
 
-.commandView{
+.commandView {
     -fx-border-color: black;
     -fx-border-width: 1px;
 }
 
-.displayView{
+.displayView {
     -fx-border-color: black;
     -fx-border-width: 1px;
 }
 
-.settingBox{
+.settingBox {
     -fx-border-color: black;
     -fx-border-width: 1px;
 }
 
-.turtleBox{
+.turtleBox {
     -fx-border-color: black;
     -fx-border-width: 1px;
 }
 
-.functionView{
+.functionView {
     -fx-border-color: black;
     -fx-border-width: 1px;
 }
 
-.variableView{
+.variableView {
     -fx-border-color: black;
     -fx-border-width: 1px;
 }
 
-.historyView{
+.historyView {
     -fx-border-color: black;
     -fx-border-width: 1px;
 }
 
-.settingView{
+.settingView {
     -fx-border-color: black;
     -fx-border-width: 1px;
 }
