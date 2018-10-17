@@ -1,6 +1,8 @@
 package backend;
 
 
+import backend.Nodes.BasicNode;
+
 import java.lang.reflect.Method;
 import java.util.*;
 import java.util.regex.Pattern;
@@ -19,6 +21,7 @@ public class Interpreter {
     private static final String WHITESPACE = "\\s+";
     public ResourceBundle myErrors;
     private static final String commandError = "backend/resources/Errors";
+    private TreeFactory myTreeFactory;
 
     /**
      * Create an empty parser.
@@ -26,6 +29,7 @@ public class Interpreter {
     public Interpreter() {
         mySymbols = new ArrayList<>();
         myCommands = new ArrayList<>();
+        myTreeFactory = new TreeFactory();
         addPatterns("backend/resources/languages/English");
         addPatterns("backend/resources/languages/Syntax");
         myErrors = ResourceBundle.getBundle(commandError);
@@ -35,7 +39,7 @@ public class Interpreter {
     /**
      * Return the arrayList<String></String> back to the Controller of all of the commands
      */
-    public List<String> parse(String text) throws Exception {
+    public List<BasicNode> parse(String text) throws Exception {
         String[] textArr = text.split(WHITESPACE);
         for (var t : textArr) {
             if (t.trim().length() > 0) {
@@ -44,8 +48,10 @@ public class Interpreter {
             }
         }
         reflection();
+        //commands are in an arraylist, now create our tree structure
+        List<BasicNode> myTrees = myTreeFactory.getRoots(myCommands);
 
-        return myCommands;
+        return myTrees;
 
     }
 

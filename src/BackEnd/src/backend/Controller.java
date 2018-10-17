@@ -1,13 +1,18 @@
 package backend;
 
+import backend.Nodes.BasicNode;
+
+import java.lang.reflect.Method;
 import java.util.List;
 
 public class Controller {
     private Interpreter interpreter;
-    private List<String> myCommands;
+    private List<BasicNode> myCommands;
+    private Command commander;
 
     public Controller(){
         interpreter = new Interpreter();
+        commander = new Command();
     }
 
     /**
@@ -15,6 +20,11 @@ public class Controller {
      */
     public void parseCommand(String input) throws Exception {
         myCommands = interpreter.parse(input);
+        //for(String s:myCommands){
+        //    if(Integer.parseInt(s))
+        //    Method command = commander.getClass().getDeclaredMethod(s);
+        //    command.invoke(commander);
+        //}
 
         //Use reflection on myCommands
 
@@ -23,6 +33,7 @@ public class Controller {
     public void updateVar(String varName, String varVal){
 
     }
+
 
 }
 

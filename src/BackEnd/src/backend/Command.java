@@ -2,6 +2,10 @@ package backend;
 
 public class Command {
 
+    public Command(){
+
+    }
+
     public String forward(Turtle t, String distance){
         Double d = Double.parseDouble(distance);
         t.move(d);
