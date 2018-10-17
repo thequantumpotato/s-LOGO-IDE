@@ -41,7 +41,7 @@ public class TreeTester {
         //TESTING
         var parser = new Interpreter();
         // note, this simple "algorithm" will not handle SLogo comments
-        String userInput = "fd 50 rt 90 BACK cos 10";
+        String userInput = "sum 10 sum 20 40";
         String userInput2 = "fd 1 + 3 + 4 + 5";
         var myRoots = parser.parse(userInput);
 

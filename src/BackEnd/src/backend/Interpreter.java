@@ -57,6 +57,7 @@ public class Interpreter {
     /**
      * Adds the given resource file to this language's recognized types
      */
+    //TODO move this stuff to a utility class
     private void addPatterns(String syntax) {
         var resources = ResourceBundle.getBundle(syntax);
         for (var key : Collections.list(resources.getKeys())) {

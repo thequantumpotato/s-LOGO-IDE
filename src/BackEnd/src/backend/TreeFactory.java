@@ -1,19 +1,25 @@
 package backend;
 
-import backend.Nodes.BasicNode;
-import backend.Nodes.SingleCommandNode;
-import backend.Nodes.argumentNode;
+import backend.Nodes.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.regex.Pattern;
 
 public class TreeFactory {
 
-    public TreeFactory(){
+    private static final String commandProps = "backend/resources/Command";
+    private List<Map.Entry<String, Pattern>> mySymbols;
 
+    public TreeFactory(){
+        mySymbols = new ArrayList<>();
+        addPatterns(commandProps);
     }
 
-    //TODO implement the tree factory lol
+
+    /**
+     * Returns a list of Nodes when given a List of string commands. Each Node is the root of a tree
+     * of commands. with the children being the arguments
+     */
     //Commands have children, while arguments don't (they are simply argumentNodes)
     public List<BasicNode> getRoots(List<String> commands) throws IllegalCommandException {
         List<BasicNode> myRoots = new ArrayList<>();
@@ -36,7 +42,7 @@ public class TreeFactory {
     }
 
     //TODO: Implement brackets and parenthesis
-    private BasicNode createChild(List<String> commands){
+    private BasicNode createChild(List<String> commands) throws IllegalCommandException {
         if(commands.size() == 0){
             return null;
         }
@@ -58,11 +64,22 @@ public class TreeFactory {
 
     }
 
-    //TODO make it generic for all commands, not just singleCommands
-    private BasicNode createRoot(String command){
+    //TODO make the other types of nodes, the one that take no arguments
+    private BasicNode createRoot(String command) throws IllegalCommandException {
         BasicNode newNode;
         if(!isNumeric(command)){
-            newNode = new SingleCommandNode(command);
+            String numArgs = getArgNum(command);
+            if(numArgs.equals("Single")){
+                newNode = new SingleCommandNode(command);
+            }
+            else if(numArgs.equals("Double")){
+                newNode = new DoubleCommandNode(command);
+            }
+            else{
+                newNode = new ZeroCommandNode(command);
+            }
+
+
         }else{
             newNode = new argumentNode(command);
         }
@@ -72,5 +89,27 @@ public class TreeFactory {
 
     private boolean isNumeric(String s){
         return s.matches("[-+]?\\d*\\.?\\d+");
+    }
+
+    private void addPatterns(String syntax) {
+        var resources = ResourceBundle.getBundle(syntax);
+        for (var key : Collections.list(resources.getKeys())) {
+            var regex = resources.getString(key);
+            mySymbols.add(new AbstractMap.SimpleEntry<>(key,
+                    Pattern.compile(regex, Pattern.CASE_INSENSITIVE)));
+        }
+    }
+
+    /**
+     * Returns whether a command requires one, two three, or more arguments
+     */
+    private String getArgNum(String text) throws IllegalCommandException {
+        for (var e : mySymbols) {
+            if (e.getValue().matcher(text).matches()) {
+                    return e.getKey();
+            }
+        }
+        //This will never get thrown, because we would have thrown it in a previous matching method
+        throw new IllegalCommandException();
     }
 }
