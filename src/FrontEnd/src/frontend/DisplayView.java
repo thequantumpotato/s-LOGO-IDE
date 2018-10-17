@@ -19,6 +19,7 @@ import javafx.util.Duration;
  * to move around and draw different shapes.
  *
  * @author Vincent Liu
+ * @author Benjamin Xu
  */
 
 public class DisplayView implements SubView {
@@ -28,6 +29,8 @@ public class DisplayView implements SubView {
     private ScrollPane scrollPane;
     private Rectangle bg;
     private ImageView turtleView;
+
+    private boolean penDown;
     private int turtleX;
     private int turtleY;
     private int turtleAngle;
@@ -52,6 +55,7 @@ public class DisplayView implements SubView {
         scrollPane.setContent(root);
         turtleView.setX(400);
         turtleView.setY(400);
+        penDown = true;
         System.out.println(turtleView.getBoundsInLocal());
     }
 
@@ -87,6 +91,10 @@ public class DisplayView implements SubView {
         turtleView.setRotate(newpos.getAngle());
         xt.play();
 
+    }
+
+    private void drawPath(){
+        // temporary method, fill in implementation later
     }
 
     @Override
