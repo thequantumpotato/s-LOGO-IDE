@@ -16,6 +16,8 @@ public class Interpreter {
     private List<Map.Entry<String, Pattern>> mySymbols;
     private List<String> myCommands;
     private static final String WHITESPACE = "\\s+";
+    public ResourceBundle myErrors;
+    private static final String commandError = "backend/resources/Errors";
 
     /**
      * Create an empty parser.
@@ -25,13 +27,14 @@ public class Interpreter {
         myCommands = new ArrayList<>();
         addPatterns("backend/resources/languages/English");
         addPatterns("backend/resources/languages/Syntax");
+        myErrors = ResourceBundle.getBundle(commandError);
     }
 
 
     /**
      * Return the arrayList<String></String> back to the Controller of all of the commands
      */
-    public List<String> parse(String text) {
+    public List<String> parse(String text) throws IllegalCommandException {
         String[] textArr = text.split(WHITESPACE);
         for (var t : textArr) {
             if (t.trim().length() > 0) {
@@ -59,15 +62,13 @@ public class Interpreter {
     /**
      * Returns language's type associated with the given text if one exists
      */
-    private String getSymbol(String text) {
-        final var ERROR = "NO MATCH";
+    private String getSymbol(String text) throws IllegalCommandException {
         for (var e : mySymbols) {
             if (match(text, e.getValue())) {
                 return e.getKey();
             }
         }
-        // FIXME: perhaps throw an exception instead
-        return ERROR;
+        throw new IllegalCommandException(myErrors.getString("commandError"));
     }
 
     /**
@@ -79,12 +80,12 @@ public class Interpreter {
     }
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IllegalCommandException {
         //TESTING
         var parser = new Interpreter();
 
         // note, this simple "algorithm" will not handle SLogo comments
-        String userInput = "fd 50 rt 90 BACK :distance Left :angle Fd50";
+        String userInput = "fd 50 rt 90 BACK :distance Left :angle Fd50 jsdb";
         parser.parse(userInput);
     }
 }
