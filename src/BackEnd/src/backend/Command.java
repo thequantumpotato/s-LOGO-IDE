@@ -192,59 +192,82 @@ public class Command {
     }
 
     public String sine(String arguments){
-
+        double degrees = Double.parseDouble(arguments);
+        return ((Double)Math.sin(Math.toRadians(degrees))).toString();
     }
 
     public String cosine(String arguments){
-
+        double degrees = Double.parseDouble(arguments);
+        return ((Double)Math.cos(Math.toRadians(degrees))).toString();
     }
 
     public String tangent(String arguments){
-
+        double degrees = Double.parseDouble(arguments);
+        return ((Double)Math.tan(Math.toRadians(degrees))).toString();
     }
 
     public String arcTangent(String arguments){
-
+        double value = Double.parseDouble(arguments);
+        return ((Double)Math.atan(value)).toString();
     }
 
     public String naturalLog(String arguments){
-
+        double value = Double.parseDouble(arguments);
+        return ((Double)Math.log(value)).toString();
     }
 
     public String power(String arguments){
+        double[] tmp = parseDoubles(arguments);
+        return ((Double)Math.pow(tmp[0], tmp[1])).toString();
+    }
 
+    private double[] parseDoubles(String arguments){
+        String[] tmp = arguments.split(" ");
+        double a = Double.parseDouble(tmp[0]);
+        double b = Double.parseDouble(tmp[1]);
+        double[] res = new double[2];
+        res[0] = a;
+        res[1] = b;
+        return res;
     }
 
     public String pi(String arguments){
-
+        return ((Double)Math.PI).toString();
     }
 
     public String lessThan(String arguments){
-
+        double[] tmp = parseDoubles(arguments);
+        return tmp[0] < tmp[1] ? "1":"0";
     }
 
     public String greaterThan(String arguments){
-
+        double[] tmp = parseDoubles(arguments);
+        return tmp[0] > tmp[1] ? "1":"0";
     }
 
     public String equal(String arguments){
-
+        double[] tmp = parseDoubles(arguments);
+        return tmp[0] == tmp[1] ? "1":"0";
     }
 
     public String notEqual(String arguments){
-
+        double[] tmp = parseDoubles(arguments);
+        return tmp[0] != tmp[1] ? "1":"0";
     }
 
     public String and(String arguments){
-
+        int[] tmp = parseIntegers(arguments);
+        return tmp[0] == 1 && tmp[1] == 1 ? "1":"0";
     }
 
     public String or(String arguments){
-
+        int[] tmp = parseIntegers(arguments);
+        return tmp[0] == 0 && tmp[1] == 0 ? "0":"1";
     }
 
     public String not(String arguments){
-
+        int tmp = Integer.parseInt(arguments);
+        return tmp == 1 ? "1":"0";
     }
 
     public String makeVariable(String arguments){
@@ -263,15 +286,15 @@ public class Command {
 
     }
 
-    public String setBackground(String arguments){
+    public String setBackground(View view, String arguments){
 
     }
 
-    public String setPenColor(String arguments){
+    public String setPenColor(Turtle t, String arguments){
 
     }
 
-    public String setPenSize(String arguments){
+    public String setPenSize(Turtle t, String arguments){
 
     }
 
@@ -283,7 +306,7 @@ public class Command {
 
     }
 
-    public String getPenColor(String arguments){
+    public String getPenColor(Turtle t, String arguments){
 
     }
 
