@@ -96,7 +96,7 @@ public class View {
 
         myDisplayView = new DisplayView(this, new Image(this.getClass().getClassLoader().getResourceAsStream(TURTLE_IMAGE)));
 
-        //myDisplayView.updateTurtle(new Coordinate(600,600,123));
+        myDisplayView.updateTurtle(new Coordinate(600,600,123),10);
         myCommandView = new CommandView(this);
 
         myVariableView = new VariableView(this);
