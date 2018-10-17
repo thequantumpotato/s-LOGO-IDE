@@ -1,4 +1,6 @@
-package BackEnd.src.backend;
+package backend;
+
+import java.util.List;
 
 public class Model {
     private Interpreter interpreter;
@@ -6,14 +8,13 @@ public class Model {
 
     public Model(){
         interpreter = new Interpreter();
-        turtle = new Turtle;
+        turtle = new Turtle();
     }
 
     private void initializeCommands(){
     }
 
     public void parse(String input){
-        String formattedInput = interpreter.parse(input);
-        commandMap.get(formattedInput).run();
+
     }
 }
