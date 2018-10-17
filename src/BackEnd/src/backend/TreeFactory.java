@@ -40,16 +40,21 @@ public class TreeFactory {
         if(commands.size() == 0){
             return null;
         }
-        BasicNode newNode;
+        BasicNode newChild;
         String nextChild = commands.remove(0);
+
         if(!isNumeric(nextChild)){
-            newNode = new SingleCommandNode(nextChild);
+            newChild = createRoot(nextChild);
+            //This child has its own arguments that we need to add. Use recursion!
+            while (newChild.getNumChildren() != newChild.getRequiredArguments()) {
+                newChild.addChild(createChild(commands));
+            }
         }
         else{
-            newNode = new argumentNode(nextChild);
+            newChild = new argumentNode(nextChild);
         }
 
-        return newNode;
+        return newChild;
 
     }
 

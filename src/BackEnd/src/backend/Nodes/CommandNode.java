@@ -28,6 +28,10 @@ public abstract class CommandNode implements BasicNode {
         myChildren.add(child);
     }
 
+    public List<BasicNode> getChildren(){
+        return myChildren;
+    }
+
     /**
      * Return the number of required arguments
      */

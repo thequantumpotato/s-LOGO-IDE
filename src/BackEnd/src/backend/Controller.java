@@ -35,15 +35,6 @@ public class Controller {
 
     }
 
-    public static void main(String[] args) throws Exception {
-        //TESTING
-        var cnt = new Controller();
-
-        // note, this simple "algorithm" will not handle SLogo comments
-        String userInput = "fd 50 rt 90 BACK sum 20 10";
-        String userInput2 = "fd 1 + 3 + 4 + 5";
-        cnt.parseCommand(userInput2);
-    }
 
 
 }

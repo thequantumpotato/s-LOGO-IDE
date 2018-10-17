@@ -44,7 +44,6 @@ public class Interpreter {
         for (var t : textArr) {
             if (t.trim().length() > 0) {
                 myCommands.add(getSymbol(t));
-                System.out.println(getSymbol(t));
             }
         }
         reflection();

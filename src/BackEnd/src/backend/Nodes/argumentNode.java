@@ -1,5 +1,7 @@
 package backend.Nodes;
 
+import java.util.List;
+
 public class argumentNode implements BasicNode {
     private int argument;
     private int numArguments = 0;
@@ -18,6 +20,14 @@ public class argumentNode implements BasicNode {
 
     public int getRequiredArguments(){
         return numArguments;
+    }
+
+    public String getCommandName(){
+        return Integer.toString(argument);
+    }
+
+    public List<BasicNode> getChildren(){
+        return null;
     }
 
 
