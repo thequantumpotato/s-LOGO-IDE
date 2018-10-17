@@ -1,14 +1,19 @@
-package backend;
+package BackEnd.src.backend;
 
 public class Model {
     private Interpreter interpreter;
     private Turtle turtle;
 
     public Model(){
-
+        interpreter = new Interpreter();
+        turtle = new Turtle;
     }
 
-    public void parse(){
+    private void initializeCommands(){
+    }
 
+    public void parse(String input){
+        String formattedInput = interpreter.parse(input);
+        commandMap.get(formattedInput).run();
     }
 }

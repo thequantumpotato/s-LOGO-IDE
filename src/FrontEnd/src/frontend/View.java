@@ -64,7 +64,7 @@ public class View {
         root.getRowConstraints().addAll(row1, row2, row3);
 
         myDisplayView = new DisplayView(new Image(this.getClass().getClassLoader().getResourceAsStream(TURTLE_IMAGE)), new Coordinate(0, 0, 90));
-
+        myDisplayView.updateTurtle(new Coordinate(600,600,123));
         myCommandView = new CommandView(this);
 
         myVariableView = new VariableView(this);
@@ -107,10 +107,10 @@ public class View {
      * @param stage
      */
     public void step(double elapsedTime, Stage stage) {
-        this.elapsedTime++;
+        /*this.elapsedTime++;
         root.getChildren().remove(myDisplayView);
 
         myDisplayView = new DisplayView(new Image(this.getClass().getClassLoader().getResourceAsStream(TURTLE_IMAGE)), new Coordinate(this.elapsedTime, 0, 90));
-        root.add(myDisplayView.getView(), 0, 0, 2, 2);
+        root.add(myDisplayView.getView(), 0, 0, 2, 2);*/
     }
 }

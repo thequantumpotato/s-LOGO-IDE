@@ -1,12 +1,17 @@
 package frontend;
 
+import javafx.animation.TranslateTransition;
+import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 
 /**
  * DisplayView contains the display of the turtle as well as the panel for the user to change the
@@ -18,36 +23,26 @@ import javafx.scene.paint.Color;
 
 public class DisplayView implements SubView {
 
-    private GridPane displayView;
-    private VBox turtleBox;
-    private VBox settingBox;
+    private ScrollPane scrollPane;
+    private Rectangle bg;
     private ImageView turtleView;
     private int turtleX;
     private int turtleY;
     private int turtleAngle;
 
     public DisplayView(Image image, Coordinate turtleCoordinate_) {
-        displayView = new GridPane();
-        displayView.getStyleClass().add("displayView");
-
-        var col1 = new ColumnConstraints();
-        col1.setPercentWidth(20);
-        var col2 = new ColumnConstraints();
-        col2.setPercentWidth(80);
-
-        displayView.getColumnConstraints().addAll(col1, col2);
-
-        turtleBox = new VBox();
-        turtleBox.getStyleClass().add("turtleBox");
-        settingBox = new VBox();
-        settingBox.getStyleClass().add("settingBox");
-
+        scrollPane  = new ScrollPane();
+        Group root = new Group();
+        //create bg
+        bg = new Rectangle(800,800,Color.BLACK);
+        //create turtle
         turtleView = new ImageView(image);
-        turtleBox.getChildren().add(turtleView);
-        setTurtlePos(turtleCoordinate_);
-
-        displayView.add(settingBox, 0, 0);
-        displayView.add(turtleBox, 1,0);
+        turtleView.setFitWidth(100);
+        turtleView.setFitHeight(100);
+        //add turtle to scroll pane
+        root.getChildren().add(bg);
+        root.getChildren().add(turtleView);
+        scrollPane.setContent(root);
     }
 
     public void setTurtlePos(Coordinate turtleCoordinate) {
@@ -71,8 +66,21 @@ public class DisplayView implements SubView {
 
     }
 
+    public void updateTurtle(Coordinate newpos){
+        if(newpos.getX()>bg.getWidth()||newpos.getY()>bg.getHeight()){
+            bg.setHeight(Math.max(newpos.getX(),newpos.getY()));
+            bg.setWidth(Math.max(newpos.getX(),newpos.getY()));
+        }
+        TranslateTransition xt = new TranslateTransition(Duration.seconds(5),turtleView);
+        xt.setByX(newpos.getX()-turtleView.getX());
+        xt.setByY(newpos.getY()-turtleView.getY());
+        turtleView.setRotate(newpos.getAngle());
+        xt.play();
+
+    }
+
     @Override
     public Node getView() {
-        return displayView;
+        return scrollPane;
     }
 }
