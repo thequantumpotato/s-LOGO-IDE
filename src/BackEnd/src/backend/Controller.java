@@ -13,7 +13,7 @@ public class Controller {
     /**
      * Parses the
      */
-    public void parseCommand(String input) throws IllegalCommandException {
+    public void parseCommand(String input) throws Exception {
         myCommands = interpreter.parse(input);
 
         //Use reflection on myCommands

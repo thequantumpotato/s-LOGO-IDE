@@ -1,6 +1,7 @@
 package backend;
 
 
+import java.lang.reflect.Method;
 import java.util.*;
 import java.util.regex.Pattern;
 
@@ -34,7 +35,7 @@ public class Interpreter {
     /**
      * Return the arrayList<String></String> back to the Controller of all of the commands
      */
-    public List<String> parse(String text) throws IllegalCommandException {
+    public List<String> parse(String text) throws Exception {
         String[] textArr = text.split(WHITESPACE);
         for (var t : textArr) {
             if (t.trim().length() > 0) {
@@ -42,6 +43,7 @@ public class Interpreter {
                 System.out.println(getSymbol(t));
             }
         }
+        reflection();
 
         return myCommands;
 
@@ -65,7 +67,13 @@ public class Interpreter {
     private String getSymbol(String text) throws IllegalCommandException {
         for (var e : mySymbols) {
             if (match(text, e.getValue())) {
-                return e.getKey();
+                if(e.getKey().equals("Constant")) {
+                    return text;
+                }
+                else {
+                    return e.getKey();
+                }
+
             }
         }
         throw new IllegalCommandException(myErrors.getString("commandError"));
@@ -79,13 +87,27 @@ public class Interpreter {
         return regex.matcher(text).matches();
     }
 
+    private void reflection() throws Exception {
+        for(int i = 0; i< myCommands.size(); i++){
+            if(myCommands.get(i) == "plus"){ //TODO: Make this more general, not just for plus
+                Method myMethod = this.getClass().getDeclaredMethod(myCommands.get(i));
+                myMethod.invoke(this,i);
 
-    public static void main(String[] args) throws IllegalCommandException {
+            }
+        }
+    }
+    private void plus(int i){
+        Collections.swap(myCommands, i, i-1);
+    }
+
+
+    public static void main(String[] args) throws Exception {
         //TESTING
         var parser = new Interpreter();
 
         // note, this simple "algorithm" will not handle SLogo comments
-        String userInput = "fd 50 rt 90 BACK :distance Left :angle Fd50 jsdb";
-        parser.parse(userInput);
+        String userInput = "fd 50 rt 90 BACK :distance Left :angle Fd50 ";
+        String userInput2 = "fd 1 + 3 + 4 + 5";
+        parser.parse(userInput2);
     }
 }
