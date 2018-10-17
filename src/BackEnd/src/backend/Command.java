@@ -1,5 +1,7 @@
 package backend;
 
+import java.util.Random;
+
 public class Command {
 
     public String forward(Turtle t, String distance){
@@ -86,12 +88,12 @@ public class Command {
     }
 
     public String penDown(Turtle t){
-        t.penDown();
+        t.putPenDown();
         return "1";
     }
 
     public String penUp(Turtle t){
-        t.penUp();
+        t.liftPenUp();
         return "0";
     }
 
@@ -111,56 +113,82 @@ public class Command {
         return ((Double)dist).toString();
     }
 
-    public String clearScreen(){
-
+    public String clearScreen(Turtle t, Model m){
+        m.clearScreen();
+        return this.home(t);
     }
 
     public String xCoordinate(Turtle t){
-
+        return ((Double) t.getX()).toString();
     }
 
     public String yCoordinate(Turtle t){
-
+        return ((Double) t.getY()).toString();
     }
 
     public String heading(Turtle t){
-
+        return ((Double) t.getDirection()).toString();
     }
 
     public String isPenDown(Turtle t){
-
+        return t.getIsPenDown() ? "1":"0";
     }
 
     public String isShowing(Turtle t){
+        return t.getIsShowing() ? "1":"0";
+    }
 
+    private int[] parseIntegers(String arguments){
+        String[] tmp = arguments.split(" ");
+        int a = Integer.parseInt(tmp[0]);
+        int b = Integer.parseInt(tmp[1]);
+        int[] res = new int[2];
+        res[0] = a;
+        res[1] = b;
+        return res;
     }
 
     public String sum(String arguments){
-
+        int[] args = parseIntegers(arguments);
+        return ((Integer) (args[0]+args[1])).toString();
     }
 
     public String difference(String arguments){
-
+        int[] args = parseIntegers(arguments);
+        return ((Integer) (args[0] - args[1])).toString();
     }
 
     public String product(String arguments){
-
+        int[] args = parseIntegers(arguments);
+        return ((Integer) (args[0]*args[1])).toString();
     }
 
     public String quotient(String arguments){
-
+        int[] args = parseIntegers(arguments);
+        if(args[1] == 0){
+            System.err.println("cannot divide by zero");
+            return null;
+        }
+        return ((Integer) (args[0]/args[1])).toString();
     }
 
     public String remainder(String arguments){
-
+        int[] args = parseIntegers(arguments);
+        if(args[1] == 0){
+            System.err.println("cannot divide by zero");
+            return null;
+        }
+        return ((Integer) (args[0]/args[1])).toString();
     }
 
     public String minus(String arguments){
-
+        int num = Integer.parseInt(arguments);
+        return ((Integer)(-1*num)).toString();
     }
 
     public String random(String arguments){
-
+        int max_num = Integer.parseInt(arguments);
+        return ((Integer)new Random().nextInt(max_num)).toString();
     }
 
     public String sine(String arguments){
