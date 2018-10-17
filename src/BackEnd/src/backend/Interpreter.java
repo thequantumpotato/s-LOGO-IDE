@@ -107,13 +107,4 @@ public class Interpreter {
     }
 
 
-    public static void main(String[] args) throws Exception {
-        //TESTING
-        var parser = new Interpreter();
-
-        // note, this simple "algorithm" will not handle SLogo comments
-        String userInput = "fd 50 rt 90 BACK :distance Left :angle Fd50 ";
-        String userInput2 = "fd 1 + 3 + 4 + 5";
-        parser.parse(userInput2);
-    }
 }

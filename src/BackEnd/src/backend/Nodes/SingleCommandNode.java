@@ -18,6 +18,7 @@ public class SingleCommandNode extends CommandNode{
         setNumArguments(numArguments);
     }
 
+
     public String getCommandName(){
         return commandName;
     }

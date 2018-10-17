@@ -8,4 +8,8 @@ public class IllegalCommandException extends Exception {
     public IllegalCommandException(String message, Object ... values) {
         super(String.format(message, values));
     }
+    public IllegalCommandException(Object ... values) {
+
+        super(String.format("ERROR", values));
+    }
 }

@@ -28,12 +28,23 @@ public abstract class CommandNode implements BasicNode {
         myChildren.add(child);
     }
 
-    public int getNumArguments(){
+    /**
+     * Return the number of required arguments
+     */
+    public int getRequiredArguments(){
         return numArguments;
+    }
+
+    /**
+     * Returns the current number of children
+     */
+    public int getNumChildren(){
+        return myChildren.size();
     }
     public String getCommandName(){
         return commandName;
     }
+
 
 
 }

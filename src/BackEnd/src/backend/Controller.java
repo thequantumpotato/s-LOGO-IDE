@@ -8,11 +8,11 @@ import java.util.List;
 public class Controller {
     private Interpreter interpreter;
     private List<BasicNode> myCommands;
-    private Command commander;
+    //private Command commander;
 
     public Controller(){
         interpreter = new Interpreter();
-        commander = new Command();
+        //commander = new Command();
     }
 
     /**
@@ -20,6 +20,7 @@ public class Controller {
      */
     public void parseCommand(String input) throws Exception {
         myCommands = interpreter.parse(input);
+        System.out.println(myCommands);
         //for(String s:myCommands){
         //    if(Integer.parseInt(s))
         //    Method command = commander.getClass().getDeclaredMethod(s);
@@ -32,6 +33,16 @@ public class Controller {
 
     public void updateVar(String varName, String varVal){
 
+    }
+
+    public static void main(String[] args) throws Exception {
+        //TESTING
+        var cnt = new Controller();
+
+        // note, this simple "algorithm" will not handle SLogo comments
+        String userInput = "fd 50 rt 90 BACK sum 20 10";
+        String userInput2 = "fd 1 + 3 + 4 + 5";
+        cnt.parseCommand(userInput2);
     }
 
 
