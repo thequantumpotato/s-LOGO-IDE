@@ -1,0 +1,60 @@
+/**
+ *
+ * @author Vincent Liu
+ */
+
+.button {
+    -fx-text-fill:white;
+    -fx-font-family:"Arial";
+    -fx-font-size: 14px;
+    -fx-font-weight:bold;
+    -fx-pref-width: 100px;
+    -fx-background-color:linear-gradient(#61a2b1,#2A5058);
+}
+
+.button:hover {
+    -fx-background-color:linear-gradient(#5192a1,#1A4048);
+}
+
+.root{
+    -fx-background-color: white;
+    -fx-padding: 15;
+    -fx-hgap: 10;
+    -fx-vgap: 10;
+    -fx-background-radius: 5.0;
+}
+
+.commandView{
+    -fx-border-color: black;
+    -fx-border-width: 1px;
+}
+
+.displayView{
+    -fx-border-color: black;
+    -fx-border-width: 1px;
+}
+
+.settingBox{
+    -fx-border-color: black;
+    -fx-border-width: 1px;
+}
+
+.turtleBox{
+    -fx-border-color: black;
+    -fx-border-width: 1px;
+}
+
+.functionView{
+    -fx-border-color: black;
+    -fx-border-width: 1px;
+}
+
+.variableView{
+    -fx-border-color: black;
+    -fx-border-width: 1px;
+}
+
+.historyView{
+    -fx-border-color: black;
+    -fx-border-width: 1px;
+}
