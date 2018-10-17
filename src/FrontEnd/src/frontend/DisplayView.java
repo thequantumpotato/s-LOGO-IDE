@@ -23,6 +23,7 @@ import javafx.util.Duration;
 
 public class DisplayView implements SubView {
 
+    public static final int TURTLE_SIZE = 25;
     private View myView;
     private ScrollPane scrollPane;
     private Rectangle bg;
@@ -36,18 +37,22 @@ public class DisplayView implements SubView {
         scrollPane  = new ScrollPane();
         Group root = new Group();
         //create bg
-        bg = new Rectangle(800,800,Color.BLACK);
+        bg = new Rectangle(800,800,Color.WHITE);
 
         //create turtle
         /** TO DO: Set the default turtle location to the center of the displayView */
         turtleView = new ImageView(image);
-        turtleView.setFitWidth(100);
-        turtleView.setFitHeight(100);
+        turtleView.setFitWidth(TURTLE_SIZE);
+        turtleView.setFitHeight(TURTLE_SIZE);
+
 
         //add turtle to scroll pane
         root.getChildren().add(bg);
         root.getChildren().add(turtleView);
         scrollPane.setContent(root);
+        turtleView.setX(400);
+        turtleView.setY(400);
+        System.out.println(turtleView.getBoundsInLocal());
     }
 
     public void setTurtlePos(Coordinate turtleCoordinate) {
@@ -68,7 +73,7 @@ public class DisplayView implements SubView {
     }
 
     public void changeTurtleImg(Image newTurtleImg) {
-
+        turtleView.setImage(newTurtleImg);
     }
 
     public void updateTurtle(Coordinate newpos){

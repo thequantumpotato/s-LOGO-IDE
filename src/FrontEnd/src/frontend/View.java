@@ -48,7 +48,7 @@ Vincent
  */
 
 public class View {
-    public static final String TURTLE_IMAGE = "turtle.jpg";
+    public static final String TURTLE_IMAGE = "turtle.png";
     public static final String TITLE = "SLogo";
     public static final String STYLESHEET = "style.css";
     private DisplayView myDisplayView;
@@ -98,7 +98,8 @@ public class View {
         root.getRowConstraints().addAll(row1, row2, row3,row4);
 
         myDisplayView = new DisplayView(this,new Image(this.getClass().getClassLoader().getResourceAsStream(TURTLE_IMAGE)));
-        myDisplayView.updateTurtle(new Coordinate(600,600,123));
+
+        //myDisplayView.updateTurtle(new Coordinate(600,600,123));
         myCommandView = new CommandView(this);
 
         myVariableView = new VariableView(this);
