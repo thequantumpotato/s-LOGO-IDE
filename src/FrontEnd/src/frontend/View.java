@@ -56,6 +56,7 @@ public class View {
     private VariableView myVariableView;
     private FunctionView myFunctionView;
     private HistoryView myHistoryView;
+    private SettingView mySettingView;
 
     private GridPane root;
     private Scene myScene;
@@ -94,7 +95,7 @@ public class View {
         root.getColumnConstraints().addAll(column1, column2, column3);
         root.getRowConstraints().addAll(row1, row2, row3);
 
-        myDisplayView = new DisplayView(new Image(this.getClass().getClassLoader().getResourceAsStream(TURTLE_IMAGE)), new Coordinate(0, 0, 90));
+        myDisplayView = new DisplayView(this,new Image(this.getClass().getClassLoader().getResourceAsStream(TURTLE_IMAGE)));
         myDisplayView.updateTurtle(new Coordinate(600,600,123));
         myCommandView = new CommandView(this);
 
@@ -104,7 +105,10 @@ public class View {
 
         myHistoryView = new HistoryView(this);
 
-        root.add(myDisplayView.getView(), 0, 0, 2, 2);
+        mySettingView = new SettingView(this);
+
+        root.add(mySettingView.getView(), 0, 0, 1, 2);
+        root.add(myDisplayView.getView(), 1, 0, 1, 2);
         root.add(myVariableView.getView(), 2, 0, 1, 1);
         root.add(myFunctionView.getView(), 2, 1, 1, 1);
         root.add(myHistoryView.getView(), 0, 2,3,1);
