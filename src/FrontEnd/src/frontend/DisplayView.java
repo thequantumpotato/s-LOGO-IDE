@@ -60,7 +60,7 @@ public class DisplayView implements SubView {
     }
 
     public void changeBgColor(Color bgColor) {
-
+        bg.setFill(bgColor);
     }
 
     public void changePenColor(Color penColor) {

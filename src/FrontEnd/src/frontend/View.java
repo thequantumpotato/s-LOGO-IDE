@@ -90,10 +90,12 @@ public class View {
         var row2 = new RowConstraints();
         row2.setPercentHeight(40);
         var row3 = new RowConstraints();
-        row3.setPercentHeight(20);
+        row3.setPercentHeight(10);
+        var row4 = new RowConstraints();
+        row4.setPercentHeight(10);
 
         root.getColumnConstraints().addAll(column1, column2, column3);
-        root.getRowConstraints().addAll(row1, row2, row3);
+        root.getRowConstraints().addAll(row1, row2, row3,row4);
 
         myDisplayView = new DisplayView(this,new Image(this.getClass().getClassLoader().getResourceAsStream(TURTLE_IMAGE)));
         myDisplayView.updateTurtle(new Coordinate(600,600,123));
@@ -112,7 +114,7 @@ public class View {
         root.add(myVariableView.getView(), 2, 0, 1, 1);
         root.add(myFunctionView.getView(), 2, 1, 1, 1);
         root.add(myHistoryView.getView(), 0, 2,3,1);
-        root.add(myCommandView.getView(), 0, 2,3,1);
+        root.add(myCommandView.getView(), 0, 3,3,1);
 
         myScene = new Scene(root, SCREEN_WIDTH, SCREEN_HEIGHT);
         myScene.getStylesheets().add(STYLESHEET);
