@@ -7,12 +7,19 @@ import java.util.regex.Pattern;
 
 public class TreeFactory {
 
+    /**
+     * @author Jose San Martin
+     * Factory for creating a list of trees from the input command
+     */
     private static final String commandProps = "backend/resources/Command";
+    private static final String commandError = "backend/resources/Errors";
+    public ResourceBundle myErrors;
     private List<Map.Entry<String, Pattern>> mySymbols;
 
     public TreeFactory(){
         mySymbols = new ArrayList<>();
         addPatterns(commandProps);
+        myErrors = ResourceBundle.getBundle(commandError);
     }
 
 
@@ -25,7 +32,19 @@ public class TreeFactory {
         List<BasicNode> myRoots = new ArrayList<>();
         while(commands.size() != 0){
             String command = commands.remove(0);
-            BasicNode myRoot = createRoot(command);
+            BasicNode myRoot;
+            if(isLeftParenthesis(command)){ //check if its a parenthesis FIRST
+                //make the NEXT item a command, not the current parenthesis
+                String nextCommand = commands.remove(0);
+                myRoot = createRoot(nextCommand);
+            }
+            else if(isRightParenthesis(command)){ //check if, basically, we shouldn't add anymore.
+                //Continue to the next commands, as this one is OVER darling!
+                continue;
+            }
+            else{
+                myRoot = createRoot(command);
+            }
             //If we haven't reached the max number of arguments required
             while (myRoot.getNumChildren() != myRoot.getRequiredArguments()) {
                 BasicNode nextChild = createChild(commands);
@@ -48,8 +67,15 @@ public class TreeFactory {
         }
         BasicNode newChild;
         String nextChild = commands.remove(0);
+        if(isLeftParenthesis(nextChild)){ //check if its a parenthesis FIRST
+            String nextCommand = commands.remove(0);
+            newChild = createRoot(nextCommand);
+            while (newChild.getNumChildren() != newChild.getRequiredArguments()) {
+                newChild.addChild(createChild(commands));
+            }
+        }
 
-        if(!isNumeric(nextChild)){
+        else if(!isNumeric(nextChild)){
             newChild = createRoot(nextChild);
             //This child has its own arguments that we need to add. Use recursion!
             while (newChild.getNumChildren() != newChild.getRequiredArguments()) {
@@ -69,6 +95,10 @@ public class TreeFactory {
         BasicNode newNode;
         if(!isNumeric(command)){
             String numArgs = getArgNum(command);
+            //System.out.println(numArgs);
+            if(numArgs == null){
+                throw new IllegalCommandException(myErrors.getString("commandError"));
+            }
             if(numArgs.equals("Single")){
                 newNode = new SingleCommandNode(command);
             }
@@ -91,6 +121,14 @@ public class TreeFactory {
         return s.matches("[-+]?\\d*\\.?\\d+");
     }
 
+    private boolean isLeftParenthesis(String s){
+        return s.matches("GroupStart");
+    }
+
+    private boolean isRightParenthesis(String s) { return s.matches("GroupEnd");}
+
+
+
     private void addPatterns(String syntax) {
         var resources = ResourceBundle.getBundle(syntax);
         for (var key : Collections.list(resources.getKeys())) {
@@ -103,13 +141,13 @@ public class TreeFactory {
     /**
      * Returns whether a command requires one, two three, or more arguments
      */
-    private String getArgNum(String text) throws IllegalCommandException {
+    private String getArgNum(String text)  {
         for (var e : mySymbols) {
             if (e.getValue().matcher(text).matches()) {
                     return e.getKey();
             }
         }
         //This will never get thrown, because we would have thrown it in a previous matching method
-        throw new IllegalCommandException();
+        return null;
     }
 }

@@ -17,6 +17,7 @@ public class TreeTester {
     private void execute(List<BasicNode> myRoots){
         System.out.println(myRoots.size());
         for(BasicNode root: myRoots){
+            //System.out.println(root.getCommandName());
             printTrees(root);
         }
     }
@@ -28,7 +29,7 @@ public class TreeTester {
             for(BasicNode child: root.getChildren()){
                 printTrees(child);
             }
-            System.out.println("-------------"); //end of tree
+            //System.out.println("-------------"); //end of tree
             break;
 
         }
@@ -41,7 +42,7 @@ public class TreeTester {
         //TESTING
         var parser = new Interpreter();
         // note, this simple "algorithm" will not handle SLogo comments
-        String userInput = "sum 10 sum 20 40 fd sum 20 45 back difference 20 10";
+        String userInput = "fd ( sum 20 20 )";
         String userInput2 = "fd 1 + 3 + 4 + 5";
         var myRoots = parser.parse(userInput);
 

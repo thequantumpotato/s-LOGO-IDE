@@ -46,7 +46,7 @@ public class Interpreter {
                 myCommands.add(getSymbol(t));
             }
         }
-        reflection();
+        //reflection();
         //commands are in an arraylist, now create our tree structure
         List<BasicNode> myTrees = myTreeFactory.getRoots(myCommands);
 
@@ -101,9 +101,6 @@ public class Interpreter {
 
             }
         }
-    }
-    private void plus(int i){
-        Collections.swap(myCommands, i, i-1);
     }
 
 
