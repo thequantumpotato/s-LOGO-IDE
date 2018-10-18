@@ -4,15 +4,13 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
-
-import java.util.List;
+import javafx.scene.text.Text;
 
 public class HistoryView implements SubView {
     private VBox historyView;
     private ScrollPane historyPane;
-    private VBox history;
+    private VBox historyBox;
     private View myView;
-    private List<String> myHistory;
 
     public HistoryView(View myView_) {
         myView = myView_;
@@ -22,14 +20,18 @@ public class HistoryView implements SubView {
         historyView = new VBox();
         historyView.getStyleClass().add("historyView");
 
+        historyPane.setContent(historyView);
         Label title = new Label("Command History");
-        historyView.getChildren().addAll(title, historyPane);
+        historyBox = new VBox();
+        historyView.getChildren().addAll(title, historyBox);
     }
 
-
+    public void updateHistory(String newHistory) {
+        historyBox.getChildren().add(new Text(newHistory));
+    }
     
     @Override
     public Node getView() {
-        return historyView;
+        return historyPane;
     }
 }
