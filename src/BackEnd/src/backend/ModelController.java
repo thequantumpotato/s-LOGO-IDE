@@ -5,12 +5,12 @@ import backend.Nodes.BasicNode;
 import java.lang.reflect.Method;
 import java.util.List;
 
-public class Controller {
+public class ModelController {
     private Interpreter interpreter;
     private List<BasicNode> myCommands;
     //private Command commander;
 
-    public Controller(){
+    public ModelController(){
         interpreter = new Interpreter();
         //commander = new Command();
     }

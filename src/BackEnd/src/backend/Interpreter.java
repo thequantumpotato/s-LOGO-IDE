@@ -37,7 +37,7 @@ public class Interpreter {
 
 
     /**
-     * Return the arrayList<String></String> back to the Controller of all of the commands
+     * Return the arrayList<String></String> back to the ModelController of all of the commands
      */
     public List<BasicNode> parse(String text) throws Exception {
         String[] textArr = text.split(WHITESPACE);
