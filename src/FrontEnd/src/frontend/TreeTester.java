@@ -1,6 +1,5 @@
-package backend.Testing;
+package frontend;
 
-import backend.Interpreter;
 import Nodes.BasicNode;
 
 import java.util.List;
@@ -41,8 +40,8 @@ public class TreeTester {
         //TESTING
         var parser = new Interpreter();
         // note, this simple "algorithm" will not handle SLogo comments
-        String userInput = "sum 10 sum 20 40 fd sum 20 45 back difference 20 10";
-        String userInput2 = "fd 1 + 3 + 4 + 5";
+//        String userInput = "sum 10 sum 20 40 fd sum 20 45 back difference 20 10";
+        String userInput = "fd 50";
         var myRoots = parser.parse(userInput);
 
         var tester = new TreeTester();

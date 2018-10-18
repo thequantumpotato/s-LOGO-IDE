@@ -16,18 +16,18 @@ public class Controller {
 
     private Interpreter interpreter;
     private Turtle turtle;
-    private List<BasicNode> myCommands;
+    private Model model;
 
     public Controller(Stage primaryStage) {
         myView = new View(primaryStage, this);
         // initialize Model here
         interpreter = new Interpreter();
         turtle = new Turtle();
+        model = new Model();
     }
 
     public void runCommand(String input) throws Exception {
-        myCommands = interpreter.parse(input);
-
+        model.parse(input);
     }
 
     private void initializeCommands() {

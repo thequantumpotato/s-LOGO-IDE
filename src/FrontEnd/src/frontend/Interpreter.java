@@ -20,7 +20,7 @@ public class Interpreter {
     private List<String> myCommands;
     private static final String WHITESPACE = "\\s+";
     public ResourceBundle myErrors;
-    private static final String commandError = "backend/resources/Errors";
+    private static final String commandError = "Errors";
     private TreeFactory myTreeFactory;
 
     /**
@@ -30,8 +30,8 @@ public class Interpreter {
         mySymbols = new ArrayList<>();
         myCommands = new ArrayList<>();
         myTreeFactory = new TreeFactory();
-        addPatterns("backend/resources/languages/English");
-        addPatterns("backend/resources/languages/Syntax");
+        addPatterns("English");
+        addPatterns("Syntax");
         myErrors = ResourceBundle.getBundle(commandError);
     }
 

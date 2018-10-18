@@ -1,6 +1,5 @@
 package frontend;
 
-import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 
 /**
@@ -17,7 +16,9 @@ public class Turtle implements Moveable{
     private boolean showing;
 
     public Turtle(){
-
+        x = 0.0;
+        y = 0.0;
+        direction = 0.0;
     }
 
     public void setX(double x){

@@ -1,19 +1,19 @@
+package frontend;
 
-package backend;
-
-import backend.Nodes.ArgumentNode;
-import backend.Nodes.BasicNode;
+import Nodes.ArgumentNode;
+import Nodes.BasicNode;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ModelController {
+public class Model {
     private Interpreter interpreter;
     private Turtle turtle;
     private Command c;
+    private List<ArgumentNode> res;
 
-    public ModelController(){
+    public Model(){
         interpreter = new Interpreter();
         turtle = new Turtle();
         c = new Command();
@@ -27,10 +27,12 @@ public class ModelController {
             System.err.println("interpreter has thrown an exception");
             e.printStackTrace();
         }
-        List<ArgumentNode> res = new ArrayList<>();
+        res = new ArrayList<>();
         for(BasicNode b: l){
             res.add(parseTree(b));
         }
+        c.forward(turtle, res);
+        System.out.print("x: " + turtle.getX() + "y:  " + turtle.getY() + "direction:  " + turtle.getDirection());
     }
 
     private ArgumentNode parseTree(BasicNode root){

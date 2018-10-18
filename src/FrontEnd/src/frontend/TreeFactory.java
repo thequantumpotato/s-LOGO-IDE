@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 
 public class TreeFactory {
 
-    private static final String commandProps = "backend/resources/Command";
+    private static final String commandProps = "Command";
     private List<Map.Entry<String, Pattern>> mySymbols;
 
     public TreeFactory(){
