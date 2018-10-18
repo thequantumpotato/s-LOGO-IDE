@@ -1,9 +1,9 @@
 package backend;
 
 public interface Moveable {
-    public void move(double distance);
+    void move(double distance);
 
-    public void turn(double angle);
+    void turn(double angle);
 
-    public void drawCircle(double centerX, double centerY, double radius);
+//    void drawCircle(double centerX, double centerY, double radius);
 }
