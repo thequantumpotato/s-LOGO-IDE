@@ -1,4 +1,4 @@
-package backend;
+package frontend;
 
 public interface Moveable {
     void move(double distance);

@@ -1,4 +1,4 @@
-package backend;
+package frontend;
 
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;

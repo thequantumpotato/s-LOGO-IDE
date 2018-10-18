@@ -1,20 +1,20 @@
-package backend.Nodes;
+package Nodes;
 
 
 /**
  * @Author Jose San Martin
- * A class that represents commands with one argument.
+ * A class that represents commands with two argument.
  * They are held in tree structures, and reflection is then used to execute these commands.
  *
  */
-public class SingleCommandNode extends CommandNode{
+public class DoubleCommandNode extends CommandNode{
     private int numArguments;
     private String commandName;
 
-    public SingleCommandNode(String commandString){
+    public DoubleCommandNode(String commandString){
         super(commandString);
         commandName = commandString;
-        numArguments = 1;
+        numArguments = 2;
         setNumArguments(numArguments);
     }
 

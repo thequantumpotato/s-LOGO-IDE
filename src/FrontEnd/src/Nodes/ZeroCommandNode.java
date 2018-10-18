@@ -1,4 +1,4 @@
-package backend.Nodes;
+package Nodes;
 
 public class ZeroCommandNode extends CommandNode {
 

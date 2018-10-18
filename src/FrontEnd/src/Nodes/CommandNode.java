@@ -1,4 +1,4 @@
-package backend.Nodes;
+package Nodes;
 
 
 import java.util.ArrayList;
