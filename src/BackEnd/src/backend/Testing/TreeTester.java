@@ -1,7 +1,7 @@
 package backend.Testing;
 
 import backend.Interpreter;
-import backend.Nodes.BasicNode;
+import Nodes.BasicNode;
 
 import java.util.List;
 

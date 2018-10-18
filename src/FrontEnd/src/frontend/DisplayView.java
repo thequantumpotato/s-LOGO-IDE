@@ -64,7 +64,7 @@ public class DisplayView implements SubView {
         /*turtleView.setX(400);
         turtleView.setY(400);*/
         penDown = true;
-        System.out.println(turtleView.getBoundsInLocal());
+//        System.out.println(turtleView.getBoundsInLocal());
     }
 
     public void setTurtlePos(Coordinate turtleCoordinate) {
@@ -121,7 +121,7 @@ public class DisplayView implements SubView {
         Timeline timeline = new Timeline();
         timeline.setCycleCount(LINE_ANIMATION_FPS *duration);
         KeyFrame frame = new KeyFrame(Duration.seconds(LINE_ANIMATION_DELAY), event -> {
-            System.out.println("nudge to "+turtleView.getBoundsInParent());
+//            System.out.println("nudge to "+turtleView.getBoundsInParent());
             path.getElements().add(new LineTo(getTurtleCenter()[0],getTurtleCenter()[1]));
         });
         timeline.getKeyFrames().add(frame);

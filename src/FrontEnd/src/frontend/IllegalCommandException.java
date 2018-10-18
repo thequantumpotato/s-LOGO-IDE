@@ -1,4 +1,4 @@
-package backend;
+package frontend;
 
 public class IllegalCommandException extends Exception {
 

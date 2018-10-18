@@ -12,11 +12,11 @@ DESIGN_PLAN.md
         * The view is what the user will see and will contain all the components which the user will interact with. It will take uesr input and pass it to a controller, and will receive updates from the back end as to how to update itself.
         * View class has the following components: frontend.CommandView, frontend.HistoryView, frontend.FunctionView, and frontend.DisplayView
     * frontend.Controller
-        * The controller is the communicator between the View class and the backend.ModelController class. Whenever an external API needs to be called from View or backend.ModelController class, the controller will pass the command to the other side.
+        * The controller is the communicator between the View class and the frontend.ModelController class. Whenever an external API needs to be called from View or frontend.ModelController class, the controller will pass the command to the other side.
         * When the program starts, the controller instance will be initialized. It will contain a view instance and a model instance.
-    * backend.ModelController
-        * The model contains the backend.ModelController class, backend.Turtle class, the Interpreter class, and the Command class. The backend.ModelController class is responsible for holding the backend.Turtle instance and the Interpreter instance. Once a user input string comes in from the frontend.Controller, the backend.ModelController class uses the interpreter to parse the input and calls appropriate method on the turtle. After the coordinate of backend.Turtle instance has been changed, the View calls backend external API to get backend.Turtle instance's postion and display it on the View.
-        * The interpreter is responsible for parsing the string input and call the appropriate function on the turtle. If the string from a command is a variable or a function, the backend.ModelController calls the internal API to add the variable or the function to the backend.
+    * frontend.ModelController
+        * The model contains the frontend.ModelController class, frontend.Turtle class, the Interpreter class, and the Command class. The frontend.ModelController class is responsible for holding the frontend.Turtle instance and the Interpreter instance. Once a user input string comes in from the frontend.Controller, the frontend.ModelController class uses the interpreter to parse the input and calls appropriate method on the turtle. After the coordinate of frontend.Turtle instance has been changed, the View calls backend external API to get frontend.Turtle instance's postion and display it on the View.
+        * The interpreter is responsible for parsing the string input and call the appropriate function on the turtle. If the string from a command is a variable or a function, the frontend.ModelController calls the internal API to add the variable or the function to the backend.
         * The turtle encapsulates the possible movements and functions that the turtle can do on the GUI panel. It contains the internal API that the interpreter can call once the interpreter parses the user command. It also contains the coordinate (including the x and y coordinate and the angle).
 
 ### Design Overview
@@ -34,7 +34,7 @@ DESIGN_PLAN.md
     * We plan to enhance flexibility by using a 'Moveable' interface, and a 'Command' interface. The former interface lists the rules of how a 'moveable' object, such as a turtle, must follow. The latter interface lists some of the commands that the SLOGO language accepts. For example, the logo language accepts commands such as "fd" and "FD", but not fwrd". If we ever needed to change that, we implement another command class based on the Command interface. 
 
 * Back-End External API:
-    * This API will be used by the front-end to pass user input to the back-end. This will include such functionality as parsing a command as well as a getter for the backend.Turtle's coordinate (including its x and y coordinate and its angle).
+    * This API will be used by the front-end to pass user input to the back-end. This will include such functionality as parsing a command as well as a getter for the frontend.Turtle's coordinate (including its x and y coordinate and its angle).
     * Like the Front-end External API, we wanted the scope of this to be small so that there is minimal dependence between the front end and back-end. For example, one of the methods in this API is "frontend.Controller.passCommand()". This allows us to pass the responsibility of validating, parsing, and executing the command to the back end of the project. Therefore, no logic regarding the commands are done within the front-end.
 
 ### User Interface
@@ -48,8 +48,8 @@ _Also see the project 'doc' folder for the interfaces and explanation of each in
 * External: between the two sub-groups
 
     * ```ViewExternalAPI```: communicates with back-end external through the frontend.Controller
-        * displayVars(Map<String, String>) will be called by the frontend.Controller when a new variable is added to the backend.ModelController. It will update the view of the frontend.VariableView.
-        * displayFunctions(Map<String, String>) will be called by the frontend.Controller when a new functionf is added to the backend.ModelController. It will update the view of the frontend.FunctionView.
+        * displayVars(Map<String, String>) will be called by the frontend.Controller when a new variable is added to the frontend.ModelController. It will update the view of the frontend.VariableView.
+        * displayFunctions(Map<String, String>) will be called by the frontend.Controller when a new functionf is added to the frontend.ModelController. It will update the view of the frontend.FunctionView.
         * displayError(String) will be called when the interpreter detects an error, such as entering an undefined command or multiple commands.
 
     * ```ModelExternalAPI```: contains Back-End External API methods that Front-End calls after it receives user command input
@@ -75,14 +75,14 @@ _Also see the project 'doc' folder for the interfaces and explanation of each in
                 * ```frontend.FunctionView``` implements ```frontend.SubView```
                     * A ScrollPanel displaying all the functions that the user defines
             * By having subView be an interface, we can have all of our different panels implement it, and in the future if we want other panels in our design, we will be easily able to implement them.
-    * ```ModelInternalAPI```: backend.Turtle contains the internal API that the Interpreter class calls after parsing user input. The turtle will be responsible for calling the front-end external API to move on the grid. It includes the following methods:
+    * ```ModelInternalAPI```: frontend.Turtle contains the internal API that the Interpreter class calls after parsing user input. The turtle will be responsible for calling the front-end external API to move on the grid. It includes the following methods:
         - runCommand(List<> myCommand) is called within the model after the parser has parsed the command and returned a list of Command. It returns void because the Commands perform actions directly on the coordinate of the turtle.
         - addVar(String, String) is called within the model after the parser has identified a new variable is defined (most likely through the syntax "make"). It adds the variable to the list of the variables in the model.
         - addFunc(String, String) is called within the model after the parser has identified a new function is defined. It adds the function to the list of the functions in the model.
         -
         - ```Interpreter``` class
             - parseCommand(String input)
-        - ```backend.Turtle (backend.ModelController)``` class
+        - ```frontend.Turtle (frontend.ModelController)``` class
     		- Forward(double amount)
     		- Backward(double amount)
     		- returnHome()
@@ -92,7 +92,7 @@ _Also see the project 'doc' folder for the interfaces and explanation of each in
     	    - Backward()
     	    - ChangeAngle()
     	    - all other possible commands that are valid in the Logo language
-    	* We plan to have the backend.Turtle implement an interface called ```Moveable```. This allows us to allow our program to be flexible in case we want to later implement different types of models, such as models that behave differently than our turtle.
+    	* We plan to have the frontend.Turtle implement an interface called ```Moveable```. This allows us to allow our program to be flexible in case we want to later implement different types of models, such as models that behave differently than our turtle.
 
 ### API Example Code
 _It is especially important in helping others understand how to use your APIs to provide example code. It should be clear from this code which objects are responsible for completing each part of the task, but you do not have to implement the called functions._
@@ -105,13 +105,13 @@ Additionally, each member of the team should create two use cases of their own (
 * When the user inputs the command 'fd 50', our frontend.CommandView class calls the runCommond(String) in the ViewInternalAPI. Inside this method, parseCommand(String) method in the ModelExternalAPI will be called, inside which the Interpreter class will call Interpreter.parse('fd 50').
 * While parsing, if the command is not valid, the frontend.Controller sends an exception back to the View via the public method displayError(String).
 * If it is valid, the Interpreter continues to check if the command is an action of defining a variable or function. If so, it will call addVar(String, String) or addFunction(String, String) to add the variable or the function into their corresponding map.
-* If the command is valid and not defining a variable of function returns an arrayList of parsed strings, so for example the arrayList would be of size 2 and contain the items "Forward" and "50". Then, we do reflection on the arrayList, and call the appropriate commands of the Command class. So within the frontend.Controller we would call Command.Forward(50), and inside the Command class the method Forward would call backend.ModelController.Forward(50). The turtle then moves forward 50 units, and since the turtle is within the root of the application, the change is displayed immediately. We will now list the methods called
+* If the command is valid and not defining a variable of function returns an arrayList of parsed strings, so for example the arrayList would be of size 2 and contain the items "Forward" and "50". Then, we do reflection on the arrayList, and call the appropriate commands of the Command class. So within the frontend.Controller we would call Command.Forward(50), and inside the Command class the method Forward would call frontend.ModelController.Forward(50). The turtle then moves forward 50 units, and since the turtle is within the root of the application, the change is displayed immediately. We will now list the methods called
 
 * frontend.CommandView: View.runCommand("fd 50"), which calls frontend.Controller.runCommand("fd 50")
 * frontend.Controller: Interpreter.parse('fd 50'), inside which we call Interpreter.validate("fd 50"), an internal method to check whether the command is valid or not.
 * frontend.Controller: Command.Forward(ArrayList<("Forward", "50")>)
-* Command: backend.ModelController.Forward("50")
-* backend.ModelController: Logic to move the turtle forward whichever way it is facing
+* Command: frontend.ModelController.Forward("50")
+* frontend.ModelController: Logic to move the turtle forward whichever way it is facing
 
 ```java
 Class.forName("Command").getDeclaredMethod("fd").invoke(Command object, 50);
@@ -131,13 +131,13 @@ Use Cases (2 per person):
         * When an undefined command is detected inside the ModelExternalAPI's parseCommand method, it will call the method displayError(String) from the ViewExternalAPI(String) with the string being "Undefined command! Please review the Help tab for the correct ones".
         * Inside View class, it will then create a new Alert with the Error type. The string will be used as the content of the alert and will be shown in the window.
     * *Use case 2*: display variables after the map of variables is updated
-        * After the interpreter identifies a variable, it calls the addVar(String, String) method in the ModelInternalAPI, which appends the new variable into the myVars (a HashMap) within the backend.ModelController and let frontend.Controller call the displayVar(myVars).
+        * After the interpreter identifies a variable, it calls the addVar(String, String) method in the ModelInternalAPI, which appends the new variable into the myVars (a HashMap) within the frontend.ModelController and let frontend.Controller call the displayVar(myVars).
         * Inside View class, it calls frontend.VariableView, passing it with the updated myVars and let it display on the frontend.VariableView.
 * **Harry**
     * *Use case 1*: receive forward 50 command and move the turtle 50 unit distance forward
         * When the interpreter returns a list of cleaned, validated String, the controller class uses a hash map to find the appropriate command object and call its run() method.
         * The command subclass corresponding to the forward command will then take in the parameter 50 and call the turtle.move() command.
-        * backend.Turtle will change its position accordingly and the front end will automatically update the position of the turtle.
+        * frontend.Turtle will change its position accordingly and the front end will automatically update the position of the turtle.
     * *Use case 2*: receive penup command and turn off the pen
         * The interpreter returns cleaned, validated string and the controller finds the appropriate penup command subclass.
         * The penup command subclass call the turtle internal API penup() method
@@ -168,7 +168,7 @@ Use Cases (2 per person):
         * Secondary: Ben Xu
 * Backend Classes
     * Primary:
-        * Harry Xie: backend.Turtle class, Command class
+        * Harry Xie: frontend.Turtle class, Command class
         * Jose: Intepreter Class, frontend.Controller Class
     * Backend Internal API
         * Primary: Harry Xie

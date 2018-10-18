@@ -146,7 +146,7 @@ public class View {
 
     }
 
-    public void passCommand(String input) {
+    public void passCommand(String input) throws Exception {
         myController.runCommand(input);
     }
 
