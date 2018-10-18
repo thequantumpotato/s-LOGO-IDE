@@ -14,7 +14,7 @@ public class HistoryView implements SubView {
     private View myView;
     private List<String> myHistory;
 
-    public HistoryView(View myView_){
+    public HistoryView(View myView_) {
         myView = myView_;
         historyPane = new ScrollPane();
         historyPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
