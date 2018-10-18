@@ -18,12 +18,11 @@ public class HistoryView implements SubView {
         historyPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
 
         historyView = new VBox();
-        historyView.getStyleClass().add("historyView");
-
-        historyPane.setContent(historyView);
-        Label title = new Label("Command History");
+        Label title = new Label("Command History: ");
         historyBox = new VBox();
         historyView.getChildren().addAll(title, historyBox);
+
+        historyPane.setContent(historyView);
     }
 
     public void updateHistory(String newHistory) {

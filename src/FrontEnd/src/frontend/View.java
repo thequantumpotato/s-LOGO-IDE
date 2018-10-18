@@ -104,7 +104,6 @@ public class View {
         myFunctionView = new FunctionView(this);
 
         myHistoryView = new HistoryView(this);
-        myHistoryView.updateHistory("New Command");
 
         mySettingView = new SettingView(this);
 
@@ -149,6 +148,7 @@ public class View {
 
     public void passCommand(String input) {
         myController.runCommand(input);
+        myHistoryView.updateHistory(input);
     }
 
 
