@@ -2,11 +2,11 @@ package backend.Nodes;
 
 import java.util.List;
 
-public class argumentNode implements BasicNode {
+public class ArgumentNode implements BasicNode {
     private int argument;
     private int numArguments = 0;
 
-    public argumentNode(String value){
+    public ArgumentNode(String value){
         argument = Integer.parseInt(value);
     }
 
