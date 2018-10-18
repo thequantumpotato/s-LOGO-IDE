@@ -113,10 +113,10 @@ public class Command {
         return ((Double)dist).toString();
     }
 
-    public String clearScreen(Turtle t, Model m){
-        m.clearScreen();
-        return this.home(t);
-    }
+//    public String clearScreen(Turtle t, Model m){
+//        m.clearScreen();
+//        return this.home(t);
+//    }
 
     public String xCoordinate(Turtle t){
         return ((Double) t.getX()).toString();
@@ -270,57 +270,57 @@ public class Command {
         return tmp == 1 ? "1":"0";
     }
 
-    public String makeVariable(String arguments){
-
-    }
-
-    public String repeat(String arguments){
-
-    }
-
-    public String doTimes(String arguments){
-
-    }
-
-    public String makeUserInstructions(String arguments){
-
-    }
-
-    public String setBackground(View view, String arguments){
-
-    }
-
-    public String setPenColor(Turtle t, String arguments){
-
-    }
-
-    public String setPenSize(Turtle t, String arguments){
-
-    }
-
-    public String setShape(String arguments){
-
-    }
-
-    public String setPalette(String arguments){
-
-    }
-
-    public String getPenColor(Turtle t, String arguments){
-
-    }
-
-    public String getShape(String arguments){
-
-    }
-
-    public String stamp(String arguments){
-
-    }
-
-    public String clearStamps(String arguments){
-
-    }
+//    public String makeVariable(String arguments){
+//
+//    }
+//
+//    public String repeat(String arguments){
+//
+//    }
+//
+//    public String doTimes(String arguments){
+//
+//    }
+//
+//    public String makeUserInstructions(String arguments){
+//
+//    }
+//
+//    public String setBackground(View view, String arguments){
+//
+//    }
+//
+//    public String setPenColor(Turtle t, String arguments){
+//
+//    }
+//
+//    public String setPenSize(Turtle t, String arguments){
+//
+//    }
+//
+//    public String setShape(String arguments){
+//
+//    }
+//
+//    public String setPalette(String arguments){
+//
+//    }
+//
+//    public String getPenColor(Turtle t, String arguments){
+//
+//    }
+//
+//    public String getShape(String arguments){
+//
+//    }
+//
+//    public String stamp(String arguments){
+//
+//    }
+//
+//    public String clearStamps(String arguments){
+//
+//    }
 
 //    public static void main(String[] args){
 //        System.out.println(Command.angleWithXAxis(1.0, 1.0));
