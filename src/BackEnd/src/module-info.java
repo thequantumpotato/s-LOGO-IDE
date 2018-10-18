@@ -1,4 +1,4 @@
-module slogo.team07.backend.external {
+module BackEnd {
     requires javafx.graphics;
 
     exports backend;

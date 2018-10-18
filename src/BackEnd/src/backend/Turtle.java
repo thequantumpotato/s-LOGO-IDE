@@ -6,7 +6,7 @@ import javafx.scene.paint.Color;
 /**
  * represents a turtle on the screen
  */
-public class Turtle {
+public class Turtle implements Moveable{
 
     private double direction;
     private double size;
