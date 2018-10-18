@@ -7,11 +7,11 @@ import java.util.Random;
 
 public class Command {
 
-    public String forward(Turtle t, List<ArgumentNode> l){
+    public ArgumentNode forward(Turtle t, List<ArgumentNode> l){
         String distance = l.get(0).getCommandName();
         Double d = Double.parseDouble(distance);
         t.move(d);
-        return distance;
+        return new ArgumentNode(distance);
     }
 
 //    public String backward(Turtle t, List<ArgumentNode> l){
@@ -42,11 +42,24 @@ public class Command {
 //        return degree;
 //    }
 //
-//    public String setTowards(Turtle t, List<ArgumentNode> l){
+//    private double[] getDoubleArguments(List<ArgumentNode> l){
 //        double[] position = new double[2];
 //        for(int i = 0; i < l.size(); i++){
 //            position[i] = Double.parseDouble(l.get(i).getCommandName());
 //        }
+//        return position;
+//    }
+//
+//    private int[] getIntArguments(List<ArgumentNode> l){
+//        int[] position = new int[2];
+//        for(int i = 0; i < l.size(); i++){
+//            position[i] = Integer.parseInt(l.get(i).getCommandName());
+//        }
+//        return position;
+//    }
+//
+//    public String setTowards(Turtle t, List<ArgumentNode> l){
+//        double[] position = getDoubleArguments(l);
 //        double x = position[0] - t.getX();
 //        double y = position[1] - t.getY();
 //        double newDir = angleWithXAxis(x, y);
@@ -86,9 +99,9 @@ public class Command {
 //    }
 //
 //    public String setPosition(Turtle t, List<ArgumentNode> l){
-//        String[] position = arguments.split(" ");
-//        double x = Double.parseDouble(position[0]);
-//        double y = Double.parseDouble(position[1]);
+//        double[] position = getDoubleArguments(l);
+//        double x = position[0];
+//        double y = position[1];
 //        double distance = calcDist(x, y, t.getX(), t.getY());
 //        t.setPosition(x, y);
 //        return ((Double) distance).toString();
@@ -150,46 +163,46 @@ public class Command {
 //    }
 //
 //    public String sum(List<ArgumentNode> l){
-//        int[] args = parseIntegers(arguments);
-//        return ((Integer) (args[0]+args[1])).toString();
+//        double[] args = getDoubleArguments(l);
+//        return ((Double) (args[0]+args[1])).toString();
 //    }
 //
 //    public String difference(List<ArgumentNode> l){
-//        int[] args = parseIntegers(arguments);
-//        return ((Integer) (args[0] - args[1])).toString();
+//        double[] args = getDoubleArguments(l);
+//        return ((Double) (args[0] - args[1])).toString();
 //    }
 //
 //    public String product(List<ArgumentNode> l){
-//        int[] args = parseIntegers(arguments);
-//        return ((Integer) (args[0]*args[1])).toString();
+//        double[] args = getDoubleArguments(l);
+//        return ((Double) (args[0]*args[1])).toString();
 //    }
 //
 //    public String quotient(List<ArgumentNode> l){
-//        int[] args = parseIntegers(arguments);
+//        double[] args = getDoubleArguments(l);
 //        if(args[1] == 0){
 //            System.err.println("cannot divide by zero");
 //            return null;
 //        }
-//        return ((Integer) (args[0]/args[1])).toString();
+//        return ((Double) (args[0]/args[1])).toString();
 //    }
 //
 //    public String remainder(List<ArgumentNode> l){
-//        int[] args = parseIntegers(arguments);
+//        double[] args = getDoubleArguments(l);
 //        if(args[1] == 0){
 //            System.err.println("cannot divide by zero");
 //            return null;
 //        }
-//        return ((Integer) (args[0]/args[1])).toString();
+//        return ((Double) (args[0]/args[1])).toString();
 //    }
 //
 //    public String minus(List<ArgumentNode> l){
-//        int num = Integer.parseInt(arguments);
-//        return ((Integer)(-1*num)).toString();
+//        double num = Double.parseDouble(l.get(0).getCommandName());
+//        return ((Double)(-1*num)).toString();
 //    }
-//
+
 //    public String random(List<ArgumentNode> l){
-//        int max_num = Integer.parseInt(arguments);
-//        return ((Integer)new Random().nextInt(max_num)).toString();
+//        double max_num = Double.parseDouble(l.get(0).getCommandName());
+//        return ((Double)new Random().nextDouble(max_num)).toString();
 //    }
 //
 //    public String sine(List<ArgumentNode> l){

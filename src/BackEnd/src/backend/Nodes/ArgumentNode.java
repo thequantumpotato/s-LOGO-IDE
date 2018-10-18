@@ -30,7 +30,10 @@ public class ArgumentNode implements BasicNode {
         return null;
     }
 
-
+    @Override
+    public boolean isCommand() {
+        return false;
+    }
 
 
 }

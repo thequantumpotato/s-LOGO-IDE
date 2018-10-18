@@ -22,4 +22,9 @@ public class DoubleCommandNode extends CommandNode{
     public String getCommandName(){
         return commandName;
     }
+
+    @Override
+    public boolean isCommand() {
+        return true;
+    }
 }
