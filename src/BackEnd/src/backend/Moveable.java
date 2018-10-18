@@ -5,5 +5,16 @@ public interface Moveable {
 
     void turn(double angle);
 
-//    void drawCircle(double centerX, double centerY, double radius);
+    void penUp();
+
+    void penDown();
+
+    void show();
+
+    void hide();
+
+    void setPosition(double x, double y);
+
+
+
 }

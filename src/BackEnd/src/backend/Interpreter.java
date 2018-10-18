@@ -1,6 +1,8 @@
 package backend;
 
 
+import backend.Nodes.BasicNode;
+
 import java.lang.reflect.Method;
 import java.util.*;
 import java.util.regex.Pattern;
@@ -19,6 +21,7 @@ public class Interpreter {
     private static final String WHITESPACE = "\\s+";
     public ResourceBundle myErrors;
     private static final String commandError = "backend/resources/Errors";
+    private TreeFactory myTreeFactory;
 
     /**
      * Create an empty parser.
@@ -26,6 +29,7 @@ public class Interpreter {
     public Interpreter() {
         mySymbols = new ArrayList<>();
         myCommands = new ArrayList<>();
+        myTreeFactory = new TreeFactory();
         addPatterns("backend/resources/languages/English");
         addPatterns("backend/resources/languages/Syntax");
         myErrors = ResourceBundle.getBundle(commandError);
@@ -33,25 +37,27 @@ public class Interpreter {
 
 
     /**
-     * Return the arrayList<String></String> back to the Controller of all of the commands
+     * Return the arrayList<String></String> back to the ModelController of all of the commands
      */
-    public List<String> parse(String text) throws Exception {
+    public List<BasicNode> parse(String text) throws Exception {
         String[] textArr = text.split(WHITESPACE);
         for (var t : textArr) {
             if (t.trim().length() > 0) {
                 myCommands.add(getSymbol(t));
-                System.out.println(getSymbol(t));
             }
         }
         reflection();
+        //commands are in an arraylist, now create our tree structure
+        List<BasicNode> myTrees = myTreeFactory.getRoots(myCommands);
 
-        return myCommands;
+        return myTrees;
 
     }
 
     /**
      * Adds the given resource file to this language's recognized types
      */
+    //TODO move this stuff to a utility class
     private void addPatterns(String syntax) {
         var resources = ResourceBundle.getBundle(syntax);
         for (var key : Collections.list(resources.getKeys())) {
@@ -101,13 +107,4 @@ public class Interpreter {
     }
 
 
-    public static void main(String[] args) throws Exception {
-        //TESTING
-        var parser = new Interpreter();
-
-        // note, this simple "algorithm" will not handle SLogo comments
-        String userInput = "fd 50 rt 90 BACK :distance Left :angle Fd50 ";
-        String userInput2 = "fd 1 + 3 + 4 + 5";
-        parser.parse(userInput2);
-    }
 }
