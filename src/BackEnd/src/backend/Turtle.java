@@ -64,11 +64,19 @@ public class Turtle implements Moveable{
         return this.y;
     }
 
-    public void penUp(){
+    public boolean getIsPenDown(){
+        return this.penDown;
+    }
+
+    public boolean getIsShowing(){
+        return this.showing;
+    }
+
+    public void liftPenUp(){
 
     }
 
-    public void penDown(){
+    public void putPenDown(){
 
     }
 
