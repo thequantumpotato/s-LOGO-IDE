@@ -51,6 +51,7 @@ public class TreeFactory {
                 BasicNode nextChild;
                 if(isOpenBracket(commands.get(0))){
                     nextChild = generateList(commands);
+                    commands.remove(0); //Remove that ending parenthesis!
                 }
                 else{
                     nextChild = createChild(commands);
@@ -92,7 +93,6 @@ public class TreeFactory {
 
     }
 
-    //TODO make the other types of nodes, the one that take no arguments
     private BasicNode createRoot(String command) throws IllegalCommandException {
         BasicNode newNode;
         if(!isNumeric(command)){
@@ -101,11 +101,15 @@ public class TreeFactory {
             if(numArgs == null){
                 throw new IllegalCommandException(myErrors.getString("commandError"));
             }
+            //TODO Get rid of these ifelse statements
             if(numArgs.equals("Single")){
                 newNode = new SingleCommandNode(command);
             }
             else if(numArgs.equals("Double")){
                 newNode = new DoubleCommandNode(command);
+            }
+            else if(numArgs.equals("Triple")){
+                newNode = new TripleCommandNode(command);
             }
             else{
                 newNode = new ZeroCommandNode(command);
@@ -133,6 +137,7 @@ public class TreeFactory {
             //Add this command to our ListNode
             commandList.addChild(newChild);
         }
+
         return(commandList);
     }
 

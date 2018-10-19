@@ -42,9 +42,9 @@ public class TreeTester {
         //TESTING
         var parser = new Interpreter();
         // note, this simple "algorithm" will not handle SLogo comments
-        String userInput = "fd ( sum 20 20 )";
-        String userInput2 = "fd 1 + 3 + 4 + 5";
-        var myRoots = parser.parse(userInput);
+        String userInput = "ifelse lessp 10 5 [ fd 50 fd 50 ] [ fd 40 fd 40 ]";
+        String userInput2 = "for [ :var 5 10 1 ] [ fd 50 ]";
+        var myRoots = parser.parse(userInput2);
 
         var tester = new TreeTester();
         tester.execute(myRoots);
