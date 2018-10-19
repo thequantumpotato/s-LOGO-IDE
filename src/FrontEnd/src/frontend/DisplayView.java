@@ -66,7 +66,7 @@ public class DisplayView implements SubView {
         turtleView.setFitHeight(TURTLE_SIZE);
         setTurtlePos(new Coordinate(TURTLE_DEFAULT_X, TURTLE_DEFAULT_Y,0));
         //create pen
-        myPen = new Pen(new Coordinate(turtleView.getX()+TURTLE_SIZE/2,turtleView.getY()+TURTLE_SIZE/2,0));
+        myPen = new Pen(new Coordinate(turtleX+TURTLE_SIZE/2,turtleY+TURTLE_SIZE/2,0));
         myPen.setRoot(root);
         //add turtle to scroll pane
         root.getChildren().add(bg);
@@ -138,6 +138,7 @@ public class DisplayView implements SubView {
 
     public void playAnims(){
         turtleView.toFront();
+        //myAnimQ.setOnFinished(event -> myAnimQ.getChildren().clear());
         myAnimQ.play();
         /*if(myAnimQ.size()>1){
             System.out.println("bigger than 1");
