@@ -1,19 +1,106 @@
 package backend;
 
+import backend.Nodes.BasicNode;
+
+import java.util.List;
 import java.util.Random;
 
 public class Command {
 
-    public Double forward(Turtle t, List<BasicNode> l){
-        Double d = Double.parseDouble(l.getCommandName());
-        t.move(d);
-        return d;
+    public Command(){
+
     }
 
-//    public String backward(Turtle t, List<BasicNode> l){
-//        Double d = Double.parseDouble(distance);
-//        t.move(-d);
-//        return distance;
+    public Double Forward(Turtle t, List<BasicNode> values) {
+        Double d = 0.0;
+        for (BasicNode node : values) {
+            d = Double.parseDouble(node.getCommandName());
+            t.move(d);
+        }
+        return d;
+    }
+//        public String backward (Turtle t, String distance){
+//                Double d = Double.parseDouble(distance);
+//                t.move(-d);
+//                return distance;
+//            }
+//
+//            public String left (Turtle t, String degree){
+//                Double d = Double.parseDouble(degree);
+//                t.turn(d);
+//                return degree;
+//            }
+//
+//            public String right (Turtle t, String degree){
+//                Double d = Double.parseDouble(degree);
+//                t.turn(-d);
+//                return degree;
+//            }
+//
+//            public String setHeading (Turtle t, String degree){
+//                Double d = Double.parseDouble(degree);
+//                t.setHeading(d);
+//                return degree;
+//            }
+//
+//            public String setTowards (Turtle t, String arguments){
+//                String[] position = arguments.split(" ");
+//                double x = Double.parseDouble(position[0]) - t.getX();
+//                double y = Double.parseDouble(position[1]) - t.getY();
+//                double newDir = angleWithXAxis(x, y);
+//                double oldDir = t.getDirection();
+//                t.setHeading(newDir);
+//                return ((Double) Math.abs(newDir - oldDir)).toString();
+//            }
+//
+//            /**
+//             * return angle with x axis given x and y
+//             * @param x
+//             * @param y
+//             * @return positive number between 0 and 2PI
+//             */
+//            public double angleWithXAxis ( double x, double y){
+//                double res = 0;
+//                if (x == 0) {
+//                    if (y > 0) {
+//                        res = Math.PI / 2;
+//                    }
+//                    if (y < 0) {
+//                        res = 1.5 * Math.PI;
+//                    }
+//                    return res;
+//                }
+//                double tmp = Math.atan(y / x);
+//                if (x > 0) {
+//                    res = tmp;
+//                }
+//                System.out.println("Worked!");
+//                return d;
+//            }
+//            public String penUp (Turtle t){
+//                t.liftPenUp();
+//                return "0";
+//            }
+//
+//            public String showTurtle (Turtle t){
+//                t.show();
+//                return "1";
+//            }
+//
+//            public String hideTurtle (Turtle t){
+//                t.hide();
+//                return "0";
+//            }
+//
+//            public String home (Turtle t){
+//                double dist = calcDist(t.getX(), t.getY(), 0, 0);
+//                t.setPosition(0, 0);
+//                return ((Double) dist).toString();
+//            }
+//
+//    public String clearScreen(Turtle t, ModelController m){
+//        m.clearScreen();
+//        return this.home(t);
 //    }
 //
 //    public String left(Turtle t, String degree){
@@ -269,7 +356,7 @@ public class Command {
 //        int tmp = Integer.parseInt(arguments);
 //        return tmp == 1 ? "1":"0";
 //    }
-
+//
 //    public String makeVariable(String arguments){
 //
 //    }
@@ -326,4 +413,6 @@ public class Command {
 //        System.out.println(Command.angleWithXAxis(1.0, 1.0));
 //    }
 
-}
+
+        }
+

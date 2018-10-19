@@ -12,11 +12,11 @@ DESIGN_PLAN.md
         * The view is what the user will see and will contain all the components which the user will interact with. It will take uesr input and pass it to a controller, and will receive updates from the back end as to how to update itself.
         * View class has the following components: frontend.CommandView, frontend.HistoryView, frontend.FunctionView, and frontend.DisplayView
     * frontend.Controller
-        * The controller is the communicator between the View class and the backend.Model class. Whenever an external API needs to be called from View or backend.Model class, the controller will pass the command to the other side.
+        * The controller is the communicator between the View class and the backend.ModelController class. Whenever an external API needs to be called from View or backend.ModelController class, the controller will pass the command to the other side.
         * When the program starts, the controller instance will be initialized. It will contain a view instance and a model instance.
-    * backend.Model
-        * The model contains the backend.Model class, backend.Turtle class, the Interpreter class, and the Command class. The backend.Model class is responsible for holding the backend.Turtle instance and the Interpreter instance. Once a user input string comes in from the frontend.Controller, the backend.Model class uses the interpreter to parse the input and calls appropriate method on the turtle. After the coordinate of backend.Turtle instance has been changed, the View calls backend external API to get backend.Turtle instance's postion and display it on the View.
-        * The interpreter is responsible for parsing the string input and call the appropriate function on the turtle. If the string from a command is a variable or a function, the backend.Model calls the internal API to add the variable or the function to the backend.
+    * backend.ModelController
+        * The model contains the backend.ModelController class, backend.Turtle class, the Interpreter class, and the Command class. The backend.ModelController class is responsible for holding the backend.Turtle instance and the Interpreter instance. Once a user input string comes in from the frontend.Controller, the backend.ModelController class uses the interpreter to parse the input and calls appropriate method on the turtle. After the coordinate of backend.Turtle instance has been changed, the View calls backend external API to get backend.Turtle instance's postion and display it on the View.
+        * The interpreter is responsible for parsing the string input and call the appropriate function on the turtle. If the string from a command is a variable or a function, the backend.ModelController calls the internal API to add the variable or the function to the backend.
         * The turtle encapsulates the possible movements and functions that the turtle can do on the GUI panel. It contains the internal API that the interpreter can call once the interpreter parses the user command. It also contains the coordinate (including the x and y coordinate and the angle).
 
 ### Design Overview
@@ -48,8 +48,8 @@ _Also see the project 'doc' folder for the interfaces and explanation of each in
 * External: between the two sub-groups
 
     * ```ViewExternalAPI```: communicates with back-end external through the frontend.Controller
-        * displayVars(Map<String, String>) will be called by the frontend.Controller when a new variable is added to the backend.Model. It will update the view of the frontend.VariableView.
-        * displayFunctions(Map<String, String>) will be called by the frontend.Controller when a new functionf is added to the backend.Model. It will update the view of the frontend.FunctionView.
+        * displayVars(Map<String, String>) will be called by the frontend.Controller when a new variable is added to the backend.ModelController. It will update the view of the frontend.VariableView.
+        * displayFunctions(Map<String, String>) will be called by the frontend.Controller when a new functionf is added to the backend.ModelController. It will update the view of the frontend.FunctionView.
         * displayError(String) will be called when the interpreter detects an error, such as entering an undefined command or multiple commands.
 
     * ```ModelExternalAPI```: contains Back-End External API methods that Front-End calls after it receives user command input
@@ -82,7 +82,7 @@ _Also see the project 'doc' folder for the interfaces and explanation of each in
         -
         - ```Interpreter``` class
             - parseCommand(String input)
-        - ```backend.Turtle (backend.Model)``` class
+        - ```backend.Turtle (backend.ModelController)``` class
     		- Forward(double amount)
     		- Backward(double amount)
     		- returnHome()
@@ -105,13 +105,13 @@ Additionally, each member of the team should create two use cases of their own (
 * When the user inputs the command 'fd 50', our frontend.CommandView class calls the runCommond(String) in the ViewInternalAPI. Inside this method, parseCommand(String) method in the ModelExternalAPI will be called, inside which the Interpreter class will call Interpreter.parse('fd 50').
 * While parsing, if the command is not valid, the frontend.Controller sends an exception back to the View via the public method displayError(String).
 * If it is valid, the Interpreter continues to check if the command is an action of defining a variable or function. If so, it will call addVar(String, String) or addFunction(String, String) to add the variable or the function into their corresponding map.
-* If the command is valid and not defining a variable of function returns an arrayList of parsed strings, so for example the arrayList would be of size 2 and contain the items "Forward" and "50". Then, we do reflection on the arrayList, and call the appropriate commands of the Command class. So within the frontend.Controller we would call Command.Forward(50), and inside the Command class the method Forward would call backend.Model.Forward(50). The turtle then moves forward 50 units, and since the turtle is within the root of the application, the change is displayed immediately. We will now list the methods called
+* If the command is valid and not defining a variable of function returns an arrayList of parsed strings, so for example the arrayList would be of size 2 and contain the items "Forward" and "50". Then, we do reflection on the arrayList, and call the appropriate commands of the Command class. So within the frontend.Controller we would call Command.Forward(50), and inside the Command class the method Forward would call backend.ModelController.Forward(50). The turtle then moves forward 50 units, and since the turtle is within the root of the application, the change is displayed immediately. We will now list the methods called
 
 * frontend.CommandView: View.runCommand("fd 50"), which calls frontend.Controller.runCommand("fd 50")
 * frontend.Controller: Interpreter.parse('fd 50'), inside which we call Interpreter.validate("fd 50"), an internal method to check whether the command is valid or not.
 * frontend.Controller: Command.Forward(ArrayList<("Forward", "50")>)
-* Command: backend.Model.Forward("50")
-* backend.Model: Logic to move the turtle forward whichever way it is facing
+* Command: backend.ModelController.Forward("50")
+* backend.ModelController: Logic to move the turtle forward whichever way it is facing
 
 ```java
 Class.forName("Command").getDeclaredMethod("fd").invoke(Command object, 50);
@@ -131,7 +131,7 @@ Use Cases (2 per person):
         * When an undefined command is detected inside the ModelExternalAPI's parseCommand method, it will call the method displayError(String) from the ViewExternalAPI(String) with the string being "Undefined command! Please review the Help tab for the correct ones".
         * Inside View class, it will then create a new Alert with the Error type. The string will be used as the content of the alert and will be shown in the window.
     * *Use case 2*: display variables after the map of variables is updated
-        * After the interpreter identifies a variable, it calls the addVar(String, String) method in the ModelInternalAPI, which appends the new variable into the myVars (a HashMap) within the backend.Model and let frontend.Controller call the displayVar(myVars).
+        * After the interpreter identifies a variable, it calls the addVar(String, String) method in the ModelInternalAPI, which appends the new variable into the myVars (a HashMap) within the backend.ModelController and let frontend.Controller call the displayVar(myVars).
         * Inside View class, it calls frontend.VariableView, passing it with the updated myVars and let it display on the frontend.VariableView.
 * **Harry**
     * *Use case 1*: receive forward 50 command and move the turtle 50 unit distance forward

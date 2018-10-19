@@ -38,14 +38,24 @@ public class Turtle implements Moveable{
         this.setY(y);
     }
 
-    public void turn(double angle){
+    public void turn(double angle) {
         direction += angle / 360 * 2 * Math.PI;
-        if(direction >= 2*Math.PI){
-            direction -= 2*Math.PI;
+        if (direction >= 2 * Math.PI) {
+            direction -= 2 * Math.PI;
         }
-        if(direction <= 0){
-            direction += 2*Math.PI;
+        if (direction <= 0) {
+            direction += 2 * Math.PI;
         }
+    }
+
+    @Override
+    public void penUp() {
+
+    }
+
+    @Override
+    public void penDown() {
+
     }
 
     public void setHeading(double angle){
