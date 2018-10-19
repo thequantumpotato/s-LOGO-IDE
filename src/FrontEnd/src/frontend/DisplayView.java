@@ -58,8 +58,7 @@ public class DisplayView implements SubView {
         turtleView = new ImageView(image);
         turtleView.setFitWidth(TURTLE_SIZE);
         turtleView.setFitHeight(TURTLE_SIZE);
-        turtleView.setX(100);
-        turtleView.setY(100);
+        //setTurtlePos(new Coordinate(100,100,0));
         //create pen
         myPen = new Pen(new Coordinate(turtleView.getX()+TURTLE_SIZE/2,turtleView.getY()+TURTLE_SIZE/2,0));
         myPen.setRoot(root);
@@ -67,8 +66,6 @@ public class DisplayView implements SubView {
         root.getChildren().add(bg);
         root.getChildren().add(turtleView);
         scrollPane.setContent(root);
-        /*turtleView.setX(400);
-        turtleView.setY(400);*/
         penDown = true;
         System.out.println(turtleView.getBoundsInLocal());
     }
@@ -108,8 +105,12 @@ public class DisplayView implements SubView {
             bg.setWidth(Math.max(newpos.getX(), newpos.getY()));
         }
         TranslateTransition xt = new TranslateTransition(duration, turtleView);
-        xt.setToX(newpos.getX() - turtleView.getX());
-        xt.setToY(newpos.getY() - turtleView.getY());
+        System.out.println("From "+turtleX+" "+turtleY);
+        System.out.println("To "+newpos.getX()+" "+newpos.getY());
+        xt.setFromX(turtleX);
+        xt.setFromY(turtleY);
+        xt.setToX(newpos.getX());
+        xt.setToY(newpos.getY());
         turtleView.setRotate(newpos.getAngle());
         myPen.setDrawSpeed(duration);
         ParallelTransition pl;
@@ -122,6 +123,8 @@ public class DisplayView implements SubView {
         }
         pl.getChildren().add(xt);
         myAnimQ.getChildren().add(pl);
+        turtleX = newpos.getX();
+        turtleY = newpos.getY();
     }
 
     public void playAnims(){

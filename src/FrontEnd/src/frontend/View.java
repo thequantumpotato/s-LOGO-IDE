@@ -95,7 +95,10 @@ public class View {
         root.getRowConstraints().addAll(row1, row2, row3, row4);
 
         myDisplayView = new DisplayView(this, new Image(this.getClass().getClassLoader().getResourceAsStream(TURTLE_IMAGE)));
-        //Demo program
+        /*
+        * Below is a demo program demonstrating the functionality of the Pen. However, you must first define all the points
+        * that the turtle will traverse, and create all the updates, and then play them.
+        * */
         myDisplayView.changeBgColor(Color.BLACK);
         myDisplayView.changePenColor(Color.DARKSEAGREEN);
         myDisplayView.updateTurtle(new Coordinate(300,300,0),Duration.seconds(5));
@@ -109,6 +112,8 @@ public class View {
         myDisplayView.changePenSize(10);
         myDisplayView.updateTurtle(new Coordinate(300,300,0),Duration.seconds(5));
         myDisplayView.playAnims();
+
+
         myCommandView = new CommandView(this);
 
         myVariableView = new VariableView(this);
