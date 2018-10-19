@@ -4,6 +4,10 @@ import java.util.Random;
 
 public class Command {
 
+    public Command(){
+
+    }
+
     public String forward(Turtle t, String distance){
         Double d = Double.parseDouble(distance);
         t.move(d);
@@ -50,7 +54,7 @@ public class Command {
      * @param y
      * @return positive number between 0 and 2PI
      */
-    private double angleWithXAxis(double x, double y){
+    public double angleWithXAxis(double x, double y){
         double res = 0;
         if(x == 0){
             if(y > 0){
@@ -113,7 +117,7 @@ public class Command {
         return ((Double)dist).toString();
     }
 
-//    public String clearScreen(Turtle t, Model m){
+//    public String clearScreen(Turtle t, ModelController m){
 //        m.clearScreen();
 //        return this.home(t);
 //    }
@@ -325,5 +329,11 @@ public class Command {
 //    public static void main(String[] args){
 //        System.out.println(Command.angleWithXAxis(1.0, 1.0));
 //    }
+
+    public static void main(String[] args){
+        Command c = new Command();
+        double tmp = c.angleWithXAxis(1, 1);
+        System.out.println(tmp);
+    }
 
 }
