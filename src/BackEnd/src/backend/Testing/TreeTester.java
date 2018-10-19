@@ -1,6 +1,7 @@
 package backend.Testing;
 
 import backend.Interpreter;
+import backend.ModelController;
 import backend.Nodes.BasicNode;
 
 import java.util.List;
@@ -40,14 +41,14 @@ public class TreeTester {
 
     public static void main(String[] args) throws Exception {
         //TESTING
-        var parser = new Interpreter();
+        var cnt = new ModelController();
         // note, this simple "algorithm" will not handle SLogo comments
         String userInput = "ifelse lessp 10 5 [ fd 50 fd 50 ] [ fd 40 fd 40 ]";
-        String userInput2 = "for [ :var 5 10 1 ] [ fd 50 ]";
-        var myRoots = parser.parse(userInput2);
+        String userInput2 = "fd 50";
+        cnt.parseCommand(userInput2);
 
-        var tester = new TreeTester();
-        tester.execute(myRoots);
+        //var tester = new TreeTester();
+        //tester.execute(myRoots);
 
     }
 
