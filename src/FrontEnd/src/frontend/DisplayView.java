@@ -100,13 +100,13 @@ public class DisplayView implements SubView {
     }
 
     public void updateTurtle(Coordinate newpos, Duration duration) {
-        if (newpos.getX() > bg.getWidth() || newpos.getY() > bg.getHeight()) {
-            bg.setHeight(Math.max(newpos.getX(), newpos.getY()));
-            bg.setWidth(Math.max(newpos.getX(), newpos.getY()));
+        if(newpos.getX()>bg.getX()+bg.getWidth() || newpos.getX()<bg.getX() ||
+            newpos.getY()>bg.getY()+bg.getHeight() || newpos.getY()<bg.getY()){
+            expandBackground(Math.max(Math.abs(newpos.getX()-bg.getX()),Math.abs(newpos.getY()-bg.getY())));
         }
         TranslateTransition xt = new TranslateTransition(duration, turtleView);
-        System.out.println("From "+turtleX+" "+turtleY);
-        System.out.println("To "+newpos.getX()+" "+newpos.getY());
+        /*System.out.println("From "+turtleX+" "+turtleY);
+        System.out.println("To "+newpos.getX()+" "+newpos.getY());*/
         xt.setFromX(turtleX);
         xt.setFromY(turtleY);
         xt.setToX(newpos.getX());
@@ -145,6 +145,14 @@ public class DisplayView implements SubView {
         }*/
     }
 
+    private void expandBackground(double amount){
+        System.out.println("Expanding bg by "+amount);
+        bg.setX(bg.getX()-amount);
+        bg.setY(bg.getY()-amount);
+        bg.setWidth(bg.getWidth()+2*amount);
+        bg.setHeight(bg.getHeight()+2*amount);
+
+    }
 
 
     private double[] getTurtleCenter(){

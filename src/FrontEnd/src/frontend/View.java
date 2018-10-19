@@ -101,16 +101,16 @@ public class View {
         * */
         myDisplayView.changeBgColor(Color.BLACK);
         myDisplayView.changePenColor(Color.DARKSEAGREEN);
-        myDisplayView.updateTurtle(new Coordinate(300,300,0),Duration.seconds(5));
+        myDisplayView.updateTurtle(new Coordinate(300,300,0),Duration.seconds(2));
         myDisplayView.changePenColor(Color.DARKBLUE);
         myDisplayView.changePenSize(5);
-        myDisplayView.updateTurtle(new Coordinate(0,120,0),Duration.seconds(5));
+        myDisplayView.updateTurtle(new Coordinate(-100,120,0),Duration.seconds(2));
         myDisplayView.setPenDown(false);
-        myDisplayView.updateTurtle(new Coordinate(360,10,0),Duration.seconds(10));
+        myDisplayView.updateTurtle(new Coordinate(360,10,0),Duration.seconds(2));
         myDisplayView.setPenDown(true);
         myDisplayView.changePenColor(Color.INDIANRED);
         myDisplayView.changePenSize(10);
-        myDisplayView.updateTurtle(new Coordinate(300,300,0),Duration.seconds(5));
+        myDisplayView.updateTurtle(new Coordinate(300,300,0),Duration.seconds(2));
         myDisplayView.playAnims();
 
 
