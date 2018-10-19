@@ -164,6 +164,7 @@ public class View {
 
     public void passCommand(String input) {
         myController.runCommand(input);
+        myHistoryView.updateHistory(input);
     }
 
 
