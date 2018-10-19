@@ -2,6 +2,7 @@ package frontend;
 
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -9,7 +10,7 @@ import javafx.scene.text.Text;
 public class HistoryView implements SubView {
     private VBox historyView;
     private ScrollPane historyPane;
-    private VBox historyBox;
+    private ListView historyBox;
     private View myView;
 
     public HistoryView(View myView_) {
@@ -19,14 +20,14 @@ public class HistoryView implements SubView {
 
         historyView = new VBox();
         Label title = new Label("Command History: ");
-        historyBox = new VBox();
+        historyBox = new ListView();
         historyView.getChildren().addAll(title, historyBox);
 
         historyPane.setContent(historyView);
     }
 
     public void updateHistory(String newHistory) {
-        historyBox.getChildren().add(new Text(newHistory));
+        historyBox.getItems().add(new Text(newHistory));
     }
     
     @Override
