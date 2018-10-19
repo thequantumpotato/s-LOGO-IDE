@@ -1,17 +1,21 @@
 package frontend;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.ParallelTransition;
-import javafx.animation.Timeline;
-import javafx.animation.TranslateTransition;
+import javafx.animation.*;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.effect.Effect;
+import javafx.scene.effect.InnerShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.util.Duration;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.concurrent.ArrayBlockingQueue;
 
 /**
  * DisplayView contains the display of the turtle as well as the panel for the user to change the
@@ -34,17 +38,19 @@ public class DisplayView implements SubView {
     private ImageView turtleView;
     private Pen myPen;
 
+    private SequentialTransition myAnimQ;
     private boolean penDown;
-    private int turtleX;
-    private int turtleY;
-    private int turtleAngle;
+    private double turtleX;
+    private double turtleY;
+    private double turtleAngle;
 
     public DisplayView(View myView_, Image image) {
         myView = myView_;
         scrollPane = new ScrollPane();
         root = new Group();
+        myAnimQ = new SequentialTransition();
         //create bg
-        bg = new Rectangle(800, 800, Color.WHITE);
+        bg = new Rectangle(800, 800, Color.BEIGE);
 
         //create turtle
         /** TO DO: Set the default turtle location to the center of the displayView */
@@ -53,20 +59,11 @@ public class DisplayView implements SubView {
         turtleView.setFitHeight(TURTLE_SIZE);
         turtleView.setX(100);
         turtleView.setY(100);
-        //create path
-        //path.getElements().add(new MoveTo(getTurtleCenter()[0],getTurtleCenter()[1]));
-        /*PathDrawTransition pathdraw = new PathDrawTransition(Duration.millis(5000f),path);
-        System.out.println(getTurtleCenter()[0]+" "+getTurtleCenter()[1]);
-        pathdraw.setFromX(getTurtleCenter()[0]);
-        pathdraw.setFromY(getTurtleCenter()[1]);
-        pathdraw.setToX(400);
-        pathdraw.setToY(600);*/
         //create pen
-        myPen = new Pen(new Coordinate(100,100,0));
-
+        myPen = new Pen(new Coordinate(turtleView.getX()+TURTLE_SIZE/2,turtleView.getY()+TURTLE_SIZE/2,0));
+        myPen.setRoot(root);
         //add turtle to scroll pane
         root.getChildren().add(bg);
-        myPen.renderPath(root);
         root.getChildren().add(turtleView);
         scrollPane.setContent(root);
         /*turtleView.setX(400);
@@ -103,16 +100,39 @@ public class DisplayView implements SubView {
             bg.setWidth(Math.max(newpos.getX(), newpos.getY()));
         }
         TranslateTransition xt = new TranslateTransition(duration, turtleView);
-        xt.setByX(newpos.getX() - turtleView.getX());
-        xt.setByY(newpos.getY() - turtleView.getY());
+        xt.setToX(newpos.getX() - turtleView.getX());
+        xt.setToY(newpos.getY() - turtleView.getY());
         turtleView.setRotate(newpos.getAngle());
+        myPen.setDrawSpeed(duration);
         if(penDown){
-            myPen.setDrawSpeed(duration);
-            pl.getChildren().add(myPen.drawPath(newpos));
+            pl.getChildren().add(myPen.drawPath(new Coordinate(newpos.getX()+TURTLE_SIZE/2,newpos.getY()+TURTLE_SIZE/2,0)));
+        }
+        else{
+            myPen.movePen(newpos);
         }
         pl.getChildren().add(xt);
-        pl.play();
+        myAnimQ.getChildren().add(pl);
     }
+
+    public void playAnims(){
+        turtleView.toFront();
+        myAnimQ.play();
+        /*if(myAnimQ.size()>1){
+            System.out.println("bigger than 1");
+            if(myAnimQ.get(0).getStatus().equals(Animation.Status.RUNNING)){
+                myAnimQ.get(myAnimQ.size()-2).setOnFinished(event -> {
+                    myAnimQ.remove(myAnimQ.size()-2);
+                    myAnimQ.get(myAnimQ.size()-1).play();
+                });
+            }
+
+        }
+        else{
+            myAnimQ.get(0).play();
+        }*/
+    }
+
+
 
     private double[] getTurtleCenter(){
         double x = turtleView.getBoundsInParent().getMaxX()-(turtleView.getBoundsInParent().getWidth())/2;

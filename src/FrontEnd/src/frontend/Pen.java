@@ -3,13 +3,19 @@ package frontend;
 import javafx.animation.Animation;
 import javafx.animation.Transition;
 import javafx.scene.Group;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.util.Duration;
 
+import java.util.ArrayList;
+
+/** Auxiliary class functioning to provide line-drawing functionality to the {@code DisplayView}
+ * @author bpx
+ * */
 class Pen {
     public static final Duration DEFAULT_SPEED = Duration.seconds(1);
-    private Path myPath;
+    private Group root;
     private Coordinate myPosition;
     private Duration myDrawSpeed;
 
@@ -19,9 +25,9 @@ class Pen {
     }
     //full constructor
     Pen(Duration speed, Coordinate origin){
-        myPath = new Path();
+
         myPosition = origin;
-        myPath.getElements().add(new MoveTo(myPosition.getX(),myPosition.getY()));
+
         myDrawSpeed = speed;
     }
     //copy constructor
@@ -30,18 +36,21 @@ class Pen {
     }
 
     //create pathdrawtransition to new point
-    public PathDrawTransition drawPath(Coordinate newpos){
-        PathDrawTransition pathdraw = new PathDrawTransition(myDrawSpeed,myPath);
-        pathdraw.setFromX(myPosition.getX());
-        pathdraw.setFromY(myPosition.getY());
-        pathdraw.setToX(newpos.getX());
-        pathdraw.setToY(newpos.getY());
-        return pathdraw;
+    public LineDrawTransition drawPath(Coordinate newpos){
+        Line line = new Line(newpos.getX(),newpos.getY(),newpos.getX(),newpos.getY());
+        System.out.println("creating path draw transition!");
+        LineDrawTransition linedraw = new LineDrawTransition(myDrawSpeed,line);
+        linedraw.setFromX(myPosition.getX());
+        linedraw.setFromY(myPosition.getY());
+        linedraw.setToX(newpos.getX());
+        linedraw.setToY(newpos.getY());
+        myPosition = newpos;
+        renderLine(line);
+        return linedraw;
     }
 
     //move pen without drawing a line
     public void movePen(Coordinate newpos){
-        myPath.getElements().add(new MoveTo(newpos.getX(),newpos.getY()));
         myPosition = newpos;
     }
 
@@ -50,7 +59,11 @@ class Pen {
         myDrawSpeed = duration;
     }
 
-    public void renderPath(Group root){
-        root.getChildren().add(myPath);
+    //set render target
+    public void setRoot(Group target){
+        root = target;
+    }
+    public void renderLine(Line line){
+        root.getChildren().add(line);
     }
 }

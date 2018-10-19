@@ -96,9 +96,10 @@ public class View {
 
         myDisplayView = new DisplayView(this, new Image(this.getClass().getClassLoader().getResourceAsStream(TURTLE_IMAGE)));
         myDisplayView.changePenColor(Color.ALICEBLUE);
-        myDisplayView.updateTurtle(new Coordinate(300,300,123),Duration.seconds(2));
-        //myDisplayView.updateTurtle(new Coordinate(230,120,0),Duration.seconds(5));
-        //myDisplayView.updateTurtle(new Coordinate(360,10,43),10);
+        myDisplayView.updateTurtle(new Coordinate(300,300,0),Duration.seconds(5));
+        myDisplayView.updateTurtle(new Coordinate(0,120,0),Duration.seconds(5));
+        myDisplayView.updateTurtle(new Coordinate(360,10,0),Duration.seconds(10));
+        myDisplayView.playAnims();
         myCommandView = new CommandView(this);
 
         myVariableView = new VariableView(this);

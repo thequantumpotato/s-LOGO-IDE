@@ -8,38 +8,38 @@ package frontend;
  */
 
 public class Coordinate {
-    private int x;
-    private int y;
-    private int angle;
+    private double x;
+    private double y;
+    private double angle;
 
 
-    public Coordinate(int x_, int y_, int angle_) {
+    public Coordinate(double x_, double y_, double angle_) {
         x = x_;
         y = y_;
         angle = angle_;
     }
 
-    public int getX() {
+    public double getX() {
         return x;
     }
 
-    public void setX(int x) {
+    public void setX(double x) {
         this.x = x;
     }
 
-    public int getY() {
+    public double getY() {
         return y;
     }
 
-    public void setY(int y) {
+    public void setY(double y) {
         this.y = y;
     }
 
-    public int getAngle() {
+    public double getAngle() {
         return angle;
     }
 
-    public void setAngle(int angle) {
+    public void setAngle(double angle) {
         this.angle = angle;
     }
 }

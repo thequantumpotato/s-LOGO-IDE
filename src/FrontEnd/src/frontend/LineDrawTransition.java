@@ -10,10 +10,13 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.Node;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
-import javafx.scene.shape.Path;
+import javafx.scene.shape.Line;
 import javafx.util.Duration;
 
-public class PathDrawTransition extends Transition {
+/** Custom transition class used to create a line-drawing effect.
+ * @author bpx
+ * */
+public class LineDrawTransition extends Transition {
     private static final double EPSILON = 1e-12;
     private double startX;
     private double startY;
@@ -23,41 +26,41 @@ public class PathDrawTransition extends Transition {
     private double deltaZ;
 
     /**
-     * The target path of this {@code PathDrawTransition}.
+     * The target line of this {@code LineDrawTransition}.
      * <p>
-     * It is not possible to change the target {@code Path} of a running
-     * {@code PathDrawTransition}. If the value of {@code Path} is changed for
-     * a running {@code PathDrawTransition}, the animation has to be stopped
+     * It is not possible to change the target {@code Line} of a running
+     * {@code LineDrawTransition}. If the value of {@code Line} is changed for
+     * a running {@code LineDrawTransition}, the animation has to be stopped
      * and started again to pick up the new value.
      */
-    private ObjectProperty<Path> path;
-    private static final Path DEFAULT_PATH = null;
+    private ObjectProperty<Line> line;
+    private static final Line DEFAULT_PATH = null;
 
-    public final void setPath(Path value) {
-        if ((path != null) || (value != null /* DEFAULT_PATH */)) {
+    public final void setLine(Line value) {
+        if ((line != null) || (value != null /* DEFAULT_PATH */)) {
             nodeProperty().set(value);
         }
     }
 
-    public final Path getPath() {
-        return (path == null)? DEFAULT_PATH : path.get();
+    public final Line getLine() {
+        return (line == null)? DEFAULT_PATH : line.get();
     }
 
-    public final ObjectProperty<Path> nodeProperty() {
-        if (path == null) {
-            path = new SimpleObjectProperty<Path>(this, "node", DEFAULT_PATH);
+    public final ObjectProperty<Line> nodeProperty() {
+        if (line == null) {
+            line = new SimpleObjectProperty<Line>(this, "node", DEFAULT_PATH);
         }
-        return path;
+        return line;
     }
 
-    private Path cachedNode;
+    private Line cachedNode;
 
     /**
-     * The duration of this {@code PathDrawTransition}.
+     * The duration of this {@code LineDrawTransition}.
      * <p>
      * It is not possible to change the {@code duration} of a running
-     * {@code PathDrawTransition}. If the value of {@code duration} is changed
-     * for a running {@code PathDrawTransition}, the animation has to be
+     * {@code LineDrawTransition}. If the value of {@code duration} is changed
+     * for a running {@code LineDrawTransition}, the animation has to be
      * stopped and started again to pick up the new value.
      * <p>
      * Note: While the unit of {@code duration} is a millisecond, the
@@ -103,7 +106,7 @@ public class PathDrawTransition extends Transition {
 
                 @Override
                 public Object getBean() {
-                    return PathDrawTransition.this;
+                    return LineDrawTransition.this;
                 }
 
                 @Override
@@ -117,11 +120,11 @@ public class PathDrawTransition extends Transition {
 
     /**
      * Specifies the start X coordinate value of this
-     * {@code PathDrawTransition}.
+     * {@code LineDrawTransition}.
      * <p>
      * It is not possible to change {@code fromX} of a running
-     * {@code PathDrawTransition}. If the value of {@code fromX} is changed for
-     * a running {@code PathDrawTransition}, the animation has to be stopped
+     * {@code LineDrawTransition}. If the value of {@code fromX} is changed for
+     * a running {@code LineDrawTransition}, the animation has to be stopped
      * and started again to pick up the new value.
      *
      * @defaultValue {@code Double.NaN}
@@ -132,7 +135,7 @@ public class PathDrawTransition extends Transition {
     public final void setFromX(double value) {
         if ((fromX != null) || (!Double.isNaN(value))) {
             fromXProperty().set(value);
-            getPath().getElements().add(new MoveTo(value,getFromY()));
+            getLine().setStartX(value);
         }
     }
 
@@ -149,11 +152,11 @@ public class PathDrawTransition extends Transition {
 
     /**
      * Specifies the start Y coordinate value of this
-     * {@code PathDrawTransition}.
+     * {@code LineDrawTransition}.
      * <p>
      * It is not possible to change {@code fromY} of a running
-     * {@code PathDrawTransition}. If the value of {@code fromY} is changed for
-     * a running {@code PathDrawTransition}, the animation has to be stopped
+     * {@code LineDrawTransition}. If the value of {@code fromY} is changed for
+     * a running {@code LineDrawTransition}, the animation has to be stopped
      * and started again to pick up the new value.
      *
      * @defaultValue {@code Double.NaN}
@@ -164,7 +167,7 @@ public class PathDrawTransition extends Transition {
     public final void setFromY(double value) {
         if ((fromY != null) || (!Double.isNaN(value))) {
             fromYProperty().set(value);
-            getPath().getElements().add(new MoveTo(getFromX(),value));
+            getLine().setStartY(value);
         }
     }
 
@@ -180,11 +183,11 @@ public class PathDrawTransition extends Transition {
     }
 
     /**
-     * Specifies the stop X coordinate value of this {@code PathDrawTransition}.
+     * Specifies the stop X coordinate value of this {@code LineDrawTransition}.
      * <p>
      * It is not possible to change {@code toX} of a running
-     * {@code PathDrawTransition}. If the value of {@code toX} is changed for a
-     * running {@code PathDrawTransition}, the animation has to be stopped and
+     * {@code LineDrawTransition}. If the value of {@code toX} is changed for a
+     * running {@code LineDrawTransition}, the animation has to be stopped and
      * started again to pick up the new value.
      *
      * @defaultValue {@code Double.NaN}
@@ -196,6 +199,7 @@ public class PathDrawTransition extends Transition {
         if ((toX != null) || (!Double.isNaN(value))) {
             toXProperty().set(value);
         }
+        getLine().setEndX(getFromX());
     }
 
     public final double getToX() {
@@ -210,11 +214,11 @@ public class PathDrawTransition extends Transition {
     }
 
     /**
-     * Specifies the stop Y coordinate value of this {@code PathDrawTransition}.
+     * Specifies the stop Y coordinate value of this {@code LineDrawTransition}.
      * <p>
      * It is not possible to change {@code toY} of a running
-     * {@code PathDrawTransition}. If the value of {@code toY} is changed for a
-     * running {@code PathDrawTransition}, the animation has to be stopped and
+     * {@code LineDrawTransition}. If the value of {@code toY} is changed for a
+     * running {@code LineDrawTransition}, the animation has to be stopped and
      * started again to pick up the new value.
      *
      * @defaultValue {@code Double.NaN}
@@ -226,6 +230,7 @@ public class PathDrawTransition extends Transition {
         if ((toY != null) || (!Double.isNaN(value))) {
             toYProperty().set(value);
         }
+        getLine().setEndY(getFromY());
     }
 
     public final double getToY() {
@@ -240,33 +245,33 @@ public class PathDrawTransition extends Transition {
     }
 
     /**
-     * The constructor of {@code PathDrawTransition}
+     * The constructor of {@code LineDrawTransition}
      *
      * @param duration
-     *            The duration of the {@code PathDrawTransition}
-     * @param path
+     *            The duration of the {@code LineDrawTransition}
+     * @param line
      *            The {@code node} which will be translated
      */
-    public PathDrawTransition(Duration duration, Path path) {
+    public LineDrawTransition(Duration duration, Line line) {
         setDuration(duration);
-        setPath(path);
+        setLine(line);
         setCycleDuration(duration);
     }
 
     /**
-     * The constructor of {@code PathDrawTransition}
+     * The constructor of {@code LineDrawTransition}
      *
      * @param duration
-     *            The duration of the {@code PathDrawTransition}
+     *            The duration of the {@code LineDrawTransition}
      */
-    public PathDrawTransition(Duration duration) {
+    public LineDrawTransition(Duration duration) {
         this(duration, null);
     }
 
     /**
-     * The constructor of {@code PathDrawTransition}
+     * The constructor of {@code LineDrawTransition}
      */
-    public PathDrawTransition() {
+    public LineDrawTransition() {
         this(DEFAULT_DURATION, null);
     }
 
@@ -290,8 +295,10 @@ public class PathDrawTransition extends Transition {
         final float xnudge = (float) (getToX()-getFromX());
         final float ynudge = (float) (getToY()-getFromY());
         if(!Double.isNaN(startX)){
-            getPath().getElements().add(new LineTo(getFromX()+(float)frac*xnudge,getFromY()+(float)frac*ynudge));
-            //getPath().getElements().add(new LineTo(startX+frac*deltaX,startY+frac*deltaY));
+            getLine().setEndX(getFromX()+(float)frac*xnudge);
+            getLine().setEndY(getFromY()+(float)frac*ynudge);
+            //getLine().getElements().add(new LineTo(getFromX()+(float)frac*xnudge,getFromY()+(float)frac*ynudge));
+            //getLine().getElements().add(new LineTo(startX+frac*deltaX,startY+frac*deltaY));
         }
     }
 }
