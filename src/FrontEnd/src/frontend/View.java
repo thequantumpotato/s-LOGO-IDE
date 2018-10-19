@@ -51,8 +51,8 @@ public class View {
     public static final String TURTLE_IMAGE = "turtle.png";
     public static final String TITLE = "SLogo";
     public static final String STYLESHEET = "style.css";
-    public final int SCREEN_WIDTH = 1000;
-    public final int SCREEN_HEIGHT = 700;
+    public static final int SCREEN_WIDTH = 1000;
+    public static final int SCREEN_HEIGHT = 700;
     public final int FRAMES_PER_SECOND = 60;
     public final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     public final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
@@ -101,16 +101,16 @@ public class View {
         * */
         myDisplayView.changeBgColor(Color.BLACK);
         myDisplayView.changePenColor(Color.DARKSEAGREEN);
-        myDisplayView.updateTurtle(new Coordinate(300,300,0),Duration.seconds(2));
+        myDisplayView.updateTurtle(new Coordinate(300,300,120),Duration.seconds(2));
         myDisplayView.changePenColor(Color.DARKBLUE);
         myDisplayView.changePenSize(5);
-        myDisplayView.updateTurtle(new Coordinate(-100,120,0),Duration.seconds(2));
+        myDisplayView.updateTurtle(new Coordinate(-100,120,-60),Duration.seconds(2));
         myDisplayView.setPenDown(false);
-        myDisplayView.updateTurtle(new Coordinate(360,10,0),Duration.seconds(2));
+        myDisplayView.updateTurtle(new Coordinate(360,10,30),Duration.seconds(2));
         myDisplayView.setPenDown(true);
         myDisplayView.changePenColor(Color.INDIANRED);
         myDisplayView.changePenSize(10);
-        myDisplayView.updateTurtle(new Coordinate(300,300,0),Duration.seconds(2));
+        myDisplayView.updateTurtle(new Coordinate(300,300,-170),Duration.seconds(2));
         myDisplayView.playAnims();
 
 
@@ -160,7 +160,6 @@ public class View {
     }
 
     public void changeTurtleImg(Image newTurtleImg) {
-
     }
 
     public void passCommand(String input) {

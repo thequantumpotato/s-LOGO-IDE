@@ -32,6 +32,10 @@ public class DisplayView implements SubView {
     public static final int LINE_ANIMATION_FPS = 15;
     public static final float LINE_ANIMATION_DELAY = 1f / LINE_ANIMATION_FPS;
     public static final Color DEFAULT_COLOR = Color.WHITE;
+    public static final int TURTLE_DEFAULT_X = 275;
+    public static final int TURTLE_DEFAULT_Y = 250;
+    public static final int DEFAULT_BG_WIDTH = 800;
+    public static final int DEFAULT_BG_HEIGHT = 800;
     private View myView;
     private ScrollPane scrollPane;
     private Group root;
@@ -50,15 +54,17 @@ public class DisplayView implements SubView {
         scrollPane = new ScrollPane();
         root = new Group();
         myAnimQ = new SequentialTransition();
+        turtleX = 0;
+        turtleY = 0;
         //create bg
-        bg = new Rectangle(800, 800, DEFAULT_COLOR);
+        bg = new Rectangle(DEFAULT_BG_WIDTH, DEFAULT_BG_HEIGHT, DEFAULT_COLOR);
 
         //create turtle
         /** TO DO: Set the default turtle location to the center of the displayView */
         turtleView = new ImageView(image);
         turtleView.setFitWidth(TURTLE_SIZE);
         turtleView.setFitHeight(TURTLE_SIZE);
-        //setTurtlePos(new Coordinate(100,100,0));
+        setTurtlePos(new Coordinate(TURTLE_DEFAULT_X, TURTLE_DEFAULT_Y,0));
         //create pen
         myPen = new Pen(new Coordinate(turtleView.getX()+TURTLE_SIZE/2,turtleView.getY()+TURTLE_SIZE/2,0));
         myPen.setRoot(root);
@@ -74,8 +80,8 @@ public class DisplayView implements SubView {
         turtleX = turtleCoordinate.getX();
         turtleY = turtleCoordinate.getY();
         turtleAngle = turtleCoordinate.getAngle();
-        turtleView.setX(turtleX);
-        turtleView.setY(turtleY);
+        turtleView.setTranslateX(turtleX);
+        turtleView.setTranslateY(turtleY);
         turtleView.setRotate(turtleAngle);
     }
 
@@ -111,7 +117,9 @@ public class DisplayView implements SubView {
         xt.setFromY(turtleY);
         xt.setToX(newpos.getX());
         xt.setToY(newpos.getY());
-        turtleView.setRotate(newpos.getAngle());
+        RotateTransition rt = new RotateTransition(Duration.millis(0.1),turtleView);
+        rt.setFromAngle(turtleAngle);
+        rt.setToAngle(newpos.getAngle());
         myPen.setDrawSpeed(duration);
         ParallelTransition pl;
         if(penDown){
@@ -122,6 +130,7 @@ public class DisplayView implements SubView {
             pl = new ParallelTransition();
         }
         pl.getChildren().add(xt);
+        pl.getChildren().add(rt);
         myAnimQ.getChildren().add(pl);
         turtleX = newpos.getX();
         turtleY = newpos.getY();
