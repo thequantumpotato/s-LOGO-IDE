@@ -8,30 +8,32 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 public class HistoryView implements SubView {
-    private VBox historyView;
-    private ScrollPane historyPane;
-    private ListView historyBox;
+    private VBox historyPane;
+    private ScrollPane historyView;
+    private ListView historyList;
     private View myView;
 
     public HistoryView(View myView_) {
         myView = myView_;
-        historyPane = new ScrollPane();
-        historyPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        historyView = new ScrollPane();
+        historyView.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
 
-        historyView = new VBox();
+        historyPane = new VBox();
         Label title = new Label("Command History: ");
-        historyBox = new ListView();
-        historyView.getChildren().addAll(title, historyBox);
+        historyList = new ListView();
+        historyPane.getChildren().addAll(title, historyList);
 
-        historyPane.setContent(historyView);
+        historyView.setContent(historyPane);
+        historyView.getStyleClass().add("historyView");
+
     }
 
     public void updateHistory(String newHistory) {
-        historyBox.getItems().add(new Text(newHistory));
+        historyList.getItems().add(new Text(newHistory));
     }
     
     @Override
     public Node getView() {
-        return historyPane;
+        return historyView;
     }
 }
