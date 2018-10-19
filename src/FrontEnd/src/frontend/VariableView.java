@@ -16,23 +16,23 @@ import java.util.Map;
 
 public class VariableView implements SubView {
 
-    private VBox variableView;
-    private ScrollPane variablePane;
+    private VBox variableBox;
+    private ScrollPane variableView;
     private ListView variableList;
     private View myView;
 
     public VariableView(View myView_) {
         myView = myView_;
         
-        variablePane = new ScrollPane();
-        variablePane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        variableView = new ScrollPane();
+        variableView.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
 
-        variableView = new VBox();
+        variableBox = new VBox();
         Label title = new Label("Variables");
         variableList = new ListView();
-        variableView.getChildren().addAll(title, variableList);
+        variableBox.getChildren().addAll(title, variableList);
 
-        variableView.getStyleClass().add("variableView");
+        variableBox.getStyleClass().add("variableBox");
     }
 
     public void updateVariable(Map<String, String> var) {
@@ -41,6 +41,6 @@ public class VariableView implements SubView {
 
     @Override
     public Node getView() {
-        return variableView;
+        return variableBox;
     }
 }
