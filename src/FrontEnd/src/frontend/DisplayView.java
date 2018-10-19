@@ -1,6 +1,7 @@
 package frontend;
 
 import javafx.animation.KeyFrame;
+import javafx.animation.ParallelTransition;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.scene.Group;
@@ -31,7 +32,7 @@ public class DisplayView implements SubView {
     private Group root;
     private Rectangle bg;
     private ImageView turtleView;
-    private Path path;
+    private Pen myPen;
 
     private boolean penDown;
     private int turtleX;
@@ -44,7 +45,6 @@ public class DisplayView implements SubView {
         root = new Group();
         //create bg
         bg = new Rectangle(800, 800, Color.WHITE);
-        path = new Path();
 
         //create turtle
         /** TO DO: Set the default turtle location to the center of the displayView */
@@ -54,11 +54,19 @@ public class DisplayView implements SubView {
         turtleView.setX(100);
         turtleView.setY(100);
         //create path
-        path.getElements().add(new MoveTo(getTurtleCenter()[0],getTurtleCenter()[1]));
+        //path.getElements().add(new MoveTo(getTurtleCenter()[0],getTurtleCenter()[1]));
+        /*PathDrawTransition pathdraw = new PathDrawTransition(Duration.millis(5000f),path);
+        System.out.println(getTurtleCenter()[0]+" "+getTurtleCenter()[1]);
+        pathdraw.setFromX(getTurtleCenter()[0]);
+        pathdraw.setFromY(getTurtleCenter()[1]);
+        pathdraw.setToX(400);
+        pathdraw.setToY(600);*/
+        //create pen
+        myPen = new Pen(new Coordinate(100,100,0));
 
         //add turtle to scroll pane
         root.getChildren().add(bg);
-        root.getChildren().add(path);
+        myPen.renderPath(root);
         root.getChildren().add(turtleView);
         scrollPane.setContent(root);
         /*turtleView.setX(400);
@@ -88,19 +96,22 @@ public class DisplayView implements SubView {
         turtleView.setImage(newTurtleImg);
     }
 
-    public void updateTurtle(Coordinate newpos, int duration) {
+    public void updateTurtle(Coordinate newpos, Duration duration) {
+        ParallelTransition pl = new ParallelTransition();
         if (newpos.getX() > bg.getWidth() || newpos.getY() > bg.getHeight()) {
             bg.setHeight(Math.max(newpos.getX(), newpos.getY()));
             bg.setWidth(Math.max(newpos.getX(), newpos.getY()));
         }
-        TranslateTransition xt = new TranslateTransition(Duration.seconds(duration), turtleView);
+        TranslateTransition xt = new TranslateTransition(duration, turtleView);
         xt.setByX(newpos.getX() - turtleView.getX());
         xt.setByY(newpos.getY() - turtleView.getY());
         turtleView.setRotate(newpos.getAngle());
-        Timeline line = createDrawPath(newpos,duration);
-        xt.play();
-        line.play();
-
+        if(penDown){
+            myPen.setDrawSpeed(duration);
+            pl.getChildren().add(myPen.drawPath(newpos));
+        }
+        pl.getChildren().add(xt);
+        pl.play();
     }
 
     private double[] getTurtleCenter(){
@@ -109,11 +120,11 @@ public class DisplayView implements SubView {
         return new double[]{x,y};
     }
 
-    private Timeline createDrawPath(Coordinate newpos,int duration) {
+    /*private Timeline createDrawPath(Coordinate newpos,int duration) {
         // temporary method, fill in implementation later
-        /*Line line = new Line();
+        *//*Line line = new Line();
         line.setStartX(turtleView.getX());
-        line.setStartY(turtleView.getY());*/
+        line.setStartY(turtleView.getY());*//*
 
         int totalframes = LINE_ANIMATION_FPS*duration;
         double xnudge = (newpos.getX()-turtleView.getX())/totalframes;
@@ -121,13 +132,12 @@ public class DisplayView implements SubView {
         Timeline timeline = new Timeline();
         timeline.setCycleCount(LINE_ANIMATION_FPS *duration);
         KeyFrame frame = new KeyFrame(Duration.seconds(LINE_ANIMATION_DELAY), event -> {
-            System.out.println("nudge to "+turtleView.getBoundsInParent());
             path.getElements().add(new LineTo(getTurtleCenter()[0],getTurtleCenter()[1]));
         });
         timeline.getKeyFrames().add(frame);
         timeline.play();
         return timeline;
-    }
+    }*/
 
     @Override
     public Node getView() {

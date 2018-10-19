@@ -95,8 +95,10 @@ public class View {
         root.getRowConstraints().addAll(row1, row2, row3, row4);
 
         myDisplayView = new DisplayView(this, new Image(this.getClass().getClassLoader().getResourceAsStream(TURTLE_IMAGE)));
-
-        myDisplayView.updateTurtle(new Coordinate(600,600,123),10);
+        myDisplayView.changePenColor(Color.ALICEBLUE);
+        myDisplayView.updateTurtle(new Coordinate(300,300,123),Duration.seconds(2));
+        //myDisplayView.updateTurtle(new Coordinate(230,120,0),Duration.seconds(5));
+        //myDisplayView.updateTurtle(new Coordinate(360,10,43),10);
         myCommandView = new CommandView(this);
 
         myVariableView = new VariableView(this);
