@@ -48,6 +48,16 @@ public class Turtle implements Moveable{
         }
     }
 
+    @Override
+    public void penUp() {
+
+    }
+
+    @Override
+    public void penDown() {
+
+    }
+
     public void setHeading(double angle){
         direction = angle;
     }
