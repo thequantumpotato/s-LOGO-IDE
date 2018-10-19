@@ -50,5 +50,4 @@ public abstract class CommandNode implements BasicNode {
     }
 
 
-
 }

@@ -47,8 +47,14 @@ public class TreeFactory {
             }
             //If we haven't reached the max number of arguments required
             while (myRoot.getNumChildren() != myRoot.getRequiredArguments()) {
-                BasicNode nextChild = createChild(commands);
-
+                //Check if the next item is an open bracket (because lists are ALWAYS children)
+                BasicNode nextChild;
+                if(isOpenBracket(commands.get(0))){
+                    nextChild = generateList(commands);
+                }
+                else{
+                    nextChild = createChild(commands);
+                }
                 if(nextChild == null){
                     throw new IllegalCommandException();
                 }
@@ -70,17 +76,13 @@ public class TreeFactory {
         if(isLeftParenthesis(nextChild)){ //check if its a parenthesis FIRST
             String nextCommand = commands.remove(0);
             newChild = createRoot(nextCommand);
-            while (newChild.getNumChildren() != newChild.getRequiredArguments()) {
-                newChild.addChild(createChild(commands));
-            }
+            generateCommand(newChild, commands);
         }
 
         else if(!isNumeric(nextChild)){
             newChild = createRoot(nextChild);
             //This child has its own arguments that we need to add. Use recursion!
-            while (newChild.getNumChildren() != newChild.getRequiredArguments()) {
-                newChild.addChild(createChild(commands));
-            }
+            generateCommand(newChild, commands);
         }
         else{
             newChild = new argumentNode(nextChild);
@@ -116,6 +118,33 @@ public class TreeFactory {
         return newNode;
     }
 
+    /**
+     * Creates a list with all of the commands inside of the list
+     * Returns the root of a ListNode, which is an argument to another command
+     */
+    private BasicNode generateList(List<String> Commands) throws IllegalCommandException {
+        String newList = Commands.remove(0);
+        BasicNode commandList = new ListNode(newList);
+        while(!isCloseBracket(Commands.get(0))){
+            //Create the new command and add all of it's children
+            String nextCommand = Commands.remove(0);
+            BasicNode newChild = createRoot(nextCommand);
+            generateCommand(newChild, Commands);
+            //Add this command to our ListNode
+            commandList.addChild(newChild);
+        }
+        return(commandList);
+    }
+
+    /**
+     * A utility method to help us obtain all of the children of a command
+     */
+    public void generateCommand(BasicNode commandRoot, List<String> Commands) throws IllegalCommandException {
+        while (commandRoot.getNumChildren() != commandRoot.getRequiredArguments()) {
+            commandRoot.addChild(createChild(Commands));
+        }
+    }
+
 
     private boolean isNumeric(String s){
         return s.matches("[-+]?\\d*\\.?\\d+");
@@ -126,6 +155,13 @@ public class TreeFactory {
     }
 
     private boolean isRightParenthesis(String s) { return s.matches("GroupEnd");}
+
+    private boolean isOpenBracket(String s){
+        return s.matches("ListStart");
+    }
+    private boolean isCloseBracket(String s){
+        return s.matches("ListEnd");
+    }
 
 
 
