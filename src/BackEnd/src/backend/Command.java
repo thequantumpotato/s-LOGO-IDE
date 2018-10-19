@@ -12,18 +12,21 @@ public class Command {
     }
 
     public Double Forward(Turtle t, List<BasicNode> values) {
-        Double d = 0.0;
+        double d = 0.0;
         for (BasicNode node : values) {
             d = Double.parseDouble(node.getCommandName());
             t.move(d);
         }
         return d;
     }
-//        public String backward (Turtle t, String distance){
-//                Double d = Double.parseDouble(distance);
-//                t.move(-d);
-//                return distance;
-//            }
+    public Double Backward (Turtle t, List<BasicNode> values){
+        double d = 0.0;
+        for (BasicNode node : values) {
+            d = Double.parseDouble(node.getCommandName());
+            t.move(-1*d);
+        }
+        return d;
+    }
 //
 //            public String left (Turtle t, String degree){
 //                Double d = Double.parseDouble(degree);
@@ -235,10 +238,13 @@ public class Command {
 //        return res;
 //    }
 //
-//    public String sum(String arguments){
-//        int[] args = parseIntegers(arguments);
-//        return ((Integer) (args[0]+args[1])).toString();
-//    }
+    public Double Sum(Turtle t, List<BasicNode> nodes){
+        Double sum = 0.0;
+        for(BasicNode node:nodes){
+            sum += Double.parseDouble(node.getCommandName());
+        }
+        return sum;
+    }
 //
 //    public String difference(String arguments){
 //        int[] args = parseIntegers(arguments);
