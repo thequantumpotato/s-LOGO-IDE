@@ -31,6 +31,7 @@ public class DisplayView implements SubView {
     public static final int TURTLE_SIZE = 25;
     public static final int LINE_ANIMATION_FPS = 15;
     public static final float LINE_ANIMATION_DELAY = 1f / LINE_ANIMATION_FPS;
+    public static final Color DEFAULT_COLOR = Color.WHITE;
     private View myView;
     private ScrollPane scrollPane;
     private Group root;
@@ -50,7 +51,7 @@ public class DisplayView implements SubView {
         root = new Group();
         myAnimQ = new SequentialTransition();
         //create bg
-        bg = new Rectangle(800, 800, Color.BEIGE);
+        bg = new Rectangle(800, 800, DEFAULT_COLOR);
 
         //create turtle
         /** TO DO: Set the default turtle location to the center of the displayView */
@@ -85,8 +86,16 @@ public class DisplayView implements SubView {
         bg.setFill(bgColor);
     }
 
-    public void changePenColor(Color penColor) {
+    public void setPenDown(boolean state){
+        penDown = state;
+    }
 
+    public void changePenColor(Color penColor) {
+        myPen.setPenColor(penColor);
+    }
+
+    public void changePenSize(double size){
+        myPen.setPenSize(size);
     }
 
     public void changeTurtleImg(Image newTurtleImg) {
@@ -94,7 +103,6 @@ public class DisplayView implements SubView {
     }
 
     public void updateTurtle(Coordinate newpos, Duration duration) {
-        ParallelTransition pl = new ParallelTransition();
         if (newpos.getX() > bg.getWidth() || newpos.getY() > bg.getHeight()) {
             bg.setHeight(Math.max(newpos.getX(), newpos.getY()));
             bg.setWidth(Math.max(newpos.getX(), newpos.getY()));
@@ -104,11 +112,13 @@ public class DisplayView implements SubView {
         xt.setToY(newpos.getY() - turtleView.getY());
         turtleView.setRotate(newpos.getAngle());
         myPen.setDrawSpeed(duration);
+        ParallelTransition pl;
         if(penDown){
-            pl.getChildren().add(myPen.drawPath(new Coordinate(newpos.getX()+TURTLE_SIZE/2,newpos.getY()+TURTLE_SIZE/2,0)));
+            pl = myPen.drawPath(new Coordinate(newpos.getX()+TURTLE_SIZE/2,newpos.getY()+TURTLE_SIZE/2,0));
         }
         else{
-            myPen.movePen(newpos);
+            myPen.movePen(new Coordinate(newpos.getX()+TURTLE_SIZE/2,newpos.getY()+TURTLE_SIZE/2,0));
+            pl = new ParallelTransition();
         }
         pl.getChildren().add(xt);
         myAnimQ.getChildren().add(pl);
