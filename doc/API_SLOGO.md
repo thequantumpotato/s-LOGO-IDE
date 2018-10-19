@@ -14,7 +14,7 @@ SLogo Architecture Design: Team 07
     * The turtle would move based on the command given
 ---
 # CLASSES
-backend.Model View frontend.Controller
+backend.ModelController View frontend.Controller
 
 * frontend.Main
     * Instantiates the GUI

@@ -1,19 +1,19 @@
 package backend;
 
 public interface Moveable {
-    public void move(double distance);
+    void move(double distance);
 
-    public void turn(double angle);
+    void turn(double angle);
 
-    public void penUp();
+    void penUp();
 
-    public void penDown();
+    void penDown();
 
-    public void show();
+    void show();
 
-    public void hide();
+    void hide();
 
-    public void setPosition(double x, double y);
+    void setPosition(double x, double y);
 
 
 

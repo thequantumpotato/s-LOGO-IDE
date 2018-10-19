@@ -1,5 +1,6 @@
 package backend;
 
+
 import backend.Nodes.BasicNode;
 
 import java.lang.reflect.InvocationTargetException;
@@ -53,6 +54,7 @@ public class ModelController {
         return root;
     }
 
+
     private boolean isNumeric(String s){
         return s.matches("[-+]?\\d*\\.?\\d+");
     }
@@ -61,7 +63,4 @@ public class ModelController {
 
     }
 
-
 }
-
-
