@@ -59,7 +59,12 @@ public class Turtle extends Observable implements Moveable {
     public void penDown() {
 
     }
-
+    public void Changed(){
+        setChanged();
+    }
+    public void clear(){
+        clearChanged();
+    }
     public void setHeading(double angle){
         direction = angle;
     }
