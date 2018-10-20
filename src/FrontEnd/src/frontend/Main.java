@@ -1,6 +1,7 @@
 package frontend;
 
 import backend.Turtle;
+import backend.ModelController;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -14,6 +15,8 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setResizable(false);
         Turtle turtle = new Turtle();
-        new Controller(primaryStage,turtle);
+        Controller myController = new Controller(primaryStage,turtle);
+        ModelController mc = new ModelController(turtle);
+        mc.parseCommand("fd sum 20 30");
     }
 }

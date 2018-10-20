@@ -1,6 +1,7 @@
 package backend;
 
 import backend.Nodes.BasicNode;
+import backend.Nodes.argumentNode;
 
 import java.util.List;
 import java.util.Random;
@@ -11,29 +12,25 @@ public class Command {
 
     }
 
-    public Double Forward(Turtle t, List<BasicNode> values) {
-        double d = 0.0;
+    public BasicNode Forward(Turtle t, List<BasicNode> values) {
+        Double d = 0.0;
         for (BasicNode node : values) {
             d = Double.parseDouble(node.getCommandName());
             t.move(d);
         }
-        t.Changed();
-        t.notifyObservers();
-        t.clear();
 
-        return d;
-    }
-    public Double Backward (Turtle t, List<BasicNode> values){
-        double d = 0.0;
-        for (BasicNode node : values) {
-            d = Double.parseDouble(node.getCommandName());
-            t.move(-1*d);
-        }
-        t.Changed();
         t.notifyObservers();
-        t.clear();
-        return d;
+        return new argumentNode(d.toString());
     }
+//    public Double Backward (Turtle t, List<BasicNode> values){
+//        double d = 0.0;
+//        for (BasicNode node : values) {
+//            d = Double.parseDouble(node.getCommandName());
+//            t.move(-1*d);
+//        }
+//        t.notifyObservers();
+//        return d;
+//    }
 //
 //            public String left (Turtle t, String degree){
 //                Double d = Double.parseDouble(degree);
@@ -119,11 +116,15 @@ public class Command {
 //        return degree;
 //    }
 //
-//    public String right(Turtle t, String degree){
-//        Double d = Double.parseDouble(degree);
-//        t.turn(-d);
-//        return degree;
-//    }
+ //   public Double Right(Turtle t, List<BasicNode> values){
+ //       double d = 0.0;
+ //       for (BasicNode node : values) {
+ //           d = Double.parseDouble(node.getCommandName());
+ //           t.turn(-d);
+ //       }
+ //       t.notifyObservers();
+ //       return d.toString();
+ //   }
 //
 //    public String setHeading(Turtle t, String degree){
 //        Double d = Double.parseDouble(degree);
@@ -245,12 +246,12 @@ public class Command {
 //        return res;
 //    }
 //
-    public Double Sum(Turtle t, List<BasicNode> nodes){
+    public BasicNode Sum(Turtle t, List<BasicNode> nodes){
         Double sum = 0.0;
         for(BasicNode node:nodes){
             sum += Double.parseDouble(node.getCommandName());
         }
-        return sum;
+        return new argumentNode(sum.toString());
     }
 //
 //    public String difference(String arguments){
