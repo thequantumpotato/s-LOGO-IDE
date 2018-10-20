@@ -189,7 +189,7 @@ public class DisplayView implements SubView, Observer {
         else{
             System.out.println("null");
             myTurtle = (Turtle) o;
-            System.out.println(myTurtle.getX()+" "+myTurtle.getY());
+            System.out.println(myTurtle.getX()+" "+myTurtle.getY()+" "+myTurtle.getDirection());
             updateTurtle(adjustPosition(myTurtle.getX(),myTurtle.getY(),myTurtle.getDirection()),Duration.seconds(DEFAULT_DRAW_SPEED));
         }
 
