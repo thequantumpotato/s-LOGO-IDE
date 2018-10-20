@@ -4,7 +4,7 @@
 //of reflection, it's methods are called within frontend.Controller
 
 interface Command {
-	public void Forward();
+    public void Forward();
 
-	public void Backward();
+    public void Backward();
 }

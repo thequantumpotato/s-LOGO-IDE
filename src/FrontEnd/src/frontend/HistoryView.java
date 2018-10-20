@@ -31,7 +31,7 @@ public class HistoryView implements SubView {
     public void updateHistory(String newHistory) {
         historyList.getItems().add(new Text(newHistory));
     }
-    
+
     @Override
     public Node getView() {
         return historyView;

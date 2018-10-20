@@ -16,5 +16,4 @@ public interface Moveable {
     void setPosition(double x, double y);
 
 
-
 }

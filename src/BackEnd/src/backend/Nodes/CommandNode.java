@@ -7,7 +7,6 @@ import java.util.List;
 /**
  * @Author Jose San MArtin
  * A super class to represent all types of commands
- *
  */
 
 public abstract class CommandNode implements BasicNode {
@@ -15,12 +14,12 @@ public abstract class CommandNode implements BasicNode {
     private String commandName;
     private List<BasicNode> myChildren;
 
-    public CommandNode(String commandString){
+    public CommandNode(String commandString) {
         commandName = commandString;
         myChildren = new ArrayList<>();
     }
 
-    public void setNumArguments(int arguments){
+    public void setNumArguments(int arguments) {
         numArguments = arguments;
     }
 
@@ -28,24 +27,25 @@ public abstract class CommandNode implements BasicNode {
         myChildren.add(child);
     }
 
-    public List<BasicNode> getChildren(){
+    public List<BasicNode> getChildren() {
         return myChildren;
     }
 
     /**
      * Return the number of required arguments
      */
-    public int getRequiredArguments(){
+    public int getRequiredArguments() {
         return numArguments;
     }
 
     /**
      * Returns the current number of children
      */
-    public int getNumChildren(){
+    public int getNumChildren() {
         return myChildren.size();
     }
-    public String getCommandName(){
+
+    public String getCommandName() {
         return commandName;
     }
 

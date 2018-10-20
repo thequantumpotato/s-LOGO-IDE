@@ -1,6 +1,5 @@
 package frontend;
 
-import backend.Interpreter;
 import backend.ModelController;
 import backend.Turtle;
 import javafx.stage.Stage;
@@ -23,7 +22,6 @@ public class Controller {
         myView.registerDisplay(myTurtle);
         modelController = new ModelController(myTurtle);
     }
-
 
     public void runCommand(String input) throws Exception {
         modelController.parseCommand(input);
