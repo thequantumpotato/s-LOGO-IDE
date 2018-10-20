@@ -58,7 +58,8 @@ public class ModelController {
             Object ret = command.invoke(commander,myTurtle,children);
             myTurtle.clear();
             //System.out.println(String.valueOf(ret));
-            return new argumentNode(String.valueOf(ret));
+            return (argumentNode) ret;
+
         }
         catch (Exception e){
             e.printStackTrace();
