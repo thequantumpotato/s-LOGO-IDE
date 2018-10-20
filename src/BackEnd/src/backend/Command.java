@@ -4,11 +4,10 @@ import backend.Nodes.BasicNode;
 import backend.Nodes.argumentNode;
 
 import java.util.List;
-import java.util.Random;
 
 public class Command {
 
-    public Command(){
+    public Command() {
 
     }
 
@@ -22,7 +21,8 @@ public class Command {
         t.notifyObservers();
         return new argumentNode(d.toString());
     }
-//    public Double Backward (Turtle t, List<BasicNode> values){
+
+    //    public Double Backward (Turtle t, List<BasicNode> values){
 //        double d = 0.0;
 //        for (BasicNode node : values) {
 //            d = Double.parseDouble(node.getCommandName());
@@ -116,15 +116,15 @@ public class Command {
 //        return degree;
 //    }
 //
- //   public Double Right(Turtle t, List<BasicNode> values){
- //       double d = 0.0;
- //       for (BasicNode node : values) {
- //           d = Double.parseDouble(node.getCommandName());
- //           t.turn(-d);
- //       }
- //       t.notifyObservers();
- //       return d.toString();
- //   }
+    //   public Double Right(Turtle t, List<BasicNode> values){
+    //       double d = 0.0;
+    //       for (BasicNode node : values) {
+    //           d = Double.parseDouble(node.getCommandName());
+    //           t.turn(-d);
+    //       }
+    //       t.notifyObservers();
+    //       return d.toString();
+    //   }
 //
 //    public String setHeading(Turtle t, String degree){
 //        Double d = Double.parseDouble(degree);
@@ -246,9 +246,9 @@ public class Command {
 //        return res;
 //    }
 //
-    public BasicNode Sum(Turtle t, List<BasicNode> nodes){
+    public BasicNode Sum(Turtle t, List<BasicNode> nodes) {
         Double sum = 0.0;
-        for(BasicNode node:nodes){
+        for (BasicNode node : nodes) {
             sum += Double.parseDouble(node.getCommandName());
         }
         return new argumentNode(sum.toString());
@@ -428,5 +428,5 @@ public class Command {
 //    }
 
 
-        }
+}
 

@@ -23,7 +23,7 @@ public class VariableView implements SubView {
 
     public VariableView(View myView_) {
         myView = myView_;
-        
+
         variableView = new ScrollPane();
         variableView.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
 
@@ -36,7 +36,7 @@ public class VariableView implements SubView {
     }
 
     public void updateVariable(Map<String, String> var) {
-        
+
     }
 
     @Override
