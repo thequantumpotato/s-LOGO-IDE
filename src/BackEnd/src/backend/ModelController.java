@@ -15,10 +15,10 @@ public class ModelController {
     private Command commander;
     private Turtle myTurtle;
 
-    public ModelController(){
+    public ModelController(Turtle turtle){
         interpreter = new Interpreter();
         commander = new Command();
-        myTurtle = new Turtle();
+        myTurtle = turtle;
 
     }
 
@@ -32,6 +32,7 @@ public class ModelController {
         for(BasicNode node: myCommands){
             traverseTree(node);
         }
+        myTurtle.Changed();
         myTurtle.notifyObservers(true);
 
 
@@ -49,12 +50,12 @@ public class ModelController {
         for(BasicNode child: root.getChildren()){
             children.add(traverseTree(child));
         }
-        System.out.println(root.getCommandName());
+        //System.out.println(root.getCommandName());
         Method command = commander.getClass().getDeclaredMethod(root.getCommandName(), Turtle.class, List.class);
         //Invoke the command, and obtain the returned value, which is turned into a new argument node
         try{
             Object ret = command.invoke(commander,myTurtle,children);
-            System.out.println(String.valueOf(ret));
+            //System.out.println(String.valueOf(ret));
             return new argumentNode(String.valueOf(ret));
         }
         catch (Exception e){

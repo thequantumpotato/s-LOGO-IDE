@@ -1,5 +1,6 @@
 package frontend;
 
+import backend.Turtle;
 import javafx.animation.*;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -12,9 +13,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.util.Duration;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 import java.util.concurrent.ArrayBlockingQueue;
 
 /**
@@ -26,7 +25,7 @@ import java.util.concurrent.ArrayBlockingQueue;
  * @author Benjamin Xu
  */
 
-public class DisplayView implements SubView {
+public class DisplayView implements SubView, Observer {
 
     public static final int TURTLE_SIZE = 25;
     public static final int LINE_ANIMATION_FPS = 15;
@@ -49,7 +48,7 @@ public class DisplayView implements SubView {
     private double turtleY;
     private double turtleAngle;
 
-    public DisplayView(View myView_, Image image) {
+    public DisplayView(View myView_, Image image, Turtle turtle) {
         myView = myView_;
         scrollPane = new ScrollPane();
         root = new Group();
@@ -193,5 +192,15 @@ public class DisplayView implements SubView {
     @Override
     public Node getView() {
         return scrollPane;
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        if(arg!=null){
+            System.out.println(arg);
+        }
+        else{
+            System.out.println("null");
+        }
     }
 }

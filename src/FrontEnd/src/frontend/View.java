@@ -1,5 +1,6 @@
 package frontend;
 
+import backend.Turtle;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
@@ -69,7 +70,7 @@ public class View {
     private Timeline animation;
     private int elapsedTime;
 
-    public View(Stage primaryStage, Controller myController_) {
+    public View(Stage primaryStage, Controller myController_, Turtle turtle) {
         myController = myController_;
         myStage = primaryStage;
         root = new GridPane();
@@ -94,7 +95,7 @@ public class View {
         root.getColumnConstraints().addAll(column1, column2, column3);
         root.getRowConstraints().addAll(row1, row2, row3, row4);
 
-        myDisplayView = new DisplayView(this, new Image(this.getClass().getClassLoader().getResourceAsStream(TURTLE_IMAGE)));
+        myDisplayView = new DisplayView(this, new Image(this.getClass().getClassLoader().getResourceAsStream(TURTLE_IMAGE)),turtle);
         /*
         * Below is a demo program demonstrating the functionality of the Pen. However, you must first define all the points
         * that the turtle will traverse, and create all the updates, and then play them.
@@ -185,6 +186,10 @@ public class View {
         alert.setHeaderText("Erroneous Command: ");
         alert.setContentText(errorMessage);
         alert.showAndWait();
+    }
+
+    public void registerDisplay(Turtle turtle){
+        turtle.addObserver(myDisplayView);
     }
 
     /**

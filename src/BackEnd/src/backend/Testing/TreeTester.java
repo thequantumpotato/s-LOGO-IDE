@@ -3,6 +3,7 @@ package backend.Testing;
 import backend.Interpreter;
 import backend.ModelController;
 import backend.Nodes.BasicNode;
+import backend.Turtle;
 
 import java.util.List;
 
@@ -41,7 +42,9 @@ public class TreeTester {
 
     public static void main(String[] args) throws Exception {
         //TESTING
-        var cnt = new ModelController();
+        var turtle = new Turtle();
+
+        var cnt = new ModelController(turtle);
         // note, this simple "algorithm" will not handle SLogo comments
         String userInput = "ifelse lessp 10 5 [ fd 50 fd 50 ] [ fd 40 fd 40 ]";
         String userInput2 = "fd 50 fd 50 ";
