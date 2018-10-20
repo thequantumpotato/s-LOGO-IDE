@@ -31,7 +31,6 @@ public class DisplayView implements SubView, Observer {
     public static final int TURTLE_SIZE = 25;
     public static final int LINE_ANIMATION_FPS = 15;
     public static final float LINE_ANIMATION_DELAY = 1f / LINE_ANIMATION_FPS;
-    public static final Color DEFAULT_COLOR = Color.WHITE;
     public static final int TURTLE_DEFAULT_X = 275;
     public static final int TURTLE_DEFAULT_Y = 250;
     public static final int DEFAULT_BG_WIDTH = 800;
@@ -58,7 +57,7 @@ public class DisplayView implements SubView, Observer {
         turtleX = 0;
         turtleY = 0;
         //create bg
-        bg = new Rectangle(DEFAULT_BG_WIDTH, DEFAULT_BG_HEIGHT, DEFAULT_COLOR);
+        bg = new Rectangle(DEFAULT_BG_WIDTH, DEFAULT_BG_HEIGHT, myView.DEFAULT_BG_COLOR);
 
         //create turtle
         /** TO DO: Set the default turtle location to the center of the displayView */

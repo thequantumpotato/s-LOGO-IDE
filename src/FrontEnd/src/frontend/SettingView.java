@@ -1,9 +1,15 @@
 package frontend;
 
+import javafx.event.ActionEvent;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
+
+import java.io.File;
 
 public class SettingView implements SubView {
     private VBox settingView;
@@ -19,6 +25,7 @@ public class SettingView implements SubView {
         VBox bgBox = new VBox();
         Label bgLabel = new Label("Background Color: ");
         ColorPicker bgColorPicker = new ColorPicker();
+        bgColorPicker.setValue(myView.DEFAULT_BG_COLOR);
         bgColorPicker.setOnAction(e -> {
             myView.changeBgColor(bgColorPicker.getValue());
         });
@@ -32,7 +39,19 @@ public class SettingView implements SubView {
         });
         penBox.getChildren().addAll(penLabel, penColorPicker);
 
-        settingView.getChildren().addAll(bgBox, penBox);
+        VBox turtleBox = new VBox();
+        final FileChooser fileChooser = new FileChooser();
+
+        final Button turtleButton = new Button("Choose Turtle Image");
+        turtleBox.getChildren().add(turtleButton);
+
+        turtleButton.setOnAction((final ActionEvent e) -> {
+            File file = fileChooser.showOpenDialog(myView.getMyStage());
+            if (file != null) {
+                myView.changeTurtleImg(new Image(file.toURI().toString()));
+            }
+        });
+        settingView.getChildren().addAll(bgBox, penBox, turtleBox);
     }
 
     @Override
