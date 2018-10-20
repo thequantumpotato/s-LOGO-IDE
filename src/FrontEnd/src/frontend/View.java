@@ -153,11 +153,11 @@ public class View {
      * Internal APIs
      **/
     public void changeBgColor(Color bgColor) {
-        // myDisplayView.changeBgColor();
+         myDisplayView.changeBgColor(bgColor);
     }
 
     public void changePenColor(Color penColor) {
-        // What should be the relationship between turtle and pen?
+        myDisplayView.changePenColor(penColor);
     }
 
     public void changeTurtleImg(Image newTurtleImg) {
