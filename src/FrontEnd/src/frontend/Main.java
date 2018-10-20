@@ -18,6 +18,6 @@ public class Main extends Application {
         Turtle turtle = new Turtle();
         Controller myController = new Controller(primaryStage,turtle);
         ModelController mc = new ModelController(turtle);
-        mc.parseCommand("fd sum 20 30");
+        mc.parseCommand("If lessp 5 1 [ fd 50 bk 100 ]");
     }
 }
