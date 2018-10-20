@@ -1,12 +1,14 @@
 package backend;
 
+import javafx.beans.InvalidationListener;
+import java.util.Observable;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 
 /**
  * represents a turtle on the screen
  */
-public class Turtle implements Moveable{
+public class Turtle extends Observable implements Moveable {
 
     private double direction;
     private double size;
@@ -93,6 +95,8 @@ public class Turtle implements Moveable{
     public void show(){
 
     }
+
+
 
     public void hide(){
 

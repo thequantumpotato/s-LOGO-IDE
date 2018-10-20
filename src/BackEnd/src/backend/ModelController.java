@@ -2,6 +2,7 @@ package backend;
 
 
 import backend.Nodes.BasicNode;
+import backend.Nodes.argumentNode;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -31,8 +32,8 @@ public class ModelController {
         for(BasicNode node: myCommands){
             traverseTree(node);
         }
+        myTurtle.notifyObservers(true);
 
-        //Use reflection on myCommands
 
     }
 
@@ -50,8 +51,17 @@ public class ModelController {
         }
         System.out.println(root.getCommandName());
         Method command = commander.getClass().getDeclaredMethod(root.getCommandName(), Turtle.class, List.class);
-        command.invoke(commander,myTurtle,children);
-        return root;
+        //Invoke the command, and obtain the returned value, which is turned into a new argument node
+        try{
+            Object ret = command.invoke(commander,myTurtle,children);
+            System.out.println(String.valueOf(ret));
+            return new argumentNode(String.valueOf(ret));
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        //Return the new argument node
+        throw new NoSuchMethodException();
     }
 
 

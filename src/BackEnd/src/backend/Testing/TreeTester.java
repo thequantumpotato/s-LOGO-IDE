@@ -44,7 +44,8 @@ public class TreeTester {
         var cnt = new ModelController();
         // note, this simple "algorithm" will not handle SLogo comments
         String userInput = "ifelse lessp 10 5 [ fd 50 fd 50 ] [ fd 40 fd 40 ]";
-        String userInput2 = "fd 50";
+        String userInput2 = "fd 50 fd 50 ";
+        String userInput3 = "bk sum ( 20 30 )";
         cnt.parseCommand(userInput2);
 
         //var tester = new TreeTester();
