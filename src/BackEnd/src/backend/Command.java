@@ -17,10 +17,8 @@ public class Command {
             d = Double.parseDouble(node.getCommandName());
             t.move(d);
         }
-        t.Changed();
-        t.notifyObservers();
-        t.clear();
 
+        t.notifyObservers();
         return d;
     }
     public Double Backward (Turtle t, List<BasicNode> values){
@@ -29,9 +27,7 @@ public class Command {
             d = Double.parseDouble(node.getCommandName());
             t.move(-1*d);
         }
-        t.Changed();
         t.notifyObservers();
-        t.clear();
         return d;
     }
 //
@@ -119,11 +115,15 @@ public class Command {
 //        return degree;
 //    }
 //
-//    public String right(Turtle t, String degree){
-//        Double d = Double.parseDouble(degree);
-//        t.turn(-d);
-//        return degree;
-//    }
+    public Double Right(Turtle t, List<BasicNode> values){
+        double d = 0.0;
+        for (BasicNode node : values) {
+            d = Double.parseDouble(node.getCommandName());
+            t.turn(-d);
+        }
+        t.notifyObservers();
+        return d;
+    }
 //
 //    public String setHeading(Turtle t, String degree){
 //        Double d = Double.parseDouble(degree);

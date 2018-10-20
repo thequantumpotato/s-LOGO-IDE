@@ -19,7 +19,6 @@ public class Turtle extends Observable implements Moveable {
     private boolean showing;
 
     public Turtle(){
-
     }
 
     public void setX(double x){

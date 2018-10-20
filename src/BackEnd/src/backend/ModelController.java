@@ -54,7 +54,9 @@ public class ModelController {
         Method command = commander.getClass().getDeclaredMethod(root.getCommandName(), Turtle.class, List.class);
         //Invoke the command, and obtain the returned value, which is turned into a new argument node
         try{
+            myTurtle.Changed();
             Object ret = command.invoke(commander,myTurtle,children);
+            myTurtle.clear();
             //System.out.println(String.valueOf(ret));
             return new argumentNode(String.valueOf(ret));
         }
