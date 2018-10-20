@@ -96,4 +96,8 @@ class Pen {
     public void renderLine(Line line) {
         root.getChildren().add(line);
     }
+
+    public Duration getMyDrawSpeed() {
+        return myDrawSpeed;
+    }
 }

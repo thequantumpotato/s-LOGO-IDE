@@ -105,6 +105,10 @@ public class DisplayView implements SubView, Observer {
         turtleView.setImage(newTurtleImg);
     }
 
+    public void changeAnimationSpeed(Double time){
+        myPen.setDrawSpeed(Duration.seconds(time));
+    }
+
     public void updateTurtle(Coordinate newpos, Duration duration) {
         if (newpos.getX() > bg.getX() + bg.getWidth() || newpos.getX() < bg.getX() ||
                 newpos.getY() > bg.getY() + bg.getHeight() || newpos.getY() < bg.getY()) {
@@ -189,8 +193,7 @@ public class DisplayView implements SubView, Observer {
             System.out.println("null");
             myTurtle = (Turtle) o;
             System.out.println(myTurtle.getX() + " " + myTurtle.getY() + " " + myTurtle.getDirection());
-            updateTurtle(adjustPosition(myTurtle.getX(), myTurtle.getY(), myTurtle.getDirection()), Duration.seconds(DEFAULT_DRAW_SPEED));
+            updateTurtle(adjustPosition(myTurtle.getX(), myTurtle.getY(), myTurtle.getDirection()), myPen.getMyDrawSpeed());
         }
-
     }
 }

@@ -5,6 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
@@ -41,17 +42,35 @@ public class SettingView implements SubView {
 
         VBox turtleBox = new VBox();
         final FileChooser fileChooser = new FileChooser();
-
-        final Button turtleButton = new Button("Choose Turtle Image");
-        turtleBox.getChildren().add(turtleButton);
-
+        final Button turtleButton = new Button("Turtle Image");
         turtleButton.setOnAction((final ActionEvent e) -> {
             File file = fileChooser.showOpenDialog(myView.getMyStage());
             if (file != null) {
                 myView.changeTurtleImg(new Image(file.toURI().toString()));
             }
         });
-        settingView.getChildren().addAll(bgBox, penBox, turtleBox);
+        turtleBox.getChildren().add(turtleButton);
+
+        VBox speedBox = new VBox();
+        Label speedLabel = new Label("Animation Speed: " + myView.DEFAULT_PEN_TIME + "s");
+        Slider speedSlider = new Slider();
+        speedSlider.setMin(1);
+        speedSlider.setMax(10);
+        speedSlider.setValue(myView.DEFAULT_PEN_TIME);
+        speedSlider.setShowTickMarks(true);
+        speedSlider.setShowTickLabels(true);
+        speedSlider.setMajorTickUnit(1);
+        speedSlider.setSnapToTicks(true);
+        speedSlider.setBlockIncrement(1);
+        speedSlider.setOnMouseReleased(e -> {
+            myView.changeAnimationSpeed(1/speedSlider.getValue());
+        });
+        speedSlider.valueProperty().addListener((ov, old_val, new_val) -> {
+            speedLabel.setText("Animation Speed: " + String.valueOf(new_val.doubleValue()));
+        });
+        speedBox.getChildren().addAll(speedLabel, speedSlider);
+
+        settingView.getChildren().addAll(bgBox, penBox, turtleBox, speedBox);
     }
 
     @Override
