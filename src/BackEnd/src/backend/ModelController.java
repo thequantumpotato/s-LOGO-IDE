@@ -42,7 +42,6 @@ public class ModelController {
         myTurtle.notifyObservers(true);
         myTurtle.clear();
 
-
     }
 
     public void updateVar(String varName, String varVal){

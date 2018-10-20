@@ -138,8 +138,9 @@ public class DisplayView implements SubView, Observer {
     }
 
     public void playAnims(){
+        System.out.println("Playing anims");
         turtleView.toFront();
-        //myAnimQ.setOnFinished(event -> myAnimQ.getChildren().clear());
+        myAnimQ.setOnFinished(event -> myAnimQ.getChildren().clear());
         myAnimQ.play();
         /*if(myAnimQ.size()>1){
             System.out.println("bigger than 1");
@@ -173,7 +174,7 @@ public class DisplayView implements SubView, Observer {
     }
 
     private Coordinate adjustPosition(double x, double y, double theta){
-        double newtheta = (2*Math.PI)-theta;
+        double newtheta = Math.toDegrees((2*Math.PI)-theta);
         return new Coordinate(x+TURTLE_DEFAULT_X,TURTLE_DEFAULT_Y-y,newtheta);
     }
 
@@ -185,7 +186,7 @@ public class DisplayView implements SubView, Observer {
     @Override
     public void update(Observable o, Object arg) {
         if(arg!=null){
-            myAnimQ.play();
+            playAnims();
         }
         else{
             System.out.println("null");

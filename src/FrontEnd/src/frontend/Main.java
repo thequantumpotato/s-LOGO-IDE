@@ -4,7 +4,6 @@ import backend.Turtle;
 import backend.ModelController;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import backend.ModelController;
 
 public class Main extends Application {
 
