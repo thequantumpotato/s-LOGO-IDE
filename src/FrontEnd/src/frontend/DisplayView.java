@@ -173,7 +173,8 @@ public class DisplayView implements SubView, Observer {
     }
 
     private Coordinate adjustPosition(double x, double y, double theta){
-        return new Coordinate(x+TURTLE_DEFAULT_X,TURTLE_DEFAULT_Y-y,theta);
+        double newtheta = (2*Math.PI)-theta;
+        return new Coordinate(x+TURTLE_DEFAULT_X,TURTLE_DEFAULT_Y-y,newtheta);
     }
 
     @Override
