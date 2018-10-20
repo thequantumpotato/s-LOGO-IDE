@@ -12,3 +12,7 @@ A development environment that helps users write SLogo programs.
 * any decisions, assumptions, or simplifications you made to handle vague, ambiguous, or conflicting requirements
 * any known bugs, crashes, or problems with the project's functionality
 * any extra features included in the project
+
+
+Assumptions:
+- Everything is a double, except for the remainder method
