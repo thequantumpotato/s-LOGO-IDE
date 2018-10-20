@@ -16,7 +16,7 @@ import javafx.util.Duration;
 class Pen {
     public static final int DEFAULT_SIZE = 1;
     public static final Duration DEFAULT_SPEED = Duration.seconds(1);
-    public static final Color DEFAULT_COLOR = Color.BLACK;
+    public static final Color DEFAULT_COLOR = Color.WHITE;
     private Paint myColor;
     private double mySize;
     private Group root;
