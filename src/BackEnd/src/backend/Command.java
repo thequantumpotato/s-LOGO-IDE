@@ -17,6 +17,7 @@ public class Command {
             d = Double.parseDouble(node.getCommandName());
             t.move(d);
         }
+        t.notifyObservers();
         return d;
     }
     public Double Backward (Turtle t, List<BasicNode> values){

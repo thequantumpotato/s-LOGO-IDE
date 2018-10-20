@@ -32,6 +32,7 @@ public class ModelController {
         for(BasicNode node: myCommands){
             traverseTree(node);
         }
+        myTurtle.notifyObservers(true);
 
 
     }
