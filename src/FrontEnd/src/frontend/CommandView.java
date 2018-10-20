@@ -26,7 +26,11 @@ public class CommandView implements SubView {
         commandView.getStyleClass().add("commandView");
 
         submitButton.setOnAction(action -> {
-            myView.passCommand(input.getText());
+            try {
+                myView.passCommand(input.getText());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             input.setText("");
         });
     }
