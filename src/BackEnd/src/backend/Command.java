@@ -5,11 +5,11 @@ import backend.Nodes.BasicNode;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * @author Harry Xie
+ * Contains all commands that modelcontroller can use to move the turtle
+ */
 public class Command {
-
-    public Command(){
-
-    }
 
     public Double Forward(Turtle t, List<BasicNode> values) {
         Double d = 0.0;
