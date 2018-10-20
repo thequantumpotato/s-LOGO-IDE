@@ -102,7 +102,7 @@ public class View {
         * */
         myDisplayView.changeBgColor(Color.BLACK);
         myDisplayView.changePenColor(Color.DARKSEAGREEN);
-        myDisplayView.updateTurtle(new Coordinate(300,300,120),Duration.seconds(2));
+        /*myDisplayView.updateTurtle(new Coordinate(300,300,120),Duration.seconds(2));
         myDisplayView.changePenColor(Color.DARKBLUE);
         myDisplayView.changePenSize(5);
         myDisplayView.updateTurtle(new Coordinate(-100,120,-60),Duration.seconds(2));
@@ -112,7 +112,7 @@ public class View {
         myDisplayView.changePenColor(Color.INDIANRED);
         myDisplayView.changePenSize(10);
         myDisplayView.updateTurtle(new Coordinate(300,300,-170),Duration.seconds(2));
-        myDisplayView.playAnims();
+        myDisplayView.playAnims();*/
 
 
         myCommandView = new CommandView(this);

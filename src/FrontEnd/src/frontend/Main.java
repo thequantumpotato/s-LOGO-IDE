@@ -18,6 +18,6 @@ public class Main extends Application {
         Turtle turtle = new Turtle();
         Controller myController = new Controller(primaryStage,turtle);
         ModelController mc = new ModelController(turtle);
-        mc.parseCommand("fd 50 fd 50");
+        mc.parseCommand("fd 50 bk 30");
     }
 }

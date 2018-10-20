@@ -35,12 +35,14 @@ public class DisplayView implements SubView, Observer {
     public static final int TURTLE_DEFAULT_Y = 250;
     public static final int DEFAULT_BG_WIDTH = 800;
     public static final int DEFAULT_BG_HEIGHT = 800;
+    public static final int DEFAULT_DRAW_SPEED = 2;
     private View myView;
     private ScrollPane scrollPane;
     private Group root;
     private Rectangle bg;
     private ImageView turtleView;
     private Pen myPen;
+    Turtle myTurtle;
 
     private SequentialTransition myAnimQ;
     private boolean penDown;
@@ -170,24 +172,9 @@ public class DisplayView implements SubView, Observer {
         return new double[]{x,y};
     }
 
-    /*private Timeline createDrawPath(Coordinate newpos,int duration) {
-        // temporary method, fill in implementation later
-        *//*Line line = new Line();
-        line.setStartX(turtleView.getX());
-        line.setStartY(turtleView.getY());*//*
-
-        int totalframes = LINE_ANIMATION_FPS*duration;
-        double xnudge = (newpos.getX()-turtleView.getX())/totalframes;
-        double ynudge = (newpos.getY()-turtleView.getY())/totalframes;
-        Timeline timeline = new Timeline();
-        timeline.setCycleCount(LINE_ANIMATION_FPS *duration);
-        KeyFrame frame = new KeyFrame(Duration.seconds(LINE_ANIMATION_DELAY), event -> {
-            path.getElements().add(new LineTo(getTurtleCenter()[0],getTurtleCenter()[1]));
-        });
-        timeline.getKeyFrames().add(frame);
-        timeline.play();
-        return timeline;
-    }*/
+    private Coordinate adjustPosition(double x, double y, double theta){
+        return new Coordinate(x+TURTLE_DEFAULT_X,TURTLE_DEFAULT_Y-y,theta);
+    }
 
     @Override
     public Node getView() {
@@ -197,10 +184,14 @@ public class DisplayView implements SubView, Observer {
     @Override
     public void update(Observable o, Object arg) {
         if(arg!=null){
-            System.out.println(arg);
+            myAnimQ.play();
         }
         else{
             System.out.println("null");
+            myTurtle = (Turtle) o;
+            System.out.println(myTurtle.getX()+" "+myTurtle.getY());
+            updateTurtle(adjustPosition(myTurtle.getX(),myTurtle.getY(),myTurtle.getDirection()),Duration.seconds(DEFAULT_DRAW_SPEED));
         }
+
     }
 }

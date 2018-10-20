@@ -29,6 +29,9 @@ public class Command {
             d = Double.parseDouble(node.getCommandName());
             t.move(-1*d);
         }
+        t.Changed();
+        t.notifyObservers();
+        t.clear();
         return d;
     }
 //
