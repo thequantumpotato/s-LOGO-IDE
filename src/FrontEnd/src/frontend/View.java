@@ -163,7 +163,7 @@ public class View {
     public void changeTurtleImg(Image newTurtleImg) {
     }
 
-    public void passCommand(String input) {
+    public void passCommand(String input) throws Exception {
         myController.runCommand(input);
         myHistoryView.updateHistory(input);
     }

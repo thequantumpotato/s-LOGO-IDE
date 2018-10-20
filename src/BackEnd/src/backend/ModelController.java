@@ -34,8 +34,6 @@ public class ModelController {
         }
         myTurtle.Changed();
         myTurtle.notifyObservers(true);
-
-
     }
 
     //Postorder traversal of each command tree
