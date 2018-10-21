@@ -6,9 +6,7 @@
 .button {
     -fx-text-fill: white;
     -fx-font-family: "Arial";
-    -fx-font-size: 14px;
     -fx-font-weight: bold;
-    -fx-pref-width: 100px;
     -fx-background-color: linear-gradient(#61a2b1, #2A5058);
 }
 

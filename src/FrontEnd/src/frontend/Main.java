@@ -5,6 +5,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 
 public class Main extends Application {
+    public static final String DEFAULT_LANGUAGE = "languages/English";
 
     public static void main(String[] args) {
         launch(args);
@@ -13,6 +14,6 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setResizable(false);
-        new Controller(primaryStage, new Turtle());
+        new Controller(primaryStage, new Turtle(), DEFAULT_LANGUAGE);
     }
 }
