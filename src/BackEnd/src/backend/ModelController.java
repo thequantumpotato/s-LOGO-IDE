@@ -32,7 +32,6 @@ public class ModelController {
         commander = new Command(this, turtle);
         myTurtle = turtle;
         myReflector = new Reflector(commander, myTurtle);
-
     }
 
     /**
