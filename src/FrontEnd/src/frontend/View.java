@@ -169,7 +169,10 @@ public class View {
 
     public void passCommand(String input) throws Exception {
         myController.runCommand(input);
-        myHistoryView.updateHistory(input);
+    }
+
+    public void updateHistory(String validInput){
+        myHistoryView.updateHistory(validInput);
     }
 
 

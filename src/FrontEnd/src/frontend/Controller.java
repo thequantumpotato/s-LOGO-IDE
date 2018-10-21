@@ -41,6 +41,7 @@ public class Controller {
     public void runCommand(String input) {
         try {
             modelController.parseCommand(input);
+            myView.updateHistory(input);
         } catch (Exception e) {
             if (e instanceof IllegalCommandException) {
                 myView.displayErrors(myErrors.getString("commandError"));
