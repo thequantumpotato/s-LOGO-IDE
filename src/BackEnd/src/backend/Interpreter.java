@@ -68,7 +68,8 @@ public class Interpreter {
     /**
      * Returns language's type associated with the given text if one exists
      */
-    private String getSymbol(String text) throws IllegalCommandException {
+    private String getSymbol(String text) //throws IllegalCommandException
+     {
         for (var e : mySymbols) {
             if (match(text, e.getValue())) {
                 if (e.getKey().equals("Constant")) {
@@ -79,7 +80,7 @@ public class Interpreter {
 
             }
         }
-        throw new IllegalCommandException(myErrors.getString("commandError"));
+        return "";
     }
 
     /**
