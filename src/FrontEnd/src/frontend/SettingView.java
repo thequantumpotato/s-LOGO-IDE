@@ -1,11 +1,12 @@
 package frontend;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
@@ -13,19 +14,26 @@ import javafx.stage.FileChooser;
 import java.io.File;
 
 public class SettingView implements SubView {
-    private VBox settingView;
+    //    private VBox settingView;
+    private ToolBar settingView;
+
     private View myView;
 
-    /** TO DO: implement a tool bar to enclose all settings */
+    /**
+     * TO DO:
+     * 1. add option to change pen size and pen state?
+     */
 
     public SettingView(View myView_) {
         myView = myView_;
-        settingView = new VBox();
+//        settingView = new VBox();
+        settingView = new ToolBar();
         settingView.getStyleClass().add("settingView");
 
         VBox bgBox = new VBox();
-        Label bgLabel = new Label("Background Color: ");
         ColorPicker bgColorPicker = new ColorPicker();
+        Label bgLabel = new Label("Background Color:");
+        bgColorPicker.setPromptText("Background Color");
         bgColorPicker.setValue(myView.DEFAULT_BG_COLOR);
         bgColorPicker.setOnAction(e -> {
             myView.changeBgColor(bgColorPicker.getValue());
@@ -33,12 +41,13 @@ public class SettingView implements SubView {
         bgBox.getChildren().addAll(bgLabel, bgColorPicker);
 
         VBox penBox = new VBox();
-        Label penLabel = new Label("Pen Color: ");
         ColorPicker penColorPicker = new ColorPicker();
+        Label penLabel = new Label("Background Color:");
+        penColorPicker.setPromptText("Pen Color");
         penColorPicker.setOnAction(e -> {
             myView.changePenColor(penColorPicker.getValue());
         });
-        penBox.getChildren().addAll(penLabel, penColorPicker);
+        penBox.getChildren().addAll(penLabel,penColorPicker);
 
         VBox turtleBox = new VBox();
         final FileChooser fileChooser = new FileChooser();
@@ -50,6 +59,18 @@ public class SettingView implements SubView {
             }
         });
         turtleBox.getChildren().add(turtleButton);
+
+        ComboBox languageBox = new ComboBox();
+        languageBox.getItems().addAll("English", "Chinese", "French", "German", "Italian", "Portuguese", "Russian", "Spanish");
+        languageBox.setValue("English");
+        languageBox.valueProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue ov, String t, String t1) {
+                myView.changeLanguage(t1);
+            }
+        });
+
+
 
         VBox speedBox = new VBox();
         Label speedLabel = new Label("Animation Speed: " + myView.DEFAULT_PEN_TIME + "s");
@@ -63,14 +84,14 @@ public class SettingView implements SubView {
         speedSlider.setSnapToTicks(true);
         speedSlider.setBlockIncrement(1);
         speedSlider.setOnMouseReleased(e -> {
-            myView.changeAnimationSpeed(1/speedSlider.getValue());
+            myView.changeAnimationSpeed(1 / speedSlider.getValue());
         });
         speedSlider.valueProperty().addListener((ov, old_val, new_val) -> {
             speedLabel.setText("Animation Speed: " + String.valueOf(new_val.doubleValue()));
         });
         speedBox.getChildren().addAll(speedLabel, speedSlider);
 
-        settingView.getChildren().addAll(bgBox, penBox, turtleBox, speedBox);
+        settingView.getItems().addAll(bgBox, penBox, speedBox, turtleBox, languageBox);
     }
 
     @Override
