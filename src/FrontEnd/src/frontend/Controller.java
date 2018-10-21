@@ -15,24 +15,23 @@ import java.util.regex.Pattern;
  * @author Vincent Liu
  */
 public class Controller {
+    public static final String commandError = "Errors";
+    public static final String LANG_PATH = "languages/";
     private View myView;
     private Turtle myTurtle;
     private ModelController modelController;
     private List<Map.Entry<String, Pattern>> mySymbols;
-    private ResourceBundle myResources;
-    public ResourceBundle myErrors;
-    private static final String commandError = "Errors";
+    private ResourceBundle myErrors;
 
     /**
      * TO DO: Attach myResource onto GUI and modelController to deal with different languages
      */
     public Controller(Stage primaryStage, Turtle myTurtle_, String language, String syntax) {
         mySymbols = new ArrayList<>();
-        addPatterns(language);
+        addPatterns(LANG_PATH + language);
         addPatterns(syntax);
-        myResources = ResourceBundle.getBundle(language);
         myTurtle = myTurtle_;
-        myView = new View(primaryStage, this, myTurtle);
+        myView = new View(primaryStage, this, myTurtle, language);
         myView.registerDisplay(myTurtle);
         modelController = new ModelController(myTurtle, mySymbols);
         myErrors = ResourceBundle.getBundle(commandError);

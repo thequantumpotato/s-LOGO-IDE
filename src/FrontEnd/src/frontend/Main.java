@@ -1,12 +1,11 @@
 package frontend;
 
-import backend.ModelController;
 import backend.Turtle;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-    public static final String DEFAULT_LANGUAGE = "languages/English";
+    public static final String DEFAULT_LANGUAGE = "English";
     public static final String SYNTAX = "languages/Syntax";
 
     public static void main(String[] args) {
