@@ -26,12 +26,10 @@ public class Interpreter {
     /**
      * Create an empty parser.
      */
-    public Interpreter() {
-        mySymbols = new ArrayList<>();
+    public Interpreter(List<Map.Entry<String, Pattern>> symbolList) {
+        mySymbols = symbolList;
         myCommands = new ArrayList<>();
         myTreeFactory = new TreeFactory();
-        addPatterns("backend/resources/languages/English");
-        addPatterns("backend/resources/languages/Syntax");
         myErrors = ResourceBundle.getBundle(commandError);
     }
 
@@ -92,15 +90,6 @@ public class Interpreter {
         return regex.matcher(text).matches();
     }
 
-    private void reflection() throws Exception {
-        for (int i = 0; i < myCommands.size(); i++) {
-            if (myCommands.get(i) == "plus") { //TODO: Make this more general, not just for plus
-                Method myMethod = this.getClass().getDeclaredMethod(myCommands.get(i));
-                myMethod.invoke(this, i);
-
-            }
-        }
-    }
 
 
 }
