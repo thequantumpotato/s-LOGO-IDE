@@ -163,7 +163,7 @@ public class View {
     }
 
     public void changeLanguage(String language) {
-        new Controller(myStage, new Turtle(), LANG_PATH + language);
+        new Controller(myStage, new Turtle(), LANG_PATH + language, "languages/Syntax");
         System.out.print("Language has been changed to " + language);
     }
 
