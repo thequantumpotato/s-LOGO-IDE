@@ -3,13 +3,13 @@ package backend;
 import backend.Nodes.BasicNode;
 import backend.Nodes.ArgumentNode;
 import backend.Nodes.CommandNode;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import javafx.scene.paint.Color;
+
+import java.util.*;
 import java.util.regex.Pattern;
 
 /**
- * @author Jose San Martin, Henry
+ * @author Jose San Martin, Harry Xie
  * A controller class that performs reflection on a list of trees to move the turtle.
  */
 public class ModelController {
@@ -21,6 +21,9 @@ public class ModelController {
     private Map<String, ArgumentNode> variableMap = new HashMap<>();
     private Map<String, CommandNode> instructionMap = new HashMap<>();
     private Reflector myReflector;
+    private Mediator myMediator;
+    private final String colorPath = "backend/resources/Color";
+    private ResourceBundle myColors;
 
     public ModelController(Turtle turtle, List<Map.Entry<String, Pattern>> symbolList){
         mySymbols = symbolList;
@@ -28,6 +31,8 @@ public class ModelController {
         commander = new Command(this, turtle);
         myTurtle = turtle;
         myReflector = new Reflector(commander, myTurtle);
+        myMediator = new Mediator();
+        myColors = ResourceBundle.getBundle(colorPath);
     }
 
     /**
@@ -92,7 +97,40 @@ public class ModelController {
     }
 
     public void clearScreen(){
+        myMediator.clear();
+    }
 
+//    public void penUp(){
+//        myMediator.penUp();
+//    }
+//
+//    public void penDown(){
+//        myMediator.penDown();
+//    }
+//
+//    public void show(){
+//        myMediator.show();
+//    }
+//
+//    public void hide(){
+//        myMediator.hide();
+//    }
+//
+//    public boolean getPenStatus(){
+//        myMediator.getPenStatus();
+//    }
+//
+    public void setBackground(String colorName){
+        try {
+            String rgb = myColors.getString(colorName);
+            List<Integer> rgbList = new ArrayList<>();
+            for(String e: rgb.split(",")){
+                rgbList.add(Integer.parseInt(e));
+            }
+            myMediator.setBackground(new Color(rgbList.get(0), rgbList.get(1).rgbList.get(2)));
+        } catch(MissingResourceException e){
+            handleMissingResource();
+        }
     }
 
 }

@@ -100,7 +100,7 @@ public class Command {
         }
 
         public BasicNode showTurtle (List<BasicNode> l) {
-            t.show();
+            m.show();
             return new ArgumentNode("1");
         }
 
@@ -114,23 +114,24 @@ public class Command {
         }
 
         public BasicNode penDown (List<BasicNode> l) {
-            t.putPenDown();
+            m.penDown();
             return new ArgumentNode("1");
         }
 
         public BasicNode penUp (List<BasicNode> l) {
-            t.liftPenUp();
+            m.penUp();
             return new ArgumentNode("0");
         }
 
         public BasicNode hideTurtle (List<BasicNode> l) {
-            t.hide();
+            m.hide();
             return new ArgumentNode("0");
         }
 
         public BasicNode home (List<BasicNode> l) {
             double dist = calcDist(t.getX(), t.getY(), 0, 0);
             t.setPosition(0, 0);
+            t.notifyObservers();
             return new ArgumentNode(((Double) dist).toString());
         }
 
@@ -147,11 +148,11 @@ public class Command {
         }
 
         public BasicNode isPenDown (List<BasicNode> l) {
-            return new ArgumentNode(t.getIsPenDown() ? "1" : "0");
+            return new ArgumentNode(m.getPenStatus() ? "1" : "0");
         }
 
         public BasicNode isShowing (List<BasicNode> l) {
-            return new ArgumentNode(t.getIsShowing() ? "1" : "0");
+            return new ArgumentNode(m.getPenStatus() ? "1" : "0");
         }
 
         private int[] parseTwoIntegers (List<BasicNode> l) {
@@ -319,14 +320,19 @@ public class Command {
             return m.getVariable(name);
         }
 
-//        public BasicNode repeat (List<BasicNode> l) {
-//            Double tmp = Double.parseDouble(l.get(0).getCommandName());
-//            Integer times = tmp.intValue();
-//            CommandNode c = (CommandNode) l.get(1);
-//            // to-do: communicate as to how to repeat stuff
-//
-//        }
-//
+        public BasicNode repeat(List<BasicNode> nodes){
+            //Input is a turtle and a list of BasicNodes. The first one is the repSize, and the second one
+            //is the listNode
+            BasicNode repNode = nodes.get(0);
+            int reps = Integer.parseInt(repNode.getCommandName());
+            BasicNode loopNode = new LoopNode(reps, "loop");
+            BasicNode list = nodes.get(1);
+            for(BasicNode n: list.getChildren()){
+                loopNode.addChild(n); // move children from the listNode to the loopNode
+            }
+            return loopNode;
+        }
+
 //        public BasicNode doTimes (List<BasicNode> l) {
 //            //to-do
 //        }
@@ -342,9 +348,11 @@ public class Command {
             return m.getInstruction(name);
         }
 
-//        public BasicNode setBackground (List<BasicNode> l) {
-//
-//        }
+        public BasicNode setBackground (List<BasicNode> l) {
+            String colorName = l.get(0).getCommandName();
+            m.setBackground(colorName);
+            return new ArgumentNode(colorName);
+        }
 //
 //        public BasicNode setPenColor (List<BasicNode> l) {
 //

@@ -1,7 +1,6 @@
 package backend;
 
 import javafx.scene.paint.Color;
-
 import java.util.Observable;
 
 /**
@@ -18,6 +17,12 @@ public class Turtle extends Observable implements Moveable {
     private boolean showing;
 
     public Turtle() {
+        direction = 0;
+        x = 0;
+        y = 0;
+        penDown = true;
+        showing = true;
+        color = Color.BLACK;
     }
 
     public void move(double distance) {
@@ -38,16 +43,6 @@ public class Turtle extends Observable implements Moveable {
         if (direction <= 0) {
             direction += 2 * Math.PI;
         }
-    }
-
-    @Override
-    public void penUp() {
-
-    }
-
-    @Override
-    public void penDown() {
-
     }
 
     public void Changed() {
@@ -80,31 +75,6 @@ public class Turtle extends Observable implements Moveable {
 
     public void setY(double y) {
         this.y = y;
-    }
-
-    public boolean getIsPenDown() {
-        return this.penDown;
-    }
-
-    public boolean getIsShowing() {
-        return this.showing;
-    }
-
-    public void liftPenUp() {
-
-    }
-
-    public void putPenDown() {
-
-    }
-
-    public void show() {
-
-    }
-
-
-    public void hide() {
-
     }
 
 }
