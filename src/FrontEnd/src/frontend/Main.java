@@ -1,11 +1,12 @@
 package frontend;
 
-import backend.Turtle;
 import backend.ModelController;
+import backend.Turtle;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
 public class Main extends Application {
+    public static final String DEFAULT_LANGUAGE = "languages/English";
 
     public static void main(String[] args) {
         launch(args);
@@ -15,8 +16,9 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setResizable(false);
         Turtle turtle = new Turtle();
-        Controller myController = new Controller(primaryStage,turtle);
+        Controller myController = new Controller(primaryStage, new Turtle(), DEFAULT_LANGUAGE);
         ModelController mc = new ModelController(turtle);
-        mc.parseCommand("fd sum 20 30");
+        mc.parseCommand("repeat 50 [ fd 40 rt 25 ]");
+
     }
 }

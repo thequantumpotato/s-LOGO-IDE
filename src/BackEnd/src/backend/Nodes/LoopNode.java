@@ -3,39 +3,43 @@ package backend.Nodes;
 import java.util.ArrayList;
 import java.util.List;
 
+public class LoopNode implements BasicNode {
 
-/**
- * @Author Jose San Martin
- * A node class that extends our BasicNode interface. This class handles Lists, by having it's children be a list of
- * commands nodes, where the number of children is not specified.
- */
-public class ListNode implements BasicNode {
+    private int repititions;
     private String commandName;
     private List<BasicNode> myChildren;
 
-    public ListNode(String commandString) {
-        commandName = commandString;
+    public LoopNode(int rep, String command){
+        commandName = command;
+        repititions = rep;
         myChildren = new ArrayList<>();
     }
-
+    @Override
     public void addChild(BasicNode Child) {
         myChildren.add(Child);
     }
 
-    //Do something about this, as a List has as many arguments as the user puts in
+    @Override
     public int getRequiredArguments() {
-        return myChildren.size();
+        return 0;
     }
 
+    @Override
     public int getNumChildren() {
         return myChildren.size();
     }
 
+    @Override
     public String getCommandName() {
         return commandName;
     }
 
+    @Override
     public List<BasicNode> getChildren() {
         return myChildren;
+    }
+
+    public int getReps(){
+        return repititions;
     }
 }

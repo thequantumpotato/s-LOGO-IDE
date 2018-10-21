@@ -54,7 +54,10 @@ public class View {
     public static final String STYLESHEET = "style.css";
     public static final int SCREEN_WIDTH = 1000;
     public static final int SCREEN_HEIGHT = 700;
+    public static final Color DEFAULT_BG_COLOR = Color.BLACK;
+    public static final String LANG_PATH = "languages/";
     public final int FRAMES_PER_SECOND = 60;
+    public final int DEFAULT_PEN_TIME = 1;
     public final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     public final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
     private DisplayView myDisplayView;
@@ -63,6 +66,7 @@ public class View {
     private FunctionView myFunctionView;
     private HistoryView myHistoryView;
     private SettingView mySettingView;
+    private HelpView myHelpView;
     private GridPane root;
     private Scene myScene;
     private Controller myController;
@@ -84,24 +88,24 @@ public class View {
         var column3 = new ColumnConstraints();
         column3.setPercentWidth(20);
         var row1 = new RowConstraints();
-        row1.setPercentHeight(40);
+        row1.setPercentHeight(10);
         var row2 = new RowConstraints();
         row2.setPercentHeight(40);
         var row3 = new RowConstraints();
-        row3.setPercentHeight(10);
+        row3.setPercentHeight(40);
         var row4 = new RowConstraints();
         row4.setPercentHeight(10);
 
         root.getColumnConstraints().addAll(column1, column2, column3);
         root.getRowConstraints().addAll(row1, row2, row3, row4);
 
-        myDisplayView = new DisplayView(this, new Image(this.getClass().getClassLoader().getResourceAsStream(TURTLE_IMAGE)),turtle);
+        myDisplayView = new DisplayView(this, new Image(this.getClass().getClassLoader().getResourceAsStream(TURTLE_IMAGE)), turtle);
         /*
-        * Below is a demo program demonstrating the functionality of the Pen. However, you must first define all the points
-        * that the turtle will traverse, and create all the updates, and then play them.
-        * */
-        myDisplayView.changeBgColor(Color.BLACK);
-        myDisplayView.changePenColor(Color.DARKSEAGREEN);
+         * Below is a demo program demonstrating the functionality of the Pen. However, you must first define all the points
+         * that the turtle will traverse, and create all the updates, and then play them.
+         * */
+//        myDisplayView.changeBgColor(Color.BLACK);
+//        myDisplayView.changePenColor(Color.DARKSEAGREEN);
         /*myDisplayView.updateTurtle(new Coordinate(300,300,120),Duration.seconds(2));
         myDisplayView.changePenColor(Color.DARKBLUE);
         myDisplayView.changePenSize(5);
@@ -114,22 +118,24 @@ public class View {
         myDisplayView.updateTurtle(new Coordinate(300,300,-170),Duration.seconds(2));
         myDisplayView.playAnims();*/
 
-
         myCommandView = new CommandView(this);
 
         myVariableView = new VariableView(this);
 
         myFunctionView = new FunctionView(this);
 
-        myHistoryView = new HistoryView(this);
+        myHistoryView = new HistoryView();
+
+        myHelpView = new HelpView();
 
         mySettingView = new SettingView(this);
 
-        root.add(mySettingView.getView(), 0, 0, 1, 2);
-        root.add(myDisplayView.getView(), 1, 0, 1, 2);
-        root.add(myVariableView.getView(), 2, 0, 1, 1);
-        root.add(myFunctionView.getView(), 2, 1, 1, 1);
-        root.add(myHistoryView.getView(), 0, 2, 3, 1);
+        root.add(mySettingView.getView(), 0, 0, 3, 1);
+        root.add(myHelpView.getView(), 0, 1, 1, 1);
+        root.add(myHistoryView.getView(), 0, 2, 1, 1);
+        root.add(myDisplayView.getView(), 1, 1, 1, 2);
+        root.add(myVariableView.getView(), 2, 1, 1, 1);
+        root.add(myFunctionView.getView(), 2, 2, 1, 1);
         root.add(myCommandView.getView(), 0, 3, 3, 1);
 
         myScene = new Scene(root, SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -137,30 +143,28 @@ public class View {
         startView();
     }
 
-    public void startView() {
-
-        myStage.setScene(myScene);
-        myStage.setTitle(TITLE);
-        myStage.show();
-        var frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY, myStage));
-        animation = new Timeline();
-        animation.setCycleCount(Timeline.INDEFINITE);
-        animation.getKeyFrames().add(frame);
-        animation.play();
-    }
-
     /**
      * Internal APIs
      **/
     public void changeBgColor(Color bgColor) {
-        // myDisplayView.changeBgColor();
+        myDisplayView.changeBgColor(bgColor);
     }
 
     public void changePenColor(Color penColor) {
-        // What should be the relationship between turtle and pen?
+        myDisplayView.changePenColor(penColor);
     }
 
     public void changeTurtleImg(Image newTurtleImg) {
+        myDisplayView.changeTurtleImg(newTurtleImg);
+    }
+
+    public void changeAnimationSpeed(Double time) {
+        myDisplayView.changeAnimationSpeed(time);
+    }
+
+    public void changeLanguage(String language) {
+        new Controller(myStage, new Turtle(), LANG_PATH + language);
+        System.out.print("Language has been changed to " + language);
     }
 
     public void passCommand(String input) throws Exception {
@@ -188,7 +192,7 @@ public class View {
         alert.showAndWait();
     }
 
-    public void registerDisplay(Turtle turtle){
+    public void registerDisplay(Turtle turtle) {
         turtle.addObserver(myDisplayView);
     }
 
@@ -196,10 +200,22 @@ public class View {
      * Other methods
      **/
     public void step(double elapsedTime, Stage stage) {
-        /*this.elapsedTime++;
-        root.getChildren().remove(myDisplayView);
+    }
 
-        myDisplayView = new DisplayView(new Image(this.getClass().getClassLoader().getResourceAsStream(TURTLE_IMAGE)), new Coordinate(this.elapsedTime, 0, 90));
-        root.add(myDisplayView.getView(), 0, 0, 2, 2);*/
+    // helper method to set up the animation, which is currently not used
+    public void startView() {
+        myStage.setScene(myScene);
+        myStage.setTitle(TITLE);
+        myStage.show();
+        var frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY, myStage));
+        animation = new Timeline();
+        animation.setCycleCount(Timeline.INDEFINITE);
+        animation.getKeyFrames().add(frame);
+        animation.play();
+    }
+
+
+    public Stage getMyStage() {
+        return myStage;
     }
 }

@@ -16,11 +16,11 @@ import java.util.regex.Pattern;
  */
 public class Interpreter {
 
+    private static final String WHITESPACE = "\\s+";
+    private static final String commandError = "backend/resources/Errors";
+    public ResourceBundle myErrors;
     private List<Map.Entry<String, Pattern>> mySymbols;
     private List<String> myCommands;
-    private static final String WHITESPACE = "\\s+";
-    public ResourceBundle myErrors;
-    private static final String commandError = "backend/resources/Errors";
     private TreeFactory myTreeFactory;
 
     /**
@@ -73,10 +73,9 @@ public class Interpreter {
     private String getSymbol(String text) throws IllegalCommandException {
         for (var e : mySymbols) {
             if (match(text, e.getValue())) {
-                if(e.getKey().equals("Constant")) {
+                if (e.getKey().equals("Constant")) {
                     return text;
-                }
-                else {
+                } else {
                     return e.getKey();
                 }
 
@@ -94,10 +93,10 @@ public class Interpreter {
     }
 
     private void reflection() throws Exception {
-        for(int i = 0; i< myCommands.size(); i++){
-            if(myCommands.get(i) == "plus"){ //TODO: Make this more general, not just for plus
+        for (int i = 0; i < myCommands.size(); i++) {
+            if (myCommands.get(i) == "plus") { //TODO: Make this more general, not just for plus
                 Method myMethod = this.getClass().getDeclaredMethod(myCommands.get(i));
-                myMethod.invoke(this,i);
+                myMethod.invoke(this, i);
 
             }
         }

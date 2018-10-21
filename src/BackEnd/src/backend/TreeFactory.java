@@ -16,7 +16,7 @@ public class TreeFactory {
     public ResourceBundle myErrors;
     private List<Map.Entry<String, Pattern>> mySymbols;
 
-    public TreeFactory(){
+    public TreeFactory() {
         mySymbols = new ArrayList<>();
         addPatterns(commandProps);
         myErrors = ResourceBundle.getBundle(commandError);
@@ -30,33 +30,30 @@ public class TreeFactory {
     //Commands have children, while arguments don't (they are simply argumentNodes)
     public List<BasicNode> getRoots(List<String> commands) throws IllegalCommandException {
         List<BasicNode> myRoots = new ArrayList<>();
-        while(commands.size() != 0){
+        while (commands.size() != 0) {
             String command = commands.remove(0);
             BasicNode myRoot;
-            if(isLeftParenthesis(command)){ //check if its a parenthesis FIRST
+            if (isLeftParenthesis(command)) { //check if its a parenthesis FIRST
                 //make the NEXT item a command, not the current parenthesis
                 String nextCommand = commands.remove(0);
                 myRoot = createRoot(nextCommand);
-            }
-            else if(isRightParenthesis(command)){ //check if, basically, we shouldn't add anymore.
+            } else if (isRightParenthesis(command)) { //check if, basically, we shouldn't add anymore.
                 //Continue to the next commands, as this one is OVER darling!
                 continue;
-            }
-            else{
+            } else {
                 myRoot = createRoot(command);
             }
             //If we haven't reached the max number of arguments required
             while (myRoot.getNumChildren() != myRoot.getRequiredArguments()) {
                 //Check if the next item is an open bracket (because lists are ALWAYS children)
                 BasicNode nextChild;
-                if(isOpenBracket(commands.get(0))){
+                if (isOpenBracket(commands.get(0))) {
                     nextChild = generateList(commands);
                     commands.remove(0); //Remove that ending parenthesis!
-                }
-                else{
+                } else {
                     nextChild = createChild(commands);
                 }
-                if(nextChild == null){
+                if (nextChild == null) {
                     throw new IllegalCommandException();
                 }
                 myRoot.addChild(nextChild);
@@ -69,24 +66,21 @@ public class TreeFactory {
 
     //TODO: Implement brackets and parenthesis
     private BasicNode createChild(List<String> commands) throws IllegalCommandException {
-        if(commands.size() == 0){
+        if (commands.size() == 0) {
             return null;
         }
         BasicNode newChild;
         String nextChild = commands.remove(0);
-        if(isLeftParenthesis(nextChild)){ //check if its a parenthesis FIRST
+        if (isLeftParenthesis(nextChild)) { //check if its a parenthesis FIRST
             String nextCommand = commands.remove(0);
             newChild = createRoot(nextCommand);
             generateCommand(newChild, commands);
-        }
-
-        else if(!isNumeric(nextChild)){
+        } else if (!isNumeric(nextChild)) {
             newChild = createRoot(nextChild);
             //This child has its own arguments that we need to add. Use recursion!
             generateCommand(newChild, commands);
-        }
-        else{
-            newChild = new ArgumentNode(nextChild);
+        } else {
+            newChild = new argumentNode(nextChild);
         }
 
         return newChild;
@@ -95,29 +89,26 @@ public class TreeFactory {
 
     private BasicNode createRoot(String command) throws IllegalCommandException {
         BasicNode newNode;
-        if(!isNumeric(command)){
+        if (!isNumeric(command)) {
             String numArgs = getArgNum(command);
             //System.out.println(numArgs);
-            if(numArgs == null){
+            if (numArgs == null) {
                 throw new IllegalCommandException(myErrors.getString("commandError"));
             }
             //TODO Get rid of these ifelse statements
-            if(numArgs.equals("Single")){
+            if (numArgs.equals("Single")) {
                 newNode = new SingleCommandNode(command);
-            }
-            else if(numArgs.equals("Double")){
+            } else if (numArgs.equals("Double")) {
                 newNode = new DoubleCommandNode(command);
-            }
-            else if(numArgs.equals("Triple")){
+            } else if (numArgs.equals("Triple")) {
                 newNode = new TripleCommandNode(command);
-            }
-            else{
+            } else {
                 newNode = new ZeroCommandNode(command);
             }
 
 
-        }else{
-            newNode = new ArgumentNode(command);
+        } else {
+            newNode = new argumentNode(command);
         }
         return newNode;
     }
@@ -129,7 +120,7 @@ public class TreeFactory {
     private BasicNode generateList(List<String> Commands) throws IllegalCommandException {
         String newList = Commands.remove(0);
         BasicNode commandList = new ListNode(newList);
-        while(!isCloseBracket(Commands.get(0))){
+        while (!isCloseBracket(Commands.get(0))) {
             //Create the new command and add all of it's children
             String nextCommand = Commands.remove(0);
             BasicNode newChild = createRoot(nextCommand);
@@ -138,7 +129,7 @@ public class TreeFactory {
             commandList.addChild(newChild);
         }
 
-        return(commandList);
+        return (commandList);
     }
 
     /**
@@ -151,23 +142,25 @@ public class TreeFactory {
     }
 
 
-    private boolean isNumeric(String s){
+    private boolean isNumeric(String s) {
         return s.matches("[-+]?\\d*\\.?\\d+");
     }
 
-    private boolean isLeftParenthesis(String s){
+    private boolean isLeftParenthesis(String s) {
         return s.matches("GroupStart");
     }
 
-    private boolean isRightParenthesis(String s) { return s.matches("GroupEnd");}
+    private boolean isRightParenthesis(String s) {
+        return s.matches("GroupEnd");
+    }
 
-    private boolean isOpenBracket(String s){
+    private boolean isOpenBracket(String s) {
         return s.matches("ListStart");
     }
-    private boolean isCloseBracket(String s){
+
+    private boolean isCloseBracket(String s) {
         return s.matches("ListEnd");
     }
-
 
 
     private void addPatterns(String syntax) {
@@ -182,10 +175,10 @@ public class TreeFactory {
     /**
      * Returns whether a command requires one, two three, or more arguments
      */
-    private String getArgNum(String text)  {
+    private String getArgNum(String text) {
         for (var e : mySymbols) {
             if (e.getValue().matcher(text).matches()) {
-                    return e.getKey();
+                return e.getKey();
             }
         }
         //This will never get thrown, because we would have thrown it in a previous matching method

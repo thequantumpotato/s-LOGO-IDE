@@ -12,6 +12,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author Jose San Martin, Henry
+ * A controller class that performs reflection on a list of trees to move the turtle.
+ */
 public class ModelController {
     private Interpreter interpreter;
     private List<BasicNode> myCommands;
@@ -19,11 +23,14 @@ public class ModelController {
     private Turtle myTurtle;
     private Map<String, ArgumentNode> variableMap = new HashMap<>();
     private Map<String, CommandNode> instructionMap = new HashMap<>();
+    private Reflector myReflector;
 
     public ModelController(Turtle turtle){
         interpreter = new Interpreter();
         commander = new Command(this, turtle);
         myTurtle = turtle;
+        myReflector = new Reflector(commander, myTurtle);
+
     }
 
     /**
@@ -31,10 +38,10 @@ public class ModelController {
      */
     public void parseCommand(String input) throws Exception {
         myCommands = interpreter.parse(input); //returns a list of root nodes
-       // System.out.println(myCommands);
+        // System.out.println(myCommands);
 
         for(BasicNode node: myCommands){
-            traverseTree(node);
+            myReflector.execute(node);
         }
         myTurtle.Changed();
         myTurtle.notifyObservers(true);
@@ -69,6 +76,7 @@ public class ModelController {
         //Return the new argument node
         throw new NoSuchMethodException();
     }
+        myTurtle.clear();
 
     public boolean createVariable(String name){
         if(variableMap.keySet().contains(name)){
@@ -117,3 +125,4 @@ public class ModelController {
     }
 
 }
+

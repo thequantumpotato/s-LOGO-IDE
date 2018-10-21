@@ -1,6 +1,7 @@
 package backend;
 
 import backend.Nodes.BasicNode;
+import backend.Nodes.LoopNode;
 import backend.Nodes.ArgumentNode;
 import backend.Nodes.CommandNode;
 
@@ -19,7 +20,6 @@ public class Command {
     public Command(ModelController m, Turtle t){
         this.m = m;
         this.t = t;
-    }
 
     public BasicNode forward(List<BasicNode> values) {
         Double d = 0.0;
@@ -342,7 +342,7 @@ public class Command {
     }
 
     public BasicNode setBackground(List<BasicNode> l){
-        
+
     }
 
     public BasicNode setPenColor(List<BasicNode> l){

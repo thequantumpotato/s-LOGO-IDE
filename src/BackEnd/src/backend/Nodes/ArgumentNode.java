@@ -10,27 +10,25 @@ public class ArgumentNode implements BasicNode {
         argument = value;
     }
 
-    public void addChild(BasicNode node){
+    public void addChild(BasicNode node) {
         return;
     }
 
-    public int getNumChildren(){
+    public int getNumChildren() {
         return 0;
     }
 
-    public int getRequiredArguments(){
+    public int getRequiredArguments() {
         return numArguments;
     }
 
-    public String getCommandName(){
+    public String getCommandName() {
         return argument;
     }
 
-    public List<BasicNode> getChildren(){
+    public List<BasicNode> getChildren() {
         return null;
     }
-
-
 
 
 }
