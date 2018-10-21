@@ -104,7 +104,7 @@ public class DisplayView implements SubView, Observer {
         turtleView.setImage(newTurtleImg);
     }
 
-    public void changeAnimationSpeed(Double time){
+    public void changeAnimationSpeed(Double time) {
         myPen.setDrawSpeed(Duration.seconds(time));
     }
 

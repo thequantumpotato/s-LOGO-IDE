@@ -2,8 +2,6 @@ package frontend;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -47,9 +45,8 @@ public class SettingView implements SubView {
         penColorPicker.setOnAction(e -> {
             myView.changePenColor(penColorPicker.getValue());
         });
-        penBox.getChildren().addAll(penLabel,penColorPicker);
+        penBox.getChildren().addAll(penLabel, penColorPicker);
 
-        VBox turtleBox = new VBox();
         final FileChooser fileChooser = new FileChooser();
         final Button turtleButton = new Button("Turtle Image");
         turtleButton.setOnAction((final ActionEvent e) -> {
@@ -58,7 +55,6 @@ public class SettingView implements SubView {
                 myView.changeTurtleImg(new Image(file.toURI().toString()));
             }
         });
-        turtleBox.getChildren().add(turtleButton);
 
         ComboBox languageBox = new ComboBox();
         languageBox.getItems().addAll("English", "Chinese", "French", "German", "Italian", "Portuguese", "Russian", "Spanish");
@@ -71,9 +67,8 @@ public class SettingView implements SubView {
         });
 
 
-
         VBox speedBox = new VBox();
-        Label speedLabel = new Label("Animation Speed: " + myView.DEFAULT_PEN_TIME + "s");
+        Label speedLabel = new Label("Animation Speed: " + myView.DEFAULT_PEN_TIME);
         Slider speedSlider = new Slider();
         speedSlider.setMin(1);
         speedSlider.setMax(10);
@@ -91,7 +86,7 @@ public class SettingView implements SubView {
         });
         speedBox.getChildren().addAll(speedLabel, speedSlider);
 
-        settingView.getItems().addAll(bgBox, penBox, speedBox, turtleBox, languageBox);
+        settingView.getItems().addAll(bgBox, penBox, speedBox, turtleButton, languageBox);
     }
 
     @Override
