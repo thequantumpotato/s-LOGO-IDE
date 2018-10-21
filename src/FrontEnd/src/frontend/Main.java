@@ -17,6 +17,6 @@ public class Main extends Application {
         Turtle turtle = new Turtle();
         Controller myController = new Controller(primaryStage,turtle);
         ModelController mc = new ModelController(turtle);
-        mc.parseCommand("If lessp 5 1 [ fd 50 bk 100 ]");
+        mc.parseCommand("repeat 50 [ fd 40 rt 25 ]");
     }
 }

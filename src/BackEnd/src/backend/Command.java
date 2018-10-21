@@ -1,6 +1,7 @@
 package backend;
 
 import backend.Nodes.BasicNode;
+import backend.Nodes.LoopNode;
 import backend.Nodes.argumentNode;
 
 import java.util.List;
@@ -38,11 +39,15 @@ public class Command {
 //                return degree;
 //            }
 //
-//            public String right (Turtle t, String degree){
-//                Double d = Double.parseDouble(degree);
-//                t.turn(-d);
-//                return degree;
-//            }
+    public BasicNode Right (Turtle t, List<BasicNode> values){
+            Double d = null;
+            for(BasicNode n:values){
+                d = Double.parseDouble(n.getCommandName());
+                t.turn(-d);
+            }
+
+            return new argumentNode(d.toString());
+        }
 //
 //            public String setHeading (Turtle t, String degree){
 //                Double d = Double.parseDouble(degree);
@@ -378,9 +383,19 @@ public class Command {
 //
 //    }
 //
-//    public String repeat(String arguments){
-//
-//    }
+    public BasicNode Repeat(Turtle t, List<BasicNode> nodes){
+        //Input is a turtle and a list of BasicNodes. The first one is the repSize, and the second one
+        //is the listNode
+        BasicNode repNode = nodes.get(0);
+        int reps = Integer.parseInt(repNode.getCommandName());
+        BasicNode loopNode = new LoopNode(reps, "loop");
+
+        BasicNode list = nodes.get(1);
+        for(BasicNode n: list.getChildren()){
+            loopNode.addChild(n); // move children from the listNode to the loopNode
+        }
+        return loopNode;
+    }
 //
 //    public String doTimes(String arguments){
 //
