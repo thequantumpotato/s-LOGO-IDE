@@ -2,28 +2,32 @@ package backend;
 
 
 import backend.Nodes.BasicNode;
-import backend.Nodes.argumentNode;
+import backend.Nodes.ArgumentNode;
+import backend.Nodes.CommandNode;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ModelController {
     private Interpreter interpreter;
     private List<BasicNode> myCommands;
     private Command commander;
     private Turtle myTurtle;
+    private Map<String, ArgumentNode> variableMap = new HashMap<>();
+    private Map<String, CommandNode> instructionMap = new HashMap<>();
 
     public ModelController(Turtle turtle){
         interpreter = new Interpreter();
-        commander = new Command();
+        commander = new Command(this, turtle);
         myTurtle = turtle;
-
     }
 
     /**
-     * Parses the
+     * Parses the Command
      */
     public void parseCommand(String input) throws Exception {
         myCommands = interpreter.parse(input); //returns a list of root nodes
@@ -53,10 +57,10 @@ public class ModelController {
         //Invoke the command, and obtain the returned value, which is turned into a new argument node
         try{
             myTurtle.Changed();
-            Object ret = command.invoke(commander,myTurtle,children);
+            Object ret = command.invoke(children);
             myTurtle.clear();
             //System.out.println(String.valueOf(ret));
-            return (argumentNode) ret;
+            return (ArgumentNode) ret;
 
         }
         catch (Exception e){
@@ -66,6 +70,43 @@ public class ModelController {
         throw new NoSuchMethodException();
     }
 
+    public boolean createVariable(String name){
+        if(variableMap.keySet().contains(name)){
+            return false;
+        }
+        variableMap.put(name, new ArgumentNode("0.0"));
+        return true;
+    }
+
+    public boolean setVariable(String name, ArgumentNode value){
+        if(!variableMap.keySet().contains(name)){
+            return false;
+        }
+        variableMap.put(name, value);
+        return true;
+    }
+
+    public ArgumentNode getVariable(String name){
+        if(!variableMap.keySet().contains(name)){
+            return null;
+        }
+        return variableMap.get(name);
+    }
+
+    public boolean createInstruction(String name, CommandNode inst){
+        if(instructionMap.keySet().contains(name)){
+            return false;
+        }
+        instructionMap.put(name, inst);
+        return true;
+    }
+
+    public BasicNode getInstruction(String name){
+        if(!instructionMap.keySet().contains(name)){
+            return null;
+        }
+        return instructionMap.get(name);
+    }
 
     private boolean isNumeric(String s){
         return s.matches("[-+]?\\d*\\.?\\d+");
