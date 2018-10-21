@@ -80,7 +80,7 @@ public class TreeFactory {
             //This child has its own arguments that we need to add. Use recursion!
             generateCommand(newChild, commands);
         } else {
-            newChild = new argumentNode(nextChild);
+            newChild = new ArgumentNode(nextChild);
         }
 
         return newChild;
@@ -108,7 +108,7 @@ public class TreeFactory {
 
 
         } else {
-            newNode = new argumentNode(command);
+            newNode = new ArgumentNode(command);
         }
         return newNode;
     }
