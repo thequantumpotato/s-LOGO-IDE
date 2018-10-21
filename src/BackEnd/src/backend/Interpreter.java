@@ -51,19 +51,7 @@ public class Interpreter {
         return myTrees;
 
     }
-
-    /**
-     * Adds the given resource file to this language's recognized types
-     */
-    //TODO move this stuff to a utility class
-    private void addPatterns(String syntax) {
-        var resources = ResourceBundle.getBundle(syntax);
-        for (var key : Collections.list(resources.getKeys())) {
-            var regex = resources.getString(key);
-            mySymbols.add(new AbstractMap.SimpleEntry<>(key,
-                    Pattern.compile(regex, Pattern.CASE_INSENSITIVE)));
-        }
-    }
+    
 
     /**
      * Returns language's type associated with the given text if one exists
