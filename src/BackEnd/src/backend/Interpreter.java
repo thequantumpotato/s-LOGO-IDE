@@ -26,12 +26,10 @@ public class Interpreter {
     /**
      * Create an empty parser.
      */
-    public Interpreter() {
-        mySymbols = new ArrayList<>();
+    public Interpreter(List<Map.Entry<String, Pattern>> symbolList) {
+        mySymbols = symbolList;
         myCommands = new ArrayList<>();
         myTreeFactory = new TreeFactory();
-        addPatterns("backend/resources/English");
-        addPatterns("backend/resources/Syntax");
         myErrors = ResourceBundle.getBundle(commandError);
     }
 

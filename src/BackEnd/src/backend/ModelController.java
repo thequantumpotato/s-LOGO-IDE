@@ -8,6 +8,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.regex.Pattern;
 
 /**
  * @author Jose San Martin, Henry
@@ -16,12 +18,14 @@ import java.util.List;
 public class ModelController {
     private Interpreter interpreter;
     private List<BasicNode> myCommands;
+    private List<Map.Entry<String, Pattern>> mySymbols;
     private Command commander;
     private Turtle myTurtle;
     private Reflector myReflector;
 
-    public ModelController(Turtle turtle){
-        interpreter = new Interpreter();
+    public ModelController(Turtle turtle, List<Map.Entry<String, Pattern>> symbolList){
+        mySymbols = symbolList;
+        interpreter = new Interpreter(symbolList);
         commander = new Command();
         myTurtle = turtle;
         myReflector = new Reflector(commander, myTurtle);
