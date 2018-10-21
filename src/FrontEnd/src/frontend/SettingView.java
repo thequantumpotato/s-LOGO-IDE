@@ -40,7 +40,7 @@ public class SettingView implements SubView {
 
         VBox penBox = new VBox();
         ColorPicker penColorPicker = new ColorPicker();
-        Label penLabel = new Label("Background Color:");
+        Label penLabel = new Label("Pen Color:");
         penColorPicker.setPromptText("Pen Color");
         penColorPicker.setOnAction(e -> {
             myView.changePenColor(penColorPicker.getValue());
