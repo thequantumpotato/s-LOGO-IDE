@@ -3,10 +3,14 @@ package frontend;
 import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
 import javafx.util.Duration;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Auxiliary class functioning to provide line-drawing functionality to the {@code DisplayView}
@@ -20,6 +24,7 @@ class Pen {
     private Paint myColor;
     private double mySize;
     private Group root;
+    private List<Line> myLines;
     private Coordinate myPosition;
     private Duration myDrawSpeed;
 
@@ -30,6 +35,8 @@ class Pen {
 
     //full constructor
     Pen(Duration speed, Coordinate origin) {
+
+        myLines = new ArrayList<>();
 
         mySize = DEFAULT_SIZE;
 
@@ -62,6 +69,7 @@ class Pen {
         myPosition = newpos;
         pl.getChildren().add(linedraw);
         pl.getChildren().add(fd);
+        myLines.add(line);
         renderLine(line);
         return pl;
     }
@@ -99,5 +107,11 @@ class Pen {
 
     public Duration getMyDrawSpeed() {
         return myDrawSpeed;
+    }
+
+    public void eraseAll(){
+        for(Line l : myLines){
+            root.getChildren().remove(l);
+        }
     }
 }
