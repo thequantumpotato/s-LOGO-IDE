@@ -18,7 +18,9 @@ public class Controller {
     private ModelController modelController;
     private ResourceBundle myResources;
 
-    /** TO DO: Attach myResource onto GUI and modelController to deal with different languages */
+    /**
+     * TO DO: Attach myResource onto GUI and modelController to deal with different languages
+     */
     public Controller(Stage primaryStage, Turtle myTurtle_, String language) {
         myResources = ResourceBundle.getBundle(language);
         myTurtle = myTurtle_;

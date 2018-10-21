@@ -2,8 +2,6 @@ package frontend;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -47,7 +45,7 @@ public class SettingView implements SubView {
         penColorPicker.setOnAction(e -> {
             myView.changePenColor(penColorPicker.getValue());
         });
-        penBox.getChildren().addAll(penLabel,penColorPicker);
+        penBox.getChildren().addAll(penLabel, penColorPicker);
 
         final FileChooser fileChooser = new FileChooser();
         final Button turtleButton = new Button("Turtle Image");
@@ -69,9 +67,8 @@ public class SettingView implements SubView {
         });
 
 
-
         VBox speedBox = new VBox();
-        Label speedLabel = new Label("Animation Speed: " + myView.DEFAULT_PEN_TIME + "s");
+        Label speedLabel = new Label("Animation Speed: " + myView.DEFAULT_PEN_TIME);
         Slider speedSlider = new Slider();
         speedSlider.setMin(1);
         speedSlider.setMax(10);

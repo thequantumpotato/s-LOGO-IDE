@@ -6,7 +6,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 
 /**
  * An HBox that contains a TextArea to allow user input command text. When the submit button is clicked,
@@ -26,12 +25,12 @@ public class CommandView implements SubView {
         input = new TextArea();
         input.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
-                    try {
-                        myView.passCommand(input.getText());
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    input.setText("");
+                try {
+                    myView.passCommand(input.getText());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                input.setText("");
             }
         });
         submitButton = new Button("Run");
