@@ -14,10 +14,10 @@ import java.util.Random;
  */
 public class Command {
 
-    private ModelController m;
+    private Reflector m;
     private Turtle t;
 
-    public Command(ModelController m, Turtle t) {
+    public Command(Reflector m, Turtle t) {
         this.m = m;
         this.t = t;
     }
@@ -131,6 +131,7 @@ public class Command {
         public BasicNode home (List<BasicNode> l) {
             double dist = calcDist(t.getX(), t.getY(), 0, 0);
             t.setPosition(0, 0);
+            t.notifyObservers();
             return new ArgumentNode(((Double) dist).toString());
         }
 
@@ -319,13 +320,20 @@ public class Command {
             return m.getVariable(name);
         }
 
-//        public BasicNode repeat (List<BasicNode> l) {
-//            Double tmp = Double.parseDouble(l.get(0).getCommandName());
-//            Integer times = tmp.intValue();
-//            CommandNode c = (CommandNode) l.get(1);
-//            // to-do: communicate as to how to repeat stuff
-//
-//        }
+        public BasicNode repeat(List<BasicNode> nodes){
+            //Input is a turtle and a list of BasicNodes. The first one is the repSize, and the second one
+            //is the listNode
+            BasicNode repNode = nodes.get(0);
+            int reps = Integer.parseInt(repNode.getCommandName());
+            BasicNode loopNode = new LoopNode(reps, "loop");
+
+            BasicNode list = nodes.get(1);
+            for(BasicNode n: list.getChildren()){
+                loopNode.addChild(n); // move children from the listNode to the loopNode
+            }
+            return loopNode;
+        }
+
 //
 //        public BasicNode doTimes (List<BasicNode> l) {
 //            //to-do
