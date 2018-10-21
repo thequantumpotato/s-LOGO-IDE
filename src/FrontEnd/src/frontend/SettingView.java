@@ -49,7 +49,6 @@ public class SettingView implements SubView {
         });
         penBox.getChildren().addAll(penLabel,penColorPicker);
 
-        VBox turtleBox = new VBox();
         final FileChooser fileChooser = new FileChooser();
         final Button turtleButton = new Button("Turtle Image");
         turtleButton.setOnAction((final ActionEvent e) -> {
@@ -58,7 +57,6 @@ public class SettingView implements SubView {
                 myView.changeTurtleImg(new Image(file.toURI().toString()));
             }
         });
-        turtleBox.getChildren().add(turtleButton);
 
         ComboBox languageBox = new ComboBox();
         languageBox.getItems().addAll("English", "Chinese", "French", "German", "Italian", "Portuguese", "Russian", "Spanish");
@@ -91,7 +89,7 @@ public class SettingView implements SubView {
         });
         speedBox.getChildren().addAll(speedLabel, speedSlider);
 
-        settingView.getItems().addAll(bgBox, penBox, speedBox, turtleBox, languageBox);
+        settingView.getItems().addAll(bgBox, penBox, speedBox, turtleButton, languageBox);
     }
 
     @Override

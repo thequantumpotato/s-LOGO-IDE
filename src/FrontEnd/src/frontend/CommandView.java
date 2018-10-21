@@ -3,6 +3,7 @@ package frontend;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -23,6 +24,16 @@ public class CommandView implements SubView {
     public CommandView(View myView_) {
         myView = myView_;
         input = new TextArea();
+        input.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                    try {
+                        myView.passCommand(input.getText());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    input.setText("");
+            }
+        });
         submitButton = new Button("Run");
         submitButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         commandView = new GridPane();
