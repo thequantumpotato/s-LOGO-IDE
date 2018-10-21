@@ -14,15 +14,14 @@ import java.io.File;
 public class SettingView implements SubView {
     //    private VBox settingView;
     private ToolBar settingView;
-
+    private ComboBox languageBox;
     private View myView;
 
     /**
      * TO DO:
      * 1. add option to change pen size and pen state?
      */
-
-    public SettingView(View myView_) {
+    public SettingView(View myView_, String initLang) {
         myView = myView_;
 //        settingView = new VBox();
         settingView = new ToolBar();
@@ -56,9 +55,9 @@ public class SettingView implements SubView {
             }
         });
 
-        ComboBox languageBox = new ComboBox();
+        languageBox = new ComboBox();
         languageBox.getItems().addAll("English", "Chinese", "French", "German", "Italian", "Portuguese", "Russian", "Spanish");
-        languageBox.setValue("English");
+        languageBox.setValue(initLang);
         languageBox.valueProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue ov, String t, String t1) {

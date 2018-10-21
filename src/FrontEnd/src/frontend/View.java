@@ -55,7 +55,6 @@ public class View {
     public static final int SCREEN_WIDTH = 1000;
     public static final int SCREEN_HEIGHT = 700;
     public static final Color DEFAULT_BG_COLOR = Color.BLACK;
-    public static final String LANG_PATH = "languages/";
     public final int FRAMES_PER_SECOND = 60;
     public final int DEFAULT_PEN_TIME = 1;
     public final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
@@ -74,7 +73,7 @@ public class View {
     private Timeline animation;
     private int elapsedTime;
 
-    public View(Stage primaryStage, Controller myController_, Turtle turtle) {
+    public View(Stage primaryStage, Controller myController_, Turtle turtle, String initLang) {
         myController = myController_;
         myStage = primaryStage;
         root = new GridPane();
@@ -128,7 +127,7 @@ public class View {
 
         myHelpView = new HelpView();
 
-        mySettingView = new SettingView(this);
+        mySettingView = new SettingView(this, initLang);
 
         root.add(mySettingView.getView(), 0, 0, 3, 1);
         root.add(myHelpView.getView(), 0, 1, 1, 1);
@@ -163,13 +162,15 @@ public class View {
     }
 
     public void changeLanguage(String language) {
-        new Controller(myStage, new Turtle(), LANG_PATH + language, "languages/Syntax");
-        System.out.print("Language has been changed to " + language);
+        new Controller(myStage, new Turtle(), language, "languages/Syntax");
     }
 
     public void passCommand(String input) throws Exception {
         myController.runCommand(input);
-        myHistoryView.updateHistory(input);
+    }
+
+    public void updateHistory(String validInput){
+        myHistoryView.updateHistory(validInput);
     }
 
 
