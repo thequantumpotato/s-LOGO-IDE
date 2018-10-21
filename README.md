@@ -16,3 +16,5 @@ A development environment that helps users write SLogo programs.
 
 Assumptions:
 - Everything is a double, except for the remainder method
+- Lists (brackets) only work as argumnets. Therefore, you can't say something like "[ fd 50 ]" because there is no top level commands here. 
+  

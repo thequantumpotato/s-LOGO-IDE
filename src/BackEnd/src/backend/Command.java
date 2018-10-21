@@ -1,6 +1,7 @@
 package backend;
 
 import backend.Nodes.BasicNode;
+import backend.Nodes.LoopNode;
 import backend.Nodes.argumentNode;
 
 import java.util.List;
@@ -21,16 +22,15 @@ public class Command {
         t.notifyObservers();
         return new argumentNode(d.toString());
     }
-
-    //    public Double Backward (Turtle t, List<BasicNode> values){
-//        double d = 0.0;
-//        for (BasicNode node : values) {
-//            d = Double.parseDouble(node.getCommandName());
-//            t.move(-1*d);
-//        }
-//        t.notifyObservers();
-//        return d;
-//    }
+    public BasicNode Backward (Turtle t, List<BasicNode> values){
+        Double d = 0.0;
+        for (BasicNode node : values) {
+            d = Double.parseDouble(node.getCommandName());
+            t.move(-1*d);
+        }
+        t.notifyObservers();
+        return new argumentNode(d.toString());
+    }
 //
 //            public String left (Turtle t, String degree){
 //                Double d = Double.parseDouble(degree);
@@ -38,11 +38,15 @@ public class Command {
 //                return degree;
 //            }
 //
-//            public String right (Turtle t, String degree){
-//                Double d = Double.parseDouble(degree);
-//                t.turn(-d);
-//                return degree;
-//            }
+    public BasicNode Right (Turtle t, List<BasicNode> values){
+            Double d = null;
+            for(BasicNode n:values){
+                d = Double.parseDouble(n.getCommandName());
+                t.turn(-d);
+            }
+
+            return new argumentNode(d.toString());
+        }
 //
 //            public String setHeading (Turtle t, String degree){
 //                Double d = Double.parseDouble(degree);
@@ -336,10 +340,13 @@ public class Command {
 //        return ((Double)Math.PI).toString();
 //    }
 //
-//    public String lessThan(String arguments){
-//        double[] tmp = parseDoubles(arguments);
-//        return tmp[0] < tmp[1] ? "1":"0";
-//    }
+    public BasicNode LessThan(Turtle t, List<BasicNode> nodes){
+        double first = Double.parseDouble(nodes.get(0).getCommandName());
+        double second = Double.parseDouble(nodes.get(1).getCommandName());
+        //No need to notify observers here
+        String outcome = first < second ? "1":"0";
+        return new argumentNode(outcome);
+    }
 //
 //    public String greaterThan(String arguments){
 //        double[] tmp = parseDoubles(arguments);
@@ -375,9 +382,19 @@ public class Command {
 //
 //    }
 //
-//    public String repeat(String arguments){
-//
-//    }
+    public BasicNode Repeat(Turtle t, List<BasicNode> nodes){
+        //Input is a turtle and a list of BasicNodes. The first one is the repSize, and the second one
+        //is the listNode
+        BasicNode repNode = nodes.get(0);
+        int reps = Integer.parseInt(repNode.getCommandName());
+        BasicNode loopNode = new LoopNode(reps, "loop");
+
+        BasicNode list = nodes.get(1);
+        for(BasicNode n: list.getChildren()){
+            loopNode.addChild(n); // move children from the listNode to the loopNode
+        }
+        return loopNode;
+    }
 //
 //    public String doTimes(String arguments){
 //

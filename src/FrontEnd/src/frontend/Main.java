@@ -1,5 +1,6 @@
 package frontend;
 
+import backend.ModelController;
 import backend.Turtle;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -14,6 +15,10 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setResizable(false);
-        new Controller(primaryStage, new Turtle(), DEFAULT_LANGUAGE);
+        Turtle turtle = new Turtle();
+        Controller myController = new Controller(primaryStage, new Turtle(), DEFAULT_LANGUAGE);
+        ModelController mc = new ModelController(turtle);
+        mc.parseCommand("repeat 50 [ fd 40 rt 25 ]");
+
     }
 }
