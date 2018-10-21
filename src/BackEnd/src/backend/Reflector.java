@@ -35,7 +35,6 @@ public class Reflector {
         }
     }
 
-
     private BasicNode traverseTree(BasicNode root) throws NoSuchMethodException{
         if (root == null){
             return null;

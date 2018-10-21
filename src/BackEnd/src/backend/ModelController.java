@@ -3,10 +3,6 @@ package backend;
 import backend.Nodes.BasicNode;
 import backend.Nodes.ArgumentNode;
 import backend.Nodes.CommandNode;
-
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,6 +43,14 @@ public class ModelController {
         myTurtle.Changed();
         myTurtle.notifyObservers(true);
         myTurtle.clear();
+    }
+
+    public boolean createVariable(String name){
+        if(variableMap.keySet().contains(name)){
+            return false;
+        }
+        variableMap.put(name, new ArgumentNode("0.0"));
+        return true;
     }
 
     public boolean setVariable(String name, ArgumentNode value){
