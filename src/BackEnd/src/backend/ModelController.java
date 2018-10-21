@@ -1,6 +1,5 @@
 package backend;
 
-
 import backend.Nodes.BasicNode;
 import backend.Nodes.ArgumentNode;
 import backend.Nodes.CommandNode;
@@ -30,7 +29,6 @@ public class ModelController {
         commander = new Command(this, turtle);
         myTurtle = turtle;
         myReflector = new Reflector(commander, myTurtle);
-
     }
 
     /**
@@ -68,7 +66,6 @@ public class ModelController {
             myTurtle.clear();
             //System.out.println(String.valueOf(ret));
             return (ArgumentNode) ret;
-
         }
         catch (Exception e){
             e.printStackTrace();
@@ -76,7 +73,6 @@ public class ModelController {
         //Return the new argument node
         throw new NoSuchMethodException();
     }
-        myTurtle.clear();
 
     public boolean createVariable(String name){
         if(variableMap.keySet().contains(name)){
@@ -121,6 +117,10 @@ public class ModelController {
     }
 
     public void updateVar(String varName, String varVal){
+
+    }
+
+    public void clearScreen(){
 
     }
 

@@ -3,7 +3,7 @@ package backend;
 import backend.Nodes.BasicNode;
 import backend.Nodes.CommandNode;
 import backend.Nodes.LoopNode;
-import backend.Nodes.argumentNode;
+import backend.Nodes.ArgumentNode;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -52,7 +52,7 @@ public class Reflector {
         //Invoke the command, and obtain the returned value, which is turned into a new argument node
         try{
             myTurtle.Changed();
-            BasicNode ret = (BasicNode) command.invoke(Commander,myTurtle,children);
+            BasicNode ret = (BasicNode) command.invoke(children);
             myTurtle.clear();
             if(ret instanceof LoopNode){ //If it isnt an arg node, it is a loop node!
                 loop((LoopNode)ret);
