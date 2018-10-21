@@ -16,31 +16,25 @@ import java.util.Map;
 
 public class VariableView implements SubView {
 
-    private VBox variableBox;
-    private ScrollPane variableView;
+    private VBox variableView;
     private ListView variableList;
     private View myView;
 
     public VariableView(View myView_) {
         myView = myView_;
-        
-        variableView = new ScrollPane();
-        variableView.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-
-        variableBox = new VBox();
-        Label title = new Label("Variables");
         variableList = new ListView();
-        variableBox.getChildren().addAll(title, variableList);
-
-        variableBox.getStyleClass().add("variableBox");
+        Label title = new Label("Variables");
+        variableView = new VBox();
+        variableView.getChildren().addAll(title, variableList);
+        variableView.getStyleClass().add("variableView");
     }
 
     public void updateVariable(Map<String, String> var) {
-        
+
     }
 
     @Override
     public Node getView() {
-        return variableBox;
+        return variableView;
     }
 }

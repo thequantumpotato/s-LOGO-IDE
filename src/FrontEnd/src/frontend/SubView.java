@@ -15,5 +15,5 @@ public interface SubView {
      *
      * @return Node
      */
-    public Node getView();
+    Node getView();
 }

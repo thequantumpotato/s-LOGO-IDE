@@ -33,7 +33,7 @@ public class ModelController {
      */
     public void parseCommand(String input) throws Exception {
         myCommands = interpreter.parse(input); //returns a list of root nodes
-       // System.out.println(myCommands);
+        // System.out.println(myCommands);
 
         for(BasicNode node: myCommands){
             myReflector.execute(node);
@@ -49,3 +49,4 @@ public class ModelController {
     }
 
 }
+

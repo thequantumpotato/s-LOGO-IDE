@@ -1,9 +1,8 @@
 package backend;
 
-import javafx.beans.InvalidationListener;
-import java.util.Observable;
-import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+
+import java.util.Observable;
 
 /**
  * represents a turtle on the screen
@@ -18,23 +17,15 @@ public class Turtle extends Observable implements Moveable {
     private boolean penDown;
     private boolean showing;
 
-    public Turtle(){
+    public Turtle() {
     }
 
-    public void setX(double x){
-        this.x = x;
-    }
-
-    public void setY(double y){
-        this.y = y;
-    }
-
-    public void move(double distance){
+    public void move(double distance) {
         this.setX(x + distance * Math.cos(direction));
         this.setY(y + distance * Math.sin(direction));
     }
 
-    public void setPosition(double x, double y){
+    public void setPosition(double x, double y) {
         this.setX(x);
         this.setY(y);
     }
@@ -58,51 +49,61 @@ public class Turtle extends Observable implements Moveable {
     public void penDown() {
 
     }
-    public void Changed(){
+
+    public void Changed() {
         setChanged();
     }
-    public void clear(){
+
+    public void clear() {
         clearChanged();
     }
-    public void setHeading(double angle){
+
+    public void setHeading(double angle) {
         direction = angle;
     }
 
-    public double getDirection(){
+    public double getDirection() {
         return direction;
     }
 
-    public double getX(){
+    public double getX() {
         return this.x;
     }
 
-    public double getY(){
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    public double getY() {
         return this.y;
     }
 
-    public boolean getIsPenDown(){
+    public void setY(double y) {
+        this.y = y;
+    }
+
+    public boolean getIsPenDown() {
         return this.penDown;
     }
 
-    public boolean getIsShowing(){
+    public boolean getIsShowing() {
         return this.showing;
     }
 
-    public void liftPenUp(){
+    public void liftPenUp() {
 
     }
 
-    public void putPenDown(){
+    public void putPenDown() {
 
     }
 
-    public void show(){
+    public void show() {
 
     }
 
 
-
-    public void hide(){
+    public void hide() {
 
     }
 

@@ -2,7 +2,7 @@ package frontend;
 
 /**
  * A customized class to keep track of the position and angle of the turtle.
- * It uses integer instead of double because usually in the command the numbers are all integers.
+ * It uses double because one of the operations is quotient.
  *
  * @author Vincent Liu
  */
