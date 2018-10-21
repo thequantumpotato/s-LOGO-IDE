@@ -1,5 +1,6 @@
 package frontend;
 
+import backend.IllegalCommandException;
 import backend.ModelController;
 import backend.Turtle;
 import javafx.stage.Stage;
@@ -19,6 +20,8 @@ public class Controller {
     private ModelController modelController;
     private List<Map.Entry<String, Pattern>> mySymbols;
     private ResourceBundle myResources;
+    public ResourceBundle myErrors;
+    private static final String commandError = "Errors";
 
     /**
      * TO DO: Attach myResource onto GUI and modelController to deal with different languages
@@ -27,15 +30,24 @@ public class Controller {
         mySymbols = new ArrayList<>();
         addPatterns(language);
         addPatterns(syntax);
-        //myResources = ResourceBundle.getBundle(language);
+        myResources = ResourceBundle.getBundle(language);
         myTurtle = myTurtle_;
         myView = new View(primaryStage, this, myTurtle);
         myView.registerDisplay(myTurtle);
         modelController = new ModelController(myTurtle, mySymbols);
+        myErrors = ResourceBundle.getBundle(commandError);
     }
 
-    public void runCommand(String input) throws Exception {
-        modelController.parseCommand(input);
+    public void runCommand(String input) {
+        try {
+            modelController.parseCommand(input);
+        } catch (Exception e) {
+            if (e instanceof IllegalCommandException) {
+                myView.displayErrors(myErrors.getString("commandError"));
+            }
+//            else if
+            else myView.displayErrors(e.toString());
+        }
     }
 
     /**
