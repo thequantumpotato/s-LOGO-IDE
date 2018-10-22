@@ -3,7 +3,6 @@ package frontend;
 import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
@@ -109,8 +108,8 @@ class Pen {
         return myDrawSpeed;
     }
 
-    public void eraseAll(){
-        for(Line l : myLines){
+    public void eraseAll() {
+        for (Line l : myLines) {
             root.getChildren().remove(l);
         }
     }

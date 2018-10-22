@@ -169,7 +169,7 @@ public class View {
         myController.runCommand(input);
     }
 
-    public void updateHistory(String validInput){
+    public void updateHistory(String validInput) {
         myHistoryView.updateHistory(validInput);
     }
 

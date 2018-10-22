@@ -88,7 +88,7 @@ public class DisplayView implements SubView, Observer {
         turtleView.setRotate(turtleAngle);
     }
 
-    public void clearBg(){
+    public void clearBg() {
         myPen.eraseAll();
     }
 
@@ -108,16 +108,16 @@ public class DisplayView implements SubView, Observer {
         myPen.setPenSize(size);
     }
 
-    public void hideTurtle(){
+    public void hideTurtle() {
         root.getChildren().remove(turtleView);
     }
 
-    public void showTurtle(){
+    public void showTurtle() {
         root.getChildren().add(turtleView);
     }
 
-    public void changeTurtleSize(double size){
-        if(size>0){
+    public void changeTurtleSize(double size) {
+        if (size > 0) {
             turtleView.setFitHeight(size);
             turtleView.setFitWidth(size);
             turtleW = size;
@@ -179,7 +179,7 @@ public class DisplayView implements SubView, Observer {
 
     }
 
-    public void clearScreen(){
+    public void clearScreen() {
     }
 
 
