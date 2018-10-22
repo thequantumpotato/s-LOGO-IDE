@@ -304,19 +304,28 @@ public class Command {
             return new ArgumentNode(res == 1 ? "1" : "0");
         }
 
-        public BasicNode makeVariable (List<BasicNode> l) {
-            String name = l.get(0).getCommandName();
-            return new ArgumentNode(m.createVariable(name) ? "1" : "0");
+        public BasicNode makeVariable(List<BasicNode> l ){
+            //check if it already exists, and if so replace it. If not create it
+            String name = l.get(0).getCommandName(); //key
+            ArgumentNode value = (ArgumentNode) l.get(1); //value
+            m.createSetVariable(name, value);
+            return value;
         }
 
-        public BasicNode setVariable (List<BasicNode> l) {
-            String name = l.get(0).getCommandName();
-            ArgumentNode value = (ArgumentNode) l.get(1);
-            return new ArgumentNode(m.setVariable(name, value) ? "1" : "0");
-        }
+ //       public BasicNode makeVariable (List<BasicNode> l) {
+ //           String name = l.get(0).getCommandName();
+ //           return new ArgumentNode(m.createVariable(name) ? "1" : "0");
+ //       }
+//
+ //       public BasicNode setVariable (List<BasicNode> l) {
+ //           String name = l.get(0).getCommandName();
+ //
+ //           return new ArgumentNode(m.setVariable(name, value) ? "1" : "0");
+ //       }
 
-        public BasicNode getVariable (List<BasicNode> l) {
+        public BasicNode getVariable (List<BasicNode> l) throws IllegalCommandException {
             String name = l.get(0).getCommandName();
+            System.out.println(name);
             return m.getVariable(name);
         }
 

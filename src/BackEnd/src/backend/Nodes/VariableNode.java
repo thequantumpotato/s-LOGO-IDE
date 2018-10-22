@@ -1,11 +1,13 @@
 package backend.Nodes;
 
-public class ZeroCommandNode extends CommandNode {
+import java.util.ArrayList;
+import java.util.List;
 
-    private int numArguments;
+public class VariableNode extends CommandNode {
+
     private String commandName;
-
-    public ZeroCommandNode(String commandString) {
+    private int numArguments;
+    public VariableNode(String commandString) {
         super(commandString);
         commandName = commandString;
         numArguments = 0;
@@ -13,10 +15,7 @@ public class ZeroCommandNode extends CommandNode {
     }
 
 
-
-
     public String getCommandName() {
         return commandName;
     }
 }
-

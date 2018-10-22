@@ -106,25 +106,14 @@ public class Reflector {
         return lastCommand;
     }
 
-    public boolean createVariable(String name) {
-        if (variableMap.keySet().contains(name)) {
-            return false;
-        }
-        variableMap.put(name, new ArgumentNode("0.0"));
-        return true;
+    public void createSetVariable(String name, BasicNode value) {
+        variableMap.put(name.substring(1), (ArgumentNode)value); //This both creates an entry AND replace an existing entry
     }
 
-    public boolean setVariable(String name, ArgumentNode value) {
-        if (!variableMap.keySet().contains(name)) {
-            return false;
-        }
-        variableMap.put(name, value);
-        return true;
-    }
 
-    public ArgumentNode getVariable(String name) {
+    public ArgumentNode getVariable(String name) throws IllegalCommandException {
         if (!variableMap.keySet().contains(name)) {
-            return null;
+            throw new IllegalCommandException("Variable"+name+"does not exist");
         }
         return variableMap.get(name);
     }
