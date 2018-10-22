@@ -75,7 +75,7 @@ public class TreeFactory {
             String nextCommand = commands.remove(0);
             newChild = createRoot(nextCommand);
             generateCommand(newChild, commands);
-        } else if (!isNotCommand(nextChild)) {
+        } else if (!isNumeric(nextChild)) {
             newChild = createRoot(nextChild);
             //This child has its own arguments that we need to add. Use recursion!
             generateCommand(newChild, commands);
@@ -93,9 +93,7 @@ public class TreeFactory {
             newNode = new SingleCommandNode("GetVariable");
             newNode.addChild(new ArgumentNode(command.substring(1))); //Variables need to have a child to begin with
             System.out.println(command.substring(1));
-        }
-
-        else if (!isNotCommand(command)) {
+        } else if (!isNumeric(command)) {
             String numArgs = getArgNum(command);
             //System.out.println(numArgs);
             if (numArgs == null) {
@@ -151,8 +149,8 @@ public class TreeFactory {
         return s.matches(":[a-zA-Z_]+");
     }
 
-    private boolean isNotCommand(String s) {
-        return s.matches("[-+]?\\d*\\.?\\d+|\\\"[a-zA-Z]+|-[a-zA-Z_]+");
+    private boolean isNumeric(String s) {
+        return s.matches("[-+]?\\d*\\.?\\d+|\\\"[a-zA-Z]+");
     }
 
     private boolean isLeftParenthesis(String s) {
