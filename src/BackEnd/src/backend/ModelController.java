@@ -49,5 +49,9 @@ public class ModelController {
         return myReflector.checkAndAddNewVar();
     }
 
+    public Map<String, String> updateFunc() {
+        return myReflector.checkAndAddNewFunc();
+    }
+
 }
 

@@ -25,6 +25,8 @@ public class Reflector {
     private Map<String, CommandNode> instructionMap = new HashMap<>();
     private boolean hasNewVar;
     private Map<String, String> newVar;
+    private boolean hasNewFunc;
+    private Map<String, String> newFunc;
 
     public Reflector(Turtle turtle) {
         myTurtle = turtle;
@@ -133,7 +135,17 @@ public class Reflector {
             return false;
         }
         instructionMap.put(name, inst);
+        hasNewFunc = !hasNewFunc;
+        newFunc = new HashMap<>();
+        newFunc.put(name, inst.getCommandName());
         return true;
+    }
+
+    public Map<String, String> checkAndAddNewFunc() {
+        if (hasNewFunc) {
+            hasNewFunc = !hasNewFunc;
+            return newFunc;
+        } else return new HashMap<>();
     }
 
     public BasicNode getInstruction(String name) {

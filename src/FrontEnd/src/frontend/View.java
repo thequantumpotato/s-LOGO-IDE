@@ -182,7 +182,7 @@ public class View {
     }
 
     public void displayFunctions(Map<String, String> function) {
-
+        myFunctionView.updateFunction(function);
     }
 
     public void displayErrors(String errorMessage) {
