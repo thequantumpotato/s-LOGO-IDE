@@ -111,8 +111,17 @@ public class Reflector {
 
     public void createSetVariable(String name, BasicNode value) {
         variableMap.put(name.substring(1), (ArgumentNode) value); //This both creates an entry AND replace an existing entry
+        hasNewVar = !hasNewVar;
+        newVar = new HashMap<>();
+        newVar.put(name.substring(1), value.getCommandName());
     }
 
+    public Map<String, String> checkAndAddNewVar() {
+        if (hasNewVar) {
+            hasNewVar = !hasNewVar;
+            return newVar;
+        } else return new HashMap<>();
+    }
 
     public ArgumentNode getVariable(String name) throws IllegalCommandException {
         if (!variableMap.keySet().contains(name)) {
@@ -126,7 +135,17 @@ public class Reflector {
             return false;
         }
         instructionMap.put(name, inst);
+        hasNewFunc = !hasNewFunc;
+        newFunc = new HashMap<>();
+        newFunc.put(name, inst.getCommandName());
         return true;
+    }
+
+    public Map<String, String> checkAndAddNewFunc() {
+        if (hasNewFunc) {
+            hasNewFunc = !hasNewFunc;
+            return newFunc;
+        } else return new HashMap<>();
     }
 
     public BasicNode getInstruction(String name) {

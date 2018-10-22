@@ -45,8 +45,12 @@ public class ModelController {
         return s.matches("[-+]?\\d*\\.?\\d+");
     }
 
-    public void updateVar(String varName, String varVal) {
+    public Map<String, String> updateVar() {
+        return myReflector.checkAndAddNewVar();
+    }
 
+    public Map<String, String> updateFunc() {
+        return myReflector.checkAndAddNewFunc();
     }
 
 }
