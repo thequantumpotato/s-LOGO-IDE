@@ -89,12 +89,11 @@ public class TreeFactory {
 
     private BasicNode createRoot(String command) throws IllegalCommandException {
         BasicNode newNode;
-        if(isVariable(command)){
+        if (isVariable(command)) {
             newNode = new SingleCommandNode("GetVariable");
             newNode.addChild(new ArgumentNode(command.substring(1))); //Variables need to have a child to begin with
             System.out.println(command.substring(1));
-        }
-        else if (!isNumeric(command)) {
+        } else if (!isNumeric(command)) {
             String numArgs = getArgNum(command);
             //System.out.println(numArgs);
             if (numArgs == null) {
@@ -146,9 +145,10 @@ public class TreeFactory {
         }
     }
 
-    private boolean isVariable(String s){
+    private boolean isVariable(String s) {
         return s.matches(":[a-zA-Z_]+");
     }
+
     private boolean isNumeric(String s) {
         return s.matches("[-+]?\\d*\\.?\\d+|\\\"[a-zA-Z]+");
     }

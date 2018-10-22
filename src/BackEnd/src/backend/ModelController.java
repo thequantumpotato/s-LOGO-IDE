@@ -1,9 +1,7 @@
 package backend;
 
 import backend.Nodes.BasicNode;
-import backend.Nodes.ArgumentNode;
-import backend.Nodes.CommandNode;
-import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -19,7 +17,7 @@ public class ModelController {
     private Turtle myTurtle;
     private Reflector myReflector;
 
-    public ModelController(Turtle turtle, List<Map.Entry<String, Pattern>> symbolList){
+    public ModelController(Turtle turtle, List<Map.Entry<String, Pattern>> symbolList) {
         mySymbols = symbolList;
         interpreter = new Interpreter(symbolList);
         //commander = new Command(this, turtle);
@@ -43,12 +41,11 @@ public class ModelController {
     }
 
 
-
-    private boolean isNumeric(String s){
+    private boolean isNumeric(String s) {
         return s.matches("[-+]?\\d*\\.?\\d+");
     }
 
-    public void updateVar(String varName, String varVal){
+    public void updateVar(String varName, String varVal) {
 
     }
 

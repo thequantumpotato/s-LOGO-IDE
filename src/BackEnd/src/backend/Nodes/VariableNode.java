@@ -1,12 +1,10 @@
 package backend.Nodes;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class VariableNode extends CommandNode {
 
     private String commandName;
     private int numArguments;
+
     public VariableNode(String commandString) {
         super(commandString);
         commandName = commandString;

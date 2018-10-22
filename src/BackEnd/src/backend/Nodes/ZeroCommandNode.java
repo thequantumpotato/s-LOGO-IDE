@@ -13,8 +13,6 @@ public class ZeroCommandNode extends CommandNode {
     }
 
 
-
-
     public String getCommandName() {
         return commandName;
     }

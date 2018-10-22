@@ -9,11 +9,12 @@ public class LoopNode implements BasicNode {
     private String commandName;
     private List<BasicNode> myChildren;
 
-    public LoopNode(int rep, String command){
+    public LoopNode(int rep, String command) {
         commandName = command;
         repititions = rep;
         myChildren = new ArrayList<>();
     }
+
     @Override
     public void addChild(BasicNode Child) {
         myChildren.add(Child);
@@ -39,7 +40,7 @@ public class LoopNode implements BasicNode {
         return myChildren;
     }
 
-    public int getReps(){
+    public int getReps() {
         return repititions;
     }
 }
