@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 /**
- * @author Jose San Martin, Henry
+ * @author Jose San Martin, Henry Xie
  * A controller class that performs reflection on a list of trees to move the turtle.
  */
 public class ModelController {

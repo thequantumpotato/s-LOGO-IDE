@@ -51,7 +51,7 @@ public class Interpreter {
         return myTrees;
 
     }
-    
+
 
     /**
      * Returns language's type associated with the given text if one exists
@@ -59,7 +59,7 @@ public class Interpreter {
     private String getSymbol(String text) throws IllegalCommandException {
         for (var e : mySymbols) {
             if (match(text, e.getValue())) {
-                if (e.getKey().equals("Constant")) {
+                if (e.getKey().equals("Constant") | e.getKey().equals("Variable")) {
                     return text;
                 } else {
                     return e.getKey();
