@@ -5,6 +5,7 @@ import backend.Nodes.BasicNode;
 import backend.Nodes.CommandNode;
 import backend.Nodes.LoopNode;
 
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -351,16 +352,29 @@ public class Command {
 //            //to-do
 //        }
 
-    public BasicNode makeUserInstruction(List<BasicNode> l) {
-        String name = l.get(0).getCommandName();
-        CommandNode c = (CommandNode) l.get(1);
-        return new ArgumentNode(m.createInstruction(name, c) ? "1" : "0");
+//    public BasicNode makeUserInstruction(List<BasicNode> l) {
+//        String name = l.get(0).getCommandName();
+//        CommandNode c = (CommandNode) l.get(1);
+//        return new ArgumentNode(m.createInstruction(name, c) ? "1" : "0");
+//    }
+//
+//    public BasicNode getInstruction(List<BasicNode> l) {
+//        String name = l.get(0).getCommandName();
+//        return m.getInstruction(name);
+//    }
+public BasicNode getUserInstruction(List<BasicNode> l) throws IllegalCommandException {
+    String name = l.get(0).getCommandName().substring(1);
+    BasicNode function = m.getInstruction(name);
+    if(function == null){
+        throw new IllegalCommandException();
     }
+    BasicNode loopNode = new LoopNode(1, "loop");
+    for (BasicNode n : function.getChildren()) {
+        loopNode.addChild(n); // move children from the listNode to the loopNode
+    }
+    return loopNode;
+}
 
-    public BasicNode getInstruction(List<BasicNode> l) {
-        String name = l.get(0).getCommandName();
-        return m.getInstruction(name);
-    }
 
 //        public BasicNode setBackground (List<BasicNode> l) {
 //
