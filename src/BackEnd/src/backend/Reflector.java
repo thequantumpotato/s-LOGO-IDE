@@ -22,11 +22,13 @@ public class Reflector {
     private Command Commander;
     private Turtle myTurtle;
     private Map<String, ArgumentNode> variableMap = new HashMap<>();
+
     private Map<String, BasicNode> instructionMap = new HashMap<>();
     private boolean hasNewVar;
     private Map<String, String> newVar;
     private boolean hasNewFunc;
     private Map<String, String> newFunc;
+
 
     public Reflector(Turtle turtle) {
         myTurtle = turtle;
@@ -36,8 +38,10 @@ public class Reflector {
     public void execute(BasicNode root) throws NoSuchMethodException {
         if (root.getCommandName().matches("If")) {
             handleIf(root);
-        } else {
-            traverseTree(root);
+        } else if(root.getCommandName().matches("MakeUserInstruction")){
+            handleFunctions(root);
+        }else{
+        traverseTree(root);
         }
     }
 
@@ -91,7 +95,7 @@ public class Reflector {
     }
 
     //TODO: Make this return the last value of the last executed command
-    public void loop(LoopNode loopNode) throws NoSuchMethodException { //Have to accept LoopNode, not BasicNode
+  private void loop(LoopNode loopNode) throws NoSuchMethodException { //Have to accept LoopNode, not BasicNode
         //Run the commands in the list a specified number of times
         for (int i = 0; i < loopNode.getReps(); i++) {
             for (BasicNode subCommand : loopNode.getChildren()) {
@@ -101,7 +105,7 @@ public class Reflector {
         return;
     }
 
-    public BasicNode loopList(BasicNode list) throws NoSuchMethodException {
+    private BasicNode loopList(BasicNode list) throws NoSuchMethodException {
         BasicNode lastCommand = null;
         for (BasicNode commandToRun : list.getChildren()) {
             lastCommand = traverseTree(commandToRun);
@@ -155,7 +159,15 @@ public class Reflector {
             return instructionMap.get(name);
 
         }
+    private BasicNode handleFunctions(BasicNode root){
+        System.out.println(root.getChildren());
+        String commandName = root.getChildren().get(0).getCommandName().substring(1);
+        //ListNode vars = (ListNode) root.getChildren().get(1);
+        BasicNode commands = root.getChildren().get(2);
+        instructionMap.put(commandName, commands);
 
+        return(new ArgumentNode("1"));
+    }
 
     private boolean isNumeric(String s) {
         return s.matches("[-+]?\\d*\\.?\\d+");
