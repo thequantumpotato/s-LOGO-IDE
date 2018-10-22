@@ -30,9 +30,9 @@ public class Reflector {
     }
 
     public void execute(BasicNode root) throws NoSuchMethodException {
-        if (root.getCommandName().matches("If")) {
+         if(root.getCommandName().matches("If|IfElse")){
             handleIf(root);
-        } else {
+        } else{
             traverseTree(root);
         }
     }
@@ -81,6 +81,10 @@ public class Reflector {
         BasicNode lastCommand = null;
         if (!condition.getCommandName().equals("0")) {
             BasicNode list = root.getChildren().get(1);
+            lastCommand = loopList(list);
+        }
+        if(condition.getCommandName().equals("0") & root.getNumChildren() == 3){
+            BasicNode list = root.getChildren().get(2);
             lastCommand = loopList(list);
         }
         return lastCommand;
