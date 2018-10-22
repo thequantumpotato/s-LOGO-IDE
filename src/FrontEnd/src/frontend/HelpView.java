@@ -1,7 +1,5 @@
 package frontend;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
@@ -39,29 +37,6 @@ public class HelpView implements SubView {
             helpList.getItems().add(commandClickable);
         }
     }
-
-//    public class ReadPropertiesFile {
-//        public static void main(String[] args) {
-//            try {
-//                File file = new File("test.properties");
-//                FileInputStream fileInput = new FileInputStream(file);
-//                Properties properties = new Properties();
-//                properties.load(fileInput);
-//                fileInput.close();
-//
-//                Enumeration enuKeys = properties.keys();
-//                while (enuKeys.hasMoreElements()) {
-//                    String key = (String) enuKeys.nextElement();
-//                    String value = properties.getProperty(key);
-//                    System.out.println(key + ": " + value);
-//                }
-//            } catch (FileNotFoundException e) {
-//                e.printStackTrace();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//    }
 
     @Override
     public Node getView() {
