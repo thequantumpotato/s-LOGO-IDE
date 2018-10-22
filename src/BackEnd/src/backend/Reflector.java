@@ -22,7 +22,7 @@ public class Reflector {
     private Command Commander;
     private Turtle myTurtle;
     private Map<String, ArgumentNode> variableMap = new HashMap<>();
-    private Map<String, CommandNode> instructionMap = new HashMap<>();
+    private Map<String, BasicNode> instructionMap = new HashMap<>();
     private boolean hasNewVar;
     private Map<String, String> newVar;
     private boolean hasNewFunc;
@@ -139,22 +139,23 @@ public class Reflector {
         newFunc = new HashMap<>();
         newFunc.put(name, inst.getCommandName());
         return true;
-    }
 
-    public Map<String, String> checkAndAddNewFunc() {
-        if (hasNewFunc) {
-            hasNewFunc = !hasNewFunc;
-            return newFunc;
-        } else return new HashMap<>();
     }
-
-    public BasicNode getInstruction(String name) {
-        if (!instructionMap.keySet().contains(name)) {
-            return null;
+        public Map<String, String> checkAndAddNewFunc () {
+            if (hasNewFunc) {
+                hasNewFunc = !hasNewFunc;
+                return newFunc;
+            } else return new HashMap<>();
         }
-        return instructionMap.get(name);
 
-    }
+        public BasicNode getInstruction (String name){
+            if (!instructionMap.keySet().contains(name)) {
+                return null;
+            }
+            return instructionMap.get(name);
+
+        }
+
 
     private boolean isNumeric(String s) {
         return s.matches("[-+]?\\d*\\.?\\d+");
