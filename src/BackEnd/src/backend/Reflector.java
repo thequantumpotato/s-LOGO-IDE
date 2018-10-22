@@ -23,6 +23,8 @@ public class Reflector {
     private Turtle myTurtle;
     private Map<String, ArgumentNode> variableMap = new HashMap<>();
     private Map<String, CommandNode> instructionMap = new HashMap<>();
+    private boolean hasNewVar;
+    private Map<String, String> newVar;
 
     public Reflector(Turtle turtle) {
         myTurtle = turtle;
@@ -107,8 +109,17 @@ public class Reflector {
 
     public void createSetVariable(String name, BasicNode value) {
         variableMap.put(name.substring(1), (ArgumentNode) value); //This both creates an entry AND replace an existing entry
+        hasNewVar = !hasNewVar;
+        newVar = new HashMap<>();
+        newVar.put(name.substring(1), value.getCommandName());
     }
 
+    public Map<String, String> checkAndAddNewVar() {
+        if (hasNewVar) {
+            hasNewVar = !hasNewVar;
+            return newVar;
+        } else return new HashMap<>();
+    }
 
     public ArgumentNode getVariable(String name) throws IllegalCommandException {
         if (!variableMap.keySet().contains(name)) {

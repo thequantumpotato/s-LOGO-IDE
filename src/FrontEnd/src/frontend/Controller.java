@@ -43,6 +43,8 @@ public class Controller {
         try {
             modelController.parseCommand(input);
             myView.updateHistory(input);
+            Map<String, String> newVar = modelController.updateVar();
+            if (!newVar.isEmpty()) myView.displayVars(newVar);
         } catch (Exception e) {
             if (e instanceof IllegalCommandException) {
                 myView.displayErrors(myErrors.getString("commandError"));

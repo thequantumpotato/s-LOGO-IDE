@@ -177,11 +177,11 @@ public class View {
     /**
      * External APIs
      **/
-    public void displayVars(Map<String, String> variables) {
-
+    public void displayVars(Map<String, String> variable) {
+        myVariableView.updateVariable(variable);
     }
 
-    public void displayFunctions(Map<String, String> functions) {
+    public void displayFunctions(Map<String, String> function) {
 
     }
 
