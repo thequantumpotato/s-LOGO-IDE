@@ -20,6 +20,11 @@ public class Reflector {
     private Turtle myTurtle;
     private Map<String, ArgumentNode> variableMap = new HashMap<>();
     private Map<String, BasicNode> instructionMap = new HashMap<>();
+    private boolean hasNewVar;
+    private Map<String, String> newVar;
+    private boolean hasNewFunc;
+    private Map<String, String> newFunc;
+
 
     public Reflector(Turtle turtle) {
         myTurtle = turtle;
@@ -139,22 +144,23 @@ public class Reflector {
         newFunc = new HashMap<>();
         newFunc.put(name, inst.getCommandName());
         return true;
-    }
 
-    public Map<String, String> checkAndAddNewFunc() {
-        if (hasNewFunc) {
-            hasNewFunc = !hasNewFunc;
-            return newFunc;
-        } else return new HashMap<>();
     }
-
-    public BasicNode getInstruction(String name) {
-        if (!instructionMap.keySet().contains(name)) {
-            return null;
+        public Map<String, String> checkAndAddNewFunc () {
+            if (hasNewFunc) {
+                hasNewFunc = !hasNewFunc;
+                return newFunc;
+            } else return new HashMap<>();
         }
-        return instructionMap.get(name);
 
-    }
+        public BasicNode getInstruction (String name){
+            if (!instructionMap.keySet().contains(name)) {
+                return null;
+            }
+            return instructionMap.get(name);
+
+        }
+
 
     private BasicNode handleFunctions(BasicNode root){
         System.out.println(root.getChildren());

@@ -19,3 +19,4 @@ Assumptions:
 - Lists (brackets) only work as argumnets. Therefore, you can't say something like "[ fd 50 ]" because there is no top level commands here. 
 - When assigning variables in Make/Set or in loop functions, the variable name must start with " 
     - For example, to set 5 to a variable var, the command would be 'make "var 5'
+- In order to run a user defined function, the user needs to say "run" and then the name of their function
