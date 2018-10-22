@@ -71,7 +71,6 @@ public class Controller {
 
     private void initializeCommands() {
 
-
     }
 
     public void parse(String input) {
