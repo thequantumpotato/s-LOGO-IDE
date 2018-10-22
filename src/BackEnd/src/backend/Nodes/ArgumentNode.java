@@ -6,7 +6,7 @@ public class ArgumentNode implements BasicNode {
     private String argument;
     private int numArguments = 0;
 
-    public ArgumentNode(String value){
+    public ArgumentNode(String value) {
         argument = value;
     }
 

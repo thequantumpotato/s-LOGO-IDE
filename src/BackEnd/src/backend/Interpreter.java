@@ -3,8 +3,10 @@ package backend;
 
 import backend.Nodes.BasicNode;
 
-import java.lang.reflect.Method;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
 /**
@@ -57,7 +59,7 @@ public class Interpreter {
      * Returns language's type associated with the given text if one exists
      */
     private String getSymbol(String text) //throws IllegalCommandException
-     {
+    {
         for (var e : mySymbols) {
             if (match(text, e.getValue())) {
                 if (e.getKey().equals("Constant") | e.getKey().equals("Variable")) {
@@ -78,7 +80,6 @@ public class Interpreter {
         // THIS IS THE IMPORTANT LINE
         return regex.matcher(text).matches();
     }
-
 
 
 }

@@ -1,11 +1,10 @@
 package backend;
 
+import backend.Nodes.ArgumentNode;
 import backend.Nodes.BasicNode;
 import backend.Nodes.CommandNode;
 import backend.Nodes.LoopNode;
-import backend.Nodes.ArgumentNode;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -107,13 +106,13 @@ public class Reflector {
     }
 
     public void createSetVariable(String name, BasicNode value) {
-        variableMap.put(name.substring(1), (ArgumentNode)value); //This both creates an entry AND replace an existing entry
+        variableMap.put(name.substring(1), (ArgumentNode) value); //This both creates an entry AND replace an existing entry
     }
 
 
     public ArgumentNode getVariable(String name) throws IllegalCommandException {
         if (!variableMap.keySet().contains(name)) {
-            throw new IllegalCommandException("Variable"+name+"does not exist");
+            throw new IllegalCommandException("Variable" + name + "does not exist");
         }
         return variableMap.get(name);
     }
@@ -133,17 +132,18 @@ public class Reflector {
         return instructionMap.get(name);
 
     }
-        private boolean isNumeric (String s){
-            return s.matches("[-+]?\\d*\\.?\\d+");
-        }
 
-        private boolean isNotCommand (BasicNode n){
-            return !(n instanceof CommandNode);
-        }
-    public void clearScreen(){
-
+    private boolean isNumeric(String s) {
+        return s.matches("[-+]?\\d*\\.?\\d+");
     }
 
+    private boolean isNotCommand(BasicNode n) {
+        return !(n instanceof CommandNode);
+    }
+
+    public void clearScreen() {
+
+    }
 
 
 }
