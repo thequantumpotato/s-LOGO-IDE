@@ -10,6 +10,13 @@ import javafx.scene.layout.VBox;
 import java.util.Enumeration;
 import java.util.ResourceBundle;
 
+/**
+ * A help page that displays all available command as hyperlinks in a ListView.
+ * After being clicked, an information window will pop up to display the description of the command.
+ *
+ * @author Vincent Liu
+ */
+
 public class HelpView implements SubView {
     public static final String HELP_PATH = "CommandHelp";
     private VBox helpView;
@@ -30,7 +37,7 @@ public class HelpView implements SubView {
             Hyperlink commandClickable = new Hyperlink();
             String commandName = commandHelpKeys.nextElement().toString().replaceAll("\\\\", "");
             commandClickable.setText(commandName);
-            commandClickable.setOnAction(e -> {
+            commandClickable.setOnMouseClicked(e -> {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle(commandName);
                 alert.setHeaderText("Description: ");
