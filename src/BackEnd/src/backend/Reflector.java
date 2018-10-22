@@ -22,7 +22,6 @@ public class Reflector {
     private Command Commander;
     private Turtle myTurtle;
     private Map<String, ArgumentNode> variableMap = new HashMap<>();
-
     private Map<String, BasicNode> instructionMap = new HashMap<>();
     private boolean hasNewVar;
     private Map<String, String> newVar;
