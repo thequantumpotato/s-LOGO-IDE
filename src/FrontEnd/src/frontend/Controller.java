@@ -19,6 +19,7 @@ public class Controller {
     public static final String LANG_PATH = "languages/";
     private View myView;
     private Turtle myTurtle;
+    private ViewControl viewControl;
     private ModelController modelController;
     private List<Map.Entry<String, Pattern>> mySymbols;
     private ResourceBundle myErrors;
@@ -33,6 +34,7 @@ public class Controller {
         myTurtle = myTurtle_;
         myView = new View(primaryStage, this, myTurtle, language);
         myView.registerDisplay(myTurtle);
+        viewControl = new ViewControl(myView.getMyDisplayView());
         modelController = new ModelController(myTurtle, mySymbols);
         myErrors = ResourceBundle.getBundle(commandError);
     }

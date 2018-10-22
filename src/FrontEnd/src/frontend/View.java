@@ -215,6 +215,9 @@ public class View {
         animation.play();
     }
 
+    public DisplayView getMyDisplayView(){
+        return myDisplayView;
+    }
 
     public Stage getMyStage() {
         return myStage;
