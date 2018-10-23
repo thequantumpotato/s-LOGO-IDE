@@ -35,7 +35,7 @@ public class DisplayView implements SubView, Observer {
     public static final int TURTLE_DEFAULT_Y = 250;
     public static final int DEFAULT_BG_WIDTH = 800;
     public static final int DEFAULT_BG_HEIGHT = 800;
-    Turtle myTurtle;
+    private Turtle myTurtle;
     private View myView;
     private ScrollPane scrollPane;
     private Group root;

@@ -11,7 +11,8 @@ import javafx.scene.layout.VBox;
 import java.util.Map;
 
 /**
- * A panel to display all the variables that the user defines.
+ * A panel (using TableView) to display all the variables that the user defines.
+ * The variables are editable, and the new values entered by the use will be updated in the backend.
  *
  * @author Vincent Liu
  */
@@ -20,23 +21,24 @@ public class VariableView implements SubView {
 
     private VBox variableView;
     private TableView variableList;
-    private View myView;
     private TableColumn name;
     private TableColumn value;
 
-    public VariableView(View myView_) {
-        myView = myView_;
+    public VariableView() {
         variableList = new TableView();
+        setUpTable();
+        variableList.getColumns().addAll(name, value);
+    }
+
+    private void setUpTable() {
         Label title = new Label("Variables");
         variableView = new VBox();
         variableView.getChildren().addAll(title, variableList);
         variableView.getStyleClass().add("variableView");
-
         name = new TableColumn("Name");
         name.setCellValueFactory(new PropertyValueFactory<Variable, String>("varName"));
         value = new TableColumn("Value");
         value.setCellValueFactory(new PropertyValueFactory<Variable, String>("varVal"));
-        variableList.getColumns().addAll(name, value);
     }
 
     public void updateVariable(Map<String, String> var) {
@@ -49,11 +51,12 @@ public class VariableView implements SubView {
         return variableView;
     }
 
-    public static class Variable {
+    // A Variable class to represent data for each row
+    public class Variable {
         private final SimpleStringProperty varName;
         private final SimpleStringProperty varVal;
 
-        private Variable(String varName, String varVal) {
+        public Variable(String varName, String varVal) {
             this.varName = new SimpleStringProperty(varName);
             this.varVal = new SimpleStringProperty(varVal);
         }

@@ -12,7 +12,6 @@ import javafx.stage.FileChooser;
 import java.io.File;
 
 public class SettingView implements SubView {
-    //    private VBox settingView;
     private ToolBar settingView;
     private ComboBox languageBox;
     private View myView;
@@ -23,49 +22,19 @@ public class SettingView implements SubView {
      */
     public SettingView(View myView_, String initLang) {
         myView = myView_;
-//        settingView = new VBox();
         settingView = new ToolBar();
         settingView.getStyleClass().add("settingView");
 
-        VBox bgBox = new VBox();
-        ColorPicker bgColorPicker = new ColorPicker();
-        Label bgLabel = new Label("Background Color:");
-        bgColorPicker.setPromptText("Background Color");
-        bgColorPicker.setValue(myView.DEFAULT_BG_COLOR);
-        bgColorPicker.setOnAction(e -> {
-            myView.changeBgColor(bgColorPicker.getValue());
-        });
-        bgBox.getChildren().addAll(bgLabel, bgColorPicker);
+        VBox bgBox = setUpBgColorPicker();
+        VBox penBox = setUpPenColorPicker();
+        Button turtleButton = setUpTurtleImgChooser();
+        setUpLangComboBox(initLang);
+        VBox speedBox = setUpTurtleSpeedBox();
 
-        VBox penBox = new VBox();
-        ColorPicker penColorPicker = new ColorPicker();
-        Label penLabel = new Label("Pen Color:");
-        penColorPicker.setPromptText("Pen Color");
-        penColorPicker.setOnAction(e -> {
-            myView.changePenColor(penColorPicker.getValue());
-        });
-        penBox.getChildren().addAll(penLabel, penColorPicker);
+        settingView.getItems().addAll(bgBox, penBox, speedBox, turtleButton, languageBox);
+    }
 
-        final FileChooser fileChooser = new FileChooser();
-        final Button turtleButton = new Button("Turtle Image");
-        turtleButton.setOnAction((final ActionEvent e) -> {
-            File file = fileChooser.showOpenDialog(myView.getMyStage());
-            if (file != null) {
-                myView.changeTurtleImg(new Image(file.toURI().toString()));
-            }
-        });
-
-        languageBox = new ComboBox();
-        languageBox.getItems().addAll("English", "Chinese", "French", "German", "Italian", "Portuguese", "Russian", "Spanish");
-        languageBox.setValue(initLang);
-        languageBox.valueProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue ov, String t, String t1) {
-                myView.changeLanguage(t1);
-            }
-        });
-
-
+    private VBox setUpTurtleSpeedBox() {
         VBox speedBox = new VBox();
         Label speedLabel = new Label("Animation Speed: " + myView.DEFAULT_PEN_TIME);
         Slider speedSlider = new Slider();
@@ -84,8 +53,56 @@ public class SettingView implements SubView {
             speedLabel.setText("Animation Speed: " + String.valueOf(new_val.doubleValue()));
         });
         speedBox.getChildren().addAll(speedLabel, speedSlider);
+        return speedBox;
+    }
 
-        settingView.getItems().addAll(bgBox, penBox, speedBox, turtleButton, languageBox);
+    private void setUpLangComboBox(String initLang) {
+        languageBox = new ComboBox();
+        languageBox.getItems().addAll("English", "Chinese", "French", "German", "Italian", "Portuguese", "Russian", "Spanish");
+        languageBox.setValue(initLang);
+        languageBox.valueProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue ov, String t, String t1) {
+                myView.changeLanguage(t1);
+            }
+        });
+    }
+
+    private Button setUpTurtleImgChooser() {
+        final FileChooser fileChooser = new FileChooser();
+        final Button turtleButton = new Button("Turtle Image");
+        turtleButton.setOnAction((final ActionEvent e) -> {
+            File file = fileChooser.showOpenDialog(myView.getMyStage());
+            if (file != null) {
+                myView.changeTurtleImg(new Image(file.toURI().toString()));
+            }
+        });
+        return turtleButton;
+    }
+
+    private VBox setUpPenColorPicker() {
+        VBox penBox = new VBox();
+        ColorPicker penColorPicker = new ColorPicker();
+        Label penLabel = new Label("Pen Color:");
+        penColorPicker.setPromptText("Pen Color");
+        penColorPicker.setOnAction(e -> {
+            myView.changePenColor(penColorPicker.getValue());
+        });
+        penBox.getChildren().addAll(penLabel, penColorPicker);
+        return penBox;
+    }
+
+    private VBox setUpBgColorPicker() {
+        VBox bgBox = new VBox();
+        ColorPicker bgColorPicker = new ColorPicker();
+        Label bgLabel = new Label("Background Color:");
+        bgColorPicker.setPromptText("Background Color");
+        bgColorPicker.setValue(myView.DEFAULT_BG_COLOR);
+        bgColorPicker.setOnAction(e -> {
+            myView.changeBgColor(bgColorPicker.getValue());
+        });
+        bgBox.getChildren().addAll(bgLabel, bgColorPicker);
+        return bgBox;
     }
 
     @Override

@@ -30,9 +30,13 @@ public class HelpView implements SubView {
         helpList = new ListView();
         helpView.getChildren().addAll(title, helpList);
         helpView.getStyleClass().add("helpView");
+
+        addCommandAndDesc();
+    }
+
+    private void addCommandAndDesc() {
         commandHelpBundle = ResourceBundle.getBundle(HELP_PATH);
         commandHelpKeys = commandHelpBundle.getKeys();
-
         while (commandHelpKeys.hasMoreElements()) {
             Hyperlink commandClickable = new Hyperlink();
             String commandName = commandHelpKeys.nextElement().toString().replaceAll("\\\\", "");
