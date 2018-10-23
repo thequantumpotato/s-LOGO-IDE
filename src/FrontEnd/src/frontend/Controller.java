@@ -9,8 +9,8 @@ import java.util.*;
 import java.util.regex.Pattern;
 
 /**
- * Controller mediates the communications between the View and the Model. <br>
- * Controller is initialized when the Main.java starts running. It will contain an instance of View and ModelController.
+ * Controller mediates the communications between the ViewAPI and the Model. <br>
+ * Controller is initialized when the Main.java starts running. It will contain an instance of ViewAPI and ModelController.
  *
  * @author Vincent Liu
  */

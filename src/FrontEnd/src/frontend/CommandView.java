@@ -9,7 +9,7 @@ import javafx.scene.layout.GridPane;
 
 /**
  * An HBox that contains a TextArea to allow user input command text. When the submit button is clicked,
- * the command will be passed to the View, the Controller and the Parser.
+ * the command will be passed to the ViewAPI, the Controller and the Parser.
  *
  * @author Vincent Liu
  */

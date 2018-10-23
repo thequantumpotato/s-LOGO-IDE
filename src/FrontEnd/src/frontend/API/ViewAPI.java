@@ -2,7 +2,7 @@ package frontend.API;
 
 import backend.Turtle;
 
-public interface ViewExternal {
+public interface ViewAPI {
 
     /**
      * Called by CommandView
