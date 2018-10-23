@@ -33,9 +33,9 @@ public class FunctionView implements SubView {
         functionView.getStyleClass().add("functionView");
 
         name = new TableColumn("Name");
-        name.setCellValueFactory(new PropertyValueFactory<VariableView.Variable, String>("funcName"));
+        name.setCellValueFactory(new PropertyValueFactory<Function, String>("funcName"));
         value = new TableColumn("Value");
-        value.setCellValueFactory(new PropertyValueFactory<VariableView.Variable, String>("funcVal"));
+        value.setCellValueFactory(new PropertyValueFactory<Function, String>("funcVal"));
         functionList.getColumns().addAll(name, value);
     }
 
@@ -58,11 +58,11 @@ public class FunctionView implements SubView {
             this.funcVal = new SimpleStringProperty(funcVal);
         }
 
-        public String getVarName() {
+        public String getFuncName() {
             return funcName.get();
         }
 
-        public String getVarVal() {
+        public String getFuncVal() {
             return funcVal.get();
         }
     }

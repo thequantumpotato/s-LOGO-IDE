@@ -138,18 +138,8 @@ public class Reflector {
             return false;
         }
         instructionMap.put(name, inst);
-        hasNewFunc = !hasNewFunc;
-        newFunc = new HashMap<>();
-        newFunc.put(name, inst.getCommandName());
         return true;
-
     }
-        public Map<String, String> checkAndAddNewFunc () {
-            if (hasNewFunc) {
-                hasNewFunc = !hasNewFunc;
-                return newFunc;
-            } else return new HashMap<>();
-        }
 
         public BasicNode getInstruction (String name){
             if (!instructionMap.keySet().contains(name)) {
@@ -165,7 +155,18 @@ public class Reflector {
         BasicNode commands = root.getChildren().get(2);
         instructionMap.put(commandName, commands);
 
+        hasNewFunc = !hasNewFunc;
+        newFunc = new HashMap<>();
+        newFunc.put(commandName, commands.getCommandName());
+
         return(new ArgumentNode("1"));
+    }
+
+    public Map<String, String> checkAndAddNewFunc () {
+        if (hasNewFunc) {
+            hasNewFunc = !hasNewFunc;
+            return newFunc;
+        } else return new HashMap<>();
     }
 
     private boolean isNumeric(String s) {
