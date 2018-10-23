@@ -16,10 +16,7 @@ public class SettingView implements SubView {
     private ComboBox languageBox;
     private View myView;
 
-    /**
-     * TO DO:
-     * 1. add option to change pen size and pen state?
-     */
+    // TODO add option to change pen size and pen state?
     public SettingView(View myView_, String initLang) {
         myView = myView_;
         settingView = new ToolBar();
