@@ -6,6 +6,11 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
+/**
+ * A ListView that displays all the previous valid commands
+ * @author Vincent Liu
+ */
+
 public class HistoryView implements SubView {
     private VBox historyView;
     private ListView historyList;

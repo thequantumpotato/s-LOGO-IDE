@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 
 /**
  * Controller mediates the communications between the View and the Model. <br>
- * Controller is initialized when the Main.java starts running. It will contain an instance of View and Model.
+ * Controller is initialized when the Main.java starts running. It will contain an instance of View and ModelController.
  *
  * @author Vincent Liu
  */
@@ -24,9 +24,6 @@ public class Controller {
     private List<Map.Entry<String, Pattern>> mySymbols;
     private ResourceBundle myErrors;
 
-    /**
-     * TO DO: Attach myResource onto GUI and modelController to deal with different languages
-     */
     public Controller(Stage primaryStage, Turtle myTurtle_, String language, String syntax) {
         mySymbols = new ArrayList<>();
         addPatterns(LANG_PATH + language);
@@ -43,17 +40,28 @@ public class Controller {
         try {
             modelController.parseCommand(input);
             myView.updateHistory(input);
-            Map<String, String> newVar = modelController.updateVar();
-            if (!newVar.isEmpty()) myView.updateVar(newVar);
-            Map<String, String> newFunc = modelController.updateFunc();
-            if (!newFunc.isEmpty()) myView.updateFunction(newFunc);
+            checkVarAndUpdate();
+            checkFuncAndUpdate();
         } catch (Exception e) {
-            if (e instanceof IllegalCommandException) {
-                myView.displayErrors(myErrors.getString("commandError"));
-            }
-//            else if
-            else myView.displayErrors(e.toString());
+            throwErrorByType(e);
         }
+    }
+
+    private void throwErrorByType(Exception e) {
+        if (e instanceof IllegalCommandException) {
+            myView.displayErrors(myErrors.getString("commandError"));
+        }
+        else myView.displayErrors(e.toString());
+    }
+
+    private void checkFuncAndUpdate() {
+        Map<String, String> newFunc = modelController.updateFunc();
+        if (!newFunc.isEmpty()) myView.updateFunction(newFunc);
+    }
+
+    private void checkVarAndUpdate() {
+        Map<String, String> newVar = modelController.updateVar();
+        if (!newVar.isEmpty()) myView.updateVar(newVar);
     }
 
     /**
