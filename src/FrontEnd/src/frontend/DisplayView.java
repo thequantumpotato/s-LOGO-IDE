@@ -63,7 +63,6 @@ public class DisplayView implements SubView, Observer {
         bg = new Rectangle(DEFAULT_BG_WIDTH, DEFAULT_BG_HEIGHT, myView.DEFAULT_BG_COLOR);
 
         //create turtle
-        /** TO DO: Set the default turtle location to the center of the displayView */
         turtleView = new ImageView(image);
         turtleView.setFitWidth(TURTLE_SIZE);
         turtleView.setFitHeight(TURTLE_SIZE);
@@ -139,8 +138,6 @@ public class DisplayView implements SubView, Observer {
             expandBackground(Math.max(Math.abs(newpos.getX() - bg.getX()), Math.abs(newpos.getY() - bg.getY())));
         }
         TranslateTransition xt = new TranslateTransition(duration, turtleView);
-        /*System.out.println("From "+turtleX+" "+turtleY);
-        System.out.println("To "+newpos.getX()+" "+newpos.getY());*/
         xt.setFromX(turtleX);
         xt.setFromY(turtleY);
         xt.setToX(newpos.getX());
