@@ -1,7 +1,6 @@
 package frontend;
 
 import javafx.beans.property.SimpleStringProperty;
-import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -27,6 +26,7 @@ public class VariableView implements SubView {
 
     public VariableView() {
         variableList = new TableView();
+        variableList.setEditable(true);
         setUpTable();
         variableList.getColumns().addAll(name, value);
     }
@@ -37,26 +37,13 @@ public class VariableView implements SubView {
         variableView.getChildren().addAll(title, variableList);
         variableView.getStyleClass().add("variableView");
         name = new TableColumn("Name");
-        name.setCellValueFactory(new PropertyValueFactory<Variable, String>("varName"));
-//        name.setOnEditCommit(
-//                new EventHandler<TableColumn.CellEditEvent<Variable, String>>() {
-//                    @Override
-//                    public void handle(TableColumn.CellEditEvent<Variable, String> t) {
-//                        ((Variable) t.getTableView().getItems().get(t.getTablePosition().getRow())).setVarName(t.getNewValue());
-//                    }
-//                }
-//        );
-
+        name.setCellValueFactory(new PropertyValueFactory<>("varName"));
+//        name.setOnEditCommit( (TableColumn.CellEditEvent<Variable, String> event) ->
+//                event.getTableView().getItems().get(event.getTablePosition().getRow())).setVarName(event.getNewValue());
         value = new TableColumn("Value");
-        value.setCellValueFactory(new PropertyValueFactory<Variable, String>("varVal"));
-        value.setOnEditCommit(
-                new EventHandler<TableColumn.CellEditEvent<Variable, String>>() {
-                    @Override
-                    public void handle(TableColumn.CellEditEvent<Variable, String> t) {
-                        ((Variable) t.getTableView().getItems().get(t.getTablePosition().getRow())).setVarVal(t.getNewValue());
-                    }
-                }
-        );
+        value.setCellValueFactory(new PropertyValueFactory<>("varVal"));
+//        value.setOnEditCommit( (TableColumn.CellEditEvent<Variable, String> t) ->
+//                t.getRowValue().setVarVal(t.getNewValue()));
     }
 
     public void updateVariable(Map<String, String> var) {
