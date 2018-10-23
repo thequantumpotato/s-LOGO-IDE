@@ -11,7 +11,8 @@ import javafx.scene.layout.VBox;
 import java.util.Map;
 
 /**
- * A panel to display all the functions that the user defines.
+ * A panel (using TableView) to contain and display all the functions that the user defines.
+ * The functions are editable, and the new values entered by the use will be updated in the backend.
  *
  * @author Vincent Liu
  */
@@ -21,11 +22,14 @@ public class FunctionView implements SubView {
     private TableView functionList;
     private TableColumn name;
     private TableColumn value;
-    private View myView;
 
-    public FunctionView(View myView_) {
-        myView = myView_;
+    public FunctionView() {
         functionList = new TableView();
+        setUpTable();
+        functionList.getColumns().addAll(name, value);
+    }
+
+    private void setUpTable() {
         Label title = new Label("Functions");
         functionView = new VBox();
         functionView.getChildren().addAll(title, functionList);
@@ -35,7 +39,6 @@ public class FunctionView implements SubView {
         name.setCellValueFactory(new PropertyValueFactory<Function, String>("funcName"));
         value = new TableColumn("Value");
         value.setCellValueFactory(new PropertyValueFactory<Function, String>("funcVal"));
-        functionList.getColumns().addAll(name, value);
     }
 
     public void updateFunction(Map<String, String> func) {
@@ -48,11 +51,12 @@ public class FunctionView implements SubView {
         return functionView;
     }
 
-    public static class Function {
+    // A Function class to represent data for each row
+    public class Function {
         private final SimpleStringProperty funcName;
         private final SimpleStringProperty funcVal;
 
-        private Function(String funcName, String funcVal) {
+        public Function(String funcName, String funcVal) {
             this.funcName = new SimpleStringProperty(funcName);
             this.funcVal = new SimpleStringProperty(funcVal);
         }
