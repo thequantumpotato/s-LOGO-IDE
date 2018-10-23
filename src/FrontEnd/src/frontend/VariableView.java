@@ -26,6 +26,7 @@ public class VariableView implements SubView {
 
     public VariableView() {
         variableList = new TableView();
+        variableList.setEditable(true);
         setUpTable();
         variableList.getColumns().addAll(name, value);
     }
@@ -36,9 +37,13 @@ public class VariableView implements SubView {
         variableView.getChildren().addAll(title, variableList);
         variableView.getStyleClass().add("variableView");
         name = new TableColumn("Name");
-        name.setCellValueFactory(new PropertyValueFactory<Variable, String>("varName"));
+        name.setCellValueFactory(new PropertyValueFactory<>("varName"));
+//        name.setOnEditCommit( (TableColumn.CellEditEvent<Variable, String> event) ->
+//                event.getTableView().getItems().get(event.getTablePosition().getRow())).setVarName(event.getNewValue());
         value = new TableColumn("Value");
-        value.setCellValueFactory(new PropertyValueFactory<Variable, String>("varVal"));
+        value.setCellValueFactory(new PropertyValueFactory<>("varVal"));
+//        value.setOnEditCommit( (TableColumn.CellEditEvent<Variable, String> t) ->
+//                t.getRowValue().setVarVal(t.getNewValue()));
     }
 
     public void updateVariable(Map<String, String> var) {
@@ -67,6 +72,14 @@ public class VariableView implements SubView {
 
         public String getVarVal() {
             return varVal.get();
+        }
+
+        public void setVarName(String varName) {
+            this.varName.set(varName);
+        }
+
+        public void setVarVal(String varVal) {
+            this.varVal.set(varVal);
         }
     }
 }
