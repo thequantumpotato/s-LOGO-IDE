@@ -1,6 +1,7 @@
 package frontend;
 
 import javafx.beans.property.SimpleStringProperty;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -37,8 +38,25 @@ public class VariableView implements SubView {
         variableView.getStyleClass().add("variableView");
         name = new TableColumn("Name");
         name.setCellValueFactory(new PropertyValueFactory<Variable, String>("varName"));
+//        name.setOnEditCommit(
+//                new EventHandler<TableColumn.CellEditEvent<Variable, String>>() {
+//                    @Override
+//                    public void handle(TableColumn.CellEditEvent<Variable, String> t) {
+//                        ((Variable) t.getTableView().getItems().get(t.getTablePosition().getRow())).setVarName(t.getNewValue());
+//                    }
+//                }
+//        );
+
         value = new TableColumn("Value");
         value.setCellValueFactory(new PropertyValueFactory<Variable, String>("varVal"));
+        value.setOnEditCommit(
+                new EventHandler<TableColumn.CellEditEvent<Variable, String>>() {
+                    @Override
+                    public void handle(TableColumn.CellEditEvent<Variable, String> t) {
+                        ((Variable) t.getTableView().getItems().get(t.getTablePosition().getRow())).setVarVal(t.getNewValue());
+                    }
+                }
+        );
     }
 
     public void updateVariable(Map<String, String> var) {
@@ -67,6 +85,14 @@ public class VariableView implements SubView {
 
         public String getVarVal() {
             return varVal.get();
+        }
+
+        public void setVarName(String varName) {
+            this.varName.set(varName);
+        }
+
+        public void setVarVal(String varVal) {
+            this.varVal.set(varVal);
         }
     }
 }
