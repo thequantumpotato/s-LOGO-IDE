@@ -3,7 +3,6 @@ package frontend;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -49,7 +48,7 @@ public class FunctionView implements SubView {
         return functionView;
     }
 
-    public static class Function{
+    public static class Function {
         private final SimpleStringProperty funcName;
         private final SimpleStringProperty funcVal;
 

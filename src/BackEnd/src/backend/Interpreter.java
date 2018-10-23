@@ -64,10 +64,9 @@ public class Interpreter {
             if (match(text, e.getValue())) {
                 if (e.getKey().equals("Constant") | e.getKey().equals("Variable")) {
                     return text;
-                } else if (e.getKey().equals("commandName")){
-                    return "-"+text;
-                }
-                else {
+                } else if (e.getKey().equals("commandName")) {
+                    return "-" + text;
+                } else {
                     return e.getKey();
                 }
 
