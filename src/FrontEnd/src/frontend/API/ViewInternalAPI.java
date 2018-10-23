@@ -5,7 +5,7 @@ import javafx.scene.paint.Color;
 
 import java.util.Map;
 
- public interface ViewInternal {
+ public interface ViewInternalAPI {
 
     /**
      * Called by SettingView

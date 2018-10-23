@@ -1,8 +1,8 @@
 package frontend;
 
 import backend.Turtle;
-import frontend.API.ViewExternal;
-import frontend.API.ViewInternal;
+import frontend.API.ViewAPI;
+import frontend.API.ViewInternalAPI;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
@@ -23,7 +23,7 @@ import java.util.Map;
  * @author Vincent Liu
  */
 
-public class View implements ViewInternal, ViewExternal {
+public class View implements ViewInternalAPI, ViewAPI {
     public static final String TURTLE_IMAGE = "turtle.png";
     public static final String TITLE = "SLogo";
     public static final String STYLESHEET = "style.css";
