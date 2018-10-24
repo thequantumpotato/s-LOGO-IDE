@@ -82,14 +82,14 @@ public class DisplayView implements SubView, Observer {
         System.out.println(turtleView.getBoundsInLocal());
     }
 
-    public void setTurtlePos(Coordinate turtleCoordinate) {
+    /*public void setTurtlePos(Coordinate turtleCoordinate) {
         turtleX = turtleCoordinate.getX();
         turtleY = turtleCoordinate.getY();
         turtleAngle = turtleCoordinate.getAngle();
         turtleView.setTranslateX(turtleX);
         turtleView.setTranslateY(turtleY);
         turtleView.setRotate(turtleAngle);
-    }
+    }*/
 
     public void clearBg() {
         myPen.eraseAll();
@@ -141,7 +141,7 @@ public class DisplayView implements SubView, Observer {
                 newpos.getY() > bg.getY() + bg.getHeight() || newpos.getY() < bg.getY()) {
             expandBackground(Math.max(Math.abs(newpos.getX() - bg.getX()), Math.abs(newpos.getY() - bg.getY())));
         }
-        TranslateTransition xt = new TranslateTransition(duration, turtleView);
+        /*TranslateTransition xt = new TranslateTransition(duration, turtleView);
         xt.setFromX(turtleX);
         xt.setFromY(turtleY);
         xt.setToX(newpos.getX());
@@ -161,7 +161,7 @@ public class DisplayView implements SubView, Observer {
         pl.getChildren().add(rt);
         myAnimQ.getChildren().add(pl);
         turtleX = newpos.getX();
-        turtleY = newpos.getY();
+        turtleY = newpos.getY();*/
     }
 
     public void playAnims() {
@@ -177,18 +177,11 @@ public class DisplayView implements SubView, Observer {
         bg.setY(bg.getY() - amount);
         bg.setWidth(bg.getWidth() + 2 * amount);
         bg.setHeight(bg.getHeight() + 2 * amount);
-
     }
 
     public void clearScreen() {
     }
 
-
-    private double[] getTurtleCenter() {
-        double x = turtleView.getBoundsInParent().getMaxX() - (turtleView.getBoundsInParent().getWidth()) / 2;
-        double y = turtleView.getBoundsInParent().getMaxY() - (turtleView.getBoundsInParent().getHeight()) / 2;
-        return new double[]{x, y};
-    }
 
     private Coordinate adjustPosition(double x, double y, double theta) {
         double newtheta = Math.toDegrees((2 * Math.PI) - theta);
