@@ -25,11 +25,12 @@ public class SettingView implements SubView {
 
         VBox bgBox = setUpBgColorPicker();
         VBox penBox = setUpPenColorPicker();
+        CheckBox penDownCheckbox = setUpPenDownCheckbox();
         Button turtleButton = setUpTurtleImgChooser();
         setUpLangComboBox(initLang);
         VBox speedBox = setUpTurtleSpeedBox();
 
-        settingView.getItems().addAll(bgBox, penBox, speedBox, turtleButton, languageBox);
+        settingView.getItems().addAll(bgBox, penBox, penDownCheckbox,speedBox, turtleButton, languageBox);
     }
 
     private VBox setUpTurtleSpeedBox() {
@@ -88,6 +89,20 @@ public class SettingView implements SubView {
         });
         penBox.getChildren().addAll(penLabel, penColorPicker);
         return penBox;
+    }
+
+    private CheckBox setUpPenDownCheckbox(){
+        CheckBox cb = new CheckBox("Pen Down");
+        cb.setAllowIndeterminate(false);
+        cb.setIndeterminate(false);
+        cb.setSelected(true);
+        cb.selectedProperty().addListener(new ChangeListener<Boolean>(){
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                myView.changePenDown(newValue);
+            }
+        });
+        return cb;
     }
 
     private VBox setUpBgColorPicker() {

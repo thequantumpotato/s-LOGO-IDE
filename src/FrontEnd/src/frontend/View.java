@@ -144,6 +144,16 @@ public class View implements ViewInternalAPI, ViewAPI {
     }
 
     @Override
+    public void changePenSize(double penSize){
+        myDisplayView.changePenSize(penSize);
+    }
+
+    @Override
+    public void changePenDown(boolean penDown){
+        myDisplayView.setPenDown(penDown);
+    }
+
+    @Override
     public void changeTurtleImg(Image image) {
         myDisplayView.changeTurtleImg(image);
     }

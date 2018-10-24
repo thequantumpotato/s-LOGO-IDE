@@ -23,6 +23,22 @@ import java.util.Map;
      */
      void changePenColor(Color penColor);
 
+     /**
+      * Called by SettingView
+      * Change the pen size of the display
+      *
+      * @param penSize
+      */
+     void changePenSize(double penSize);
+
+     /**
+      * Called by SettingView
+      * Change the pen down status of the display
+      *
+      * @param penDown
+      */
+     void changePenDown(boolean penDown);
+
     /**
      * Called by SettingView
      * Change the image of the turtle
