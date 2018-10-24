@@ -67,6 +67,16 @@ public class TurtleView {
         myAnimQ = new SequentialTransition();
     }
 
+    /** Stop tracing turtle path with {@code myPen} */
+    public void penUp(){
+        penDown = false;
+    }
+
+    /** Start tracing turtle path with {@code myPen} */
+    public void penDown(){
+        penDown = true;
+    }
+
     /** Render the turtle to the root, if it is not already */
     public void show(){
         if(!myRoot.getChildren().contains(myView)){

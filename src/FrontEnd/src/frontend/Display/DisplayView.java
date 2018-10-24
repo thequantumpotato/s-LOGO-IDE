@@ -17,8 +17,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
+
+import static frontend.Display.TurtleView.TURTLE_SIZE;
 
 /**
  * DisplayView contains the display of the turtle as well as the panel for the user to change the
@@ -32,64 +35,41 @@ import java.util.Observer;
 public class DisplayView implements SubView, Observer {
 
     public static final String TURTLE_IMAGE = "turtle.png";
-    public static final int TURTLE_SIZE = 25;
-    public static final int LINE_ANIMATION_FPS = 15;
-    public static final float LINE_ANIMATION_DELAY = 1f / LINE_ANIMATION_FPS;
+    public static final Color DEFAULT_BG_COLOR = Color.BLACK;
     public static final int TURTLE_DEFAULT_X = 275;
     public static final int TURTLE_DEFAULT_Y = 250;
     public static final int DEFAULT_BG_WIDTH = 800;
     public static final int DEFAULT_BG_HEIGHT = 800;
-    private Turtle myTurtle;
+
+    private ArrayList<Turtle> myTurtleInfo;
+    private ArrayList<TurtleView> myTurtles;
+
     private View myView;
     private ScrollPane scrollPane;
     private Group root;
     private Rectangle bg;
-    //private ImageView turtleView;
     private Pen myPen;
-    private SequentialTransition myAnimQ;
-    private boolean penDown;
-    private double turtleX;
-    private double turtleY;
-    private double turtleW;
-    private double turtleH;
-    private double turtleAngle;
+
 
     public DisplayView(View myView_,Turtle turtle) {
         myView = myView_;
         scrollPane = new ScrollPane();
         root = new Group();
-        myAnimQ = new SequentialTransition();
-        turtleX = 0;
-        turtleY = 0;
-        turtleW = TURTLE_SIZE;
-        turtleH = TURTLE_SIZE;
         //create bg
-        bg = new Rectangle(DEFAULT_BG_WIDTH, DEFAULT_BG_HEIGHT, myView.DEFAULT_BG_COLOR);
-
-        //create turtle
-        turtleView = new ImageView(new Image(this.getClass().getClassLoader().getResourceAsStream(TURTLE_IMAGE)));
-        turtleView.setFitWidth(TURTLE_SIZE);
-        turtleView.setFitHeight(TURTLE_SIZE);
-        setTurtlePos(new Coordinate(TURTLE_DEFAULT_X, TURTLE_DEFAULT_Y, 0));
+        bg = new Rectangle(DEFAULT_BG_WIDTH, DEFAULT_BG_HEIGHT, DEFAULT_BG_COLOR);
         //create pen
-        myPen = new Pen(new Coordinate(turtleX + turtleW / 2, turtleY + turtleH / 2, 0));
+        myPen = new Pen(new Coordinate(TURTLE_DEFAULT_X + TURTLE_SIZE / 2, TURTLE_DEFAULT_Y + TURTLE_SIZE / 2, 0));
         myPen.setRoot(root);
         //add turtle to scroll pane
         root.getChildren().add(bg);
-        root.getChildren().add(turtleView);
+        //create turtle array and default turtle
+        myTurtleInfo = new ArrayList<>();
+        myTurtleInfo.add(turtle);
+        //create turtleview array and default turtleview
+        myTurtles = new ArrayList<>();
+        myTurtles.add(new TurtleView(myPen,root));
         scrollPane.setContent(root);
-        penDown = true;
-        System.out.println(turtleView.getBoundsInLocal());
     }
-
-    /*public void setTurtlePos(Coordinate turtleCoordinate) {
-        turtleX = turtleCoordinate.getX();
-        turtleY = turtleCoordinate.getY();
-        turtleAngle = turtleCoordinate.getAngle();
-        turtleView.setTranslateX(turtleX);
-        turtleView.setTranslateY(turtleY);
-        turtleView.setRotate(turtleAngle);
-    }*/
 
     public void clearBg() {
         myPen.eraseAll();
@@ -100,7 +80,14 @@ public class DisplayView implements SubView, Observer {
     }
 
     public void setPenDown(boolean state) {
-        penDown = state;
+        for(TurtleView turtle : myTurtles){
+            if(state){
+                turtle.penDown();
+            }
+            else{
+                turtle.penUp();
+            }
+        }
     }
 
     public void changePenColor(Color penColor) {
@@ -111,64 +98,53 @@ public class DisplayView implements SubView, Observer {
         myPen.setPenSize(size);
     }
 
-    public void hideTurtle() {
-        root.getChildren().remove(turtleView);
-    }
-
-    public void showTurtle() {
-        root.getChildren().add(turtleView);
-    }
-
-    public void changeTurtleSize(double size) {
-        if (size > 0) {
-            turtleView.setFitHeight(size);
-            turtleView.setFitWidth(size);
-            turtleW = size;
-            turtleH = size;
+    public void hideTurtle(int index) {
+        if(index>0 && index<myTurtles.size()){
+            myTurtles.get(index).hide();
         }
     }
 
-    public void changeTurtleImg(Image newTurtleImg) {
-        turtleView.setImage(newTurtleImg);
+    public void showTurtle(int index) {
+        if(index>0 && index<myTurtles.size()){
+            myTurtles.get(index).show();
+        }
+    }
+
+    public void changeTurtleSize(int index, double size) {
+        if(index>0 && index<myTurtles.size()){
+            myTurtles.get(index).setSize(size);
+        }
+    }
+
+    public void changeTurtleImg(int index, String path) {
+        if(index>0 && index<myTurtles.size()){
+            myTurtles.get(index).setSprite(path);
+        }
     }
 
     public void changeAnimationSpeed(Double time) {
-        myPen.setDrawSpeed(Duration.seconds(time));
+        for(TurtleView turtle : myTurtles){
+            turtle.setSpeed(time);
+        }
     }
 
-    public void updateTurtle(Coordinate newpos, Duration duration) {
+    public void updateTurtle(int index, Coordinate newpos) {
+        //increase background size if needed
         if (newpos.getX() > bg.getX() + bg.getWidth() || newpos.getX() < bg.getX() ||
                 newpos.getY() > bg.getY() + bg.getHeight() || newpos.getY() < bg.getY()) {
             expandBackground(Math.max(Math.abs(newpos.getX() - bg.getX()), Math.abs(newpos.getY() - bg.getY())));
         }
-        /*TranslateTransition xt = new TranslateTransition(duration, turtleView);
-        xt.setFromX(turtleX);
-        xt.setFromY(turtleY);
-        xt.setToX(newpos.getX());
-        xt.setToY(newpos.getY());
-        RotateTransition rt = new RotateTransition(Duration.millis(0.1), turtleView);
-        rt.setFromAngle(turtleAngle);
-        rt.setToAngle(newpos.getAngle());
-        myPen.setDrawSpeed(duration);
-        ParallelTransition pl;
-        if (penDown) {
-            pl = myPen.drawPath(new Coordinate(newpos.getX() + turtleW / 2, newpos.getY() + turtleH / 2, 0));
-        } else {
-            myPen.movePen(new Coordinate(newpos.getX() + turtleW / 2, newpos.getY() + turtleH / 2, 0));
-            pl = new ParallelTransition();
+        //move turtle
+        if(index>0 && index<myTurtles.size()){
+            myTurtles.get(index).moveTo(newpos);
         }
-        pl.getChildren().add(xt);
-        pl.getChildren().add(rt);
-        myAnimQ.getChildren().add(pl);
-        turtleX = newpos.getX();
-        turtleY = newpos.getY();*/
     }
 
-    public void playAnims() {
+    public void playAnims(int index) {
         System.out.println("Playing anims");
-        turtleView.toFront();
-        myAnimQ.setOnFinished(event -> myAnimQ.getChildren().clear());
-        myAnimQ.play();
+        if(index>0 && index<myTurtles.size()){
+            myTurtles.get(index).playAnimation();
+        }
     }
 
     private void expandBackground(double amount) {
@@ -178,10 +154,6 @@ public class DisplayView implements SubView, Observer {
         bg.setWidth(bg.getWidth() + 2 * amount);
         bg.setHeight(bg.getHeight() + 2 * amount);
     }
-
-    public void clearScreen() {
-    }
-
 
     private Coordinate adjustPosition(double x, double y, double theta) {
         double newtheta = Math.toDegrees((2 * Math.PI) - theta);

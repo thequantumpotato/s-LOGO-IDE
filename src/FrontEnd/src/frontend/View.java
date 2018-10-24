@@ -29,7 +29,6 @@ public class View implements ViewInternalAPI, ViewAPI {
     public static final String STYLESHEET = "style.css";
     public static final int SCREEN_WIDTH = 1000;
     public static final int SCREEN_HEIGHT = 700;
-    public static final Color DEFAULT_BG_COLOR = Color.BLACK;
     public final int FRAMES_PER_SECOND = 60;
     public final int DEFAULT_PEN_TIME = 1;
     public final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
@@ -145,8 +144,8 @@ public class View implements ViewInternalAPI, ViewAPI {
     }
 
     @Override
-    public void changeTurtleImg(Image newTurtleImg) {
-        myDisplayView.changeTurtleImg(newTurtleImg);
+    public void changeTurtleImg(int index, String path) {
+        myDisplayView.changeTurtleImg(index, path);
     }
 
     @Override
