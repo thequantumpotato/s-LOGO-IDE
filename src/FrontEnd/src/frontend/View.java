@@ -65,11 +65,11 @@ public class View implements ViewInternalAPI, ViewAPI {
 
         myCommandView = new CommandView(this);
 
-        myVariableView = new VariableView();
+        myVariableView = new VariableView(this);
 
-        myFunctionView = new FunctionView();
+        myFunctionView = new FunctionView(this);
 
-        myHistoryView = new HistoryView();
+        myHistoryView = new HistoryView(this);
 
         myHelpView = new HelpView();
 
@@ -165,13 +165,18 @@ public class View implements ViewInternalAPI, ViewAPI {
     }
 
     @Override
-    public void updateVar(Map<String, String> variable) {
+    public void addVar(Map<String, String> variable) {
         myVariableView.updateVariable(variable);
     }
 
     @Override
     public void updateFunction(Map<String, String> function) {
         myFunctionView.updateFunction(function);
+    }
+
+    @Override
+    public void updateVar(Map<String, String> variable) {
+        myController.updateVar(variable);
     }
 
     /**

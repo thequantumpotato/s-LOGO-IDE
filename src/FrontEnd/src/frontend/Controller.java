@@ -50,8 +50,7 @@ public class Controller {
     private void throwErrorByType(Exception e) {
         if (e instanceof IllegalCommandException) {
             myView.displayErrors(myErrors.getString("commandError"));
-        }
-        else myView.displayErrors(e.toString());
+        } else myView.displayErrors(e.toString());
     }
 
     private void checkFuncAndUpdate() {
@@ -61,7 +60,7 @@ public class Controller {
 
     private void checkVarAndUpdate() {
         Map<String, String> newVar = modelController.updateVar();
-        if (!newVar.isEmpty()) myView.updateVar(newVar);
+        if (!newVar.isEmpty()) myView.addVar(newVar);
     }
 
     /**
@@ -74,6 +73,15 @@ public class Controller {
             var regex = resources.getString(key);
             mySymbols.add(new AbstractMap.SimpleEntry<>(key,
                     Pattern.compile(regex, Pattern.CASE_INSENSITIVE)));
+        }
+    }
+
+    public void updateVar(Map<String, String> var) {
+        String key = var.keySet().toArray()[0].toString();
+        try {
+            modelController.parseCommand("make " + "\"" + key + " " + var.get(key));
+        } catch (Exception e) {
+            throwErrorByType(e);
         }
     }
 
