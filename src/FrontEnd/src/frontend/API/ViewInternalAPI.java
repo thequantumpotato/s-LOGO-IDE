@@ -61,7 +61,7 @@ import java.util.Map;
      *
      * @param variable
      */
-     void updateVar(Map<String, String> variable);
+     void addVar(Map<String, String> variable);
 
     /**
      * Called by Controller
@@ -71,6 +71,12 @@ import java.util.Map;
      */
      void updateFunction(Map<String, String> function);
 
+     /**
+      * Called by VariableView
+      * Update the variable value after the user changes variable name/value through GUI
+      */
+      void updateVar(Map<String, String> function);
 
 
-}
+
+ }

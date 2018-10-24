@@ -6,8 +6,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.VBox;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -21,29 +23,64 @@ public class VariableView implements SubView {
 
     private VBox variableView;
     private TableView variableList;
-    private TableColumn name;
-    private TableColumn value;
+    private TableColumn<Variable, String> name;
+    private TableColumn<Variable, String> value;
+    private View myView;
 
-    public VariableView() {
+    public VariableView(View myView_) {
+        myView = myView_;
         variableList = new TableView();
         variableList.setEditable(true);
         setUpTable();
         variableList.getColumns().addAll(name, value);
     }
 
+    // TODO: 10/23/18 Pass the updated value to the backend! 
     private void setUpTable() {
         Label title = new Label("Variables");
+        setUpBox(title);
+        setUpNameCol();
+        setUpValCol();
+    }
+
+    public void updateVarName(TableColumn.CellEditEvent<Variable, String> t) {
+        String newName = t.getNewValue();
+        var thisRow = t.getTableView().getItems().get(t.getTablePosition().getRow());
+        thisRow.setVarName(newName);
+        String val = thisRow.getVarVal();
+        Map<String, String> res = new HashMap<>();
+        res.put(newName, val);
+        myView.updateVar(res);
+    }
+
+    public void updateVarVal(TableColumn.CellEditEvent<Variable, String> t) {
+        String newVal = t.getNewValue();
+        var thisRow = t.getTableView().getItems().get(t.getTablePosition().getRow());
+        thisRow.setVarVal(newVal);
+        String name = thisRow.getVarName();
+        Map<String, String> res = new HashMap<>();
+        res.put(name, newVal);
+        myView.updateVar(res);
+    }
+
+    private void setUpValCol() {
+        value = new TableColumn("Value");
+        value.setCellValueFactory(new PropertyValueFactory<>("varVal"));
+        value.setCellFactory(TextFieldTableCell.forTableColumn());
+        value.setOnEditCommit((TableColumn.CellEditEvent<Variable, String> t) -> updateVarVal(t));
+    }
+
+    private void setUpNameCol() {
+        name = new TableColumn("Name");
+        name.setCellFactory(TextFieldTableCell.forTableColumn());
+        name.setCellValueFactory(new PropertyValueFactory<>("varName"));
+        name.setOnEditCommit((TableColumn.CellEditEvent<Variable, String> t) -> updateVarName(t));
+    }
+
+    private void setUpBox(Label title) {
         variableView = new VBox();
         variableView.getChildren().addAll(title, variableList);
         variableView.getStyleClass().add("variableView");
-        name = new TableColumn("Name");
-        name.setCellValueFactory(new PropertyValueFactory<>("varName"));
-//        name.setOnEditCommit( (TableColumn.CellEditEvent<Variable, String> event) ->
-//                event.getTableView().getItems().get(event.getTablePosition().getRow())).setVarName(event.getNewValue());
-        value = new TableColumn("Value");
-        value.setCellValueFactory(new PropertyValueFactory<>("varVal"));
-//        value.setOnEditCommit( (TableColumn.CellEditEvent<Variable, String> t) ->
-//                t.getRowValue().setVarVal(t.getNewValue()));
     }
 
     public void updateVariable(Map<String, String> var) {
@@ -57,11 +94,11 @@ public class VariableView implements SubView {
     }
 
     // A Variable class to represent data for each row
-    public class Variable {
+    public static class Variable {
         private final SimpleStringProperty varName;
         private final SimpleStringProperty varVal;
 
-        public Variable(String varName, String varVal) {
+        private Variable(String varName, String varVal) {
             this.varName = new SimpleStringProperty(varName);
             this.varVal = new SimpleStringProperty(varVal);
         }

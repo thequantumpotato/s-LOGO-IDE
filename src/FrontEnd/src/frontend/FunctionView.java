@@ -22,8 +22,10 @@ public class FunctionView implements SubView {
     private TableView functionList;
     private TableColumn name;
     private TableColumn value;
+    private View myView;
 
-    public FunctionView() {
+    public FunctionView(View myView_) {
+        myView = myView_;
         functionList = new TableView();
         setUpTable();
         functionList.getColumns().addAll(name, value);
@@ -52,7 +54,7 @@ public class FunctionView implements SubView {
     }
 
     // A Function class to represent data for each row
-    public class Function {
+    private static class Function {
         private final SimpleStringProperty funcName;
         private final SimpleStringProperty funcVal;
 
