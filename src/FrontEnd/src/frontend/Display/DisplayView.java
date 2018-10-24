@@ -1,6 +1,9 @@
-package frontend;
+package frontend.Display;
 
 import backend.Turtle;
+import frontend.Coordinate;
+import frontend.SubView;
+import frontend.View;
 import javafx.animation.ParallelTransition;
 import javafx.animation.RotateTransition;
 import javafx.animation.SequentialTransition;
@@ -28,6 +31,7 @@ import java.util.Observer;
 
 public class DisplayView implements SubView, Observer {
 
+    public static final String TURTLE_IMAGE = "turtle.png";
     public static final int TURTLE_SIZE = 25;
     public static final int LINE_ANIMATION_FPS = 15;
     public static final float LINE_ANIMATION_DELAY = 1f / LINE_ANIMATION_FPS;
@@ -40,7 +44,7 @@ public class DisplayView implements SubView, Observer {
     private ScrollPane scrollPane;
     private Group root;
     private Rectangle bg;
-    private ImageView turtleView;
+    //private ImageView turtleView;
     private Pen myPen;
     private SequentialTransition myAnimQ;
     private boolean penDown;
@@ -50,7 +54,7 @@ public class DisplayView implements SubView, Observer {
     private double turtleH;
     private double turtleAngle;
 
-    public DisplayView(View myView_, Image image, Turtle turtle) {
+    public DisplayView(View myView_,Turtle turtle) {
         myView = myView_;
         scrollPane = new ScrollPane();
         root = new Group();
@@ -63,7 +67,7 @@ public class DisplayView implements SubView, Observer {
         bg = new Rectangle(DEFAULT_BG_WIDTH, DEFAULT_BG_HEIGHT, myView.DEFAULT_BG_COLOR);
 
         //create turtle
-        turtleView = new ImageView(image);
+        turtleView = new ImageView(new Image(this.getClass().getClassLoader().getResourceAsStream(TURTLE_IMAGE)));
         turtleView.setFitWidth(TURTLE_SIZE);
         turtleView.setFitHeight(TURTLE_SIZE);
         setTurtlePos(new Coordinate(TURTLE_DEFAULT_X, TURTLE_DEFAULT_Y, 0));

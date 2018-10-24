@@ -1,5 +1,6 @@
 package frontend;
 
+import frontend.Display.DisplayView;
 import javafx.scene.paint.Color;
 
 /**

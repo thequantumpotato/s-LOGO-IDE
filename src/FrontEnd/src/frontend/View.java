@@ -3,6 +3,7 @@ package frontend;
 import backend.Turtle;
 import frontend.API.ViewAPI;
 import frontend.API.ViewInternalAPI;
+import frontend.Display.DisplayView;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
@@ -24,7 +25,6 @@ import java.util.Map;
  */
 
 public class View implements ViewInternalAPI, ViewAPI {
-    public static final String TURTLE_IMAGE = "turtle.png";
     public static final String TITLE = "SLogo";
     public static final String STYLESHEET = "style.css";
     public static final int SCREEN_WIDTH = 1000;
@@ -61,7 +61,7 @@ public class View implements ViewInternalAPI, ViewAPI {
      * Other methods
      **/
     private void initAndAddElements(Turtle turtle, String initLang) {
-        myDisplayView = new DisplayView(this, new Image(this.getClass().getClassLoader().getResourceAsStream(TURTLE_IMAGE)), turtle);
+        myDisplayView = new DisplayView(this, turtle);
 
         myCommandView = new CommandView(this);
 

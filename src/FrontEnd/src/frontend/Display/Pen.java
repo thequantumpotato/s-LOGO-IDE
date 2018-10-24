@@ -1,5 +1,6 @@
-package frontend;
+package frontend.Display;
 
+import frontend.Coordinate;
 import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
 import javafx.scene.Group;
