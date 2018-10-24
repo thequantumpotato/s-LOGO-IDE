@@ -144,8 +144,8 @@ public class View implements ViewInternalAPI, ViewAPI {
     }
 
     @Override
-    public void changeTurtleImg(int index, String path) {
-        myDisplayView.changeTurtleImg(index, path);
+    public void changeTurtleImg(Image image) {
+        myDisplayView.changeTurtleImg(image);
     }
 
     @Override

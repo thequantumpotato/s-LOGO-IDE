@@ -27,10 +27,9 @@ import java.util.Map;
      * Called by SettingView
      * Change the image of the turtle
      *
-     * @param index
-     * @param path
+     * @param image
      */
-     void changeTurtleImg(int index, String path);
+     void changeTurtleImg(Image image);
 
     /**
      * Called by SettingView

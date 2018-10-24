@@ -1,5 +1,6 @@
 package frontend;
 
+import frontend.Display.DisplayView;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -94,7 +95,7 @@ public class SettingView implements SubView {
         ColorPicker bgColorPicker = new ColorPicker();
         Label bgLabel = new Label("Background Color:");
         bgColorPicker.setPromptText("Background Color");
-        bgColorPicker.setValue(myView.DEFAULT_BG_COLOR);
+        bgColorPicker.setValue(DisplayView.DEFAULT_BG_COLOR);
         bgColorPicker.setOnAction(e -> {
             myView.changeBgColor(bgColorPicker.getValue());
         });

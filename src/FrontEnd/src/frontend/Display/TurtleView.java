@@ -1,11 +1,9 @@
 package frontend.Display;
 
 import frontend.Coordinate;
-import javafx.animation.ParallelTransition;
-import javafx.animation.RotateTransition;
-import javafx.animation.SequentialTransition;
-import javafx.animation.TranslateTransition;
+import javafx.animation.*;
 import javafx.scene.Group;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
@@ -28,6 +26,7 @@ public class TurtleView {
     private double myHeight;
     private double myDuration;
     private boolean penDown;
+    private boolean isActive;
 
     private Pen myPen;
     private ImageView myView;
@@ -58,58 +57,86 @@ public class TurtleView {
         myHeight = TURTLE_SIZE;
         myDuration = TURTLE_SPEED;
         penDown = true;
+        isActive = true;
         myPen = pen;
         myView = new ImageView(new Image(this.getClass().getClassLoader().getResourceAsStream(image)));
         myView.setFitWidth(myWidth);
         myView.setFitHeight(myHeight);
+        myView.setOnMousePressed(event -> toggleActive());
         myRoot = root;
         myRoot.getChildren().add(myView);
         myAnimQ = new SequentialTransition();
+        setPosition(new Coordinate(TURTLE_DEFAULT_X,TURTLE_DEFAULT_Y,0));
+    }
+
+    public void toggleActive(){
+        isActive = (!isActive);
+        if(isActive){
+            myView.setEffect(null);
+            myView.setOpacity(100);
+        }
+        else{
+            myView.setEffect(new ColorAdjust(0.0,-1.0,0.0,0.0));
+            myView.setOpacity(50);
+
+        }
     }
 
     /** Stop tracing turtle path with {@code myPen} */
     public void penUp(){
-        penDown = false;
+        if(isActive){
+            penDown = false;
+        }
     }
 
     /** Start tracing turtle path with {@code myPen} */
     public void penDown(){
-        penDown = true;
+        if(isActive){
+            penDown = true;
+        }
     }
 
     /** Render the turtle to the root, if it is not already */
     public void show(){
-        if(!myRoot.getChildren().contains(myView)){
-            myRoot.getChildren().add(myView);
+        if(isActive){
+            if(!myRoot.getChildren().contains(myView)){
+                myRoot.getChildren().add(myView);
+            }
         }
     }
 
     /** Remove the turtle from the root */
     public void hide(){
-        myRoot.getChildren().remove(myView);
+        if(isActive){
+            myRoot.getChildren().remove(myView);
+        }
     }
 
     /** Forcibly set the turtle's position without any animation
      * @param coordinate The coordinate to which the turtle sprite will translate to
      */
     public void setPosition(Coordinate coordinate){
-        myX = coordinate.getX();
-        myY = coordinate.getY();
-        myAngle = coordinate.getAngle();
-        myView.setTranslateX(myX);
-        myView.setTranslateY(myY);
-        myView.setRotate(myAngle);
+        if(isActive){
+            myX = coordinate.getX();
+            myY = coordinate.getY();
+            myAngle = coordinate.getAngle();
+            myView.setTranslateX(myX);
+            myView.setTranslateY(myY);
+            myView.setRotate(myAngle);
+        }
     }
 
     /** Change the size of the turtle sprite, locked at 1:1 aspect ratio
      * @param size must be greater than 0, represents pixel width and height to set the sprite to
      */
     public void setSize(double size){
-        if(size>0){
-            myWidth = size;
-            myHeight = size;
-            myView.setFitHeight(myHeight);
-            myView.setFitWidth(myWidth);
+        if(isActive){
+            if(size>0){
+                myWidth = size;
+                myHeight = size;
+                myView.setFitHeight(myHeight);
+                myView.setFitWidth(myWidth);
+            }
         }
     }
 
@@ -123,12 +150,13 @@ public class TurtleView {
     }
 
     /** Change the sprite representation of the turtle if the image created is valid (not null)
-     * @param path the string representing the path to the image file to be used as the new turtle sprite
+     * @param image The image file to be used as the new turtle sprite
      */
-    public void setSprite(String path){
-        Image newsprite = new Image(this.getClass().getClassLoader().getResourceAsStream(path));
-        if(newsprite!=null){
-            myView.setImage(newsprite);
+    public void setSprite(Image image){
+        if(isActive){
+            if(image!=null){
+                myView.setImage(image);
+            }
         }
     }
 
@@ -137,28 +165,30 @@ public class TurtleView {
      *  @param coordinate the coordinate serving as the target destination of the transition animations
      */
     public void moveTo(Coordinate coordinate){
-        Duration duration = Duration.seconds(myDuration);
-        TranslateTransition xt = new TranslateTransition(duration, myView);
-        xt.setFromX(myX);
-        xt.setFromY(myY);
-        xt.setToX(coordinate.getX());
-        xt.setToY(coordinate.getY());
-        RotateTransition rt = new RotateTransition(Duration.millis(0.1), myView);
-        rt.setFromAngle(myAngle);
-        rt.setToAngle(coordinate.getAngle());
-        myPen.setDrawSpeed(duration);
-        ParallelTransition pl;
-        if (penDown) {
-            pl = myPen.drawPath(new Coordinate(coordinate.getX() + myWidth / 2, coordinate.getY() + myHeight / 2, 0));
-        } else {
-            myPen.movePen(new Coordinate(coordinate.getX() + myWidth / 2, coordinate.getY() + myHeight / 2, 0));
-            pl = new ParallelTransition();
+        if(isActive){
+            Duration duration = Duration.seconds(myDuration);
+            TranslateTransition xt = new TranslateTransition(duration, myView);
+            xt.setFromX(myX);
+            xt.setFromY(myY);
+            xt.setToX(coordinate.getX());
+            xt.setToY(coordinate.getY());
+            RotateTransition rt = new RotateTransition(Duration.millis(0.1), myView);
+            rt.setFromAngle(myAngle);
+            rt.setToAngle(coordinate.getAngle());
+            myPen.setDrawSpeed(duration);
+            ParallelTransition pl;
+            if (penDown) {
+                pl = myPen.drawPath(new Coordinate(coordinate.getX() + myWidth / 2, coordinate.getY() + myHeight / 2, 0));
+            } else {
+                myPen.movePen(new Coordinate(coordinate.getX() + myWidth / 2, coordinate.getY() + myHeight / 2, 0));
+                pl = new ParallelTransition();
+            }
+            pl.getChildren().add(xt);
+            pl.getChildren().add(rt);
+            myAnimQ.getChildren().add(pl);
+            myX = coordinate.getX();
+            myY = coordinate.getY();
         }
-        pl.getChildren().add(xt);
-        pl.getChildren().add(rt);
-        myAnimQ.getChildren().add(pl);
-        myX = coordinate.getX();
-        myY = coordinate.getY();
     }
 
     /** Plays the animations in {@code myAnimQ} sequentially.
@@ -167,8 +197,10 @@ public class TurtleView {
      *  {@code playAnimation()} must be called again after new animations are added.
      * */
     public void playAnimation(){
-        myView.toFront();
-        myAnimQ.play();
-        myAnimQ.getChildren().clear();
+        if(isActive && myAnimQ.getStatus()!= Animation.Status.RUNNING){
+            myView.toFront();
+            myAnimQ.play();
+            myAnimQ.getChildren().clear();
+        }
     }
 }

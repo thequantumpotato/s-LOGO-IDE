@@ -98,9 +98,21 @@ public class DisplayView implements SubView, Observer {
         myPen.setPenSize(size);
     }
 
+    public void hideTurtle() {
+        for(TurtleView turtle : myTurtles){
+            turtle.hide();
+        }
+    }
+
     public void hideTurtle(int index) {
         if(index>0 && index<myTurtles.size()){
             myTurtles.get(index).hide();
+        }
+    }
+
+    public void showTurtle() {
+        for(TurtleView turtle : myTurtles){
+            turtle.show();
         }
     }
 
@@ -110,21 +122,47 @@ public class DisplayView implements SubView, Observer {
         }
     }
 
+    public void changeTurtleSize(double size) {
+        for(TurtleView turtle : myTurtles){
+            turtle.setSize(size);
+        }
+    }
+
     public void changeTurtleSize(int index, double size) {
         if(index>0 && index<myTurtles.size()){
             myTurtles.get(index).setSize(size);
         }
     }
 
-    public void changeTurtleImg(int index, String path) {
-        if(index>0 && index<myTurtles.size()){
-            myTurtles.get(index).setSprite(path);
+    public void changeTurtleImg(Image image) {
+        for(TurtleView turtle : myTurtles){
+            turtle.setSprite(image);
         }
     }
+
+    public void changeTurtleImg(int index, Image image) {
+        if(index>0 && index<myTurtles.size()){
+            myTurtles.get(index).setSprite(image);
+        }
+    }
+
 
     public void changeAnimationSpeed(Double time) {
         for(TurtleView turtle : myTurtles){
             turtle.setSpeed(time);
+        }
+    }
+
+    //TODO: REIMPLEMENT MOVEMENT SYSTEM TO BE RELATIVE RATHER THAN ABSOLUTE
+    public void updateTurtle(Coordinate newpos) {
+        //increase background size if needed
+        if (newpos.getX() > bg.getX() + bg.getWidth() || newpos.getX() < bg.getX() ||
+                newpos.getY() > bg.getY() + bg.getHeight() || newpos.getY() < bg.getY()) {
+            expandBackground(Math.max(Math.abs(newpos.getX() - bg.getX()), Math.abs(newpos.getY() - bg.getY())));
+        }
+        //move turtle
+        for(TurtleView turtle: myTurtles){
+            turtle.moveTo(newpos);
         }
     }
 
@@ -137,6 +175,13 @@ public class DisplayView implements SubView, Observer {
         //move turtle
         if(index>0 && index<myTurtles.size()){
             myTurtles.get(index).moveTo(newpos);
+        }
+    }
+
+    public void playAnims() {
+        System.out.println("Playing anims");
+        for(TurtleView turtle : myTurtles){
+            turtle.playAnimation();
         }
     }
 
@@ -167,13 +212,14 @@ public class DisplayView implements SubView, Observer {
 
     @Override
     public void update(Observable o, Object arg) {
+        //TODO: update this method after turtle has new getID method
         if (arg != null) {
             playAnims();
         } else {
             System.out.println("null");
-            myTurtle = (Turtle) o;
-            System.out.println(myTurtle.getX() + " " + myTurtle.getY() + " " + myTurtle.getDirection());
-            updateTurtle(adjustPosition(myTurtle.getX(), myTurtle.getY(), myTurtle.getDirection()), myPen.getMyDrawSpeed());
+            myTurtleInfo.set(0,(Turtle)o);
+            System.out.println(myTurtleInfo.get(0).getX() + " " + myTurtleInfo.get(0).getY() + " " + myTurtleInfo.get(0).getDirection());
+            updateTurtle(adjustPosition(myTurtleInfo.get(0).getX(), myTurtleInfo.get(0).getY(), myTurtleInfo.get(0).getDirection()));
         }
     }
 }
