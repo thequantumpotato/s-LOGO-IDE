@@ -1,7 +1,7 @@
-package frontend.ViewChildren;
+package frontend.GUI.SubViews;
 
 import frontend.API.SubView;
-import frontend.View;
+import frontend.GUI.View;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Node;
 import javafx.scene.control.Label;

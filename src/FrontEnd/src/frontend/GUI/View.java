@@ -1,10 +1,10 @@
-package frontend;
+package frontend.GUI;
 
 import backend.Turtle;
 import frontend.ExternalAPI.ViewAPI;
 import frontend.API.ViewInternalAPI;
-import frontend.ViewChildren.*;
-import frontend.ViewChildren.Display.DisplayView;
+import frontend.GUI.Display.DisplayView;
+import frontend.GUI.SubViews.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
@@ -16,6 +16,7 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import main.Controller;
 
 import java.util.Map;
 

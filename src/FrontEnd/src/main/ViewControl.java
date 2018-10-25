@@ -1,6 +1,6 @@
-package frontend;
+package main;
 
-import frontend.ViewChildren.Display.DisplayView;
+import frontend.GUI.Display.DisplayView;
 import javafx.scene.paint.Color;
 
 /**

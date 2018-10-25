@@ -1,4 +1,4 @@
-package frontend.ViewChildren;
+package frontend.GUI.SubViews;
 
 import frontend.API.SubView;
 import javafx.scene.Node;

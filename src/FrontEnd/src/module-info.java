@@ -3,6 +3,8 @@ module FrontEnd {
     requires javafx.graphics;
     requires javafx.controls;
 
-    exports frontend;
-    exports frontend.ViewChildren;
+    exports frontend.ExternalAPI;
+    exports frontend.Util;
+    exports frontend.GUI;
+    exports main;
 }
