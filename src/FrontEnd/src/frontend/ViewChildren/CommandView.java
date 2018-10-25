@@ -15,7 +15,7 @@ import javafx.scene.layout.GridPane;
  *
  * @author Vincent Liu
  */
-
+// TODO: 10/25/18 Reset turtle button
 public class CommandView implements SubView {
     private GridPane commandView;
     private TextArea input;

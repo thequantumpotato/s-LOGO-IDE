@@ -18,6 +18,5 @@ public class Main extends Application {
         new Controller(primaryStage, new Turtle(), DEFAULT_LANGUAGE, SYNTAX);
         //ModelController mc = new ModelController(turtle);
         //mc.parseCommand("repeat 50 [ fd 40 rt 25 ]");
-
     }
 }
