@@ -1,4 +1,4 @@
-//frontend.Controller Interface
+//frontend.Controller API
 interface ControllerEx {
 
     public updateVar(String varName, String varVal);

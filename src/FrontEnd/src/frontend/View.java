@@ -1,9 +1,9 @@
 package frontend;
 
 import backend.Turtle;
-import frontend.API.ViewAPI;
+import frontend.ExternalAPI.ViewAPI;
 import frontend.API.ViewInternalAPI;
-import frontend.Display.DisplayView;
+import frontend.ViewChildren.Display.DisplayView;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
@@ -130,7 +130,7 @@ public class View implements ViewInternalAPI, ViewAPI {
     }
 
     /**
-     * Internal API
+     * Internal ExternalAPI
      **/
 
     @Override

@@ -4,5 +4,5 @@ module FrontEnd {
     requires javafx.controls;
     requires BackEnd;
 
-    exports frontend;
+    exports frontend.ExternalAPI;
 }

@@ -1,4 +1,4 @@
-package frontend.Display;
+package frontend.Util;
 
 import javafx.animation.Transition;
 import javafx.beans.property.*;

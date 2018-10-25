@@ -1,6 +1,7 @@
-package frontend.Display;
+package frontend.ViewChildren.Display;
 
-import frontend.Coordinate;
+import frontend.Util.Coordinate;
+import frontend.Util.Pen;
 import javafx.animation.*;
 import javafx.scene.Group;
 import javafx.scene.effect.ColorAdjust;
@@ -8,9 +9,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
-import static frontend.Display.DisplayView.TURTLE_DEFAULT_X;
-import static frontend.Display.DisplayView.TURTLE_DEFAULT_Y;
-import static frontend.Display.DisplayView.TURTLE_IMAGE;
+import static frontend.ViewChildren.Display.DisplayView.TURTLE_DEFAULT_X;
+import static frontend.ViewChildren.Display.DisplayView.TURTLE_DEFAULT_Y;
+import static frontend.ViewChildren.Display.DisplayView.TURTLE_IMAGE;
 
 /** Class that encapsulates all the behavior needed to manipulate the turtle sprite on the GUI
  * @author bpx

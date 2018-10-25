@@ -1,4 +1,4 @@
-//External API backend.Model
+//External ExternalAPI backend.Model
 
 // These are the methods that are callable by the front-end, essentially just ways that the front-end 
 //can directly get the positions of the turtle, or set the positions of the turtle

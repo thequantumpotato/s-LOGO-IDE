@@ -1,4 +1,4 @@
-//Internal Backend API backend.Model
+//Internal Backend ExternalAPI backend.Model
 
 // These are the methods that are called within the backend
 interface Model {

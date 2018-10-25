@@ -1,27 +1,22 @@
-package frontend.Display;
+package frontend.ViewChildren.Display;
 
 import backend.Turtle;
-import frontend.Coordinate;
-import frontend.SubView;
+import frontend.Util.Coordinate;
+import frontend.Util.Pen;
+import frontend.API.SubView;
 import frontend.View;
-import javafx.animation.ParallelTransition;
-import javafx.animation.RotateTransition;
-import javafx.animation.SequentialTransition;
-import javafx.animation.TranslateTransition;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.util.Duration;
 
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
-import static frontend.Display.TurtleView.TURTLE_SIZE;
+import static frontend.ViewChildren.Display.TurtleView.TURTLE_SIZE;
 
 /**
  * DisplayView contains the display of the turtle as well as the panel for the user to change the
