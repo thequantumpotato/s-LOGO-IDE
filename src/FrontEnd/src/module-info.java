@@ -5,4 +5,5 @@ module FrontEnd {
     requires BackEnd;
 
     exports frontend;
+    exports frontend.ViewChildren;
 }
