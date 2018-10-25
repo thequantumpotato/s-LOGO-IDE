@@ -10,7 +10,6 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -30,6 +29,7 @@ import java.util.Map;
 // TODO: 10/25/18 Make the windows expand and contract --- Accordion and TitlePane
 // TODO: 10/25/18 Load logo file and run them by line (How to run a file with multiple lines)
 // TODO: 10/25/18 Complete speakers add listeners
+// TODO: 10/25/18 Create controller and turtle for the different panes
 public class View implements ViewInternalAPI, ViewAPI {
     public static final String TITLE = "SLogo";
     public static final String STYLESHEET = "style.css";
@@ -57,7 +57,6 @@ public class View implements ViewInternalAPI, ViewAPI {
     private AnchorPane anchorPane;
     final Button addButton = new Button("+");
 
-    // TODO: 10/25/18 Create controller and turtle for the different panes  
     public View(Stage primaryStage, Controller myController_, Turtle turtle, String initLang) {
         myController = myController_;
         myStage = primaryStage;
@@ -213,7 +212,7 @@ public class View implements ViewInternalAPI, ViewAPI {
 
     @Override
     public void changeLanguage(String language) {
-        new Controller(myStage, new Turtle(), language, "languages/Syntax");
+        new Controller(myStage, language);
     }
 
     @Override
@@ -258,20 +257,3 @@ public class View implements ViewInternalAPI, ViewAPI {
         turtle.addObserver(myDisplayView);
     }
 }
-/*
- * Below is a demo program demonstrating the functionality of the Pen. However, you must first define all the points
- * that the turtle will traverse, and create all the updates, and then play them.
- * */
-//        myDisplayView.changeBgColor(Color.BLACK);
-//        myDisplayView.changePenColor(Color.DARKSEAGREEN);
-        /*myDisplayView.updateTurtle(new Coordinate(300,300,120),Duration.seconds(2));
-        myDisplayView.changePenColor(Color.DARKBLUE);
-        myDisplayView.changePenSize(5);
-        myDisplayView.updateTurtle(new Coordinate(-100,120,-60),Duration.seconds(2));
-        myDisplayView.setPenDown(false);
-        myDisplayView.updateTurtle(new Coordinate(360,10,30),Duration.seconds(2));
-        myDisplayView.setPenDown(true);
-        myDisplayView.changePenColor(Color.INDIANRED);
-        myDisplayView.changePenSize(10);
-        myDisplayView.updateTurtle(new Coordinate(300,300,-170),Duration.seconds(2));
-        myDisplayView.playAnims();*/

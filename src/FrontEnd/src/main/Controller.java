@@ -18,6 +18,7 @@ import java.util.regex.Pattern;
 public class Controller {
     public static final String commandError = "Errors";
     public static final String LANG_PATH = "languages/";
+    public static final String SYNTAX = "languages/Syntax";
     private View myView;
     private Turtle myTurtle;
     private ViewControl viewControl;
@@ -25,11 +26,11 @@ public class Controller {
     private List<Map.Entry<String, Pattern>> mySymbols;
     private ResourceBundle myErrors;
 
-    public Controller(Stage primaryStage, Turtle myTurtle_, String language, String syntax) {
+    public Controller(Stage primaryStage, String language) {
         mySymbols = new ArrayList<>();
-        addPatterns(LANG_PATH + language);
-        addPatterns(syntax);
-        myTurtle = myTurtle_;
+        addPatterns(LANG_PATH + language); // language syntax
+        addPatterns(SYNTAX);
+        myTurtle = new Turtle();
         myView = new View(primaryStage, this, myTurtle, language);
         myView.registerDisplay(myTurtle);
         viewControl = new ViewControl(myView.getMyDisplayView());
@@ -84,13 +85,5 @@ public class Controller {
         } catch (Exception e) {
             throwErrorByType(e);
         }
-    }
-
-    private void initializeCommands() {
-
-    }
-
-    public void parse(String input) {
-
     }
 }
