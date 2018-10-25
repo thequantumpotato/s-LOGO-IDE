@@ -1,4 +1,4 @@
-package frontend.API;
+package frontend.ExternalAPI;
 
 import backend.Turtle;
 

@@ -1,8 +1,9 @@
 package frontend;
 
 import backend.Turtle;
-import frontend.API.ViewAPI;
+import frontend.ExternalAPI.ViewAPI;
 import frontend.API.ViewInternalAPI;
+import frontend.ViewChildren.Display.DisplayView;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
@@ -24,12 +25,10 @@ import java.util.Map;
  */
 
 public class View implements ViewInternalAPI, ViewAPI {
-    public static final String TURTLE_IMAGE = "turtle.png";
     public static final String TITLE = "SLogo";
     public static final String STYLESHEET = "style.css";
     public static final int SCREEN_WIDTH = 1000;
     public static final int SCREEN_HEIGHT = 700;
-    public static final Color DEFAULT_BG_COLOR = Color.BLACK;
     public final int FRAMES_PER_SECOND = 60;
     public final int DEFAULT_PEN_TIME = 1;
     public final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
@@ -61,7 +60,7 @@ public class View implements ViewInternalAPI, ViewAPI {
      * Other methods
      **/
     private void initAndAddElements(Turtle turtle, String initLang) {
-        myDisplayView = new DisplayView(this, new Image(this.getClass().getClassLoader().getResourceAsStream(TURTLE_IMAGE)), turtle);
+        myDisplayView = new DisplayView(this, turtle);
 
         myCommandView = new CommandView(this);
 
@@ -131,7 +130,7 @@ public class View implements ViewInternalAPI, ViewAPI {
     }
 
     /**
-     * Internal API
+     * Internal ExternalAPI
      **/
 
     @Override
@@ -145,8 +144,18 @@ public class View implements ViewInternalAPI, ViewAPI {
     }
 
     @Override
-    public void changeTurtleImg(Image newTurtleImg) {
-        myDisplayView.changeTurtleImg(newTurtleImg);
+    public void changePenSize(double penSize){
+        myDisplayView.changePenSize(penSize);
+    }
+
+    @Override
+    public void changePenDown(boolean penDown){
+        myDisplayView.setPenDown(penDown);
+    }
+
+    @Override
+    public void changeTurtleImg(Image image) {
+        myDisplayView.changeTurtleImg(image);
     }
 
     @Override

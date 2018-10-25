@@ -1,4 +1,4 @@
-//Internal Backend API 
+//Internal Backend ExternalAPI
 
 //This class is what actually runs our turtle. It holds a reference to the turtle, and through the process
 //of reflection, it's methods are called within frontend.Controller

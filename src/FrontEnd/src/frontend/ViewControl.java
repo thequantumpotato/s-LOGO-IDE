@@ -1,10 +1,11 @@
 package frontend;
 
+import frontend.ViewChildren.Display.DisplayView;
 import javafx.scene.paint.Color;
 
 /**
  * This class serves as a mediator between the Command class and the ViewAPI class.
- * It provides an API for the Command to modify the front end without exposing front end implementation
+ * It provides an ExternalAPI for the Command to modify the front end without exposing front end implementation
  * or giving a reference of the frontend to the backend.
  *
  * @author bpx

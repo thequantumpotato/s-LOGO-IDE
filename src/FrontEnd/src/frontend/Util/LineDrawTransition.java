@@ -1,4 +1,4 @@
-package frontend;
+package frontend.Util;
 
 import javafx.animation.Transition;
 import javafx.beans.property.*;
@@ -260,28 +260,11 @@ public class LineDrawTransition extends Transition {
 
     @Override
     protected void interpolate(double frac) {
-       /* //example 1
-        if (!Double.isNaN(startX)) {
-            cachedNode.setTranslateX(startX + frac * deltaX);
-        }
-        if (!Double.isNaN(startY)) {
-            cachedNode.setTranslateY(startY + frac * deltaY);
-        }
-        if (!Double.isNaN(startZ)) {
-            cachedNode.setTranslateZ(startZ + frac * deltaZ);
-        }
-        //example 2
-        final int length = content.length();
-        final int n = Math.round(length * (float) frac);
-        text.setText(content.substring(0, n));*/
-        //my version
         final float xnudge = (float) (getToX() - getFromX());
         final float ynudge = (float) (getToY() - getFromY());
         if (!Double.isNaN(startX)) {
             getLine().setEndX(getFromX() + (float) frac * xnudge);
             getLine().setEndY(getFromY() + (float) frac * ynudge);
-            //getLine().getElements().add(new LineTo(getFromX()+(float)frac*xnudge,getFromY()+(float)frac*ynudge));
-            //getLine().getElements().add(new LineTo(startX+frac*deltaX,startY+frac*deltaY));
         }
     }
 }

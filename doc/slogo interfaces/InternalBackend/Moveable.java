@@ -1,4 +1,4 @@
-// Backend Internal API Moveable Interface
+// Backend Internal ExternalAPI Moveable API
 
 interface Moveable {
     private void moveForward(double moveAmount);

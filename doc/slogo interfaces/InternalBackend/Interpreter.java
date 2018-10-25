@@ -1,4 +1,4 @@
-//Backend Internal API Class
+//Backend Internal ExternalAPI Class
 interface Interpreter {
 
     private List<String> parseCommand(String commnand);

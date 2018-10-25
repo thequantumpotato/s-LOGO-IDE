@@ -1,5 +1,8 @@
-package frontend;
+package frontend.ViewChildren;
 
+import frontend.API.SubView;
+import frontend.View;
+import frontend.ViewChildren.Display.DisplayView;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -24,11 +27,12 @@ public class SettingView implements SubView {
 
         VBox bgBox = setUpBgColorPicker();
         VBox penBox = setUpPenColorPicker();
+        CheckBox penDownCheckbox = setUpPenDownCheckbox();
         Button turtleButton = setUpTurtleImgChooser();
         setUpLangComboBox(initLang);
         VBox speedBox = setUpTurtleSpeedBox();
 
-        settingView.getItems().addAll(bgBox, penBox, speedBox, turtleButton, languageBox);
+        settingView.getItems().addAll(bgBox, penBox, penDownCheckbox,speedBox, turtleButton, languageBox);
     }
 
     private VBox setUpTurtleSpeedBox() {
@@ -89,12 +93,26 @@ public class SettingView implements SubView {
         return penBox;
     }
 
+    private CheckBox setUpPenDownCheckbox(){
+        CheckBox cb = new CheckBox("Pen Down");
+        cb.setAllowIndeterminate(false);
+        cb.setIndeterminate(false);
+        cb.setSelected(true);
+        cb.selectedProperty().addListener(new ChangeListener<Boolean>(){
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                myView.changePenDown(newValue);
+            }
+        });
+        return cb;
+    }
+
     private VBox setUpBgColorPicker() {
         VBox bgBox = new VBox();
         ColorPicker bgColorPicker = new ColorPicker();
         Label bgLabel = new Label("Background Color:");
         bgColorPicker.setPromptText("Background Color");
-        bgColorPicker.setValue(myView.DEFAULT_BG_COLOR);
+        bgColorPicker.setValue(DisplayView.DEFAULT_BG_COLOR);
         bgColorPicker.setOnAction(e -> {
             myView.changeBgColor(bgColorPicker.getValue());
         });

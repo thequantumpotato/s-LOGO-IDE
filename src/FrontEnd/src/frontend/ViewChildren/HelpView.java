@@ -1,5 +1,6 @@
-package frontend;
+package frontend.ViewChildren;
 
+import frontend.API.SubView;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Hyperlink;
