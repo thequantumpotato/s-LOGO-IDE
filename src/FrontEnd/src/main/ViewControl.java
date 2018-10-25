@@ -1,6 +1,6 @@
-package frontend;
+package main;
 
-import frontend.ViewChildren.Display.DisplayView;
+import frontend.GUI.Display.DisplayView;
 import javafx.scene.paint.Color;
 
 /**
@@ -13,6 +13,7 @@ import javafx.scene.paint.Color;
 public class ViewControl {
     private DisplayView myView;
 
+    // TODO: 10/25/18 connect ViewControl with Backend
     public ViewControl(DisplayView dview) {
         myView = dview;
     }

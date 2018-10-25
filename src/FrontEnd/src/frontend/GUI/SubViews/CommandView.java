@@ -1,7 +1,7 @@
-package frontend.ViewChildren;
+package frontend.GUI.SubViews;
 
 import frontend.API.SubView;
-import frontend.View;
+import frontend.GUI.View;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -15,7 +15,7 @@ import javafx.scene.layout.GridPane;
  *
  * @author Vincent Liu
  */
-
+// TODO: 10/25/18 Reset turtle button
 public class CommandView implements SubView {
     private GridPane commandView;
     private TextArea input;

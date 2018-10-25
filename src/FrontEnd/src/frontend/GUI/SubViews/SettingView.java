@@ -1,8 +1,8 @@
-package frontend.ViewChildren;
+package frontend.GUI.SubViews;
 
 import frontend.API.SubView;
-import frontend.View;
-import frontend.ViewChildren.Display.DisplayView;
+import frontend.GUI.Display.DisplayView;
+import frontend.GUI.View;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;

@@ -1,8 +1,9 @@
-package frontend;
+package main;
 
 import backend.IllegalCommandException;
 import backend.ModelController;
 import backend.Turtle;
+import frontend.GUI.View;
 import javafx.stage.Stage;
 
 import java.util.*;
@@ -10,7 +11,7 @@ import java.util.regex.Pattern;
 
 /**
  * Controller mediates the communications between the ViewAPI and the Model. <br>
- * Controller is initialized when the Main.java starts running. It will contain an instance of ViewAPI and ModelController.
+ * Controller is initialized when the main.Main.java starts running. It will contain an instance of ViewAPI and ModelController.
  *
  * @author Vincent Liu
  */

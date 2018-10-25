@@ -1,17 +1,23 @@
 /**
  *
  * @author Vincent Liu
+ * @author Ben Xu
  */
 
 .slider{
     -fx-text-fill: #c9c9c9;
     -fx-tick-label-fill: #c9c9c9;
 }
-.slider .axis { -fx-tick-label-fill: #c9c9c9; }
+
+.slider .axis {
+    -fx-tick-label-fill: #c9c9c9;
+}
+
 .check-box{
     -fx-tick-label-fill: #c9c9c9;
     -fx-text-fill: #c9c9c9;
 }
+
 .combo-box-base
 {
     -fx-background: #2b2b2b;
@@ -60,6 +66,14 @@
     -fx-background-radius: 5;
 }
 
+.tab-header-area {
+    -fx-padding: 0 0 0 0 ;
+}
+
+.tab-pane {
+    -fx-padding: 0;
+}
+
 .button:hover {
     -fx-background-color: #6b7175;
     -fx-border-color: #5e6060;
@@ -67,11 +81,11 @@
     -fx-background-radius: 5;
 }
 
-.root {
+.gridPane {
     -fx-background-color: #3c3f41;
-    -fx-padding: 15;
-    -fx-hgap: 10;
-    -fx-vgap: 10;
+    /*-fx-padding: 15;*/
+    /*-fx-hgap: 10;*/
+    /*-fx-vgap: 10;*/
     /*-fx-background-radius: 5.0;*/
     -fx-font-family: "Arial";
 }
@@ -110,10 +124,12 @@
     -fx-border-color: black;
     -fx-border-width: 1px;
 }
+
 .tool-bar{
     -fx-background-color: #3c3f41;
     -fx-border-color: #4b4b4b;
     -fx-text-fill: white;
+    -fx-padding: 0;
 }
 
 .helpView {

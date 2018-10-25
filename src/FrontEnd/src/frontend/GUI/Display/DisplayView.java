@@ -1,10 +1,10 @@
-package frontend.ViewChildren.Display;
+package frontend.GUI.Display;
 
 import backend.Turtle;
 import frontend.Util.Coordinate;
 import frontend.Util.Pen;
 import frontend.API.SubView;
-import frontend.View;
+import frontend.GUI.View;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
-import static frontend.ViewChildren.Display.TurtleView.TURTLE_SIZE;
+import static frontend.GUI.Display.TurtleView.TURTLE_SIZE;
 
 /**
  * DisplayView contains the display of the turtle as well as the panel for the user to change the

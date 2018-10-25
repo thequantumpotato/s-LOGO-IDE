@@ -1,7 +1,7 @@
-package frontend.ViewChildren;
+package frontend.GUI.SubViews;
 
 import frontend.API.SubView;
-import frontend.View;
+import frontend.GUI.View;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -37,7 +37,6 @@ public class VariableView implements SubView {
         variableList.getColumns().addAll(name, value);
     }
 
-    // TODO: 10/23/18 Pass the updated value to the backend! 
     private void setUpTable() {
         Label title = new Label("Variables");
         setUpBox(title);
