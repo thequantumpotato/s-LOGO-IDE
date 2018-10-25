@@ -27,9 +27,9 @@ import java.util.Map;
  *
  * @author Vincent Liu
  */
-// TODO: 10/25/18 Make the windows expand and contract (setexpanded)
+// TODO: 10/25/18 Make the windows expand and contract --- Accordion and TitlePane
 // TODO: 10/25/18 Load logo file and run them by line (How to run a file with multiple lines)
-// TODO: 10/25/18 Create Listeners (update) and Speakers (List of Listeners, addListener, removeListener, updateAll)
+// TODO: 10/25/18 Complete speakers add listeners
 public class View implements ViewInternalAPI, ViewAPI {
     public static final String TITLE = "SLogo";
     public static final String STYLESHEET = "style.css";
