@@ -56,6 +56,9 @@
     -fx-text-fill: #c9c9c9;
 }
 
+.root{
+    -fx-padding: 0;
+}
 .button {
     -fx-text-fill: #c9c9c9;
     -fx-font-family: "Arial";
@@ -83,10 +86,10 @@
 
 .gridPane {
     -fx-background-color: #3c3f41;
-    /*-fx-padding: 15;*/
-    /*-fx-hgap: 10;*/
-    /*-fx-vgap: 10;*/
-    /*-fx-background-radius: 5.0;*/
+    -fx-padding: 15;
+    -fx-hgap: 10;
+    -fx-vgap: 10;
+    -fx-background-radius: 5.0;
     -fx-font-family: "Arial";
 }
 

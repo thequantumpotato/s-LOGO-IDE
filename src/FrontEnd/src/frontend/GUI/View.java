@@ -56,11 +56,13 @@ public class View implements ViewInternalAPI, ViewAPI {
     private Stage myStage;
     private Timeline animation;
     private TabPane tabPane;
-    private VBox root = new VBox();
+    private VBox root;
     private AnchorPane anchorPane;
     final Button addButton = new Button("+");
 
     public View(Stage primaryStage, Controller myController_, Turtle turtle, String initLang) {
+        root = new VBox();
+        root.getStyleClass().add("root");
         myController = myController_;
         myStage = primaryStage;
         myTurtle = turtle;
@@ -79,7 +81,7 @@ public class View implements ViewInternalAPI, ViewAPI {
 
     private void addTab(Turtle turtle, String initLang) {
         GridPane newGridPane = createGridPane(turtle, initLang);
-        newGridPane.setMaxHeight(SCREEN_HEIGHT - 20);
+        newGridPane.setMaxHeight(SCREEN_HEIGHT - 15);
         addToTabPane(newGridPane);
     }
 
