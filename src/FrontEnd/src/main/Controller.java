@@ -3,6 +3,7 @@ package main;
 import backend.IllegalCommandException;
 import backend.ModelController;
 import backend.Turtle;
+import frontend.ExternalAPI.ViewAPI;
 import frontend.GUI.View;
 import javafx.stage.Stage;
 
@@ -19,7 +20,7 @@ public class Controller {
     public static final String commandError = "Errors";
     public static final String LANG_PATH = "languages/";
     public static final String SYNTAX = "languages/Syntax";
-    private View myView;
+    private ViewAPI myView;
     private Turtle myTurtle;
     private ViewControl viewControl;
     private ModelController modelController;
@@ -33,17 +34,18 @@ public class Controller {
         myTurtle = new Turtle();
         myView = new View(primaryStage, this, myTurtle, language);
         myView.registerDisplay(myTurtle);
-        viewControl = new ViewControl(myView.getMyDisplayView());
+//        viewControl = new ViewControl(myView.getMyDisplayView());
         modelController = new ModelController(myTurtle, mySymbols);
         myErrors = ResourceBundle.getBundle(commandError);
     }
 
+    // TODO: 10/25/18 Figure out how to render different error types for user command
     public void runCommand(String input) {
         try {
             modelController.parseCommand(input);
             myView.updateHistory(input);
-            checkVarAndUpdate();
-            checkFuncAndUpdate();
+            checkBackEndVarUpdate();
+            checkBackEndFuncUpdate();
         } catch (Exception e) {
             throwErrorByType(e);
         }
@@ -55,12 +57,18 @@ public class Controller {
         } else myView.displayErrors(e.toString());
     }
 
-    private void checkFuncAndUpdate() {
+    /**
+     * Check function in the backend and display new one in the functionView
+     */
+    private void checkBackEndFuncUpdate() {
         Map<String, String> newFunc = modelController.updateFunc();
-        if (!newFunc.isEmpty()) myView.updateFunction(newFunc);
+        if (!newFunc.isEmpty()) myView.addFunc(newFunc);
     }
 
-    private void checkVarAndUpdate() {
+    /**
+     * Check variable in the backend and display new one in the VariableView
+     */
+    private void checkBackEndVarUpdate() {
         Map<String, String> newVar = modelController.updateVar();
         if (!newVar.isEmpty()) myView.addVar(newVar);
     }
@@ -78,6 +86,10 @@ public class Controller {
         }
     }
 
+    /**
+     * Run the command to update variable name and value entered by the user in the VariableView
+     * @param var
+     */
     public void updateVar(Map<String, String> var) {
         String key = var.keySet().toArray()[0].toString();
         try {

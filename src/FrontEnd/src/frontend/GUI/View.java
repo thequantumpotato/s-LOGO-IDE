@@ -11,7 +11,10 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -76,7 +79,7 @@ public class View implements ViewInternalAPI, ViewAPI {
 
     private void addTab(Turtle turtle, String initLang) {
         GridPane newGridPane = createGridPane(turtle, initLang);
-        newGridPane.setMaxHeight(SCREEN_HEIGHT-20);
+        newGridPane.setMaxHeight(SCREEN_HEIGHT - 20);
         addToTabPane(newGridPane);
     }
 
@@ -106,7 +109,7 @@ public class View implements ViewInternalAPI, ViewAPI {
         gridPane.getColumnConstraints().addAll(column1, column2, column3);
         gridPane.getRowConstraints().addAll(row1, row2, row3, row4);
     }
-    
+
     private void addAnchor() {
         anchorPane = new AnchorPane();
         AnchorPane.setTopAnchor(tabPane, 5.0);
@@ -216,21 +219,6 @@ public class View implements ViewInternalAPI, ViewAPI {
     }
 
     @Override
-    public void updateHistory(String validInput) {
-        myHistoryView.updateHistory(validInput);
-    }
-
-    @Override
-    public void addVar(Map<String, String> variable) {
-        myVariableView.updateVariable(variable);
-    }
-
-    @Override
-    public void updateFunction(Map<String, String> function) {
-        myFunctionView.updateFunction(function);
-    }
-
-    @Override
     public void updateVar(Map<String, String> variable) {
         myController.updateVar(variable);
     }
@@ -256,4 +244,20 @@ public class View implements ViewInternalAPI, ViewAPI {
     public void registerDisplay(Turtle turtle) {
         turtle.addObserver(myDisplayView);
     }
+
+    @Override
+    public void addVar(Map<String, String> variable) {
+        myVariableView.updateVariable(variable);
+    }
+
+    @Override
+    public void addFunc(Map<String, String> function) {
+        myFunctionView.updateFunction(function);
+    }
+
+    @Override
+    public void updateHistory(String validInput) {
+        myHistoryView.updateHistory(validInput);
+    }
+
 }
