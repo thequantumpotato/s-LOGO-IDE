@@ -3,6 +3,7 @@ package frontend;
 import backend.Turtle;
 import frontend.ExternalAPI.ViewAPI;
 import frontend.API.ViewInternalAPI;
+import frontend.ViewChildren.*;
 import frontend.ViewChildren.Display.DisplayView;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
