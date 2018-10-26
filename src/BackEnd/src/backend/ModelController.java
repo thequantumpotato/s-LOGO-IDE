@@ -23,7 +23,7 @@ public class ModelController {
         interpreter = new Interpreter(symbolList);
         //commander = new Command(this, turtle);
         myTurtle = turtle;
-        myReflector = new Reflector(myTurtle);
+       // myReflector = new Reflector(myTurtle);
         myTreeFactory = new TreeFactory(myTurtle);
     }
 
@@ -34,12 +34,16 @@ public class ModelController {
         List<String> commands = interpreter.parse(input); //returns a list of root nodes
         //Turn our command arraylist into a tree structure of command nodes
         myCommands = myTreeFactory.getRoots(commands);
-
-        for (BasicNode node : myCommands) {
-            myReflector.execute(node);
+        for(BasicNode node:myCommands){
+            System.out.println(node.getClass());
         }
+
+        //We might not need tree factory anymore
+        //for (BasicNode node : myCommands) {
+        //    myReflector.execute(node);
+        //}
         myTurtle.Changed();
-        myTurtle.notifyObservers(true);
+        //myTurtle.notifyObservers(true);
         myTurtle.clear();
     }
 

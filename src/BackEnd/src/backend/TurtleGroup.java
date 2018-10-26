@@ -5,11 +5,12 @@ import javafx.scene.paint.Color;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
+import java.util.Observer;
 
 /**
  * @author Jose San Martin
  */
-public class TurtleGroup extends Observable implements Turtle {
+public class TurtleGroup extends Observable implements Turtle{
     private double direction;
     private double size;
     private Color color;
@@ -31,6 +32,9 @@ public class TurtleGroup extends Observable implements Turtle {
         }
     }
 
+    public void addTurtle(){
+        turtles.add(new TurtleLeaf());
+    }
     public void setPosition(double x, double y) {
         for(TurtleLeaf leaf:turtles){
             leaf.setX(x);
@@ -72,12 +76,13 @@ public class TurtleGroup extends Observable implements Turtle {
         }
     }
 
-    public List<Double> getDirection() {
+    //CHANGE THE SIGNATURE LATER
+    public double getDirection() {
         List<Double> directions = new ArrayList<>();
         for(TurtleLeaf leaf:turtles){
             directions.add(leaf.getDirection());
         }
-        return directions;
+        return 1;
     }
 
 
@@ -115,6 +120,19 @@ public class TurtleGroup extends Observable implements Turtle {
 
     public void show() {
 
+    }
+
+    @Override
+    public void notifyObservers(){
+        for(TurtleLeaf leaf:turtles){
+            leaf.notifyObservers();
+        }
+    }
+
+    public void addAnObserver(Observer o) {
+        for(TurtleLeaf leaf:turtles){
+            leaf.addObserver(o);
+        }
     }
 
 

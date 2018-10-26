@@ -1,6 +1,7 @@
 package frontend;
 
 import backend.Turtle;
+import backend.TurtleLeaf;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
@@ -162,7 +163,7 @@ public class View {
     }
 
     public void changeLanguage(String language) {
-        new Controller(myStage, new Turtle(), language, "languages/Syntax");
+        new Controller(myStage, new TurtleLeaf(), language, "languages/Syntax");
     }
 
     public void passCommand(String input) throws Exception {
@@ -194,7 +195,7 @@ public class View {
     }
 
     public void registerDisplay(Turtle turtle) {
-        turtle.addObserver(myDisplayView);
+        turtle.addAnObserver(myDisplayView);
     }
 
     /**

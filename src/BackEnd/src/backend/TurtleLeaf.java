@@ -1,8 +1,10 @@
 package backend;
 
+import javafx.beans.InvalidationListener;
 import javafx.scene.paint.Color;
 
 import java.util.Observable;
+import java.util.Observer;
 
 
 /**
@@ -96,6 +98,12 @@ public class TurtleLeaf extends Observable implements Turtle{
     public void putPenDown() {
 
     }
+
+    //Manually add observers
+    public void addAnObserver(Observer o) {
+        addObserver(o);
+    }
+
 
     public void show() {
 

@@ -1,11 +1,15 @@
 package backend;
 
+import javafx.beans.Observable;
+
+import java.util.Observer;
+
 /**
  * @author Jose San Martin
  * An interface for our turtles
  *  Implements the Composite design pattern
  */
-public interface Turtle{
+public interface Turtle  {
 
     public void move(double distance);
 
@@ -27,22 +31,17 @@ public interface Turtle{
 
     void setHeading(double angle);
 
-   //double getDirection();
-
-   //double getX();
-
-   //void setX(double x);
-
-   //double getY();
-
-   //void setY(double y);
-
-   //boolean getIsPenDown();
-
-   //boolean getIsShowing();
+   double getDirection();
+   double getX();
+   void setX(double x);
+   double getY();
+   void setY(double y);
+   boolean getIsPenDown();
+   boolean getIsShowing();
 
     void liftPenUp();
 
     void putPenDown();
 
+    void addAnObserver(Observer o);
 }
