@@ -2,6 +2,8 @@ package backend;
 
 import backend.Nodes.*;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.regex.Pattern;
 
@@ -13,10 +15,13 @@ public class TreeFactory {
      */
     private static final String commandProps = "backend/resources/Command";
     private static final String commandError = "backend/resources/Errors";
+    private static final String pathToNode = "backend.Nodes.";
     public ResourceBundle myErrors;
     private List<Map.Entry<String, Pattern>> mySymbols;
+    private Turtle myTurtle;
 
-    public TreeFactory() {
+    public TreeFactory(Turtle turtle) {
+        myTurtle = turtle;
         mySymbols = new ArrayList<>();
         addPatterns(commandProps);
         myErrors = ResourceBundle.getBundle(commandError);
@@ -27,7 +32,7 @@ public class TreeFactory {
      * Returns a list of Nodes when given a List of string commands. Each Node is the root of a tree
      * of commands. with the children being the arguments
      */
-    //Commands have children, while arguments don't (they are simply argumentNodes)
+    //Most Commands have children, while arguments don't (they are simply leafNodes)
     public List<BasicNode> getRoots(List<String> commands) throws IllegalCommandException {
         List<BasicNode> myRoots = new ArrayList<>();
         while (commands.size() != 0) {
@@ -44,14 +49,15 @@ public class TreeFactory {
                 myRoot = createRoot(command);
             }
             //If we haven't reached the max number of arguments required
-            while (myRoot.getNumChildren() != myRoot.getRequiredArguments()) {
-                //Check if the next item is an open bracket (because lists are ALWAYS children)
+            int numArgs = getArgNum(command); //get the arg num for this command
+            while (myRoot.getNumChildren() != numArgs) {
+                //Check if the next item is an open bracket (because lists are ALWAYS children yes ma'am)
                 BasicNode nextChild;
                 if (isOpenBracket(commands.get(0))) {
                     nextChild = generateList(commands);
                     commands.remove(0); //Remove that ending parenthesis!
                 } else {
-                    nextChild = createChild(commands);
+                    nextChild = createChild(commands); //if not list, it is a command
                 }
                 if (nextChild == null) {
                     throw new IllegalCommandException();
@@ -94,25 +100,11 @@ public class TreeFactory {
             newNode.addChild(new ArgumentNode(command.substring(1))); //Variables need to have a child to begin with
             System.out.println(command.substring(1));
         } else if (!isNotCommand(command)) {
-            String numArgs = getArgNum(command);
-            //System.out.println(numArgs);
-            if (numArgs == null) {
-                throw new IllegalCommandException(myErrors.getString("commandError"));
-            }
-            //TODO Get rid of these ifelse statements
-            if (numArgs.equals("Single")) {
-                newNode = new SingleCommandNode(command);
-            } else if (numArgs.equals("Double")) {
-                newNode = new DoubleCommandNode(command);
-            } else if (numArgs.equals("Triple")) {
-                newNode = new TripleCommandNode(command);
-            } else {
-                newNode = new ZeroCommandNode(command);
-            }
-
+            newNode = reflect(command); //Use reflection to get our class
 
         } else {
-            newNode = new ArgumentNode(command);
+            //If not command or variable, it is a LeafNode
+            newNode = new LeafNode(command);
         }
         return newNode;
     }
@@ -123,7 +115,7 @@ public class TreeFactory {
      */
     private BasicNode generateList(List<String> Commands) throws IllegalCommandException {
         String newList = Commands.remove(0);
-        BasicNode commandList = new ListNode(newList);
+        BasicNode commandList = new ListNode(newList); //this stays the same, list
         while (!isCloseBracket(Commands.get(0))) {
             //Create the new command and add all of it's children
             String nextCommand = Commands.remove(0);
@@ -143,6 +135,36 @@ public class TreeFactory {
         while (commandRoot.getNumChildren() != commandRoot.getRequiredArguments()) {
             commandRoot.addChild(createChild(Commands));
         }
+    }
+
+    public BasicNode reflect(String command) throws IllegalCommandException {
+        Class myClass = null;
+        try {
+            myClass = Class.forName(pathToNode+command);
+        } catch (ClassNotFoundException e) {
+            throw new IllegalCommandException(e);
+        }
+
+        Class[] types = {Turtle.class, List.class};
+        Constructor constructor;
+        try {
+            constructor = myClass.getConstructor(types);
+        } catch (NoSuchMethodException e) {
+            throw new IllegalCommandException(e);
+        }
+
+        Object[] parameters = {myTurtle};
+        Object newInstance = null;
+        try {
+            newInstance = constructor.newInstance(parameters);
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        return (BasicNode) newInstance;
     }
 
     private boolean isVariable(String s) {
@@ -182,13 +204,13 @@ public class TreeFactory {
     /**
      * Returns whether a command requires one, two three, or more arguments
      */
-    private String getArgNum(String text) {
+    private int getArgNum(String text) {
         for (var e : mySymbols) {
             if (e.getValue().matcher(text).matches()) {
-                return e.getKey();
+                return Integer.parseInt(e.getKey());
             }
         }
         //This will never get thrown, because we would have thrown it in a previous matching method
-        return null;
+        return 0;
     }
 }
