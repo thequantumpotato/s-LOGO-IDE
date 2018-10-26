@@ -1,5 +1,8 @@
 package backend;
 
+import backend.Commands.IntegerLeaf;
+import backend.Commands.Node;
+
 import backend.Nodes.*;
 
 import java.lang.reflect.Constructor;
@@ -32,12 +35,12 @@ public class TreeFactory {
      * Returns a list of Nodes when given a List of string commands. Each Node is the root of a tree
      * of commands. with the children being the arguments
      */
-    //Most Commands have children, while arguments don't (they are simply leafNodes)
-    public List<BasicNode> getRoots(List<String> commands) throws IllegalCommandException {
-        List<BasicNode> myRoots = new ArrayList<>();
+    //MostCommands have children, while arguments don't (they are simply argumentNodes)
+    public List<Node> getRoots(List<String> commands) throws IllegalCommandException {
+        List<Node> myRoots = new ArrayList<>();
         while (commands.size() != 0) {
             String command = commands.remove(0);
-            BasicNode myRoot;
+            Node myRoot;
             if (isLeftParenthesis(command)) { //check if its a parenthesis FIRST
                 //make the NEXT item a command, not the current parenthesis
                 String nextCommand = commands.remove(0);
@@ -52,7 +55,7 @@ public class TreeFactory {
             int numArgs = getArgNum(command); //get the arg num for this command
             while (myRoot.getNumChildren() != numArgs) {
                 //Check if the next item is an open bracket (because lists are ALWAYS children yes ma'am)
-                BasicNode nextChild;
+                Node nextChild;
                 if (isOpenBracket(commands.get(0))) {
                     nextChild = generateList(commands);
                     commands.remove(0); //Remove that ending parenthesis!
@@ -71,40 +74,40 @@ public class TreeFactory {
     }
 
     //TODO: Implement brackets and parenthesis
-    private BasicNode createChild(List<String> commands) throws IllegalCommandException {
+    private Node createChild(List<String> commands) throws IllegalCommandException {
         if (commands.size() == 0) {
             return null;
         }
-        BasicNode newChild;
+        Node newChild;
         String nextChild = commands.remove(0);
         if (isLeftParenthesis(nextChild)) { //check if its a parenthesis FIRST
             String nextCommand = commands.remove(0);
             newChild = createRoot(nextCommand);
-            generateCommand(newChild, commands);
+            generateCommand(newChild, commands, getArgNum(nextCommand));
         } else if (!isNotCommand(nextChild)) {
             newChild = createRoot(nextChild);
             //This child has its own arguments that we need to add. Use recursion!
-            generateCommand(newChild, commands);
+            generateCommand(newChild, commands, getArgNum(nextChild));
         } else {
-            newChild = new ArgumentNode(nextChild);
+            newChild = new IntegerLeaf(nextChild);
         }
 
         return newChild;
 
     }
 
-    private BasicNode createRoot(String command) throws IllegalCommandException {
-        BasicNode newNode;
+    private Node createRoot(String command) throws IllegalCommandException {
+        Node newNode;
         if (isVariable(command)) {
             newNode = new SingleCommandNode("GetVariable");
-            newNode.addChild(new ArgumentNode(command.substring(1))); //Variables need to have a child to begin with
+            newNode.addChild(new IntegerLeaf(command.substring(1))); //Variables need to have a child to begin with
             System.out.println(command.substring(1));
         } else if (!isNotCommand(command)) {
             newNode = reflect(command); //Use reflection to get our class
 
         } else {
             //If not command or variable, it is a LeafNode
-            newNode = new LeafNode(command);
+            newNode = new IntegerLeaf(command);
         }
         return newNode;
     }
@@ -113,14 +116,15 @@ public class TreeFactory {
      * Creates a list with all of the commands inside of the list
      * Returns the root of a ListNode, which is an argument to another command
      */
-    private BasicNode generateList(List<String> Commands) throws IllegalCommandException {
+    private Node generateList(List<String> Commands) throws IllegalCommandException {
         String newList = Commands.remove(0);
-        BasicNode commandList = new ListNode(newList); //this stays the same, list
+        Node commandList = new ListNode(newList);
         while (!isCloseBracket(Commands.get(0))) {
             //Create the new command and add all of it's children
             String nextCommand = Commands.remove(0);
-            BasicNode newChild = createRoot(nextCommand);
-            generateCommand(newChild, Commands);
+            Node newChild = createRoot(nextCommand);
+            int numChild = getArgNum(nextCommand);
+            generateCommand(newChild, Commands, numChild);
             //Add this command to our ListNode
             commandList.addChild(newChild);
         }
@@ -131,13 +135,13 @@ public class TreeFactory {
     /**
      * A utility method to help us obtain all of the children of a command
      */
-    public void generateCommand(BasicNode commandRoot, List<String> Commands) throws IllegalCommandException {
-        while (commandRoot.getNumChildren() != commandRoot.getRequiredArguments()) {
+    public void generateCommand(Node commandRoot, List<String> Commands, int numChild) throws IllegalCommandException {
+        while (commandRoot.getNumChildren() != numChild) {
             commandRoot.addChild(createChild(Commands));
         }
     }
 
-    public BasicNode reflect(String command) throws IllegalCommandException {
+    public Node reflect(String command) throws IllegalCommandException {
         Class myClass = null;
         try {
             myClass = Class.forName(pathToNode+command);
@@ -164,7 +168,7 @@ public class TreeFactory {
         } catch (InvocationTargetException e) {
             e.printStackTrace();
         }
-        return (BasicNode) newInstance;
+        return (Node) newInstance;
     }
 
     private boolean isVariable(String s) {

@@ -4,6 +4,7 @@ import backend.Turtle;
 import backend.TurtleLeaf;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import main.Controller;
 
 public class Main extends Application {
     public static final String DEFAULT_LANGUAGE = "English";
@@ -17,7 +18,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setResizable(false);
         Turtle singleTurtle = new TurtleLeaf();
-        new Controller(primaryStage, singleTurtle, DEFAULT_LANGUAGE, SYNTAX);
+        new Controller(primaryStage, DEFAULT_LANGUAGE);
         //ModelController mc = new ModelController(turtle);
         //mc.parseCommand("repeat 50 [ fd 40 rt 25 ]");
 

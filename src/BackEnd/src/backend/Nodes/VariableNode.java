@@ -16,4 +16,9 @@ public class VariableNode extends CommandNode {
     public String getCommandName() {
         return commandName;
     }
+
+    @Override
+    public Object run() {
+        return null;
+    }
 }

@@ -1,6 +1,7 @@
 package backend.Testing;
 
-import backend.Nodes.BasicNode;
+import backend.Commands.Node;
+import backend.ModelController;
 
 import java.util.List;
 
@@ -29,19 +30,18 @@ public class TreeTester {
 //
     //}
 
-    private void execute(List<BasicNode> myRoots) {
+    private void execute(List<Node> myRoots) {
         System.out.println(myRoots.size());
-        for (BasicNode root : myRoots) {
+        for (Node root : myRoots) {
             //System.out.println(root.getCommandName());
             printTrees(root);
         }
     }
 
     //Preorder traversal
-    private void printTrees(BasicNode root) {
-        System.out.println(root.getCommandName());
+    private void printTrees(Node root) {
         while (root.getChildren() != null) {
-            for (BasicNode child : root.getChildren()) {
+            for (Node child : root.getChildren()) {
                 printTrees(child);
             }
             //System.out.println("-------------"); //end of tree
@@ -51,6 +51,11 @@ public class TreeTester {
 
 
     }
+
+    public static void main(String[] args){
+    }
+
+
 
 
 }

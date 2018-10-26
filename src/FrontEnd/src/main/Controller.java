@@ -3,6 +3,7 @@ package main;
 import backend.IllegalCommandException;
 import backend.ModelController;
 import backend.Turtle;
+import backend.TurtleLeaf;
 import frontend.ExternalAPI.ViewAPI;
 import frontend.GUI.View;
 import javafx.stage.Stage;
@@ -12,7 +13,7 @@ import java.util.regex.Pattern;
 
 /**
  * Controller mediates the communications between the ViewAPI and the Model. <br>
- * Controller is initialized when the main.Main.java starts running. It will contain an instance of ViewAPI and ModelController.
+ * Controller is initialized when the main.Main.txt starts running. It will contain an instance of ViewAPI and ModelController.
  *
  * @author Vincent Liu
  */
@@ -31,7 +32,7 @@ public class Controller {
         mySymbols = new ArrayList<>();
         addPatterns(LANG_PATH + language); // language syntax
         addPatterns(SYNTAX);
-        myTurtle = new Turtle();
+        myTurtle = new TurtleLeaf();
         myView = new View(primaryStage, this, myTurtle, language);
         myView.registerDisplay(myTurtle);
 //        viewControl = new ViewControl(myView.getMyDisplayView());

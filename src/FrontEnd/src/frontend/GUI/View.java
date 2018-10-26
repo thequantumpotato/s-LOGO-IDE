@@ -244,7 +244,7 @@ public class View implements ViewInternalAPI, ViewAPI {
 
     @Override
     public void registerDisplay(Turtle turtle) {
-        turtle.addObserver(myDisplayView);
+        turtle.addAnObserver(myDisplayView);
     }
 
     @Override

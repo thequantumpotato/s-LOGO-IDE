@@ -2,6 +2,8 @@ package frontend;
 
 import backend.Turtle;
 import backend.TurtleLeaf;
+import frontend.GUI.Display.DisplayView;
+import frontend.GUI.SubViews.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
@@ -13,6 +15,7 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import main.Controller;
 
 import java.util.Map;
 

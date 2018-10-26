@@ -1,7 +1,8 @@
 package backend;
 
 import backend.Nodes.ArgumentNode;
-import backend.Nodes.BasicNode;
+import backend.Commands.Node;
+import backend.Nodes.CommandNode;
 import backend.Nodes.LoopNode;
 
 import java.util.List;
@@ -13,13 +14,14 @@ import java.util.Random;
  */
 public class Command {
 
-    private Reflector m;
-    private Turtle t;
+//    private Reflector m;
+//    private Turtle t;
+//
+//    public Command(Reflector m, Turtle t) {
+//        this.m = m;
+//        this.t = t;
+//    }
 
-    public Command(Reflector m, Turtle t) {
-        this.m = m;
-        this.t = t;
-    }
 
     //public BasicNode forward(List<BasicNode> values) {
     //    Double d = 0.0;
@@ -167,8 +169,8 @@ public class Command {
     //}
 //
     //private double[] parseTwoDoubles(List<BasicNode> l) {
-    //    double a = Integer.parseInt(l.get(0).getCommandName());
-    //    double b = Integer.parseInt(l.get(1).getCommandName());
+    //    double a = IntegerLeaf.parseInt(l.get(0).getCommandName());
+    //    double b = IntegerLeaf.parseInt(l.get(1).getCommandName());
     //    double[] res = new double[2];
     //    res[0] = a;
     //    res[1] = b;
@@ -197,13 +199,13 @@ public class Command {
 //
     //public BasicNode quotient(List<BasicNode> l) {
     //    int[] args = parseTwoIntegers(l);
-    //    Integer res = args[0] / args[1];
+    //    IntegerLeaf res = args[0] / args[1];
     //    return new ArgumentNode(res.toString());
     //}
 //
     //public BasicNode remainder(List<BasicNode> l) {
     //    int[] args = parseTwoIntegers(l);
-    //    Integer res = args[0] % args[1];
+    //    IntegerLeaf res = args[0] % args[1];
     //    return new ArgumentNode(res.toString());
     //}
 //
@@ -214,9 +216,9 @@ public class Command {
 //
     //public BasicNode random(List<BasicNode> l) {
     //    Double tmp = Double.parseDouble(l.get(0).getCommandName());
-    //    Integer max = tmp.intValue();
+    //    IntegerLeaf max = tmp.intValue();
     //    Random random = new Random();
-    //    Integer res = random.nextInt(max);
+    //    IntegerLeaf res = random.nextInt(max);
     //    return new ArgumentNode(res.toString());
     //}
 //
@@ -287,7 +289,8 @@ public class Command {
 //    }
 
 
-//        public BasicNode setBackground (List<BasicNode> l) {
+
+//        public Node setBackground (List<Node> l) {
 //
     //public BasicNode lessThan(List<BasicNode> l) {
     //    double[] args = parseTwoDoubles(l);
@@ -295,11 +298,15 @@ public class Command {
     //    return new ArgumentNode(res ? "1" : "0");
     //}
 //
+
     //public BasicNode greaterThan(List<BasicNode> l) {
     //    double[] args = parseTwoDoubles(l);
     //    boolean res = args[0] > args[1];
     //    return new ArgumentNode(res ? "1" : "0");
     //}
+
+//        public Node setPenColor (List<Node> l) {
+
 //
     //public BasicNode equal(List<BasicNode> l) {
     //    double[] args = parseTwoDoubles(l);
@@ -308,12 +315,16 @@ public class Command {
     //    return new ArgumentNode(res ? "1" : "0");
     //}
 //
+
     //public BasicNode notEqual(List<BasicNode> l) {
     //    double[] args = parseTwoDoubles(l);
     //    double e = 0.0001;
     //    boolean res = Math.abs(args[0] - args[1]) > e;
     //    return new ArgumentNode(res ? "1" : "0");
     //}
+
+//        public Node setPenSize (List<Node> l) {
+
 //
     //public BasicNode and(List<BasicNode> l) {
     //    int[] args = parseTwoIntegers(l);
@@ -321,18 +332,23 @@ public class Command {
     //    return new ArgumentNode(res ? "1" : "0");
     //}
 //
+
     //public BasicNode or(List<BasicNode> l) {
     //    int[] args = parseTwoIntegers(l);
     //    boolean res = (args[0] + args[1]) >= 1;
     //    return new ArgumentNode(res ? "1" : "0");
     //}
+
+//        public Node setShape (List<Node> l) {
+
 //
     //public BasicNode not(List<BasicNode> l) {
     //    Double tmp = Double.parseDouble(l.get(0).getCommandName());
-    //    Integer res = tmp.intValue();
+    //    IntegerLeaf res = tmp.intValue();
     //    return new ArgumentNode(res == 1 ? "1" : "0");
     //}
 //
+
     //public BasicNode makeVariable(List<BasicNode> l) {
     //    //check if it already exists, and if so replace it. If not create it
     //    String name = l.get(0).getCommandName(); //key
@@ -340,6 +356,7 @@ public class Command {
     //    m.createSetVariable(name, value);
     //    return value;
     //}
+
 //
     ////       public BasicNode makeVariable (List<BasicNode> l) {
     ////           String name = l.get(0).getCommandName();
@@ -362,21 +379,18 @@ public class Command {
     //    //Input is a turtle and a list of BasicNodes. The first one is the repSize, and the second one
     //    //is the listNode
     //    BasicNode repNode = nodes.get(0);
-    //    int reps = Integer.parseInt(repNode.getCommandName());
+    //    int reps = IntegerLeaf.parseInt(repNode.getCommandName());
     //    BasicNode loopNode = new LoopNode(reps, "loop");
 //
+
     //    BasicNode list = nodes.get(1);
     //    for (BasicNode n : list.getChildren()) {
     //        loopNode.addChild(n); // move children from the listNode to the loopNode
     //    }
     //    return loopNode;
     //}
-//
-////
-//  //      public BasicNode doTimes (List<BasicNode> l) {
-//  //          //to-do
-//  //      }
-//
+
+
 //  //  public BasicNode makeUserInstruction(List<BasicNode> l) {
 //  //      String name = l.get(0).getCommandName();
 //  //      CommandNode c = (CommandNode) l.get(1);
@@ -398,8 +412,6 @@ public class Command {
     //    loopNode.addChild(n); // move children from the listNode to the loopNode
     //}
     //return loopNode;
-//
-//
 //
 //  //      public BasicNode setBackground (List<BasicNode> l) {
 ////
