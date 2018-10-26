@@ -17,8 +17,11 @@ public class Backward extends TurtleNode {
         return d;
     }
 
-    @Override
+    public int getNumChildren() {
+        return children.size();
+    }
+
     public List<Node> getChildren() {
-        return null;
+        return children;
     }
 }

@@ -18,7 +18,7 @@ public class TreeFactory {
      */
     private static final String commandProps = "backend/resources/Command";
     private static final String commandError = "backend/resources/Errors";
-    private static final String pathToNode = "backend.Nodes.";
+    private static final String pathToNode = "backend.Commands.";
     public ResourceBundle myErrors;
     private List<Map.Entry<String, Pattern>> mySymbols;
     private Turtle myTurtle;
@@ -141,15 +141,18 @@ public class TreeFactory {
         }
     }
 
+    /**
+     * Reflection baby
+     */
     public Node reflect(String command) throws IllegalCommandException {
-        Class myClass = null;
+        Class myClass;
         try {
             myClass = Class.forName(pathToNode+command);
         } catch (ClassNotFoundException e) {
             throw new IllegalCommandException(e);
         }
 
-        Class[] types = {Turtle.class, List.class};
+        Class[] types = {Turtle.class};
         Constructor constructor;
         try {
             constructor = myClass.getConstructor(types);
@@ -168,6 +171,7 @@ public class TreeFactory {
         } catch (InvocationTargetException e) {
             e.printStackTrace();
         }
+        //WORKS up to here
         return (Node) newInstance;
     }
 

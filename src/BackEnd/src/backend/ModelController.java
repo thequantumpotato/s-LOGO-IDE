@@ -47,7 +47,6 @@ public class ModelController {
             System.out.println(node.getClass());
 
         }
-            //We might not need tree factory anymore
             //for (BasicNode node : myCommands) {
             //    myReflector.execute(node);
             //}

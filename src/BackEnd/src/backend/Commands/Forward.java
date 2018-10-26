@@ -16,13 +16,11 @@ public class Forward extends TurtleNode{
         return l.get(0);
     }
 
-    @Override
     public int getNumChildren() {
-        return 0;
+        return children.size();
     }
 
-    @Override
     public List<Node> getChildren() {
-        return null;
+        return children;
     }
 }
