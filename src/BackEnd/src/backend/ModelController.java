@@ -1,6 +1,6 @@
 package backend;
 
-import backend.Nodes.BasicNode;
+import backend.Commands.Node;
 
 import java.util.List;
 import java.util.Map;
@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
  */
 public class ModelController {
     private Interpreter interpreter;
-    private List<BasicNode> myCommands;
+    private List<Node> myCommands;
     private List<Map.Entry<String, Pattern>> mySymbols;
     private Turtle myTurtle;
     private Reflector myReflector;
@@ -32,7 +32,7 @@ public class ModelController {
         myCommands = interpreter.parse(input); //returns a list of root nodes
         // System.out.println(myCommands);
 
-        for (BasicNode node : myCommands) {
+        for (Node node : myCommands) {
             myReflector.execute(node);
         }
         myTurtle.Changed();

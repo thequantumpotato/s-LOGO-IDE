@@ -1,7 +1,7 @@
 package backend;
 
 
-import backend.Nodes.BasicNode;
+import backend.Commands.Node;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +39,7 @@ public class Interpreter {
     /**
      * Return the arrayList<String></String> back to the ModelController of all of the commands
      */
-    public List<BasicNode> parse(String text) throws Exception {
+    public List<Node> parse(String text) throws Exception {
         String[] textArr = text.split(WHITESPACE);
         for (var t : textArr) {
             if (t.trim().length() > 0) {
@@ -48,7 +48,7 @@ public class Interpreter {
         }
         //reflection();
         //commands are in an arraylist, now create our tree structure
-        List<BasicNode> myTrees = myTreeFactory.getRoots(myCommands);
+        List<Node> myTrees = myTreeFactory.getRoots(myCommands);
 
         return myTrees;
 

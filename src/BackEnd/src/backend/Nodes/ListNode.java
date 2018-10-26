@@ -1,24 +1,26 @@
 package backend.Nodes;
 
+import backend.Commands.Node;
+
 import java.util.ArrayList;
 import java.util.List;
 
 
 /**
  * @Author Jose San Martin
- * A node class that extends our BasicNode interface. This class handles Lists, by having it's children be a list of
+ * A node class that extends our Node interface. This class handles Lists, by having it's children be a list of
  * commands nodes, where the number of children is not specified.
  */
-public class ListNode implements BasicNode {
+public class ListNode implements Node {
     private String commandName;
-    private List<BasicNode> myChildren;
+    private List<Node> myChildren;
 
     public ListNode(String commandString) {
         commandName = commandString;
         myChildren = new ArrayList<>();
     }
 
-    public void addChild(BasicNode Child) {
+    public void addChild(Node Child) {
         myChildren.add(Child);
     }
 
@@ -35,7 +37,7 @@ public class ListNode implements BasicNode {
         return commandName;
     }
 
-    public List<BasicNode> getChildren() {
+    public List<Node> getChildren() {
         return myChildren;
     }
 }

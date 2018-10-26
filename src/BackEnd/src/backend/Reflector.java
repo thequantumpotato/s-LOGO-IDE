@@ -1,7 +1,7 @@
 package backend;
 
+import backend.Commands.Node;
 import backend.Nodes.ArgumentNode;
-import backend.Nodes.BasicNode;
 import backend.Nodes.CommandNode;
 import backend.Nodes.LoopNode;
 
@@ -29,7 +29,7 @@ public class Reflector {
         Commander = new Command(this, myTurtle);
     }
 
-    public void execute(BasicNode root) throws NoSuchMethodException {
+    public void execute(Node root) throws NoSuchMethodException {
         if (root.getCommandName().matches("If")) {
             handleIf(root);
         } else {
@@ -37,7 +37,7 @@ public class Reflector {
         }
     }
 
-    private BasicNode traverseTree(BasicNode root) throws NoSuchMethodException {
+    private Node traverseTree(Node root) throws NoSuchMethodException {
         if (root == null) {
             return null;
         }
@@ -45,8 +45,8 @@ public class Reflector {
         if (isNotCommand(root)) { //Continue only if the node is part of the Command hierarchy
             return root;
         }
-        List<BasicNode> children = new ArrayList<>();
-        for (BasicNode child : root.getChildren()) {
+        List<Node> children = new ArrayList<>();
+        for (Node child : root.getChildren()) {
             children.add(traverseTree(child));
         }
         String name = root.getCommandName().substring(0, 1).toLowerCase() + root.getCommandName().substring(1);
@@ -55,7 +55,7 @@ public class Reflector {
         //Invoke the command, and obtain the returned value, which is turned into a new argument node
         try {
             myTurtle.Changed();
-            BasicNode ret = (BasicNode) command.invoke(Commander, children);
+            Node ret = (Node) command.invoke(Commander, children);
             myTurtle.clear();
             if (ret instanceof LoopNode) { //If it isnt an arg node, it is a loop node!
                 loop((LoopNode) ret);
@@ -69,7 +69,7 @@ public class Reflector {
         throw new NoSuchMethodException();
     }
 
-    private BasicNode handleIf(BasicNode root) throws NoSuchMethodException {
+    private Node handleIf(Node root) throws NoSuchMethodException {
         if (root == null) {
             return null;
         }
@@ -77,35 +77,35 @@ public class Reflector {
             return root;
         }
         //The first child is always the condition to be evaluated
-        BasicNode condition = traverseTree(root.getChildren().get(0));
-        BasicNode lastCommand = null;
+        Node condition = traverseTree(root.getChildren().get(0));
+        Node lastCommand = null;
         if (!condition.getCommandName().equals("0")) {
-            BasicNode list = root.getChildren().get(1);
+            Node list = root.getChildren().get(1);
             lastCommand = loopList(list);
         }
         return lastCommand;
     }
 
     //TODO: Make this return the last value of the last executed command
-    public void loop(LoopNode loopNode) throws NoSuchMethodException { //Have to accept LoopNode, not BasicNode
+    public void loop(LoopNode loopNode) throws NoSuchMethodException { //Have to accept LoopNode, not Node
         //Run the commands in the list a specified number of times
         for (int i = 0; i < loopNode.getReps(); i++) {
-            for (BasicNode subCommand : loopNode.getChildren()) {
+            for (Node subCommand : loopNode.getChildren()) {
                 execute(subCommand);
             }
         }
         return;
     }
 
-    public BasicNode loopList(BasicNode list) throws NoSuchMethodException {
-        BasicNode lastCommand = null;
-        for (BasicNode commandToRun : list.getChildren()) {
+    public Node loopList(Node list) throws NoSuchMethodException {
+        Node lastCommand = null;
+        for (Node commandToRun : list.getChildren()) {
             lastCommand = traverseTree(commandToRun);
         }
         return lastCommand;
     }
 
-    public void createSetVariable(String name, BasicNode value) {
+    public void createSetVariable(String name, Node value) {
         variableMap.put(name.substring(1), (ArgumentNode) value); //This both creates an entry AND replace an existing entry
     }
 
@@ -125,7 +125,7 @@ public class Reflector {
         return true;
     }
 
-    public BasicNode getInstruction(String name) {
+    public Node getInstruction(String name) {
         if (!instructionMap.keySet().contains(name)) {
             return null;
         }
@@ -137,7 +137,7 @@ public class Reflector {
         return s.matches("[-+]?\\d*\\.?\\d+");
     }
 
-    private boolean isNotCommand(BasicNode n) {
+    private boolean isNotCommand(Node n) {
         return !(n instanceof CommandNode);
     }
 

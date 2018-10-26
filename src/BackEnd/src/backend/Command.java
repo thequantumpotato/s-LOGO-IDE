@@ -1,7 +1,7 @@
 package backend;
 
 import backend.Nodes.ArgumentNode;
-import backend.Nodes.BasicNode;
+import backend.Commands.Node;
 import backend.Nodes.CommandNode;
 import backend.Nodes.LoopNode;
 
@@ -22,7 +22,7 @@ public class Command {
         this.t = t;
     }
 
-    public BasicNode forward(List<BasicNode> values) {
+    public Node forward(List<Node> values) {
         Double d = 0.0;
         d = Double.parseDouble(values.get(0).getCommandName());
         t.move(d);
@@ -30,7 +30,7 @@ public class Command {
         return new ArgumentNode(d.toString());
     }
 
-    public BasicNode backward(List<BasicNode> values) {
+    public Node backward(List<Node> values) {
         Double d = 0.0;
         d = Double.parseDouble(values.get(0).getCommandName());
         t.move(-1 * d);
@@ -38,28 +38,28 @@ public class Command {
         return new ArgumentNode(d.toString());
     }
 
-    public BasicNode left(List<BasicNode> l) {
+    public Node left(List<Node> l) {
         Double d = Double.parseDouble(l.get(0).getCommandName());
         t.turn(d);
         t.notifyObservers();
         return new ArgumentNode(d.toString());
     }
 
-    public BasicNode right(List<BasicNode> l) {
+    public Node right(List<Node> l) {
         Double d = Double.parseDouble(l.get(0).getCommandName());
         t.turn(-d);
         t.notifyObservers();
         return new ArgumentNode(d.toString());
     }
 
-    public BasicNode setHeading(List<BasicNode> l) {
+    public Node setHeading(List<Node> l) {
         Double d = Double.parseDouble(l.get(0).getCommandName());
         t.setHeading(d);
         t.notifyObservers();
         return new ArgumentNode(d.toString());
     }
 
-    public BasicNode setTowards(List<BasicNode> l) {
+    public Node setTowards(List<Node> l) {
         double x = Double.parseDouble(l.get(0).getCommandName());
         double y = Double.parseDouble(l.get(0).getCommandName());
         double newDir = angleWithXAxis(x, y);
@@ -100,12 +100,12 @@ public class Command {
         return res;
     }
 
-    public BasicNode showTurtle(List<BasicNode> l) {
+    public Node showTurtle(List<Node> l) {
         t.show();
         return new ArgumentNode("1");
     }
 
-    public BasicNode clearScreen(List<BasicNode> l) {
+    public Node clearScreen(List<Node> l) {
         m.clearScreen();
         return this.home(l);
     }
@@ -114,49 +114,49 @@ public class Command {
         return Math.sqrt(Math.pow((x1 - x2), 2) + Math.pow((y1 - y2), 2));
     }
 
-    public BasicNode penDown(List<BasicNode> l) {
+    public Node penDown(List<Node> l) {
         t.putPenDown();
         return new ArgumentNode("1");
     }
 
-    public BasicNode penUp(List<BasicNode> l) {
+    public Node penUp(List<Node> l) {
         t.liftPenUp();
         return new ArgumentNode("0");
     }
 
-    public BasicNode hideTurtle(List<BasicNode> l) {
+    public Node hideTurtle(List<Node> l) {
         t.hide();
         return new ArgumentNode("0");
     }
 
-    public BasicNode home(List<BasicNode> l) {
+    public Node home(List<Node> l) {
         double dist = calcDist(t.getX(), t.getY(), 0, 0);
         t.setPosition(0, 0);
         t.notifyObservers();
         return new ArgumentNode(((Double) dist).toString());
     }
 
-    public BasicNode xCoordinate(List<BasicNode> l) {
+    public Node xCoordinate(List<Node> l) {
         return new ArgumentNode(((Double) t.getX()).toString());
     }
 
-    public BasicNode yCoordinate(List<BasicNode> l) {
+    public Node yCoordinate(List<Node> l) {
         return new ArgumentNode(((Double) t.getY()).toString());
     }
 
-    public BasicNode heading(List<BasicNode> l) {
+    public Node heading(List<Node> l) {
         return new ArgumentNode(((Double) t.getY()).toString());
     }
 
-    public BasicNode isPenDown(List<BasicNode> l) {
+    public Node isPenDown(List<Node> l) {
         return new ArgumentNode(t.getIsPenDown() ? "1" : "0");
     }
 
-    public BasicNode isShowing(List<BasicNode> l) {
+    public Node isShowing(List<Node> l) {
         return new ArgumentNode(t.getIsShowing() ? "1" : "0");
     }
 
-    private int[] parseTwoIntegers(List<BasicNode> l) {
+    private int[] parseTwoIntegers(List<Node> l) {
         Double tmp1 = Double.parseDouble(l.get(0).getCommandName());
         Double tmp2 = Double.parseDouble(l.get(1).getCommandName());
         int a = tmp1.intValue();
@@ -167,7 +167,7 @@ public class Command {
         return res;
     }
 
-    private double[] parseTwoDoubles(List<BasicNode> l) {
+    private double[] parseTwoDoubles(List<Node> l) {
         double a = Integer.parseInt(l.get(0).getCommandName());
         double b = Integer.parseInt(l.get(1).getCommandName());
         double[] res = new double[2];
@@ -176,44 +176,44 @@ public class Command {
         return res;
     }
 
-    public BasicNode sum(List<BasicNode> nodes) {
+    public Node sum(List<Node> nodes) {
         Double sum = 0.0;
-        for (BasicNode node : nodes) {
+        for (Node node : nodes) {
             sum += Double.parseDouble(node.getCommandName());
         }
         return new ArgumentNode(sum.toString());
     }
 
-    public BasicNode difference(List<BasicNode> l) {
+    public Node difference(List<Node> l) {
         double[] args = parseTwoDoubles(l);
         Double res = args[0] - args[1];
         return new ArgumentNode(res.toString());
     }
 
-    public BasicNode product(List<BasicNode> l) {
+    public Node product(List<Node> l) {
         double[] args = parseTwoDoubles(l);
         Double res = args[0] * args[1];
         return new ArgumentNode(res.toString());
     }
 
-    public BasicNode quotient(List<BasicNode> l) {
+    public Node quotient(List<Node> l) {
         int[] args = parseTwoIntegers(l);
         Integer res = args[0] / args[1];
         return new ArgumentNode(res.toString());
     }
 
-    public BasicNode remainder(List<BasicNode> l) {
+    public Node remainder(List<Node> l) {
         int[] args = parseTwoIntegers(l);
         Integer res = args[0] % args[1];
         return new ArgumentNode(res.toString());
     }
 
-    public BasicNode minus(List<BasicNode> l) {
+    public Node minus(List<Node> l) {
         Double res = Double.parseDouble(l.get(0).getCommandName());
         return new ArgumentNode(res.toString());
     }
 
-    public BasicNode random(List<BasicNode> l) {
+    public Node random(List<Node> l) {
         Double tmp = Double.parseDouble(l.get(0).getCommandName());
         Integer max = tmp.intValue();
         Random random = new Random();
@@ -221,91 +221,91 @@ public class Command {
         return new ArgumentNode(res.toString());
     }
 
-    public BasicNode sine(List<BasicNode> l) {
+    public Node sine(List<Node> l) {
         Double res = Double.parseDouble(l.get(0).getCommandName());
         res = Math.sin(Math.toRadians(res));
         return new ArgumentNode(res.toString());
     }
 
-    public BasicNode cosine(List<BasicNode> l) {
+    public Node cosine(List<Node> l) {
         Double res = Double.parseDouble(l.get(0).getCommandName());
         res = Math.cos(Math.toRadians(res));
         return new ArgumentNode(res.toString());
     }
 
-    public BasicNode tangent(List<BasicNode> l) {
+    public Node tangent(List<Node> l) {
         Double res = Double.parseDouble(l.get(0).getCommandName());
         res = Math.tan(Math.toRadians(res));
         return new ArgumentNode(res.toString());
     }
 
-    public BasicNode arcTangent(List<BasicNode> l) {
+    public Node arcTangent(List<Node> l) {
         Double res = Double.parseDouble(l.get(0).getCommandName());
         res = Math.atan(res);
         return new ArgumentNode(res.toString());
     }
 
-    public BasicNode naturalLog(List<BasicNode> l) {
+    public Node naturalLog(List<Node> l) {
         Double res = Double.parseDouble(l.get(0).getCommandName());
         res = Math.log(res);
         return new ArgumentNode(res.toString());
     }
 
-    public BasicNode power(List<BasicNode> l) {
+    public Node power(List<Node> l) {
         double[] args = parseTwoDoubles(l);
         Double res = Math.pow(args[0], args[1]);
         return new ArgumentNode(res.toString());
     }
 
-    public BasicNode pi(List<BasicNode> l) {
+    public Node pi(List<Node> l) {
         return new ArgumentNode(((Double) Math.PI).toString());
     }
 
-    public BasicNode lessThan(List<BasicNode> l) {
+    public Node lessThan(List<Node> l) {
         double[] args = parseTwoDoubles(l);
         boolean res = args[0] < args[1];
         return new ArgumentNode(res ? "1" : "0");
     }
 
-    public BasicNode greaterThan(List<BasicNode> l) {
+    public Node greaterThan(List<Node> l) {
         double[] args = parseTwoDoubles(l);
         boolean res = args[0] > args[1];
         return new ArgumentNode(res ? "1" : "0");
     }
 
-    public BasicNode equal(List<BasicNode> l) {
+    public Node equal(List<Node> l) {
         double[] args = parseTwoDoubles(l);
         double e = 0.0001;
         boolean res = Math.abs(args[0] - args[1]) <= e;
         return new ArgumentNode(res ? "1" : "0");
     }
 
-    public BasicNode notEqual(List<BasicNode> l) {
+    public Node notEqual(List<Node> l) {
         double[] args = parseTwoDoubles(l);
         double e = 0.0001;
         boolean res = Math.abs(args[0] - args[1]) > e;
         return new ArgumentNode(res ? "1" : "0");
     }
 
-    public BasicNode and(List<BasicNode> l) {
+    public Node and(List<Node> l) {
         int[] args = parseTwoIntegers(l);
         boolean res = (args[0] * args[1]) == 1;
         return new ArgumentNode(res ? "1" : "0");
     }
 
-    public BasicNode or(List<BasicNode> l) {
+    public Node or(List<Node> l) {
         int[] args = parseTwoIntegers(l);
         boolean res = (args[0] + args[1]) >= 1;
         return new ArgumentNode(res ? "1" : "0");
     }
 
-    public BasicNode not(List<BasicNode> l) {
+    public Node not(List<Node> l) {
         Double tmp = Double.parseDouble(l.get(0).getCommandName());
         Integer res = tmp.intValue();
         return new ArgumentNode(res == 1 ? "1" : "0");
     }
 
-    public BasicNode makeVariable(List<BasicNode> l) {
+    public Node makeVariable(List<Node> l) {
         //check if it already exists, and if so replace it. If not create it
         String name = l.get(0).getCommandName(); //key
         ArgumentNode value = (ArgumentNode) l.get(1); //value
@@ -313,86 +313,86 @@ public class Command {
         return value;
     }
 
-    //       public BasicNode makeVariable (List<BasicNode> l) {
+    //       public Node makeVariable (List<Node> l) {
     //           String name = l.get(0).getCommandName();
     //           return new ArgumentNode(m.createVariable(name) ? "1" : "0");
     //       }
 //
-    //       public BasicNode setVariable (List<BasicNode> l) {
+    //       public Node setVariable (List<Node> l) {
     //           String name = l.get(0).getCommandName();
     //
     //           return new ArgumentNode(m.setVariable(name, value) ? "1" : "0");
     //       }
 
-    public BasicNode getVariable(List<BasicNode> l) throws IllegalCommandException {
+    public Node getVariable(List<Node> l) throws IllegalCommandException {
         String name = l.get(0).getCommandName();
         System.out.println(name);
         return m.getVariable(name);
     }
 
-    public BasicNode repeat(List<BasicNode> nodes) {
+    public Node repeat(List<Node> nodes) {
         //Input is a turtle and a list of BasicNodes. The first one is the repSize, and the second one
         //is the listNode
-        BasicNode repNode = nodes.get(0);
+        Node repNode = nodes.get(0);
         int reps = Integer.parseInt(repNode.getCommandName());
-        BasicNode loopNode = new LoopNode(reps, "loop");
+        Node loopNode = new LoopNode(reps, "loop");
 
-        BasicNode list = nodes.get(1);
-        for (BasicNode n : list.getChildren()) {
+        Node list = nodes.get(1);
+        for (Node n : list.getChildren()) {
             loopNode.addChild(n); // move children from the listNode to the loopNode
         }
         return loopNode;
     }
 
 //
-//        public BasicNode doTimes (List<BasicNode> l) {
+//        public Node doTimes (List<Node> l) {
 //            //to-do
 //        }
 
-    public BasicNode makeUserInstruction(List<BasicNode> l) {
+    public Node makeUserInstruction(List<Node> l) {
         String name = l.get(0).getCommandName();
         CommandNode c = (CommandNode) l.get(1);
         return new ArgumentNode(m.createInstruction(name, c) ? "1" : "0");
     }
 
-    public BasicNode getInstruction(List<BasicNode> l) {
+    public Node getInstruction(List<Node> l) {
         String name = l.get(0).getCommandName();
         return m.getInstruction(name);
     }
 
-//        public BasicNode setBackground (List<BasicNode> l) {
+//        public Node setBackground (List<Node> l) {
 //
 //        }
 //
-//        public BasicNode setPenColor (List<BasicNode> l) {
+//        public Node setPenColor (List<Node> l) {
 //
 //        }
 //
-//        public BasicNode setPenSize (List<BasicNode> l) {
+//        public Node setPenSize (List<Node> l) {
 //
 //        }
 //
-//        public BasicNode setShape (List<BasicNode> l) {
+//        public Node setShape (List<Node> l) {
 //
 //        }
 //
-//        public BasicNode setPalette (List<BasicNode> l) {
+//        public Node setPalette (List<Node> l) {
 //
 //        }
 //
-//        public BasicNode getPenColor (List<BasicNode> l) {
+//        public Node getPenColor (List<Node> l) {
 //
 //        }
 //
-//        public BasicNode getShape (List<BasicNode> l) {
+//        public Node getShape (List<Node> l) {
 //
 //        }
 //
-//        public BasicNode stamp (List<BasicNode> l) {
+//        public Node stamp (List<Node> l) {
 //
 //        }
 //
-//        public BasicNode clearStamps (List<BasicNode> l) {
+//        public Node clearStamps (List<Node> l) {
 //
 //        }
 

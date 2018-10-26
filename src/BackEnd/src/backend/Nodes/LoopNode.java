@@ -1,13 +1,15 @@
 package backend.Nodes;
 
+import backend.Commands.Node;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class LoopNode implements BasicNode {
+public class LoopNode implements Node {
 
     private int repititions;
     private String commandName;
-    private List<BasicNode> myChildren;
+    private List<Node> myChildren;
 
     public LoopNode(int rep, String command) {
         commandName = command;
@@ -16,7 +18,7 @@ public class LoopNode implements BasicNode {
     }
 
     @Override
-    public void addChild(BasicNode Child) {
+    public void addChild(Node Child) {
         myChildren.add(Child);
     }
 
@@ -36,7 +38,7 @@ public class LoopNode implements BasicNode {
     }
 
     @Override
-    public List<BasicNode> getChildren() {
+    public List<Node> getChildren() {
         return myChildren;
     }
 

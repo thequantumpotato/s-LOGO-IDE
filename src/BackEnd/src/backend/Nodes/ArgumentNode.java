@@ -1,8 +1,10 @@
 package backend.Nodes;
 
+import backend.Commands.Node;
+
 import java.util.List;
 
-public class ArgumentNode implements BasicNode {
+public class ArgumentNode implements Node {
     private String argument;
     private int numArguments = 0;
 
@@ -10,7 +12,7 @@ public class ArgumentNode implements BasicNode {
         argument = value;
     }
 
-    public void addChild(BasicNode node) {
+    public void addChild(Node node) {
         return;
     }
 
@@ -26,7 +28,7 @@ public class ArgumentNode implements BasicNode {
         return argument;
     }
 
-    public List<BasicNode> getChildren() {
+    public List<Node> getChildren() {
         return null;
     }
 
