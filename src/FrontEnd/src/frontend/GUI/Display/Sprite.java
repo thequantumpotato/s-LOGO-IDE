@@ -1,4 +1,4 @@
-package frontend.ViewChildren.Display;
+package frontend.GUI.Display;
 
 import frontend.Util.Coordinate;
 import javafx.scene.effect.ColorAdjust;

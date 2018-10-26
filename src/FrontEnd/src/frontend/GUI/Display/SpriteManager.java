@@ -1,4 +1,4 @@
-package frontend.ViewChildren.Display;
+package frontend.GUI.Display;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
