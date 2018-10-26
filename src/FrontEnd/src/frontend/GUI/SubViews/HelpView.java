@@ -1,10 +1,12 @@
-package frontend;
+package frontend.GUI.SubViews;
 
+import frontend.API.SubView;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 import java.util.Enumeration;
@@ -30,9 +32,13 @@ public class HelpView implements SubView {
         helpList = new ListView();
         helpView.getChildren().addAll(title, helpList);
         helpView.getStyleClass().add("helpView");
+        addCommandAndDesc();
+        helpView.setVgrow(helpList, Priority.ALWAYS);
+    }
+
+    private void addCommandAndDesc() {
         commandHelpBundle = ResourceBundle.getBundle(HELP_PATH);
         commandHelpKeys = commandHelpBundle.getKeys();
-
         while (commandHelpKeys.hasMoreElements()) {
             Hyperlink commandClickable = new Hyperlink();
             String commandName = commandHelpKeys.nextElement().toString().replaceAll("\\\\", "");

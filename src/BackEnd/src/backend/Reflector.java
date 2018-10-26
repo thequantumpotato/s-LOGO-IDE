@@ -37,10 +37,10 @@ public class Reflector {
     public void execute(BasicNode root) throws NoSuchMethodException {
         if (root.getCommandName().matches("If")) {
             handleIf(root);
-        } else if(root.getCommandName().matches("MakeUserInstruction")){
+        } else if (root.getCommandName().matches("MakeUserInstruction")) {
             handleFunctions(root);
-        }else{
-        traverseTree(root);
+        } else {
+            traverseTree(root);
         }
     }
 
@@ -94,7 +94,7 @@ public class Reflector {
     }
 
     //TODO: Make this return the last value of the last executed command
-  private void loop(LoopNode loopNode) throws NoSuchMethodException { //Have to accept LoopNode, not BasicNode
+    private void loop(LoopNode loopNode) throws NoSuchMethodException { //Have to accept LoopNode, not BasicNode
         //Run the commands in the list a specified number of times
         for (int i = 0; i < loopNode.getReps(); i++) {
             for (BasicNode subCommand : loopNode.getChildren()) {
@@ -138,34 +138,36 @@ public class Reflector {
             return false;
         }
         instructionMap.put(name, inst);
-        hasNewFunc = !hasNewFunc;
-        newFunc = new HashMap<>();
-        newFunc.put(name, inst.getCommandName());
         return true;
+    }
+
+    public BasicNode getInstruction(String name) {
+        if (!instructionMap.keySet().contains(name)) {
+            return null;
+        }
+        return instructionMap.get(name);
 
     }
-        public Map<String, String> checkAndAddNewFunc () {
-            if (hasNewFunc) {
-                hasNewFunc = !hasNewFunc;
-                return newFunc;
-            } else return new HashMap<>();
-        }
 
-        public BasicNode getInstruction (String name){
-            if (!instructionMap.keySet().contains(name)) {
-                return null;
-            }
-            return instructionMap.get(name);
-
-        }
-    private BasicNode handleFunctions(BasicNode root){
+    private BasicNode handleFunctions(BasicNode root) {
         System.out.println(root.getChildren());
         String commandName = root.getChildren().get(0).getCommandName().substring(1);
         //ListNode vars = (ListNode) root.getChildren().get(1);
         BasicNode commands = root.getChildren().get(2);
         instructionMap.put(commandName, commands);
 
-        return(new ArgumentNode("1"));
+        hasNewFunc = !hasNewFunc;
+        newFunc = new HashMap<>();
+        newFunc.put(commandName, commands.getCommandName());
+
+        return (new ArgumentNode("1"));
+    }
+
+    public Map<String, String> checkAndAddNewFunc() {
+        if (hasNewFunc) {
+            hasNewFunc = !hasNewFunc;
+            return newFunc;
+        } else return new HashMap<>();
     }
 
     private boolean isNumeric(String s) {

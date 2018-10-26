@@ -1,4 +1,4 @@
-package frontend;
+package frontend.Util;
 
 import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
@@ -16,7 +16,7 @@ import java.util.List;
  *
  * @author bpx
  */
-class Pen {
+public class Pen {
     public static final int DEFAULT_SIZE = 1;
     public static final Duration DEFAULT_SPEED = Duration.seconds(1);
     public static final Color DEFAULT_COLOR = Color.WHITE;
@@ -28,12 +28,12 @@ class Pen {
     private Duration myDrawSpeed;
 
     //constructor if no speed
-    Pen(Coordinate origin) {
+    public Pen(Coordinate origin) {
         this(DEFAULT_SPEED, origin);
     }
 
     //full constructor
-    Pen(Duration speed, Coordinate origin) {
+    public Pen(Duration speed, Coordinate origin) {
 
         myLines = new ArrayList<>();
 
@@ -47,7 +47,7 @@ class Pen {
     }
 
     //copy constructor
-    Pen(Pen pen) {
+    public Pen(Pen pen) {
         this(pen.myDrawSpeed, pen.myPosition);
     }
 
