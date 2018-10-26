@@ -16,6 +16,7 @@ public class ModelController {
     private List<Map.Entry<String, Pattern>> mySymbols;
     private Turtle myTurtle;
     private Reflector myReflector;
+    private TreeFactory myTreeFactory;
 
     public ModelController(Turtle turtle, List<Map.Entry<String, Pattern>> symbolList) {
         mySymbols = symbolList;
@@ -23,14 +24,16 @@ public class ModelController {
         //commander = new Command(this, turtle);
         myTurtle = turtle;
         myReflector = new Reflector(myTurtle);
+        myTreeFactory = new TreeFactory(myTurtle);
     }
 
     /**
      * Parses the Command
      */
     public void parseCommand(String input) throws Exception {
-        myCommands = interpreter.parse(input); //returns a list of root nodes
-        // System.out.println(myCommands);
+        List<String> commands = interpreter.parse(input); //returns a list of root nodes
+        //Turn our command arraylist into a tree structure of command nodes
+        myCommands = myTreeFactory.getRoots(commands);
 
         for (BasicNode node : myCommands) {
             myReflector.execute(node);
