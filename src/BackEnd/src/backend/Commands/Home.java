@@ -15,7 +15,6 @@ public class Home extends RootNode{
     public Object run() {
         double dist = calcDist(myTurtle.getX(), myTurtle.getY(), 0, 0);
         myTurtle.setPosition(0, 0);
-        myTurtle.notifyObservers();
         return dist;
     }
 

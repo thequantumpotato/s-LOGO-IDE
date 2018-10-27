@@ -43,15 +43,11 @@ public class ModelController {
         myCommands = myTreeFactory.getRoots(commands);
         System.out.println("My turtle before running command: " + myTurtle.getTurtleLeaf(0));
         for (Node node : myCommands) {
-//            System.out.println(node.getClass());
             node.run();
         }
-            //for (BasicNode node : myCommands) {
-            //    myReflector.execute(node);
-            //}
-            myTurtle.Changed();
-            myTurtle.notifyObservers();
-            myTurtle.clear();
+        myTurtle.Changed();
+        myTurtle.notifyObservers();
+        myTurtle.clear();
     }
 
 
@@ -59,19 +55,14 @@ public class ModelController {
         return s.matches("[-+]?\\d*\\.?\\d+");
     }
 
-//    public Map<String, String> updateVar() {
-//        if (hasNewVar) {
-//            hasNewVar = !hasNewVar;
-//            return newVar;
-//        } else return new HashMap<>();
-//    }
-//
-//    public Map<String, String> updateFunc() {
-//        if (hasNewFunc) {
-//            hasNewFunc = !hasNewFunc;
-//            return newFunc;
-//        } else return new HashMap<>();
-//    }
+    public Map<String, String> updateVar() {
+        return myStorage.getVarMap();
+    }
+
+    public Map<String, String> updateFunc() {
+//        return myStorage.getInsList();
+        return new HashMap<String, String>();
+    }
 
 }
 
