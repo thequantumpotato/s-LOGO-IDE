@@ -4,7 +4,7 @@ import backend.Commands.Node;
 
 import java.util.List;
 
-public class ArgumentNode implements Node {
+public abstract class ArgumentNode implements Node {
     private String argument;
     private int numArguments = 0;
 

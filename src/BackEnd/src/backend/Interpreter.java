@@ -23,7 +23,6 @@ public class Interpreter {
     public ResourceBundle myErrors;
     private List<Map.Entry<String, Pattern>> mySymbols;
     private List<String> myCommands;
-    private TreeFactory myTreeFactory;
 
     /**
      * Create an empty parser.
@@ -31,7 +30,6 @@ public class Interpreter {
     public Interpreter(List<Map.Entry<String, Pattern>> symbolList) {
         mySymbols = symbolList;
         myCommands = new ArrayList<>();
-        myTreeFactory = new TreeFactory();
         myErrors = ResourceBundle.getBundle(commandError);
     }
 
@@ -39,7 +37,8 @@ public class Interpreter {
     /**
      * Return the arrayList<String></String> back to the ModelController of all of the commands
      */
-    public List<Node> parse(String text) throws Exception {
+    public List<String> parse(String text) throws Exception {
+
         String[] textArr = text.split(WHITESPACE);
         for (var t : textArr) {
             if (t.trim().length() > 0) {
@@ -48,9 +47,7 @@ public class Interpreter {
         }
         //reflection();
         //commands are in an arraylist, now create our tree structure
-        List<Node> myTrees = myTreeFactory.getRoots(myCommands);
-
-        return myTrees;
+        return myCommands;
 
     }
 
@@ -64,6 +61,8 @@ public class Interpreter {
             if (match(text, e.getValue())) {
                 if (e.getKey().equals("Constant") | e.getKey().equals("Variable")) {
                     return text;
+                } else if (e.getKey().equals("commandName")) {
+                    return "-" + text;
                 } else {
                     return e.getKey();
                 }

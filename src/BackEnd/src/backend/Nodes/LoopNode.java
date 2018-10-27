@@ -23,6 +23,10 @@ public class LoopNode implements Node {
     }
 
     @Override
+    public Object run() {
+        return null;
+    }
+
     public int getRequiredArguments() {
         return 0;
     }
@@ -32,7 +36,6 @@ public class LoopNode implements Node {
         return myChildren.size();
     }
 
-    @Override
     public String getCommandName() {
         return commandName;
     }

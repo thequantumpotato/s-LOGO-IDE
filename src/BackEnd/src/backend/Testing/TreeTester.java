@@ -1,6 +1,7 @@
 package backend.Testing;
 
 import backend.Commands.Node;
+import backend.ModelController;
 
 import java.util.List;
 
@@ -39,7 +40,6 @@ public class TreeTester {
 
     //Preorder traversal
     private void printTrees(Node root) {
-        System.out.println(root.getCommandName());
         while (root.getChildren() != null) {
             for (Node child : root.getChildren()) {
                 printTrees(child);
@@ -51,6 +51,11 @@ public class TreeTester {
 
 
     }
+
+    public static void main(String[] args){
+    }
+
+
 
 
 }

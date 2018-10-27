@@ -24,6 +24,11 @@ public class ListNode implements Node {
         myChildren.add(Child);
     }
 
+    @Override
+    public Object run() {
+        return null;
+    }
+
     //Do something about this, as a List has as many arguments as the user puts in
     public int getRequiredArguments() {
         return myChildren.size();
