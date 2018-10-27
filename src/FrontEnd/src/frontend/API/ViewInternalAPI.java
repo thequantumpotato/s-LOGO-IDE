@@ -63,36 +63,9 @@ import java.util.Map;
      */
      void changeLanguage(String language);
 
-    /**
-     * Called by Controller
-     * Add a valid command to the HistoryView
-     *
-     * @param validInput
-     */
-     void updateHistory(String validInput);
-
-    /**
-     * Called by Controller
-     * Add a valid variable to the VariableView
-     *
-     * @param variable
-     */
-     void addVar(Map<String, String> variable);
-
-    /**
-     * Called by Controller
-     * Add a valid variable to the VariableView
-     *
-     * @param function
-     */
-     void updateFunction(Map<String, String> function);
-
      /**
       * Called by VariableView
       * Update the variable value after the user changes variable name/value through GUI
       */
-      void updateVar(Map<String, String> function);
-
-
-
+      void updateVar(Map<String, String> variable);
  }

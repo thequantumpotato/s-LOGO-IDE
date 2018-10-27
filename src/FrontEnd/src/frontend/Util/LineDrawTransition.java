@@ -7,6 +7,7 @@ import javafx.util.Duration;
 
 /**
  * Custom transition class used to create a line-drawing effect.
+ * Based on JavaFX {@code TranslateTransition}
  *
  * @author bpx
  */

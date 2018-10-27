@@ -2,6 +2,8 @@ package frontend.ExternalAPI;
 
 import backend.Turtle;
 
+import java.util.Map;
+
 public interface ViewAPI {
 
     /**
@@ -28,4 +30,32 @@ public interface ViewAPI {
      * @param turtle Turtle object
      */
     void registerDisplay(Turtle turtle);
+
+    /**
+     * Called by Controller
+     * Add a valid variable to the VariableView
+     *
+     * @param variable
+     */
+    void addVar(Map<String, String> variable);
+
+    /**
+     * Called by Controller
+     * Add a valid variable to the VariableView
+     *
+     * @param function
+     */
+    void addFunc(Map<String, String> function);
+
+    /**
+     * Called by Controller
+     * Add a valid command to the HistoryView
+     *
+     * @param validInput
+     */
+    void updateHistory(String validInput);
+
+
+
+
 }

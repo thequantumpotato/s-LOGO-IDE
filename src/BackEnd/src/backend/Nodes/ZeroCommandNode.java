@@ -16,5 +16,10 @@ public class ZeroCommandNode extends CommandNode {
     public String getCommandName() {
         return commandName;
     }
+
+    @Override
+    public Object run() {
+        return null;
+    }
 }
 

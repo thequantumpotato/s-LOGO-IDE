@@ -1,110 +1,51 @@
 package backend;
 
-import javafx.scene.paint.Color;
-
-import java.util.Observable;
+import java.util.Observer;
 
 /**
- * represents a turtle on the screen
+ * @author Jose San Martin
+ * An interface for our turtles
+ * Implements the Composite design pattern
  */
-public class Turtle extends Observable implements Moveable {
+public interface Turtle {
 
-    private double direction;
-    private double size;
-    private Color color;
-    private double x;
-    private double y;
-    private boolean penDown;
-    private boolean showing;
+    void move(double distance);
 
-    public Turtle() {
-    }
+    void turn(double angle);
 
-    public void move(double distance) {
-        this.setX(x + distance * Math.cos(direction));
-        this.setY(y + distance * Math.sin(direction));
-    }
+    void penUp();
 
-    public void setPosition(double x, double y) {
-        this.setX(x);
-        this.setY(y);
-    }
+    void penDown();
 
-    public void turn(double angle) {
-        direction += angle / 360 * 2 * Math.PI;
-        if (direction >= 2 * Math.PI) {
-            direction -= 2 * Math.PI;
-        }
-        if (direction <= 0) {
-            direction += 2 * Math.PI;
-        }
-    }
+    void show();
 
-    @Override
-    public void penUp() {
+    void hide();
 
-    }
+    void setPosition(double x, double y);
 
-    @Override
-    public void penDown() {
+    void Changed();
 
-    }
+    void clear();
 
-    public void Changed() {
-        setChanged();
-    }
+    void setHeading(double angle);
 
-    public void clear() {
-        clearChanged();
-    }
+    double getDirection();
 
-    public void setHeading(double angle) {
-        direction = angle;
-    }
+    double getX();
 
-    public double getDirection() {
-        return direction;
-    }
+    void setX(double x);
 
-    public double getX() {
-        return this.x;
-    }
+    double getY();
 
-    public void setX(double x) {
-        this.x = x;
-    }
+    void setY(double y);
 
-    public double getY() {
-        return this.y;
-    }
+    boolean getIsPenDown();
 
-    public void setY(double y) {
-        this.y = y;
-    }
+    boolean getIsShowing();
 
-    public boolean getIsPenDown() {
-        return this.penDown;
-    }
+    void liftPenUp();
 
-    public boolean getIsShowing() {
-        return this.showing;
-    }
+    void putPenDown();
 
-    public void liftPenUp() {
-
-    }
-
-    public void putPenDown() {
-
-    }
-
-    public void show() {
-
-    }
-
-
-    public void hide() {
-
-    }
-
+    void addAnObserver(Observer o);
 }

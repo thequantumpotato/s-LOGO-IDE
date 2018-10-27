@@ -1,6 +1,8 @@
 package backend.Nodes;
 
 
+import backend.Commands.Node;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,10 +11,10 @@ import java.util.List;
  * A super class to represent all types of commands
  */
 
-public abstract class CommandNode implements BasicNode {
+public abstract class CommandNode implements Node {
     private int numArguments;
     private String commandName;
-    private List<BasicNode> myChildren;
+    private List<Node> myChildren;
 
     public CommandNode(String commandString) {
         commandName = commandString;
@@ -23,11 +25,11 @@ public abstract class CommandNode implements BasicNode {
         numArguments = arguments;
     }
 
-    public void addChild(BasicNode child) {
+    public void addChild(Node child) {
         myChildren.add(child);
     }
 
-    public List<BasicNode> getChildren() {
+    public List<Node> getChildren() {
         return myChildren;
     }
 
