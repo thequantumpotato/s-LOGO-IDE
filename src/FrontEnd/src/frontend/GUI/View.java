@@ -1,6 +1,7 @@
 package frontend.GUI;
 
 import backend.Turtle;
+import backend.TurtleGroup;
 import frontend.API.ViewInternalAPI;
 import frontend.ExternalAPI.ViewAPI;
 import frontend.GUI.Display.DisplayView;
@@ -67,21 +68,25 @@ public class View implements ViewInternalAPI, ViewAPI {
         myStage = primaryStage;
         myTurtle = turtle;
         myLang = initLang;
-        createTab(turtle, initLang);
+        createTab(initLang);
         addAnchor();
         myScene = new Scene(root, SCREEN_WIDTH, SCREEN_HEIGHT);
         myScene.getStylesheets().add(STYLESHEET);
         startView();
     }
 
-    private void createTab(Turtle turtle, String initLang) {
+    /**
+     * Other methods
+     **/
+
+    private void createTab(String initLang) {
         tabPane = new TabPane();
-        addTab(turtle, initLang);
+        addTab(myTurtle, initLang);
     }
 
     private void addTab(Turtle turtle, String initLang) {
         GridPane newGridPane = createGridPane(turtle, initLang);
-        newGridPane.setMaxHeight(SCREEN_HEIGHT - 15);
+        newGridPane.setMaxHeight(SCREEN_HEIGHT - 35);
         addToTabPane(newGridPane);
     }
 
@@ -122,7 +127,7 @@ public class View implements ViewInternalAPI, ViewAPI {
         addButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                addTab(myTurtle, myLang);
+                addTab(new TurtleGroup(), myLang);
             }
         });
         anchorPane.getChildren().addAll(tabPane, addButton);
@@ -137,9 +142,6 @@ public class View implements ViewInternalAPI, ViewAPI {
         tabPane.getTabs().add(tab);
     }
 
-    /**
-     * Other methods
-     **/
     private void initAndAddElements(GridPane gridPane, Turtle turtle, String initLang) {
         myDisplayView = new DisplayView(this, turtle);
         myCommandView = new CommandView(this);
@@ -228,6 +230,7 @@ public class View implements ViewInternalAPI, ViewAPI {
     /**
      * External APIs
      **/
+
     @Override
     public void passCommand(String input) {
         myController.runCommand(input);

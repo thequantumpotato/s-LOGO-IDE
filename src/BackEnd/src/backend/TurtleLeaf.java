@@ -1,6 +1,5 @@
 package backend;
 
-import javafx.beans.InvalidationListener;
 import javafx.scene.paint.Color;
 
 import java.util.Observable;
@@ -10,7 +9,7 @@ import java.util.Observer;
 /**
  * @author Jose San Martin
  */
-public class TurtleLeaf extends Observable implements Turtle{
+public class TurtleLeaf extends Observable implements Turtle {
 
     private double direction;
     private double size;
@@ -19,6 +18,15 @@ public class TurtleLeaf extends Observable implements Turtle{
     private double y;
     private boolean penDown;
     private boolean showing;
+    private Integer id;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public TurtleLeaf(Integer id) {
+        this.id = id;
+    }
 
     @Override
     public String toString() {
@@ -30,6 +38,7 @@ public class TurtleLeaf extends Observable implements Turtle{
                 ", y=" + y +
                 ", penDown=" + penDown +
                 ", showing=" + showing +
+                ", id=" + id +
                 '}';
     }
 
@@ -120,7 +129,8 @@ public class TurtleLeaf extends Observable implements Turtle{
     public void show() {
 
     }
-    public void setDirection(double Direction){
+
+    public void setDirection(double Direction) {
         direction = Direction;
     }
 
