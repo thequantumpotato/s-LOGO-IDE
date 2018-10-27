@@ -13,10 +13,17 @@ public class Sprite extends ImageView {
     public static final int INACTIVE_OPACITY = 50;
     public static final int SHOW_OPACITY = 100;
 
+    private double myX;
+    private double myY;
+    private double myAngle;
+
     /** Initialize a {@code Sprite} using an {@code Image}
      * @param image The {@code Image} to be displayed*/
     public Sprite(Image image){
         super(image);
+        myX = 0;
+        myY = 0;
+        myAngle = 0;
     }
 
     /** Hide the {@code Sprite} by making the {@code Sprite} transparent*/
@@ -48,5 +55,13 @@ public class Sprite extends ImageView {
         this.setTranslateX(coordinate.getX());
         this.setTranslateY(coordinate.getY());
         this.setRotate(coordinate.getAngle());
+        myX = coordinate.getX();
+        myY = coordinate.getY();
+        myAngle = coordinate.getAngle();
+    }
+
+    /** Returns the current position of the {@code Sprite} as a {@code Coordinate}*/
+    public Coordinate getPosition(){
+        return new Coordinate(myX,myY,myAngle);
     }
 }

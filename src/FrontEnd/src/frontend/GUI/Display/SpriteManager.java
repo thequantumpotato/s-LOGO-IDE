@@ -16,7 +16,7 @@ import static frontend.GUI.Display.TurtleView.TURTLE_SIZE;
  */
 public class SpriteManager {
     private Group myRenderTarget;
-    private HashMap<String,ImageView> mySprites;
+    private HashMap<String,Sprite> mySprites;
     private String mySpritePath;
     private double mySpriteSize;
 
@@ -56,8 +56,14 @@ public class SpriteManager {
 
     /** Retrieve a sprite from the HashMap
      * @param id The identifier for the sprite that will be retrieved*/
-    public ImageView getTurtle(String id){
-        return mySprites.get(id);
+    public Sprite getTurtle(String id){
+        if(mySprites.containsKey(id)){
+            return mySprites.get(id);
+        }
+        else{
+            return new Sprite(new Image(this.getClass().getClassLoader().getResourceAsStream(mySpritePath)));
+        }
+
     }
 
     /** Remove all entries from the HashMap of sprites*/
