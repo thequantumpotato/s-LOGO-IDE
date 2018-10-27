@@ -1,6 +1,7 @@
 package frontend.GUI.Display;
 
 import frontend.Util.Sprite;
+import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -14,12 +15,14 @@ import static frontend.GUI.Display.TurtleView.TURTLE_SIZE;
  * @author bpx
  */
 public class SpriteManager {
+    private Group myRenderTarget;
     private HashMap<String,ImageView> mySprites;
     private String mySpritePath;
     private double mySpriteSize;
 
     /** Constructor initializes a new SpriteManager with all default settings*/
-    public SpriteManager(){
+    public SpriteManager(Group renderTarget){
+        myRenderTarget = renderTarget;
         mySprites = new HashMap<>();
         mySpritePath = TURTLE_IMAGE;
         mySpriteSize = TURTLE_SIZE;
@@ -48,6 +51,7 @@ public class SpriteManager {
         turtle.setFitWidth(mySpriteSize);
         turtle.setFitHeight(mySpriteSize);
         mySprites.put(id,turtle);
+        myRenderTarget.getChildren().add(turtle);
     }
 
     /** Retrieve a sprite from the HashMap
@@ -58,6 +62,7 @@ public class SpriteManager {
 
     /** Remove all entries from the HashMap of sprites*/
     public void killAllTurtles(){
+        mySprites.forEach((s, imageView) -> myRenderTarget.getChildren().remove(imageView));
         mySprites.clear();
     }
 
