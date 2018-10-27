@@ -25,6 +25,11 @@ public class LinePath extends Path {
         this.getElements().add(new LineTo(line.getEndX(),line.getEndY()));
     }
 
+    /** Returns copy of {@code Line} objects contained in the {@code LinePath}*/
+    public ArrayList<Line> getLines(){
+        return new ArrayList<>(myLines);
+    }
+
     /** Returns the length of the {@code LinePath} based on the combined lengths of all composing {@code Line} objects*/
     public double length(){
         double distance = 0;

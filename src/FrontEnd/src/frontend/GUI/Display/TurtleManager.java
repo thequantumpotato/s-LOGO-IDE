@@ -1,5 +1,27 @@
 package frontend.GUI.Display;
 
-public class TurtleManager {
-    public static final int DEFAULT_DURATION = 2;
+
+import frontend.Util.AnimationContainer;
+
+public class TurtleManager extends Manager {
+
+    private AnimationContainer myAnimationContainer;
+    private MovementManager myMovementManager;
+    private PathManager myPathManager;
+
+    public TurtleManager(){
+        super();
+    }
+
+
+
+    @Override
+    public void setDuration(double duration){
+
+    }
+
+    @Override
+    public void reset() {
+
+    }
 }

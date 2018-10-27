@@ -1,23 +1,21 @@
 package frontend.GUI.Display;
 
-import frontend.Util.AnimationManager;
+import frontend.Util.AnimationContainer;
 import frontend.Util.Coordinate;
 import javafx.animation.*;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
-import static frontend.GUI.Display.TurtleManager.DEFAULT_DURATION;
 
-/** Class for the management of movement animations of the sprites
+/** Class for the management of movement animations of the sprites. Subclass of {@code Manager}
  *  @author bpx */
-public class MovementManager {
-    private AnimationManager myAnimationManager;
-    private Duration myDuration;
+public class MovementManager extends Manager{
+    private AnimationContainer myAnimationContainer;
 
     /** Constructor initializes object with default fields */
     public MovementManager(){
-        myAnimationManager = new AnimationManager();
-        myDuration = Duration.seconds(DEFAULT_DURATION);
+        super();
+        myAnimationContainer = new AnimationContainer();
     }
 
     /** Add a new turtle movement animation to the animation queue
@@ -25,7 +23,7 @@ public class MovementManager {
      *  @param currentPosition The current position of the sprite in the coordinate system
      *  @param newPosition The target position of the sprite in the coordinate system */
     public void addTurtleAnimation(String id, ImageView imageView, Coordinate currentPosition, Coordinate newPosition){
-        TranslateTransition xt = new TranslateTransition(myDuration,imageView);
+        TranslateTransition xt = new TranslateTransition(super.getDuration(),imageView);
         xt.setFromX(currentPosition.getX());
         xt.setFromY(currentPosition.getY());
         xt.setToX(newPosition.getX());
@@ -35,27 +33,20 @@ public class MovementManager {
         rt.setToAngle(newPosition.getAngle());
         ParallelTransition combinedTransition = new ParallelTransition();
         combinedTransition.getChildren().addAll(xt,rt);
-        myAnimationManager.addAnimation(id,combinedTransition);
-    }
-
-    /** Sets the duration in seconds for future animations
-     *  @param duration The new duration in seconds for future animations*/
-    public void setDuration(double duration){
-        if(duration>0){
-            myDuration = Duration.seconds(duration);
-        }
+        myAnimationContainer.addAnimation(id,combinedTransition);
     }
 
 
     /** Plays the queued animations for a specific sprite
      *  @param id The id of the turtle to play the animation*/
     public void playTurtleAnimation(String id){
-        myAnimationManager.play(id);
+        myAnimationContainer.play(id);
     }
 
     /** Resets the fields of the {@code MovementManager} back to default values*/
+    @Override
     public void reset(){
-        myDuration = Duration.seconds(DEFAULT_DURATION);
-        myAnimationManager.killAllAnimations();
+        super.setDuration(DEFAULT_DURATION);
+        myAnimationContainer.killAllAnimations();
     }
 }
