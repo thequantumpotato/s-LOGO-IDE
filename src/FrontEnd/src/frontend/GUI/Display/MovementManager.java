@@ -1,23 +1,22 @@
 package frontend.GUI.Display;
 
+import frontend.Util.AnimationManager;
 import frontend.Util.Coordinate;
 import javafx.animation.*;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
-import java.util.HashMap;
-
 import static frontend.GUI.Display.TurtleManager.DEFAULT_DURATION;
 
-/** Class for the management of sprite movement animations
+/** Class for the management of movement animations of the sprites
  *  @author bpx */
-public class AnimationManager {
-    private HashMap<String, SequentialTransition> myAnimations;
+public class MovementManager {
+    private AnimationManager myAnimationManager;
     private Duration myDuration;
 
     /** Constructor initializes object with default fields */
-    public AnimationManager(){
-        myAnimations = new HashMap<>();
+    public MovementManager(){
+        myAnimationManager = new AnimationManager();
         myDuration = Duration.seconds(DEFAULT_DURATION);
     }
 
@@ -36,19 +35,7 @@ public class AnimationManager {
         rt.setToAngle(newPosition.getAngle());
         ParallelTransition combinedTransition = new ParallelTransition();
         combinedTransition.getChildren().addAll(xt,rt);
-        if(!myAnimations.containsKey(id)){
-            myAnimations.put(id,new SequentialTransition());
-        }
-        myAnimations.get(id).getChildren().add(combinedTransition);
-    }
-
-    /** Plays the queued animations for a specific sprite
-     *  @param id The id of the turtle to play the animation*/
-    public void playTurtleAnimation(String id){
-        if(myAnimations.get(id).getStatus()!= Animation.Status.RUNNING){
-            myAnimations.get(id).play();
-            myAnimations.get(id).getChildren().clear();
-        }
+        myAnimationManager.addAnimation(id,combinedTransition);
     }
 
     /** Sets the duration in seconds for future animations
@@ -59,8 +46,16 @@ public class AnimationManager {
         }
     }
 
-    /** Remove key and value information for all animation queues*/
-    public void killAllAnimations(){
-        myAnimations.clear();
+
+    /** Plays the queued animations for a specific sprite
+     *  @param id The id of the turtle to play the animation*/
+    public void playTurtleAnimation(String id){
+        myAnimationManager.play(id);
+    }
+
+    /** Resets the fields of the {@code MovementManager} back to default values*/
+    public void reset(){
+        myDuration = Duration.seconds(DEFAULT_DURATION);
+        myAnimationManager.killAllAnimations();
     }
 }

@@ -1,24 +1,24 @@
 package frontend.GUI.Display;
 
+import frontend.Util.AnimationManager;
 import frontend.Util.LinePath;
 import javafx.scene.Group;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Path;
-import javafx.util.Duration;
-
 import java.util.ArrayList;
 
-import static frontend.GUI.Display.TurtleManager.DEFAULT_DURATION;
-
+/** Class for the management of line drawing on the display
+ *  @author bpx */
 public class PathManager {
     private Group myRenderTarget;
     private ArrayList<Path> myPaths;
-    private Duration myDuration;
+    private AnimationManager myAnimationManager;
+
 
     public PathManager(Group renderTarget){
         myRenderTarget = renderTarget;
         myPaths =  new ArrayList<>();
-        myDuration = Duration.seconds(DEFAULT_DURATION);
+        myAnimationManager = new AnimationManager();
     }
 
     public void addPath(Line...lines){
