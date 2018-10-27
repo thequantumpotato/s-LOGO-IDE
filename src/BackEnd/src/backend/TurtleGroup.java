@@ -33,6 +33,10 @@ public class TurtleGroup extends Observable implements Turtle {
         turtles.remove(id);
     }
 
+    public Turtle getTurtleLeaf(Integer id){
+        return turtles.get(id);
+    }
+
     @Override
     public void move(double distance) {
         for (TurtleLeaf leaf : turtles) {
@@ -143,9 +147,15 @@ public class TurtleGroup extends Observable implements Turtle {
     }
 
     @Override
+    public void hide() {
+
+    }
+
+    @Override
     public void notifyObservers() {
         for (TurtleLeaf leaf : turtles) {
             leaf.notifyObservers();
+            System.out.println("Observer is notified by turtle's change");
         }
     }
 
@@ -154,10 +164,5 @@ public class TurtleGroup extends Observable implements Turtle {
         for (TurtleLeaf leaf : turtles) {
             leaf.addObserver(o);
         }
-    }
-
-    @Override
-    public void hide() {
-
     }
 }

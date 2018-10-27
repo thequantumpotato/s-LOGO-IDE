@@ -16,7 +16,7 @@ public class ModelController {
     private Interpreter interpreter;
     private List<Node> myCommands;
     private List<Map.Entry<String, Pattern>> mySymbols;
-    private Turtle myTurtle;
+    private TurtleGroup myTurtle;
 //    private Reflector myReflector;
     private TreeFactory myTreeFactory;
 
@@ -27,7 +27,7 @@ public class ModelController {
     private boolean hasNewFunc;
     private Map<String, String> newFunc;
 
-    public ModelController(Turtle turtle, List<Map.Entry<String, Pattern>> symbolList) {
+    public ModelController(TurtleGroup turtle, List<Map.Entry<String, Pattern>> symbolList) {
         mySymbols = symbolList;
         interpreter = new Interpreter(symbolList);
         //commander = new Command(this, turtle);
@@ -52,8 +52,9 @@ public class ModelController {
             //for (BasicNode node : myCommands) {
             //    myReflector.execute(node);
             //}
+        System.out.println("my turtle is " + myTurtle.getTurtleLeaf(0).toString());
             myTurtle.Changed();
-//            myTurtle.notify();
+            myTurtle.notifyObservers();
             myTurtle.clear();
     }
 

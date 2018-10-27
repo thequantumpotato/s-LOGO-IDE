@@ -75,6 +75,10 @@ public class View implements ViewInternalAPI, ViewAPI {
         startView();
     }
 
+    /**
+     * Other methods
+     **/
+
     private void createTab(String initLang) {
         tabPane = new TabPane();
         addTab(myTurtle, initLang);
@@ -82,7 +86,7 @@ public class View implements ViewInternalAPI, ViewAPI {
 
     private void addTab(Turtle turtle, String initLang) {
         GridPane newGridPane = createGridPane(turtle, initLang);
-        newGridPane.setMaxHeight(SCREEN_HEIGHT - 15);
+        newGridPane.setMaxHeight(SCREEN_HEIGHT - 35);
         addToTabPane(newGridPane);
     }
 
@@ -138,9 +142,6 @@ public class View implements ViewInternalAPI, ViewAPI {
         tabPane.getTabs().add(tab);
     }
 
-    /**
-     * Other methods
-     **/
     private void initAndAddElements(GridPane gridPane, Turtle turtle, String initLang) {
         myDisplayView = new DisplayView(this, turtle);
         myCommandView = new CommandView(this);
@@ -229,6 +230,7 @@ public class View implements ViewInternalAPI, ViewAPI {
     /**
      * External APIs
      **/
+
     @Override
     public void passCommand(String input) {
         myController.runCommand(input);

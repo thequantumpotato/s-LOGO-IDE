@@ -33,7 +33,7 @@ public class Controller {
         myView = new View(primaryStage, this, myTurtle, language);
         myView.registerDisplay(myTurtle);
 //        viewControl = new ViewControl(myView.getMyDisplayView());
-        modelController = new ModelController(myTurtle, mySymbols);
+        modelController = new ModelController((TurtleGroup)myTurtle, mySymbols);
         myErrors = ResourceBundle.getBundle(commandError);
     }
 

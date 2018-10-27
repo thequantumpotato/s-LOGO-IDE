@@ -14,6 +14,15 @@ public class TurtleLeaf extends Observable implements Turtle {
     private double direction;
     private double size;
     private Color color;
+    private double x;
+    private double y;
+    private boolean penDown;
+    private boolean showing;
+    private Integer id;
+
+    public TurtleLeaf(Integer id) {
+        this.id = id;
+    }
 
     @Override
     public String toString() {
@@ -27,16 +36,6 @@ public class TurtleLeaf extends Observable implements Turtle {
                 ", showing=" + showing +
                 ", id=" + id +
                 '}';
-    }
-
-    private double x;
-    private double y;
-    private boolean penDown;
-    private boolean showing;
-    private Integer id;
-
-    public TurtleLeaf(Integer id) {
-        this.id = id;
     }
 
     public void move(double distance) {
