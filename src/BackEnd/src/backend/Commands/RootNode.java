@@ -24,6 +24,11 @@ abstract public class RootNode implements Node{
     }
 
     @Override
+    public int getNumChildren() {
+        return myChildren.size();
+    }
+
+    @Override
     public abstract Object run();
 
     protected List<Object> runChildren(){

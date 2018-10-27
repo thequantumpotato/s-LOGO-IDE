@@ -2,6 +2,7 @@ package backend;
 
 import backend.Commands.LeafNode;
 import backend.Commands.Node;
+import backend.Storage.Storage;
 
 import java.util.HashMap;
 import java.util.List;
@@ -17,15 +18,10 @@ public class ModelController {
     private List<Node> myCommands;
     private List<Map.Entry<String, Pattern>> mySymbols;
     private TurtleGroup myTurtle;
-//    private Reflector myReflector;
     private TreeFactory myTreeFactory;
-
-    private Map<String, LeafNode> variableMap = new HashMap<>();
-    private Map<String, Node> instructionMap = new HashMap<>();
     private boolean hasNewVar;
-    private Map<String, String> newVar;
     private boolean hasNewFunc;
-    private Map<String, String> newFunc;
+    private Storage myStorage;
 
     public ModelController(TurtleGroup turtle, List<Map.Entry<String, Pattern>> symbolList) {
         mySymbols = symbolList;
@@ -34,6 +30,7 @@ public class ModelController {
         myTurtle = turtle;
 //        myReflector = new Reflector(myTurtle);
         myTreeFactory = new TreeFactory(myTurtle);
+        this.myStorage = new Storage();
     }
 
     /**
@@ -62,19 +59,19 @@ public class ModelController {
         return s.matches("[-+]?\\d*\\.?\\d+");
     }
 
-    public Map<String, String> updateVar() {
-        if (hasNewVar) {
-            hasNewVar = !hasNewVar;
-            return newVar;
-        } else return new HashMap<>();
-    }
-
-    public Map<String, String> updateFunc() {
-        if (hasNewFunc) {
-            hasNewFunc = !hasNewFunc;
-            return newFunc;
-        } else return new HashMap<>();
-    }
+//    public Map<String, String> updateVar() {
+//        if (hasNewVar) {
+//            hasNewVar = !hasNewVar;
+//            return newVar;
+//        } else return new HashMap<>();
+//    }
+//
+//    public Map<String, String> updateFunc() {
+//        if (hasNewFunc) {
+//            hasNewFunc = !hasNewFunc;
+//            return newFunc;
+//        } else return new HashMap<>();
+//    }
 
 }
 
