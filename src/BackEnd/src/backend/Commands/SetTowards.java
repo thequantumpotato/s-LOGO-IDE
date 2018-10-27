@@ -54,8 +54,8 @@ public class SetTowards extends RootNode {
         return res;
     }
 
-    public static void main(String[] args){
-        SetTowards s = new SetTowards(new Storage(), new Turtle(), new ArrayList<Node>());
-        System.out.println(s.angleWithXAxis(1,1));
-    }
+//    public static void main(String[] args){
+//        SetTowards s = new SetTowards(new Storage(), new Turtle(), new ArrayList<Node>());
+//        System.out.println(s.angleWithXAxis(1,1));
+//    }
 }

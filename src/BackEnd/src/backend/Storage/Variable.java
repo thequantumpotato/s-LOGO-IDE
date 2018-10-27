@@ -10,7 +10,15 @@ public class Variable {
         this.name = name;
     }
 
+    public String getName(){
+        return name;
+    }
+
     public Object getValue() {
         return value;
+    }
+
+    public String toString(){
+        return value.toString();
     }
 }

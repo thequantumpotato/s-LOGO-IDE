@@ -1,9 +1,10 @@
 package backend;
 
-import backend.Commands.IntegerLeaf;
+import backend.Commands.GetVariable;
+import backend.Commands.ListNode;
 import backend.Commands.Node;
-
-import backend.Nodes.*;
+import backend.Commands.Number;
+import backend.Storage.Storage;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -22,6 +23,7 @@ public class TreeFactory {
     public ResourceBundle myErrors;
     private List<Map.Entry<String, Pattern>> mySymbols;
     private Turtle myTurtle;
+    private Storage myStorage;
 
     public TreeFactory(Turtle turtle) {
         myTurtle = turtle;
@@ -89,7 +91,7 @@ public class TreeFactory {
             //This child has its own arguments that we need to add. Use recursion!
             generateCommand(newChild, commands, getArgNum(nextChild));
         } else {
-            newChild = new IntegerLeaf(nextChild);
+            newChild = new Number(nextChild);
         }
 
         return newChild;
@@ -99,15 +101,15 @@ public class TreeFactory {
     private Node createRoot(String command) throws IllegalCommandException {
         Node newNode;
         if (isVariable(command)) {
-            newNode = new SingleCommandNode("GetVariable");
-            newNode.addChild(new IntegerLeaf(command.substring(1))); //Variables need to have a child to begin with
+            newNode = new GetVariable(myStorage, myTurtle, new ArrayList<>());
+            newNode.addChild(new Number(command.substring(1))); //Variables need to have a child to begin with
             System.out.println(command.substring(1));
         } else if (!isNotCommand(command)) {
             newNode = reflect(command); //Use reflection to get our class
 
         } else {
             //If not command or variable, it is a LeafNode
-            newNode = new IntegerLeaf(command);
+            newNode = new Number(command);
         }
         return newNode;
     }
@@ -118,7 +120,7 @@ public class TreeFactory {
      */
     private Node generateList(List<String> Commands) throws IllegalCommandException {
         String newList = Commands.remove(0);
-        Node commandList = new ListNode(newList);
+        Node commandList = new ListNode(myStorage, myTurtle, new ArrayList<>());
         while (!isCloseBracket(Commands.get(0))) {
             //Create the new command and add all of it's children
             String nextCommand = Commands.remove(0);
@@ -160,7 +162,7 @@ public class TreeFactory {
             throw new IllegalCommandException(e);
         }
 
-        Object[] parameters = {myTurtle};
+        Object[] parameters = {myStorage, myTurtle, new ArrayList<>()};
         Object newInstance = null;
         try {
             newInstance = constructor.newInstance(parameters);
