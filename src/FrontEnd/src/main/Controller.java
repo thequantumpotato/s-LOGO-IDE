@@ -1,9 +1,6 @@
 package main;
 
-import backend.IllegalCommandException;
-import backend.ModelController;
-import backend.Turtle;
-import backend.TurtleLeaf;
+import backend.*;
 import frontend.ExternalAPI.ViewAPI;
 import frontend.GUI.View;
 import javafx.stage.Stage;
@@ -32,7 +29,7 @@ public class Controller {
         mySymbols = new ArrayList<>();
         addPatterns(LANG_PATH + language); // language syntax
         addPatterns(SYNTAX);
-        myTurtle = new TurtleLeaf();
+        myTurtle = new TurtleGroup();
         myView = new View(primaryStage, this, myTurtle, language);
         myView.registerDisplay(myTurtle);
 //        viewControl = new ViewControl(myView.getMyDisplayView());

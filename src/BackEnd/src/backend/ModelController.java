@@ -47,13 +47,13 @@ public class ModelController {
 
         for (Node node : myCommands) {
 //            System.out.println(node.getClass());
-            System.out.println(node.run());
+            node.run();
         }
             //for (BasicNode node : myCommands) {
             //    myReflector.execute(node);
             //}
             myTurtle.Changed();
-            //myTurtle.notifyObservers(true);
+//            myTurtle.notify();
             myTurtle.clear();
     }
 
