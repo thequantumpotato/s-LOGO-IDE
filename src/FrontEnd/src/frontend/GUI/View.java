@@ -1,6 +1,7 @@
 package frontend.GUI;
 
 import backend.Turtle;
+import backend.TurtleGroup;
 import frontend.API.ViewInternalAPI;
 import frontend.ExternalAPI.ViewAPI;
 import frontend.GUI.Display.DisplayView;
@@ -67,16 +68,16 @@ public class View implements ViewInternalAPI, ViewAPI {
         myStage = primaryStage;
         myTurtle = turtle;
         myLang = initLang;
-        createTab(turtle, initLang);
+        createTab(initLang);
         addAnchor();
         myScene = new Scene(root, SCREEN_WIDTH, SCREEN_HEIGHT);
         myScene.getStylesheets().add(STYLESHEET);
         startView();
     }
 
-    private void createTab(Turtle turtle, String initLang) {
+    private void createTab(String initLang) {
         tabPane = new TabPane();
-        addTab(turtle, initLang);
+        addTab(myTurtle, initLang);
     }
 
     private void addTab(Turtle turtle, String initLang) {
@@ -122,7 +123,7 @@ public class View implements ViewInternalAPI, ViewAPI {
         addButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                addTab(myTurtle, myLang);
+                addTab(new TurtleGroup(), myLang);
             }
         });
         anchorPane.getChildren().addAll(tabPane, addButton);
