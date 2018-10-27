@@ -1,6 +1,7 @@
 package frontend.GUI.Display;
 
 import backend.Turtle;
+import backend.TurtleLeaf;
 import frontend.Util.Coordinate;
 import frontend.Util.Pen;
 import frontend.API.SubView;
@@ -44,7 +45,6 @@ public class DisplayView implements SubView, Observer {
     private Group root;
     private Rectangle bg;
     private Pen myPen;
-
 
     public DisplayView(View myView_,Turtle turtle) {
         myView = myView_;
@@ -208,7 +208,12 @@ public class DisplayView implements SubView, Observer {
     @Override
     public void update(Observable o, Object arg) {
         //TODO: update this method after turtle has new getID method
+        System.out.println("Updated Turtle received by DisplayView:"+ arg);
+        TurtleLeaf updatedTurtle = (TurtleLeaf) arg;
         if (arg != null) {
+            Turtle oldTurtle = myTurtleInfo.get(updatedTurtle.getId());
+            // change the corresponding turtle's position in the turtleInfo list
+            oldTurtle.setX(updatedTurtle.getX());
             playAnims();
         } else {
             System.out.println("null");

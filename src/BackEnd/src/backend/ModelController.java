@@ -44,7 +44,7 @@ public class ModelController {
         List<String> commands = interpreter.parse(input);
         //Turn our command arraylist into a tree structure of command nodes
         myCommands = myTreeFactory.getRoots(commands);
-
+        System.out.println("My turtle before running command: " + myTurtle.getTurtleLeaf(0));
         for (Node node : myCommands) {
 //            System.out.println(node.getClass());
             node.run();
@@ -52,7 +52,6 @@ public class ModelController {
             //for (BasicNode node : myCommands) {
             //    myReflector.execute(node);
             //}
-        System.out.println("my turtle is " + myTurtle.getTurtleLeaf(0).toString());
             myTurtle.Changed();
             myTurtle.notifyObservers();
             myTurtle.clear();

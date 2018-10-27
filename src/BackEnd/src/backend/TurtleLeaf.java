@@ -20,6 +20,10 @@ public class TurtleLeaf extends Observable implements Turtle {
     private boolean showing;
     private Integer id;
 
+    public Integer getId() {
+        return id;
+    }
+
     public TurtleLeaf(Integer id) {
         this.id = id;
     }

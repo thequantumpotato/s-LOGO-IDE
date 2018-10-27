@@ -26,7 +26,7 @@ public class TurtleGroup extends Observable implements Turtle {
     }
 
     public void addTurtle() {
-        turtles.add(new TurtleLeaf(turtles.size()+1));
+        turtles.add(new TurtleLeaf(turtles.size()));
     }
 
     public void removeTurtle(Integer id) {
@@ -154,8 +154,11 @@ public class TurtleGroup extends Observable implements Turtle {
     @Override
     public void notifyObservers() {
         for (TurtleLeaf leaf : turtles) {
-            leaf.notifyObservers();
-            System.out.println("Observer is notified by turtle's change");
+            System.out.println("My turtle after running command: " + leaf);
+            System.out.println("Observer is going to be notified by turtle's change");
+            // pass the TurtleLeaf to the DisplayView
+            leaf.notifyObservers(leaf);
+            System.out.println("Observer is already notified by turtle's change");
         }
     }
 
