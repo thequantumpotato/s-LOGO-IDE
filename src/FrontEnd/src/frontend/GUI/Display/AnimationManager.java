@@ -7,11 +7,11 @@ import javafx.util.Duration;
 
 import java.util.HashMap;
 
+import static frontend.GUI.Display.TurtleManager.DEFAULT_DURATION;
+
 /** Class for the management of sprite movement animations
  *  @author bpx */
 public class AnimationManager {
-    public static final int DEFAULT_DURATION = 2;
-
     private HashMap<String, SequentialTransition> myAnimations;
     private Duration myDuration;
 
