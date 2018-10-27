@@ -27,7 +27,7 @@ public class CommandView implements SubView {
     private TextArea input;
     private Button submitButton;
     private View myView;
-    private VBox buttonBox;
+    private final VBox buttonBox = new VBox();
     private Button loadButton;
 
     public CommandView(View myView_) {
@@ -48,8 +48,8 @@ public class CommandView implements SubView {
     // TODO: 10/27/18 Test if the button works in loading file and adding them into the Input box 
     private void setUpLoadButton() {
         final FileChooser fileChooser = new FileChooser();
-        final Button turtleButton = new Button("Turtle Image");
-        turtleButton.setOnAction((final ActionEvent e) -> {
+        loadButton = new Button("Turtle Image");
+        loadButton.setOnAction((final ActionEvent e) -> {
             File file = fileChooser.showOpenDialog(myView.getMyStage());
             if (file != null && file.getName().endsWith(".logo")) {
                 // add command to textarea
