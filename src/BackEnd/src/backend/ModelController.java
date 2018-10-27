@@ -17,7 +17,7 @@ public class ModelController {
     private List<Node> myCommands;
     private List<Map.Entry<String, Pattern>> mySymbols;
     private Turtle myTurtle;
-    //private Reflector myReflector;
+//    private Reflector myReflector;
     private TreeFactory myTreeFactory;
 
     private Map<String, LeafNode> variableMap = new HashMap<>();
@@ -32,7 +32,7 @@ public class ModelController {
         interpreter = new Interpreter(symbolList);
         //commander = new Command(this, turtle);
         myTurtle = turtle;
-       // myReflector = new Reflector(myTurtle);
+//        myReflector = new Reflector(myTurtle);
         myTreeFactory = new TreeFactory(myTurtle);
     }
 
@@ -40,12 +40,14 @@ public class ModelController {
      * Parses the Command
      */
     public void parseCommand(String input) throws Exception {
-        List<String> commands = interpreter.parse(input); //returns a list of root nodes
+        //returns a list of root nodes. e.g. [Forward, 50]
+        List<String> commands = interpreter.parse(input);
         //Turn our command arraylist into a tree structure of command nodes
         myCommands = myTreeFactory.getRoots(commands);
-        for (Node node : myCommands) {
-            System.out.println(node.getClass());
 
+        for (Node node : myCommands) {
+//            System.out.println(node.getClass());
+            System.out.println(node.run());
         }
             //for (BasicNode node : myCommands) {
             //    myReflector.execute(node);
@@ -53,7 +55,6 @@ public class ModelController {
             myTurtle.Changed();
             //myTurtle.notifyObservers(true);
             myTurtle.clear();
-
     }
 
 

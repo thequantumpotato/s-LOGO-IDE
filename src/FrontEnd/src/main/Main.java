@@ -13,6 +13,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setResizable(false);
-        new Controller(primaryStage, DEFAULT_LANGUAGE);
+        Controller myController = new Controller(primaryStage, DEFAULT_LANGUAGE);
+        myController.runCommand("fd 50");
     }
 }
