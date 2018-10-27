@@ -13,6 +13,7 @@ public class Forward extends TurtleNode{
     public Object run() {
         List<Double> l = parseDoubles(runChildren());
         myTurtle.move(l.get(0));
+        System.out.println(myTurtle.toString());
         return l.get(0);
     }
 

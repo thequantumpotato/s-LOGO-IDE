@@ -9,7 +9,7 @@ public class IntegerLeaf extends LeafNode {
 
     @Override
     public Object run() {
-        return null;
+        return Double.parseDouble(value);
     }
 
     @Override

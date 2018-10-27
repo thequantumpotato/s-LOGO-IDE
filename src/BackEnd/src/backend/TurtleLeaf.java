@@ -20,6 +20,18 @@ public class TurtleLeaf extends Observable implements Turtle{
     private boolean penDown;
     private boolean showing;
 
+    @Override
+    public String toString() {
+        return "TurtleLeaf{" +
+                "direction=" + direction +
+                ", size=" + size +
+                ", color=" + color +
+                ", x=" + x +
+                ", y=" + y +
+                ", penDown=" + penDown +
+                ", showing=" + showing +
+                '}';
+    }
 
     public void move(double distance) {
         this.setX(x + distance * Math.cos(direction));
