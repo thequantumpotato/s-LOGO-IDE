@@ -5,11 +5,11 @@ import java.util.HashMap;
 
 /** Class for the management of animations by ID
  *  @author bpx */
-public class AnimationManager {
+public class AnimationContainer {
     private HashMap<String, Animation> myAnimations;
 
     /** Constructor initializes object with default fields */
-    public AnimationManager(){
+    public AnimationContainer(){
         myAnimations = new HashMap<>();
     }
 
@@ -23,6 +23,7 @@ public class AnimationManager {
     public void play(String id){
         if(myAnimations.containsKey(id) && myAnimations.get(id).getStatus()!= Animation.Status.RUNNING){
             myAnimations.get(id).play();
+            myAnimations.remove(id);
         }
     }
 
