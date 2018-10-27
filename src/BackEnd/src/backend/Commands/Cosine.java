@@ -1,13 +1,14 @@
 package backend.Commands;
 
 import backend.Turtle;
+import backend.Storage.Storage;
 
 import java.util.List;
 
-public class Cosine extends MathNode{
+public class Cosine extends RootNode {
 
-    public Cosine(Turtle t, List<Node> children) {
-        super(t, children);
+    public Cosine(Storage storage, Turtle turtle, List<Node> children) {
+        super(storage, turtle, children);
     }
 
     @Override

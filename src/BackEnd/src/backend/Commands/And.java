@@ -1,18 +1,19 @@
 package backend.Commands;
 
+import backend.Turtle;
+import backend.Storage.Storage;
+
 import java.util.List;
 
-public class And extends MathNode{
+public class And extends RootNode {
 
-    public And(List<Node> children) {
-        super(children);
+    public And(Storage storage, Turtle turtle, List<Node> children) {
+        super(storage, turtle, children);
     }
 
     @Override
     public Object run() {
-        List<Integer> l = parseIntegers(parseDoubles(runChildren()));
-        boolean first = l.get(0) == 1;
-        boolean second = l.get(1) == 1;
-        return first && second;
+        List<Object> l = runChildren();
+        return ((Boolean) l.get(0)) && ((Boolean) l.get(1));
     }
 }

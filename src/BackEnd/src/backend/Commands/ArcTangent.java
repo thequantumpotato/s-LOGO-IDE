@@ -1,11 +1,14 @@
 package backend.Commands;
 
+import backend.Turtle;
+import backend.Storage.Storage;
+
 import java.util.List;
 
-public class ArcTangent extends MathNode {
+public class ArcTangent extends RootNode {
 
-    public ArcTangent(List<Node> children) {
-        super(children);
+    public ArcTangent(Storage storage, Turtle turtle, List<Node> children) {
+        super(storage, turtle, children);
     }
 
     @Override

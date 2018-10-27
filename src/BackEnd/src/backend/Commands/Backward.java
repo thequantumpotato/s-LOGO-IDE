@@ -1,12 +1,13 @@
 package backend.Commands;
 import backend.Turtle;
+import backend.Storage.Storage;
 
 import java.util.List;
 
-public class Backward extends TurtleNode {
+public class Backward extends RootNode {
 
-    public Backward(Turtle t, List<Node> children) {
-        super(t, children);
+    public Backward(Storage storage, Turtle turtle, List<Node> children) {
+        super(storage, turtle, children);
     }
 
     @Override

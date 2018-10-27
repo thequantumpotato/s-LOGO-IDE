@@ -1,13 +1,14 @@
 package backend.Commands;
 
 import backend.Turtle;
+import backend.Storage.Storage;
 
 import java.util.List;
 
-public class Equal extends MathNode{
+public class Equal extends RootNode {
 
-    public Equal(Turtle t, List<Node> children) {
-        super(t, children);
+    public Equal(Storage storage, Turtle turtle, List<Node> children) {
+        super(storage, turtle, children);
     }
 
     @Override

@@ -4,6 +4,6 @@ public interface Node {
 
     void addChild(Node child);
 
-    abstract public Object run();
+    Object run();
 
 }
