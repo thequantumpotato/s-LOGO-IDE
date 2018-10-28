@@ -5,6 +5,8 @@ import frontend.GUI.Display.DisplayView;
 import frontend.GUI.View;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -18,6 +20,11 @@ public class SettingView implements SubView {
     private ToolBar settingView;
     private ComboBox languageBox;
     private View myView;
+    private final ObservableList<String> list =
+            FXCollections.observableArrayList(
+                    "English", "Chinese", "French", "German",
+                    "Italian", "Portuguese", "Russian", "Spanish", "Urdu");
+
 
     // TODO add option to change pen size and pen state?
     public SettingView(View myView_, String initLang) {
@@ -32,7 +39,7 @@ public class SettingView implements SubView {
         setUpLangComboBox(initLang);
         VBox speedBox = setUpTurtleSpeedBox();
 
-        settingView.getItems().addAll(bgBox, penBox, penDownCheckbox,speedBox, turtleButton, languageBox);
+        settingView.getItems().addAll(bgBox, penBox, penDownCheckbox, speedBox, turtleButton, languageBox);
     }
 
     private VBox setUpTurtleSpeedBox() {
@@ -58,8 +65,7 @@ public class SettingView implements SubView {
     }
 
     private void setUpLangComboBox(String initLang) {
-        languageBox = new ComboBox();
-        languageBox.getItems().addAll("English", "Chinese", "French", "German", "Italian", "Portuguese", "Russian", "Spanish");
+        languageBox = new ComboBox<>(list);
         languageBox.setValue(initLang);
         languageBox.valueProperty().addListener(new ChangeListener<String>() {
             @Override
@@ -93,12 +99,12 @@ public class SettingView implements SubView {
         return penBox;
     }
 
-    private CheckBox setUpPenDownCheckbox(){
+    private CheckBox setUpPenDownCheckbox() {
         CheckBox cb = new CheckBox("Pen Down");
         cb.setAllowIndeterminate(false);
         cb.setIndeterminate(false);
         cb.setSelected(true);
-        cb.selectedProperty().addListener(new ChangeListener<Boolean>(){
+        cb.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 myView.changePenDown(newValue);

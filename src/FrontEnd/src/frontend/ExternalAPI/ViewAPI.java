@@ -1,6 +1,7 @@
 package frontend.ExternalAPI;
 
 import backend.Turtle;
+import javafx.scene.layout.GridPane;
 
 import java.util.List;
 import java.util.Map;
@@ -56,7 +57,9 @@ public interface ViewAPI {
      */
     void updateHistory(String validInput);
 
-
-    void addTab(Turtle turtle, String initLang);
-
+    /**
+     * Called by TabView to let Controller pass the GridPane from View
+     * @return GridPane
+     */
+    GridPane getMyGridPane();
 }

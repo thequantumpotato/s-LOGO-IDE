@@ -6,6 +6,7 @@ import backend.Turtle;
 import backend.TurtleGroup;
 import frontend.ExternalAPI.ViewAPI;
 import frontend.GUI.View;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.util.*;
@@ -13,7 +14,8 @@ import java.util.regex.Pattern;
 
 /**
  * Controller mediates the communications between the ViewAPI and the Model. <br>
- * Controller is initialized when the main.Main.txt starts running. It will contain an instance of ViewAPI and ModelController.
+ * Controller is initialized when a tab is added inside TabView. Each controller contains an instance of
+ * Turtle, ViewAPI, and ModelController.
  *
  * @author Vincent Liu
  */
@@ -23,21 +25,15 @@ public class Controller {
     public static final String SYNTAX = "languages/Syntax";
     private ViewAPI myView;
     private Turtle myTurtle;
-    private ViewControl viewControl;
     private ModelController modelController;
     private List<Map.Entry<String, Pattern>> mySymbols;
     private ResourceBundle myErrors;
-    private Stage myStage;
-    private String myLang;
 
     public Controller(Stage primaryStage, String language) {
-        myStage = primaryStage;
-        myLang = language;
         myTurtle = new TurtleGroup();
         myErrors = ResourceBundle.getBundle(commandError);
         setUpFrontEnd(primaryStage, language);
         setUpBackEnd(language);
-//        viewControl = new ViewControl(myView.getMyDisplayView());
     }
 
     public void setUpBackEnd(String language) {
@@ -52,14 +48,6 @@ public class Controller {
         myView.registerDisplay(myTurtle);
     }
 
-    public void addTab(){
-        Turtle temp = new TurtleGroup();
-        myView.addTab(temp, myLang);
-        myView.registerDisplay(temp);
-        modelController = new ModelController(temp, mySymbols);
-    }
-
-    // TODO: 10/25/18 Figure out how to render different error types for user command
     public void runCommand(String input) {
         if (input.isEmpty()) {
             myView.displayErrors("Please enter a command!");
@@ -101,7 +89,6 @@ public class Controller {
     /**
      * Adds the given resource file to this language's recognized types
      */
-    // TODO move this stuff to a utility class
     private void addPatterns(String syntax) {
         var resources = ResourceBundle.getBundle(syntax);
         for (var key : Collections.list(resources.getKeys())) {
@@ -123,5 +110,13 @@ public class Controller {
         } catch (Exception e) {
             throwErrorByType(e);
         }
+    }
+
+    public Turtle getMyTurtle() {
+        return myTurtle;
+    }
+
+    public GridPane getMyView() {
+        return myView.getMyGridPane();
     }
 }
