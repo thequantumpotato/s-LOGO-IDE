@@ -4,6 +4,8 @@ package frontend.GUI.Display;
 import frontend.Util.AnimationContainer;
 import frontend.Util.Coordinate;
 import javafx.scene.Group;
+import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
 import java.util.ArrayList;
@@ -14,7 +16,7 @@ public class TurtleManager extends Manager {
 
     public static final int DEFAULT_DURATION = 2;
     public static final double ORIGIN_X = 275;
-    public static final double ORIGIN_Y = 300;
+    public static final double ORIGIN_Y = 250;
 
     private Group myRenderTarget;
     private ArrayList<String> myTurtles;
@@ -39,23 +41,24 @@ public class TurtleManager extends Manager {
      *  @param id The identifier for the turtle being created */
     public void createTurtle(String id){
         myTurtles.add(id);
-        mySpriteContainer.addTurtle(id);
-        mySpriteContainer.getTurtle(id).setPosition(new Coordinate(ORIGIN_X,ORIGIN_Y,0));
+        mySpriteContainer.addSprite(id);
+        mySpriteContainer.getSprite(id).setPosition(new Coordinate(ORIGIN_X,ORIGIN_Y,0));
     }
 
     /** Move the specified turtle to a new position through animation
      *  @param id The identifier for the turtle to move
      *  @param newPosition The {@code Coordinate} to move the turtle to */
     public void moveTurtle(String id, Coordinate newPosition){
-        myPathManager.addPath(id, new Line(mySpriteContainer.getTurtle(id).getPosition().getX()+ mySpriteContainer.getSpriteSize()/2, mySpriteContainer.getTurtle(id).getPosition().getY()+ mySpriteContainer.getSpriteSize()/2,
+        myPathManager.addPath(id, new Line(mySpriteContainer.getSprite(id).getPosition().getX()+ mySpriteContainer.getSpriteSize()/2, mySpriteContainer.getSprite(id).getPosition().getY()+ mySpriteContainer.getSpriteSize()/2,
                 newPosition.getX()+ mySpriteContainer.getSpriteSize()/2,newPosition.getY()+ mySpriteContainer.getSpriteSize()/2));
-        myMovementManager.addTurtleAnimation(id, mySpriteContainer.getTurtle(id), mySpriteContainer.getTurtle(id).getPosition(),newPosition);
+        myMovementManager.addTurtleAnimation(id, mySpriteContainer.getSprite(id), mySpriteContainer.getSprite(id).getPosition(),newPosition);
+        mySpriteContainer.getSprite(id).setPosition(newPosition);
     }
 
     /** Update the visual display of the turtle with animations after {@code moveTurtle()} has been run */
     public void updateTurtles(){
         for(String id: myTurtles){
-            mySpriteContainer.getTurtle(id).toFront();
+            mySpriteContainer.getSprite(id).toFront();
             myMovementManager.playTurtleAnimation(id);
             myPathManager.playPathDrawAnimation(id);
         }
@@ -64,13 +67,13 @@ public class TurtleManager extends Manager {
     /** Render the specified turtle to the root
      *  @param id The identifier for the turtle to render */
     public void show(String id){
-        mySpriteContainer.getTurtle(id).show();
+        mySpriteContainer.getSprite(id).show();
     }
 
     /** Hide the specified turtle on the display
      *  @param id The identifier for the turtle to hide */
     public void hide(String id){
-        mySpriteContainer.getTurtle(id).hide();
+        mySpriteContainer.getSprite(id).hide();
     }
 
     /** Sets the active or inactive state of a sprite
@@ -78,6 +81,34 @@ public class TurtleManager extends Manager {
      *  @param state False means inactive, True means active */
     public void setActive(String id, boolean state){
         mySpriteContainer.setActive(id,state);
+    }
+
+    public void setTurtleSize(double size){
+        mySpriteContainer.setSpriteSize(size);
+    }
+
+    public void setTurtleSize(String id, double size){
+        mySpriteContainer.setSpriteSize(id,size);
+    }
+
+    public void setTurtleImage(Image image){
+        mySpriteContainer.setSpriteImage(image);
+    }
+
+    public void penDown(){
+        myPathManager.penDown();
+    }
+
+    public void penUp(){
+        myPathManager.penUp();
+    }
+
+    public void setPenSize(double size){
+        myPathManager.setPenSize(size);
+    }
+
+    public void setPenColor(Color color){
+        myPathManager.setPenColor(color);
     }
 
     /** Sets duration of all time-based turtle operations
@@ -92,7 +123,7 @@ public class TurtleManager extends Manager {
     /** Resets the display */
     @Override
     public void reset() {
-        mySpriteContainer.killAllTurtles();
+        mySpriteContainer.killAllSprites();
         myAnimationContainer.killAllAnimations();
         myMovementManager.reset();
         myPathManager.reset();

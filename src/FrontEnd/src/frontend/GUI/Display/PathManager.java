@@ -2,6 +2,7 @@ package frontend.GUI.Display;
 
 import frontend.Util.*;
 import javafx.scene.Group;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Path;
 import javafx.util.Duration;
@@ -38,6 +39,7 @@ public class PathManager extends Manager{
      *  @param lines The {@code Line} objects that will be added to the {@code Path}*/
     public void addPath(String id, Line...lines){
         if(penDown){
+            System.out.println("Creating path for "+id);
             LinePath newpath = new LinePath();
             for(Line l : lines){
                 newpath.addLine(l);
@@ -72,6 +74,14 @@ public class PathManager extends Manager{
     /** Start drawing lines */
     public void penDown(){
         penDown = true;
+    }
+
+    public void setPenSize(double size){
+        myPen.setPenSize(size);
+    }
+
+    public void setPenColor(Color color){
+        myPen.setPenColor(color);
     }
 
     /** Resets {@code PathManager} fields to default state */

@@ -49,6 +49,13 @@ public class Sprite extends ImageView {
         this.setOpacity(100);
     }
 
+    public void setSize(double size){
+        if(size>0){
+            this.setFitHeight(size);
+            this.setFitWidth(size);
+        }
+    }
+
     /** Sets the position of the {@code Sprite} using a {@code Coordinate}
      *  @param coordinate The {@code Coordinate} of the new position to set the {@code Sprite} to*/
     public void setPosition(Coordinate coordinate){

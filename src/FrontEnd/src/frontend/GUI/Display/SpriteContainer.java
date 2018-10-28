@@ -28,20 +28,28 @@ public class SpriteContainer {
         mySpriteSize = TURTLE_SIZE;
     }
 
-    /** Sets the image path for all future sprites
-     *  @param newPath The path to the image file to be used as the sprite*/
-    public void setSpritePath(String newPath){
-        if(newPath!=null){
-            mySpritePath = newPath;
+    public void setSpriteImage(Image image){
+        for(String s : mySprites.keySet()){
+            mySprites.get(s).setImage(image);
         }
     }
 
-    /** Sets the image height and width of all future sprites
+    /** Sets the image height and width of all current future sprites
      *  @param size The pixel height and width dimensions of all new sprites*/
     public void setSpriteSize(double size){
         if(size>0){
             mySpriteSize = size;
         }
+        for(String s : mySprites.keySet()){
+            mySprites.get(s).setSize(size);
+        }
+    }
+
+    /** Sets the image height and width of a specific sprite
+     *  @param id The identifier for the sprite to change
+     *  @param size The new pixel height and width dimensions of the sprite */
+    public void setSpriteSize(String id, double size){
+        mySprites.get(id).setSize(size);
     }
 
     /** Returns a non-modifiable copy of the current sprite size */
@@ -51,7 +59,7 @@ public class SpriteContainer {
 
     /** Add a new {@code Sprite} using current settings
      *  @param id The identifier for the {@code Sprite} in the HashMap*/
-    public void addTurtle(String id){
+    public void addSprite(String id){
         Sprite turtle = new Sprite(new Image(this.getClass().getClassLoader().getResourceAsStream(mySpritePath)));
         turtle.setFitWidth(mySpriteSize);
         turtle.setFitHeight(mySpriteSize);
@@ -61,7 +69,7 @@ public class SpriteContainer {
 
     /** Retrieve a sprite from the HashMap
      * @param id The identifier for the sprite that will be retrieved*/
-    public Sprite getTurtle(String id){
+    public Sprite getSprite(String id){
         if(mySprites.containsKey(id)){
             return mySprites.get(id);
         }
@@ -84,7 +92,7 @@ public class SpriteContainer {
     }
 
     /** Remove all entries from the HashMap of sprites*/
-    public void killAllTurtles(){
+    public void killAllSprites(){
         mySprites.forEach((s, imageView) -> myRenderTarget.getChildren().remove(imageView));
         mySprites.clear();
     }
