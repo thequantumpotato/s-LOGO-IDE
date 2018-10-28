@@ -85,8 +85,10 @@ public class VariableView implements SubView {
     }
 
     public void updateVariable(Map<String, String> var) {
-        String key = var.keySet().toArray()[0].toString();
-        variableList.getItems().add(new Variable(key, var.get(key)));
+        variableList.getItems().clear();
+        for (String myKey: var.keySet()) {
+            variableList.getItems().add(new Variable(myKey, var.get(myKey)));
+        }
     }
 
     @Override
