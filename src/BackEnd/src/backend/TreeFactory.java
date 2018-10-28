@@ -147,6 +147,7 @@ public class TreeFactory {
     //TODO: NOT WORKING!!!!!
     public Node getLeafNode(String nextChild){
         if(isVariable(nextChild) & !myStorage.hasVar(nextChild.substring(1))){
+            myStorage.addVarName(nextChild.substring(1));
             return new Text(nextChild.substring(1));
         }
         else if(myStorage.hasVar(nextChild.substring(1))){

@@ -26,13 +26,14 @@ public class For extends RootNode{
         List<Node> cList = (List<Node>) l.get(1);
 
         Object finalcommand = null;
-        for(int i = start; i < end; i=i+increment){
+        for(int i = start; i <= end; i=i+increment){
+            System.out.println("?");
             myStorage.makeVar(varName, i);// (Allow the command to use the current iteration number
             for(Node c: cList){
                 finalcommand = c.run();
             }
         }
-
+        myStorage.removeVar(varName);
         return finalcommand;
     }
 
