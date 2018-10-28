@@ -179,7 +179,7 @@ public class TurtleView {
             myPen.setDrawSpeed(duration);
             ParallelTransition pl;
             if (penDown) {
-                pl = myPen.drawPath(new Coordinate(coordinate.getX() + myWidth / 2, coordinate.getY() + myHeight / 2, 0));
+                pl = myPen.drawLine(new Coordinate(coordinate.getX() + myWidth / 2, coordinate.getY() + myHeight / 2, 0));
             } else {
                 myPen.movePen(new Coordinate(coordinate.getX() + myWidth / 2, coordinate.getY() + myHeight / 2, 0));
                 pl = new ParallelTransition();

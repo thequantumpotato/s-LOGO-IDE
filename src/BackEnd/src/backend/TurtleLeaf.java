@@ -32,6 +32,12 @@ public class TurtleLeaf extends Observable implements Turtle {
     public TurtleLeaf(Integer id) {
         this.id = id;
         this.isActive = true;
+        penDown = true;
+        showing = true;
+        bgColor = Color.BLACK;
+        penColor = Color.WHITE;
+        penSize = 1;
+        isActive = true;
     }
 
     @Override
@@ -134,14 +140,6 @@ public class TurtleLeaf extends Observable implements Turtle {
         return this.showing;
     }
 
-    public void liftPenUp() {
-
-    }
-
-    public void putPenDown() {
-
-    }
-
 
     public void show() {
         if(!isActive)
@@ -166,7 +164,25 @@ public class TurtleLeaf extends Observable implements Turtle {
         this.shape = shape;
     }
 
+    public Color getPenColor(){
+        return penColor;
+    }
 
+    public Color getBgColor() {
+        return bgColor;
+    }
+
+    public double getSize() {
+        return size;
+    }
+
+    public double getPenSize() {
+        return penSize;
+    }
+
+    public int getShape() {
+        return shape;
+    }
 
     public void hide() {
         if(!isActive)

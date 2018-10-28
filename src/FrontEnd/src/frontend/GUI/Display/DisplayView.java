@@ -37,8 +37,9 @@ public class DisplayView implements SubView, Observer {
     public static final int DEFAULT_BG_WIDTH = 800;
     public static final int DEFAULT_BG_HEIGHT = 800;
 
-    private ArrayList<Turtle> myTurtleInfo;
-    private ArrayList<TurtleView> myTurtles;
+    private TurtleManager myTurtleManager;
+    /*private ArrayList<Turtle> myTurtleInfo;
+    private ArrayList<TurtleView> myTurtles;*/
 
     private View myView;
     private ScrollPane scrollPane;
@@ -58,12 +59,20 @@ public class DisplayView implements SubView, Observer {
         //add turtle to scroll pane
         root.getChildren().add(bg);
         //create turtle array and default turtle
-        myTurtleInfo = new ArrayList<>();
+        /*myTurtleInfo = new ArrayList<>();
         myTurtleInfo.add(turtle);
         //create turtleview array and default turtleview
         myTurtles = new ArrayList<>();
-        myTurtles.add(new TurtleView(myPen,root));
+        myTurtles.add(new TurtleView(myPen,root));*/
         scrollPane.setContent(root);
+        myTurtleManager = new TurtleManager(root);
+        myTurtleManager.createTurtle("0");
+        myTurtleManager.setActive("0",false);
+        /*TurtleManager turtleManager = new TurtleManager(root);
+        turtleManager.createTurtle("1");
+        turtleManager.setDuration(10);
+        turtleManager.moveTurtle("1",new Coordinate(500,300,0));
+        turtleManager.updateTurtles();*/
     }
 
     public void clearBg() {
@@ -75,80 +84,59 @@ public class DisplayView implements SubView, Observer {
     }
 
     public void setPenDown(boolean state) {
-        for(TurtleView turtle : myTurtles){
-            if(state){
-                turtle.penDown();
-            }
-            else{
-                turtle.penUp();
-            }
+        if(state){
+            myTurtleManager.penDown();
+        }
+        else{
+            myTurtleManager.penUp();
         }
     }
 
     public void changePenColor(Color penColor) {
-        myPen.setPenColor(penColor);
+        myTurtleManager.setPenColor(penColor);
     }
 
     public void changePenSize(double size) {
-        myPen.setPenSize(size);
+        myTurtleManager.setPenSize(size);
     }
 
-    public void hideTurtle() {
+    /*public void hideTurtle() {
         for(TurtleView turtle : myTurtles){
             turtle.hide();
         }
+    }*/
+
+    public void hideTurtle(String id) {
+        myTurtleManager.hide(id);
     }
 
-    public void hideTurtle(int index) {
-        if(index>0 && index<myTurtles.size()){
-            myTurtles.get(index).hide();
-        }
-    }
-
-    public void showTurtle() {
+    /*public void showTurtle() {
         for(TurtleView turtle : myTurtles){
             turtle.show();
         }
-    }
+    }*/
 
-    public void showTurtle(int index) {
-        if(index>0 && index<myTurtles.size()){
-            myTurtles.get(index).show();
-        }
+    public void showTurtle(String id) {
+        myTurtleManager.show(id);
     }
 
     public void changeTurtleSize(double size) {
-        for(TurtleView turtle : myTurtles){
-            turtle.setSize(size);
-        }
+        myTurtleManager.setTurtleSize(size);
     }
 
-    public void changeTurtleSize(int index, double size) {
-        if(index>0 && index<myTurtles.size()){
-            myTurtles.get(index).setSize(size);
-        }
+    public void changeTurtleSize(String id, double size) {
+        myTurtleManager.setTurtleSize(id,size);
     }
 
     public void changeTurtleImg(Image image) {
-        for(TurtleView turtle : myTurtles){
-            turtle.setSprite(image);
-        }
+        myTurtleManager.setTurtleImage(image);
     }
-
-    public void changeTurtleImg(int index, Image image) {
-        if(index>0 && index<myTurtles.size()){
-            myTurtles.get(index).setSprite(image);
-        }
-    }
-
 
     public void changeAnimationSpeed(Double time) {
-        for(TurtleView turtle : myTurtles){
-            turtle.setSpeed(time);
-        }
+        myTurtleManager.setDuration(time);
     }
 
-    //TODO: REIMPLEMENT MOVEMENT SYSTEM TO BE RELATIVE RATHER THAN ABSOLUTE
+    /*//TODO: REIMPLEMENT MOVEMENT SYSTEM TO BE RELATIVE RATHER THAN ABSOLUTE
     public void updateTurtle(Coordinate newpos) {
         //increase background size if needed
         if (newpos.getX() > bg.getX() + bg.getWidth() || newpos.getX() < bg.getX() ||
@@ -159,9 +147,9 @@ public class DisplayView implements SubView, Observer {
         for(TurtleView turtle: myTurtles){
             turtle.moveTo(newpos);
         }
-    }
+    }*/
 
-    public void updateTurtle(int index, Coordinate newpos) {
+    /*public void updateTurtle(int index, Coordinate newpos) {
         //increase background size if needed
         if (newpos.getX() > bg.getX() + bg.getWidth() || newpos.getX() < bg.getX() ||
                 newpos.getY() > bg.getY() + bg.getHeight() || newpos.getY() < bg.getY()) {
@@ -171,9 +159,9 @@ public class DisplayView implements SubView, Observer {
         if(index>0 && index<myTurtles.size()){
             myTurtles.get(index).moveTo(newpos);
         }
-    }
+    }*/
 
-    public void playAnims() {
+    /*public void playAnims() {
         System.out.println("Playing anims");
         for(TurtleView turtle : myTurtles){
             turtle.playAnimation();
@@ -185,7 +173,7 @@ public class DisplayView implements SubView, Observer {
         if(index>0 && index<myTurtles.size()){
             myTurtles.get(index).playAnimation();
         }
-    }
+    }*/
 
     private void expandBackground(double amount) {
         System.out.println("Expanding bg by " + amount);
@@ -211,16 +199,39 @@ public class DisplayView implements SubView, Observer {
         System.out.println("Updated Turtle received by DisplayView:"+ arg);
         TurtleLeaf updatedTurtle = (TurtleLeaf) o;
         if (arg != null) {
-            System.out.println("yo");
-            //Turtle oldTurtle = myTurtleInfo.get(updatedTurtle.getId());
-            // change the corresponding turtle's position in the turtleInfo list
-            //oldTurtle.setX(updatedTurtle.getX());
-            playAnims();
+            System.out.println("Updating animations");
+            //Change displayview settings based on info stored in turtle
+            //getSettings((TurtleLeaf) o);
+            getSettings((TurtleLeaf) o);
+            myTurtleManager.updateTurtles();
         } else {
-            System.out.println("null");
-            myTurtleInfo.set(0,(Turtle)o);
+            System.out.println("Received update");
+            /*myTurtleInfo.set(0,(Turtle)o);
             System.out.println(myTurtleInfo.get(0).getX() + " " + myTurtleInfo.get(0).getY() + " " + myTurtleInfo.get(0).getDirection());
-            updateTurtle(adjustPosition(myTurtleInfo.get(0).getX(), myTurtleInfo.get(0).getY(), myTurtleInfo.get(0).getDirection()));
+            updateTurtle(adjustPosition(myTurtleInfo.get(0).getX(), myTurtleInfo.get(0).getY(), myTurtleInfo.get(0).getDirection()));*/
+            Coordinate newPosition = adjustPosition(((TurtleLeaf) o).getX(),((TurtleLeaf) o).getY(),((TurtleLeaf) o).getDirection());
+            if (newPosition.getX() > bg.getX() + bg.getWidth() || newPosition.getX() < bg.getX() ||
+                    newPosition.getY() > bg.getY() + bg.getHeight() || newPosition.getY() < bg.getY()) {
+                expandBackground(Math.max(Math.abs(newPosition.getX() - bg.getX()), Math.abs(newPosition.getY() - bg.getY())));
+            }
+            myTurtleManager.moveTurtle(String.valueOf(((TurtleLeaf) o).getId()),newPosition);
         }
     }
+
+    private void getSettings(TurtleLeaf o) {
+        setPenDown(o.getIsPenDown());
+        if(o.getIsShowing()){
+            showTurtle(String.valueOf(o.getId()));
+        }
+        else{
+            hideTurtle(String.valueOf(o.getId()));
+        }
+        changeBgColor(o.getBgColor());
+        System.out.println(o.getBgColor()==null);
+        changePenColor(o.getPenColor());
+        System.out.println(o.getPenColor().toString());
+        changePenSize(o.getPenSize());
+        System.out.println(o.getPenSize());
+    }
+
 }
