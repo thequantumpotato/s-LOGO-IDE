@@ -2,10 +2,11 @@ package backend.Commands;
 
 public class Number extends LeafNode {
 
-    private Double value;
+    private double value;
 
-    public Number(String value) {
-        this.value = Double.parseDouble(value);
+    public Number(String val) {
+        this.value = Double.parseDouble(val);
+        System.out.println("Got you");
     }
 
     @Override

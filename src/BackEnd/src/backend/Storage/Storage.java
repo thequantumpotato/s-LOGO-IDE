@@ -2,35 +2,42 @@ package backend.Storage;
 
 import backend.Commands.Node;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Storage {
 
     private Map<String, Variable> vMap;
     private Map<String, Instruction> iMap;
+    private HashSet<String> varNames;
 
     public Storage(){
         vMap = new HashMap<>();
         iMap = new HashMap<>();
+        varNames = new HashSet<>();
     }
 
     public Object getVar(String name){
-        return vMap.get(name).getValue();
+        if(vMap.containsKey(name)){
+            return vMap.get(name).getValue();
+        }
+        return null;
+    }
+
+    public boolean hasVar(String name){
+
+        return (vMap.containsKey(name) || varNames.contains(name));
     }
 
     public List<Node> getIns(String name){
-        return iMap.get(name).getInstruction();
+        if(iMap.containsKey(name)){
+            return iMap.get(name).getInstruction();
+        }
+        return null;
     }
 
-    public boolean makeVar(String name, Object val){
-        if(vMap.keySet().contains(name)){
-            return false;
-        }
+    public void makeVar(String name, Object val){
+        varNames.add(name);
         vMap.put(name, new Variable(name, val));
-        return true;
     }
 
     public boolean makeIns(String name, List<Node> commands){
@@ -39,6 +46,15 @@ public class Storage {
         }
         iMap.put(name, new Instruction(name, commands));
         return true;
+    }
+
+    public void removeVar(String name){
+        vMap.remove(name);
+        varNames.remove(name);
+    }
+
+    public void addVarName(String name){
+        varNames.add(name);
     }
 
     /**
