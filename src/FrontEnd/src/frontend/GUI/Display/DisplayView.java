@@ -200,10 +200,12 @@ public class DisplayView implements SubView, Observer {
         TurtleLeaf updatedTurtle = (TurtleLeaf) o;
         if (arg != null) {
             System.out.println("Updating animations");
-            //Turtle oldTurtle = myTurtleInfo.get(updatedTurtle.getId());
-            // change the corresponding turtle's position in the turtleInfo list
-            //oldTurtle.setX(updatedTurtle.getX());
-            /*playAnims();*/
+            //Change displayview settings based on info stored in turtle
+            setPenDown(((TurtleLeaf) o).getIsPenDown());
+            if(((TurtleLeaf) o).getIsShowing()){
+                showTurtle(String.valueOf(((TurtleLeaf) o).getId()));
+            }
+            
             myTurtleManager.updateTurtles();
         } else {
             System.out.println("Received update");
