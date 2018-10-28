@@ -4,8 +4,8 @@ import backend.IllegalCommandException;
 import backend.ModelController;
 import backend.Turtle;
 import backend.TurtleGroup;
-import frontend.ExternalAPI.ViewAPI;
 import frontend.GUI.View;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.util.*;
@@ -21,23 +21,25 @@ public class Controller {
     public static final String commandError = "Errors";
     public static final String LANG_PATH = "languages/";
     public static final String SYNTAX = "languages/Syntax";
-    private ViewAPI myView;
+    private View myView;
     private Turtle myTurtle;
-    private ViewControl viewControl;
     private ModelController modelController;
     private List<Map.Entry<String, Pattern>> mySymbols;
     private ResourceBundle myErrors;
-    private Stage myStage;
-    private String myLang;
+
+    public Turtle getMyTurtle() {
+        return myTurtle;
+    }
+
+    public GridPane getMyView() {
+        return myView.getMyGridPane();
+    }
 
     public Controller(Stage primaryStage, String language) {
-        myStage = primaryStage;
-        myLang = language;
         myTurtle = new TurtleGroup();
         myErrors = ResourceBundle.getBundle(commandError);
         setUpFrontEnd(primaryStage, language);
         setUpBackEnd(language);
-//        viewControl = new ViewControl(myView.getMyDisplayView());
     }
 
     public void setUpBackEnd(String language) {
@@ -52,14 +54,6 @@ public class Controller {
         myView.registerDisplay(myTurtle);
     }
 
-    public void addTab(){
-        Turtle temp = new TurtleGroup();
-        myView.addTab(temp, myLang);
-        myView.registerDisplay(temp);
-        modelController = new ModelController(temp, mySymbols);
-    }
-
-    // TODO: 10/25/18 Figure out how to render different error types for user command
     public void runCommand(String input) {
         if (input.isEmpty()) {
             myView.displayErrors("Please enter a command!");

@@ -1,5 +1,6 @@
 package main;
 
+import frontend.GUI.TabView;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -13,6 +14,6 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setResizable(false);
-        new Controller(primaryStage, DEFAULT_LANGUAGE);
+        new TabView(primaryStage, DEFAULT_LANGUAGE);
     }
 }

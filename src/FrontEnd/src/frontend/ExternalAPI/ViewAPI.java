@@ -57,6 +57,6 @@ public interface ViewAPI {
     void updateHistory(String validInput);
 
 
-    void addTab(Turtle turtle, String initLang);
+//    void addTab(Turtle turtle, String initLang);
 
 }
