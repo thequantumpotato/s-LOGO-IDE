@@ -227,11 +227,11 @@ public class DisplayView implements SubView, Observer {
             hideTurtle(String.valueOf(o.getId()));
         }
         changeBgColor(o.getBgColor());
-        System.out.println(o.getBgColor().toString());
+        System.out.println(o.getBgColor()==null);
         changePenColor(o.getPenColor());
         System.out.println(o.getPenColor().toString());
-        changePenSize(o.getSize());
-        System.out.println(o.getSize());
+        changePenSize(o.getPenSize());
+        System.out.println(o.getPenSize());
     }
 
 }
