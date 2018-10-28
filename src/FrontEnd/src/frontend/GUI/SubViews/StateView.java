@@ -1,13 +1,18 @@
 package frontend.GUI.SubViews;
 
 import frontend.API.SubView;
+import frontend.GUI.View;
 import javafx.scene.Node;
 import javafx.scene.control.TitledPane;
 
 public class StateView implements SubView {
-    TitledPane stateView;
+    private TitledPane stateView;
+    private View myView;
 
 
+    public StateView(View myView_){
+
+    }
 
 
 
