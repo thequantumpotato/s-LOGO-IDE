@@ -56,7 +56,7 @@ public class TreeFactory {
                     nextChild = generateList(commands);
                     commands.remove(0); //Remove that ending bracket!
                 }
-                else if(isVariable(commands.get(0))){ //the only way a child here would be a variable is if its a make/set
+                else if(isVariable(commands.get(0)) & command.equals("MakeVariable")){ //the only way a child here would be a variable is if its a make/set
                     nextChild = newVariable(commands);
                 }
                 else {
