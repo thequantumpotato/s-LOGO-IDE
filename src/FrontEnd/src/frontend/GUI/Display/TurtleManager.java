@@ -18,7 +18,7 @@ public class TurtleManager extends Manager {
 
     private Group myRenderTarget;
     private ArrayList<String> myTurtles;
-    private SpriteManager mySpriteManager;
+    private SpriteContainer mySpriteContainer;
     private AnimationContainer myAnimationContainer;
     private MovementManager myMovementManager;
     private PathManager myPathManager;
@@ -29,7 +29,7 @@ public class TurtleManager extends Manager {
         super();
         myRenderTarget = renderTarget;
         myTurtles = new ArrayList<>();
-        mySpriteManager = new SpriteManager(renderTarget);
+        mySpriteContainer = new SpriteContainer(renderTarget);
         myAnimationContainer = new AnimationContainer();
         myMovementManager = new MovementManager();
         myPathManager =  new PathManager(myRenderTarget);
@@ -39,23 +39,23 @@ public class TurtleManager extends Manager {
      *  @param id The identifier for the turtle being created */
     public void createTurtle(String id){
         myTurtles.add(id);
-        mySpriteManager.addTurtle(id);
-        mySpriteManager.getTurtle(id).setPosition(new Coordinate(ORIGIN_X,ORIGIN_Y,0));
+        mySpriteContainer.addTurtle(id);
+        mySpriteContainer.getTurtle(id).setPosition(new Coordinate(ORIGIN_X,ORIGIN_Y,0));
     }
 
     /** Move the specified turtle to a new position through animation
      *  @param id The identifier for the turtle to move
      *  @param newPosition The {@code Coordinate} to move the turtle to */
     public void moveTurtle(String id, Coordinate newPosition){
-        myPathManager.addPath(id, new Line(mySpriteManager.getTurtle(id).getPosition().getX()+mySpriteManager.getSpriteSize()/2,mySpriteManager.getTurtle(id).getPosition().getY()+mySpriteManager.getSpriteSize()/2,
-                newPosition.getX()+mySpriteManager.getSpriteSize()/2,newPosition.getY()+mySpriteManager.getSpriteSize()/2));
-        myMovementManager.addTurtleAnimation(id,mySpriteManager.getTurtle(id),mySpriteManager.getTurtle(id).getPosition(),newPosition);
+        myPathManager.addPath(id, new Line(mySpriteContainer.getTurtle(id).getPosition().getX()+ mySpriteContainer.getSpriteSize()/2, mySpriteContainer.getTurtle(id).getPosition().getY()+ mySpriteContainer.getSpriteSize()/2,
+                newPosition.getX()+ mySpriteContainer.getSpriteSize()/2,newPosition.getY()+ mySpriteContainer.getSpriteSize()/2));
+        myMovementManager.addTurtleAnimation(id, mySpriteContainer.getTurtle(id), mySpriteContainer.getTurtle(id).getPosition(),newPosition);
     }
 
     /** Update the visual display of the turtle with animations after {@code moveTurtle()} has been run */
     public void updateTurtles(){
         for(String id: myTurtles){
-            mySpriteManager.getTurtle(id).toFront();
+            mySpriteContainer.getTurtle(id).toFront();
             myMovementManager.playTurtleAnimation(id);
             myPathManager.playPathDrawAnimation(id);
         }
@@ -64,13 +64,20 @@ public class TurtleManager extends Manager {
     /** Render the specified turtle to the root
      *  @param id The identifier for the turtle to render */
     public void show(String id){
-        mySpriteManager.getTurtle(id).show();
+        mySpriteContainer.getTurtle(id).show();
     }
 
     /** Hide the specified turtle on the display
      *  @param id The identifier for the turtle to hide */
     public void hide(String id){
-        mySpriteManager.getTurtle(id).hide();
+        mySpriteContainer.getTurtle(id).hide();
+    }
+
+    /** Sets the active or inactive state of a sprite
+     *  @param id The identifier for the turtle to change state
+     *  @param state False means inactive, True means active */
+    public void setActive(String id, boolean state){
+        mySpriteContainer.setActive(id,state);
     }
 
     /** Sets duration of all time-based turtle operations
@@ -85,7 +92,7 @@ public class TurtleManager extends Manager {
     /** Resets the display */
     @Override
     public void reset() {
-        mySpriteManager.killAllTurtles();
+        mySpriteContainer.killAllTurtles();
         myAnimationContainer.killAllAnimations();
         myMovementManager.reset();
         myPathManager.reset();

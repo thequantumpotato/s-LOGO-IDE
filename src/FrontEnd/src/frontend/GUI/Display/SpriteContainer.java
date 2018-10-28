@@ -14,14 +14,14 @@ import static frontend.GUI.Display.TurtleView.TURTLE_SIZE;
  * This class manages the sprites contained in {@code DisplayView}
  * @author bpx
  */
-public class SpriteManager {
+public class SpriteContainer {
     private Group myRenderTarget;
     private HashMap<String,Sprite> mySprites;
     private String mySpritePath;
     private double mySpriteSize;
 
-    /** Constructor initializes a new SpriteManager with all default settings*/
-    public SpriteManager(Group renderTarget){
+    /** Constructor initializes a new SpriteContainer with all default settings*/
+    public SpriteContainer(Group renderTarget){
         myRenderTarget = renderTarget;
         mySprites = new HashMap<>();
         mySpritePath = TURTLE_IMAGE;
@@ -69,6 +69,18 @@ public class SpriteManager {
             return new Sprite(new Image(this.getClass().getClassLoader().getResourceAsStream(mySpritePath)));
         }
 
+    }
+
+    /** Sets a sprite to be active or inactive visually
+     *  @param id The identifier for the turtle to change
+     *  @param state Active is true, inactive is false*/
+    public void setActive(String id, boolean state){
+        if(state){
+            mySprites.get(id).setActive();
+        }
+        else{
+            mySprites.get(id).setInactive();
+        }
     }
 
     /** Remove all entries from the HashMap of sprites*/
