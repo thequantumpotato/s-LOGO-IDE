@@ -40,7 +40,7 @@ public class SettingView implements SubView {
         Label speedLabel = new Label("Animation Speed: " + myView.DEFAULT_PEN_TIME);
         Slider speedSlider = new Slider();
         speedSlider.setMin(1);
-        speedSlider.setMax(10);
+        speedSlider.setMax(100);
         speedSlider.setValue(myView.DEFAULT_PEN_TIME);
         speedSlider.setShowTickMarks(true);
         speedSlider.setShowTickLabels(true);

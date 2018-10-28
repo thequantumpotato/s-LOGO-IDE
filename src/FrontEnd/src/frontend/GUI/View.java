@@ -1,7 +1,6 @@
 package frontend.GUI;
 
 import backend.Turtle;
-import backend.TurtleGroup;
 import frontend.API.ViewInternalAPI;
 import frontend.ExternalAPI.ViewAPI;
 import frontend.GUI.Display.DisplayView;
@@ -33,13 +32,14 @@ import java.util.Map;
  */
 // TODO: 10/25/18 Make the windows expand and contract --- Accordion and TitlePane
 // TODO: 10/25/18 Create controller and turtle for the different panes
+// TODO: 10/28/18 Incoporate Urdu in just 1 change! 
 public class View implements ViewInternalAPI, ViewAPI {
     public static final String TITLE = "SLogo";
     public static final String STYLESHEET = "style.css";
     public static final int SCREEN_WIDTH = 1000;
     public static final int SCREEN_HEIGHT = 700;
     public final int FRAMES_PER_SECOND = 60;
-    public final int DEFAULT_PEN_TIME = 1;
+    public final int DEFAULT_PEN_TIME = 10;
     public final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     public final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
     private final String myLang;
@@ -83,7 +83,7 @@ public class View implements ViewInternalAPI, ViewAPI {
         addTab(myTurtle, initLang);
     }
 
-    private void addTab(Turtle turtle, String initLang) {
+    public void addTab(Turtle turtle, String initLang) {
         GridPane newGridPane = createGridPane(turtle, initLang);
         newGridPane.setMaxHeight(SCREEN_HEIGHT - 35);
         addToTabPane(newGridPane);
@@ -126,7 +126,7 @@ public class View implements ViewInternalAPI, ViewAPI {
         addButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                addTab(new TurtleGroup(), myLang);
+                myController.addTab();
             }
         });
         anchorPane.getChildren().addAll(tabPane, addButton);
@@ -218,7 +218,7 @@ public class View implements ViewInternalAPI, ViewAPI {
 
     @Override
     public void changeLanguage(String language) {
-        new Controller(myStage, language);
+        myController.setUpBackEnd(language);
     }
 
     @Override
