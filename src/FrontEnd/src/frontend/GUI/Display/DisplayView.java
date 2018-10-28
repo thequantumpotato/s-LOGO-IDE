@@ -69,6 +69,8 @@ public class DisplayView implements SubView, Observer {
         turtleManager.setDuration(10);
         turtleManager.moveTurtle("1",new Coordinate(500,300,0));
         turtleManager.updateTurtles();
+        turtleManager.moveTurtle("1",new Coordinate(550,300,0));
+        turtleManager.updateTurtles();
     }
 
     public void clearBg() {
