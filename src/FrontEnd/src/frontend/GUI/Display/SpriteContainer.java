@@ -14,14 +14,14 @@ import static frontend.GUI.Display.TurtleView.TURTLE_SIZE;
  * This class manages the sprites contained in {@code DisplayView}
  * @author bpx
  */
-public class SpriteManager {
+public class SpriteContainer {
     private Group myRenderTarget;
-    private HashMap<String,ImageView> mySprites;
+    private HashMap<String,Sprite> mySprites;
     private String mySpritePath;
     private double mySpriteSize;
 
-    /** Constructor initializes a new SpriteManager with all default settings*/
-    public SpriteManager(Group renderTarget){
+    /** Constructor initializes a new SpriteContainer with all default settings*/
+    public SpriteContainer(Group renderTarget){
         myRenderTarget = renderTarget;
         mySprites = new HashMap<>();
         mySpritePath = TURTLE_IMAGE;
@@ -44,6 +44,11 @@ public class SpriteManager {
         }
     }
 
+    /** Returns a non-modifiable copy of the current sprite size */
+    public double getSpriteSize(){
+        return Double.valueOf(mySpriteSize);
+    }
+
     /** Add a new {@code Sprite} using current settings
      *  @param id The identifier for the {@code Sprite} in the HashMap*/
     public void addTurtle(String id){
@@ -56,8 +61,26 @@ public class SpriteManager {
 
     /** Retrieve a sprite from the HashMap
      * @param id The identifier for the sprite that will be retrieved*/
-    public ImageView getTurtle(String id){
-        return mySprites.get(id);
+    public Sprite getTurtle(String id){
+        if(mySprites.containsKey(id)){
+            return mySprites.get(id);
+        }
+        else{
+            return new Sprite(new Image(this.getClass().getClassLoader().getResourceAsStream(mySpritePath)));
+        }
+
+    }
+
+    /** Sets a sprite to be active or inactive visually
+     *  @param id The identifier for the turtle to change
+     *  @param state Active is true, inactive is false*/
+    public void setActive(String id, boolean state){
+        if(state){
+            mySprites.get(id).setActive();
+        }
+        else{
+            mySprites.get(id).setInactive();
+        }
     }
 
     /** Remove all entries from the HashMap of sprites*/

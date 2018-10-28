@@ -1,39 +1,80 @@
 package frontend.GUI.Display;
 
-import frontend.Util.AnimationContainer;
-import frontend.Util.LinePath;
-import frontend.Util.PathTracer;
+import frontend.Util.*;
+import javafx.scene.Group;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Path;
+import javafx.util.Duration;
+
 import java.util.ArrayList;
+
+import static frontend.GUI.Display.TurtleManager.ORIGIN_X;
+import static frontend.GUI.Display.TurtleManager.ORIGIN_Y;
 
 
 /** Class for the management of line drawing on the display
  *  @author bpx */
 public class PathManager extends Manager{
-    public static final String PATH_KEY = "path";
+
+    private boolean penDown;
+    private Group myRenderTarget;
+    private Pen myPen;
     private ArrayList<Path> myPaths;
     private AnimationContainer myAnimationContainer;
 
-
-
-    public PathManager(){
+    /** Default constructor */
+    public PathManager(Group root){
         super();
+        penDown = true;
+        myRenderTarget = root;
+        myPen = new Pen(new Coordinate(ORIGIN_X,ORIGIN_Y,0));
+        myPen.setRoot(myRenderTarget);
         myPaths =  new ArrayList<>();
         myAnimationContainer = new AnimationContainer();
-
     }
 
-    public void addPath(Line...lines){
-        LinePath newpath = new LinePath();
-        for(Line l : lines){
-            newpath.addLine(l);
+    /** Adds any number of {@code Line} objects to the {@code Path} and generates the appropriate animations
+     *  @param id The identifier for the turtle for which this path applies to
+     *  @param lines The {@code Line} objects that will be added to the {@code Path}*/
+    public void addPath(String id, Line...lines){
+        if(penDown){
+            LinePath newpath = new LinePath();
+            for(Line l : lines){
+                newpath.addLine(l);
+            }
+            if(penDown){
+                myAnimationContainer.addAnimation(id,myPen.drawLinePath(newpath));
+            }
+            else{
+                myPen.movePen(new Coordinate(lines[lines.length-1].getEndX(),lines[lines.length-1].getEndY(),0));
+            }
         }
-
-        PathTracer pathTracer = new PathTracer(super.getDuration().toSeconds(),newpath);
-        myAnimationContainer.addAnimation(PATH_KEY,pathTracer.getTracer());
     }
 
+    /** Plays the {@code PathTracer} animation for the specified turtle
+     *  @param id The turtle to play the animation for */
+    public void playPathDrawAnimation(String id){
+        myAnimationContainer.play(id);
+    }
+
+
+    /** Sets the duration of the pen drawing animation
+     *  @param duration The duration in seconds for the animation to take*/
+    public void setDuration(double duration){
+        myPen.setDrawSpeed(Duration.seconds(duration));
+    }
+
+    /** Stop drawing lines */
+    public void penUp(){
+        penDown = false;
+    }
+
+    /** Start drawing lines */
+    public void penDown(){
+        penDown = true;
+    }
+
+    /** Resets {@code PathManager} fields to default state */
     @Override
     public void reset(){
         myPaths.clear();
