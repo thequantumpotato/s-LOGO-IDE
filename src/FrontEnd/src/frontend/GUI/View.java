@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * View is an aggregate of all the Nodes and is one level lower than TabView. It puts all the sub-components
+ * View is an aggregate of all the Nodes and is one level lower than Controller. It puts all the sub-components
  * together while specifying all the APIs needed for them to interact with each other or to the external world.
  *
  * Multiple such gridPanes can be initialized inside TabView to be the content of a single tab and they will
@@ -28,8 +28,7 @@ import java.util.Map;
  */
 // TODO: 10/25/18 Make the windows expand and contract --- Accordion and TitlePane
 // TODO: 10/25/18 Create controller and turtle for the different panes
-// TODO: 10/28/18 Incoporate Urdu in just 1 change!
-// TODO: 10/28/18 Add Palette 
+// TODO: 10/28/18 Add Palette
 public class View implements ViewInternalAPI, ViewAPI {
     public final int DEFAULT_PEN_TIME = 10;
     private final Turtle myTurtle;
@@ -57,10 +56,6 @@ public class View implements ViewInternalAPI, ViewAPI {
 
     public Stage getMyStage() {
         return myStage;
-    }
-
-    public GridPane getMyGridPane() {
-        return myGridPane;
     }
 
     /**
@@ -162,6 +157,11 @@ public class View implements ViewInternalAPI, ViewAPI {
     @Override
     public void passCommand(String input) {
         myController.runCommand(input);
+    }
+
+    @Override
+    public GridPane getMyGridPane() {
+        return myGridPane;
     }
 
     @Override

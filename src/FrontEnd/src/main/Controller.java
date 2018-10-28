@@ -4,6 +4,7 @@ import backend.IllegalCommandException;
 import backend.ModelController;
 import backend.Turtle;
 import backend.TurtleGroup;
+import frontend.ExternalAPI.ViewAPI;
 import frontend.GUI.View;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -13,7 +14,8 @@ import java.util.regex.Pattern;
 
 /**
  * Controller mediates the communications between the ViewAPI and the Model. <br>
- * Controller is initialized when the main.Main.txt starts running. It will contain an instance of ViewAPI and ModelController.
+ * Controller is initialized when a tab is added inside TabView. Each controller contains an instance of
+ * Turtle, ViewAPI, and ModelController.
  *
  * @author Vincent Liu
  */
@@ -21,19 +23,11 @@ public class Controller {
     public static final String commandError = "Errors";
     public static final String LANG_PATH = "languages/";
     public static final String SYNTAX = "languages/Syntax";
-    private View myView;
+    private ViewAPI myView;
     private Turtle myTurtle;
     private ModelController modelController;
     private List<Map.Entry<String, Pattern>> mySymbols;
     private ResourceBundle myErrors;
-
-    public Turtle getMyTurtle() {
-        return myTurtle;
-    }
-
-    public GridPane getMyView() {
-        return myView.getMyGridPane();
-    }
 
     public Controller(Stage primaryStage, String language) {
         myTurtle = new TurtleGroup();
@@ -95,7 +89,6 @@ public class Controller {
     /**
      * Adds the given resource file to this language's recognized types
      */
-    // TODO move this stuff to a utility class
     private void addPatterns(String syntax) {
         var resources = ResourceBundle.getBundle(syntax);
         for (var key : Collections.list(resources.getKeys())) {
@@ -117,5 +110,13 @@ public class Controller {
         } catch (Exception e) {
             throwErrorByType(e);
         }
+    }
+
+    public Turtle getMyTurtle() {
+        return myTurtle;
+    }
+
+    public GridPane getMyView() {
+        return myView.getMyGridPane();
     }
 }
