@@ -26,11 +26,9 @@ public class ModelController {
     public ModelController(Turtle turtle, List<Map.Entry<String, Pattern>> symbolList) {
         mySymbols = symbolList;
         interpreter = new Interpreter(symbolList);
-        //commander = new Command(this, turtle);
         myTurtle = turtle;
-//        myReflector = new Reflector(myTurtle);
-        myTreeFactory = new TreeFactory(myTurtle);
-        this.myStorage = new Storage();
+        myStorage = new Storage();
+        myTreeFactory = new TreeFactory(myTurtle, myStorage);
     }
 
     /**
@@ -39,6 +37,9 @@ public class ModelController {
     public void parseCommand(String input) throws Exception {
         //returns a list of root nodes. e.g. [Forward, 50]
         List<String> commands = interpreter.parse(input);
+        for(String command:commands){
+            System.out.println(command);
+        }
         //Turn our command arraylist into a tree structure of command nodes
         myCommands = myTreeFactory.getRoots(commands);
         System.out.println("My turtle before running command: " + myTurtle.getTurtleLeaf(0));

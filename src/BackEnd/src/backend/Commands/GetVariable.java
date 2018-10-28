@@ -11,6 +11,7 @@ public class GetVariable extends RootNode {
         super(storage, turtle, children);
     }
 
+
     @Override
     public Object run() {
         List<Object> l = runChildren();
