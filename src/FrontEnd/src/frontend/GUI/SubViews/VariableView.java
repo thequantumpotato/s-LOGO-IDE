@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TitledPane;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.VBox;
@@ -23,7 +24,7 @@ import java.util.Map;
 
 public class VariableView implements SubView {
 
-    private VBox variableView;
+    private TitledPane variableView;
     private TableView variableList;
     private TableColumn<Variable, String> name;
     private TableColumn<Variable, String> value;
@@ -38,8 +39,7 @@ public class VariableView implements SubView {
     }
 
     private void setUpTable() {
-        Label title = new Label("Variables");
-        setUpBox(title);
+        setUpBox("Variables");
         setUpNameCol();
         setUpValCol();
     }
@@ -78,9 +78,10 @@ public class VariableView implements SubView {
         name.setOnEditCommit((TableColumn.CellEditEvent<Variable, String> t) -> updateVarName(t));
     }
 
-    private void setUpBox(Label title) {
-        variableView = new VBox();
-        variableView.getChildren().addAll(title, variableList);
+    private void setUpBox(String title) {
+        variableView = new TitledPane();
+        variableView.setText(title);
+        variableView.setContent(variableList);
         variableView.getStyleClass().add("variableView");
     }
 

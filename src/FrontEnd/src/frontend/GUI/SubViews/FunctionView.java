@@ -6,6 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TitledPane;
 import javafx.scene.layout.VBox;
 
 import java.util.List;
@@ -26,8 +27,8 @@ import java.util.List;
 public class FunctionView implements SubView {
 
 
-    private VBox functionView;
-    private ListView functionList;
+    private final TitledPane functionView = new TitledPane();
+    private final ListView functionList = new ListView();
     private View myView;
 
     public FunctionView(View myView_) {
@@ -36,10 +37,8 @@ public class FunctionView implements SubView {
     }
 
     private void setUpList() {
-        functionView = new VBox();
-        Label title = new Label("User-defined Function");
-        functionList = new ListView();
-        functionView.getChildren().addAll(title, functionList);
+        functionView.setText("Functions");
+        functionView.setContent(functionList);
         functionView.getStyleClass().add("functionView");
     }
 

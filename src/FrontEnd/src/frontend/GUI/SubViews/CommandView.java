@@ -22,6 +22,7 @@ import java.util.Scanner;
  * @author Vincent Liu
  */
 // TODO: 10/25/18 Reset turtle button
+// TODO: 10/28/18 add Save Button 
 public class CommandView implements SubView {
     private GridPane commandView;
     private TextArea input;
