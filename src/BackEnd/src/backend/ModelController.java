@@ -62,9 +62,8 @@ public class ModelController {
         return myStorage.getVarMap();
     }
 
-    public Map<String, String> updateFunc() {
-//        return myStorage.getInsList();
-        return new HashMap<String, String>();
+    public List<String> updateFunc() {
+        return myStorage.getInsList();
     }
 
 }

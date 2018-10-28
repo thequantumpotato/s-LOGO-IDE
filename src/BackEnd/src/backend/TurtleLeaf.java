@@ -19,6 +19,11 @@ public class TurtleLeaf extends Observable implements Turtle {
     private boolean penDown;
     private boolean showing;
     private Integer id;
+    private Color bgColor;
+    private Color penColor;
+    private double penSize;
+    private int shape;
+    private boolean isActive;
 
     public Integer getId() {
         return id;
@@ -26,6 +31,7 @@ public class TurtleLeaf extends Observable implements Turtle {
 
     public TurtleLeaf(Integer id) {
         this.id = id;
+        this.isActive = true;
     }
 
     @Override
@@ -43,16 +49,22 @@ public class TurtleLeaf extends Observable implements Turtle {
     }
 
     public void move(double distance) {
+        if(!isActive)
+            return;
         this.setX(x + distance * Math.cos(direction));
         this.setY(y + distance * Math.sin(direction));
     }
 
     public void setPosition(double x, double y) {
+        if(!isActive)
+            return;
         this.setX(x);
         this.setY(y);
     }
 
     public void turn(double angle) {
+        if(!isActive)
+            return;
         direction += angle / 360 * 2 * Math.PI;
         if (direction >= 2 * Math.PI) {
             direction -= 2 * Math.PI;
@@ -64,12 +76,16 @@ public class TurtleLeaf extends Observable implements Turtle {
 
     @Override
     public void penUp() {
-
+        if(!isActive)
+            return;
+        this.penDown = false;
     }
 
     @Override
     public void penDown() {
-
+        if(!isActive)
+            return;
+        this.penDown = true;
     }
 
     public void Changed() {
@@ -81,6 +97,8 @@ public class TurtleLeaf extends Observable implements Turtle {
     }
 
     public void setHeading(double angle) {
+        if(!isActive)
+            return;
         direction = angle;
     }
 
@@ -93,6 +111,8 @@ public class TurtleLeaf extends Observable implements Turtle {
     }
 
     public void setX(double x) {
+        if(!isActive)
+            return;
         this.x = x;
     }
 
@@ -101,6 +121,8 @@ public class TurtleLeaf extends Observable implements Turtle {
     }
 
     public void setY(double y) {
+        if(!isActive)
+            return;
         this.y = y;
     }
 
@@ -120,24 +142,36 @@ public class TurtleLeaf extends Observable implements Turtle {
 
     }
 
-    //Manually add observers
-    public void addAnObserver(Observer o) {
-        addObserver(o);
-    }
-
-
 
     public void show() {
-
+        if(!isActive)
+            return;
+        showing = true;
     }
 
     public void setDirection(double Direction) {
         direction = Direction;
     }
 
+    public void setBgColor(Color color){
+        this.bgColor = color;
+    }
+    public void setPenColor(Color color){
+        this.penColor = color;
+    }
+    public void setPenSize(double size){
+        this.penSize = size;
+    }
+    public void setShape(int shape){
+        this.shape = shape;
+    }
+
+
 
     public void hide() {
-
+        if(!isActive)
+            return;
+        showing = false;
     }
 
     public Turtle getTurtleLeaf(Integer id){
@@ -147,7 +181,12 @@ public class TurtleLeaf extends Observable implements Turtle {
     public void notifyAllObservers(Object o){
         return;
     }
+
     public void notifyAllObservers(){
         return;
+    }
+
+    public void addAnObserver(Observer o){
+        this.addObserver(o);
     }
 }
