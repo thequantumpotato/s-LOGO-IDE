@@ -27,7 +27,6 @@ import java.util.Map;
  * @author Vincent Liu
  */
 // TODO: 10/25/18 Make the windows expand and contract --- Accordion and TitlePane
-// TODO: 10/25/18 Create controller and turtle for the different panes
 // TODO: 10/28/18 Add Palette
 public class View implements ViewInternalAPI, ViewAPI {
     public final int DEFAULT_PEN_TIME = 10;
@@ -65,12 +64,12 @@ public class View implements ViewInternalAPI, ViewAPI {
     private GridPane createGridPane(String initLang) {
         GridPane gridPane = new GridPane();
         gridPane.getStyleClass().add("gridPane");
-        setUpGridPane(gridPane);
+        setUpGridPaneProportion(gridPane);
         initAndAddElements(gridPane, initLang);
         return gridPane;
     }
 
-    private void setUpGridPane(GridPane gridPane) {
+    private void setUpGridPaneProportion(GridPane gridPane) {
         var column1 = new ColumnConstraints();
         column1.setPercentWidth(20);
         var column2 = new ColumnConstraints();
@@ -90,6 +89,11 @@ public class View implements ViewInternalAPI, ViewAPI {
     }
 
     private void initAndAddElements(GridPane gridPane, String initLang) {
+        initializeElements(initLang);
+        addElements(gridPane);
+    }
+
+    private void initializeElements(String initLang) {
         myDisplayView = new DisplayView(this, myTurtle);
         myCommandView = new CommandView(this);
         myVariableView = new VariableView(this);
@@ -97,6 +101,9 @@ public class View implements ViewInternalAPI, ViewAPI {
         myHistoryView = new HistoryView(this);
         myHelpView = new HelpView();
         mySettingView = new SettingView(this, initLang);
+    }
+
+    private void addElements(GridPane gridPane) {
         gridPane.add(mySettingView.getView(), 0, 0, 3, 1);
         gridPane.add(myHelpView.getView(), 0, 1, 1, 1);
         gridPane.add(myHistoryView.getView(), 0, 2, 1, 1);
@@ -111,9 +118,7 @@ public class View implements ViewInternalAPI, ViewAPI {
      **/
 
     @Override
-    public void changeBgColor(Color bgColor) {
-        myDisplayView.changeBgColor(bgColor);
-    }
+    public void changeBgColor(Color bgColor) { myDisplayView.changeBgColor(bgColor); }
 
     @Override
     public void changePenColor(Color penColor) {
@@ -160,9 +165,7 @@ public class View implements ViewInternalAPI, ViewAPI {
     }
 
     @Override
-    public GridPane getMyGridPane() {
-        return myGridPane;
-    }
+    public GridPane getMyGridPane() { return myGridPane; }
 
     @Override
     public void displayErrors(String errorMessage) {
