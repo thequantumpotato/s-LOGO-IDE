@@ -13,14 +13,17 @@ import java.util.*;
 import java.util.regex.Pattern;
 
 /**
- * Controller mediates the communications between the ViewAPI and the Model. <br>
+ * This project is implemented using MVC model, and this Controller mediates the communications
+ * between the Model and the View.
+ *
  * Controller is initialized when a tab is added inside TabView. Each controller contains an instance of
- * Turtle, ViewAPI, and ModelController.
+ * a generic Turtle turtle (initialized as the TurtleGroup type), ViewAPI (external API of our View),
+ * and ModelController (our model that represents backend).
  *
  * @author Vincent Liu
  */
 public class Controller {
-    public static final String commandError = "Errors";
+    public static final String COMMAND_ERROR = "Errors";
     public static final String LANG_PATH = "languages/";
     public static final String SYNTAX = "languages/Syntax";
     private ViewAPI myView;
@@ -31,9 +34,14 @@ public class Controller {
 
     public Controller(Stage primaryStage, String language) {
         myTurtle = new TurtleGroup();
-        myErrors = ResourceBundle.getBundle(commandError);
+        myErrors = ResourceBundle.getBundle(COMMAND_ERROR);
         setUpFrontEnd(primaryStage, language);
         setUpBackEnd(language);
+    }
+
+    private void setUpFrontEnd(Stage primaryStage, String language) {
+        myView = new View(primaryStage, this, myTurtle, language);
+        myView.registerDisplay(myTurtle);
     }
 
     public void setUpBackEnd(String language) {
@@ -43,16 +51,8 @@ public class Controller {
         modelController = new ModelController(myTurtle, mySymbols);
     }
 
-    private void setUpFrontEnd(Stage primaryStage, String language) {
-        myView = new View(primaryStage, this, myTurtle, language);
-        myView.registerDisplay(myTurtle);
-    }
-
     public void runCommand(String input) {
-        if (input.isEmpty()) {
-            myView.displayErrors("Please enter a command!");
-            return;
-        }
+        if (reportEmptyString(input)) return;
         try {
             modelController.parseCommand(input);
             myView.updateHistory(input);
@@ -63,32 +63,35 @@ public class Controller {
         }
     }
 
+    private boolean reportEmptyString(String input) {
+        if (input.isEmpty()) {
+            myView.displayErrors("Please enter a command!");
+            return true;
+        }
+        return false;
+    }
+
     private void throwErrorByType(Exception e) {
         if (e instanceof IllegalCommandException) {
             myView.displayErrors(myErrors.getString("commandError"));
         } else myView.displayErrors(e.toString());
     }
 
-    /**
-     * Check function in the backend and display new one in the functionView
-     */
+    // Check function in the backend and display new one in the functionView
     private void checkBackEndFuncUpdate() {
         List<String> newFunc = modelController.updateFunc();
         if (!newFunc.isEmpty()) myView.displayFunc(newFunc);
 
     }
 
-    /**
-     * Check variable in the backend and display new one in the VariableView
-     */
+    // Check variable in the backend and display new one in the VariableView
     private void checkBackEndVarUpdate() {
         Map<String, String> newVar = modelController.updateVar();
         if (!newVar.isEmpty()) myView.displayVar(newVar);
     }
 
-    /**
-     * Adds the given resource file to this language's recognized types
-     */
+
+    // Adds the given resource file to this language's recognized types
     private void addPatterns(String syntax) {
         var resources = ResourceBundle.getBundle(syntax);
         for (var key : Collections.list(resources.getKeys())) {
@@ -100,20 +103,15 @@ public class Controller {
 
     /**
      * Run the command to update variable name and value entered by the user in the VariableView
-     *
      * @param var
      */
     public void updateVar(Map<String, String> var) {
         String key = var.keySet().toArray()[0].toString();
         try {
-            modelController.parseCommand("make " + "\"" + key + " " + var.get(key));
+            modelController.parseCommand("make " + ":" + key + " " + var.get(key));
         } catch (Exception e) {
             throwErrorByType(e);
         }
-    }
-
-    public Turtle getMyTurtle() {
-        return myTurtle;
     }
 
     public GridPane getMyView() {

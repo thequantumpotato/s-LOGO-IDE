@@ -1,7 +1,5 @@
 package frontend.GUI;
 
-import backend.Turtle;
-import backend.TurtleGroup;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -16,11 +14,18 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
 import main.Controller;
 
 /**
- * Tab class is created to make each tab separate in its functionality. By assigning each tab with a TurtleGroup and
- * a ModelController, the whenever the setting changes in the frontend (e.g. Language) or when a new tab is added,
+ * TabView class is created to make each tab separate in its functionality. By assigning each tab with a
+ * Controller, each tab's communication between the frontend and the backend will be all contained in the Controller.
+ *
+ * TabView simply represents an AnchorPane that contains a TabPane with a Button. When the buttons is clicked,
+ * a new Controller will be initialized, and a new set of frontend and backend will be initialized as well.
+ * Then, the View (i.e. GridPane) within the frontend will be added to the new tab.
+ *
+ * In this way, whenever the setting changes in the frontend (e.g. Language) or when a new tab is added,
  * the existing tabs won't be affected.
  *
  * @author Vincent Liu
@@ -28,14 +33,14 @@ import main.Controller;
 public class TabView {
     public static final String TITLE = "SLogo";
     public static final String STYLESHEET = "style.css";
-    public static final int TABPANE_HEIGHT = 35;
-    public static final double TABPANE_TOP_MARGIN = 5.0;
-    public static final double TABPANE_LEFT_MARGIN = 5.0;
-    public static final double TABPANE_RIGHT_MARGIN = 5.0;
+    public static final int TAB_PANE_HEIGHT = 35;
+    public static final double TAB_PANE_TOP_MARGIN = 5.0;
+    public static final double TAB_PANE_LEFT_MARGIN = 5.0;
+    public static final double TAB_PANE_RIGHT_MARGIN = 5.0;
     public static final double BUTTON_TOP_MARGIN = 5.0;
     public static final double BUTTON_RIGHT_MARGIN = 9.0;
-    public final int FRAMES_PER_SECOND = 60;
-    public final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
+    public static final int FRAMES_PER_SECOND = 60;
+    public static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     public static final int SCREEN_HEIGHT = 700;
     public static final int SCREEN_WIDTH = 1000;
     private final Stage myStage;
@@ -50,24 +55,30 @@ public class TabView {
         myStage = primaryStage;
         myLanguage = language;
         initializeAnchorPane();
-        createTab(new Controller(myStage, myLanguage), language);
+        addTab(new Controller(myStage, myLanguage));
         addTabToAnchorPane();
         display();
     }
 
-    private void display() {
-        myScene = new Scene(root, SCREEN_WIDTH, SCREEN_HEIGHT);
-        myScene.getStylesheets().add(STYLESHEET);
-        startView();
+    private void initializeAnchorPane() {
+        anchorPane = new AnchorPane();
+        anchorPane.setPadding(Insets.EMPTY);
+        AnchorPane.setTopAnchor(tabPane, TAB_PANE_TOP_MARGIN);
+        AnchorPane.setLeftAnchor(tabPane, TAB_PANE_LEFT_MARGIN);
+        AnchorPane.setRightAnchor(tabPane, TAB_PANE_RIGHT_MARGIN);
+        AnchorPane.setTopAnchor(addButton, BUTTON_TOP_MARGIN);
+        AnchorPane.setRightAnchor(addButton, BUTTON_RIGHT_MARGIN);
+        addButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                addTab(new Controller(myStage, myLanguage));
+            }
+        });
     }
 
-    private void createTab(Controller controller, String initLang) {
-        addTab(controller, new TurtleGroup(), initLang);
-    }
-
-    public void addTab(Controller controller, Turtle turtle, String initLang) {
+    public void addTab(Controller controller) {
         GridPane newGridPane = controller.getMyView();
-        newGridPane.setMaxHeight(SCREEN_HEIGHT - TABPANE_HEIGHT);
+        newGridPane.setMaxHeight(SCREEN_HEIGHT - TAB_PANE_HEIGHT);
         addToTabPane(newGridPane);
     }
 
@@ -78,26 +89,15 @@ public class TabView {
         tabPane.getTabs().add(tab);
     }
 
-    private void initializeAnchorPane() {
-        anchorPane = new AnchorPane();
-        AnchorPane.setTopAnchor(tabPane, TABPANE_TOP_MARGIN);
-        AnchorPane.setLeftAnchor(tabPane, TABPANE_LEFT_MARGIN);
-        AnchorPane.setRightAnchor(tabPane, TABPANE_RIGHT_MARGIN);
-        AnchorPane.setTopAnchor(addButton, BUTTON_TOP_MARGIN);
-        AnchorPane.setRightAnchor(addButton, BUTTON_RIGHT_MARGIN);
-        addButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                var newController = new Controller(myStage, myLanguage);
-                addTab(newController, newController.getMyTurtle(), myLanguage);
-            }
-        });
-        anchorPane.setPadding(Insets.EMPTY);
-    }
-
     private void addTabToAnchorPane() {
         anchorPane.getChildren().addAll(tabPane, addButton);
         root.getChildren().add(anchorPane);
+    }
+
+    private void display() {
+        myScene = new Scene(root, SCREEN_WIDTH, SCREEN_HEIGHT);
+        myScene.getStylesheets().add(STYLESHEET);
+        startView();
     }
 
     public void startView() {
