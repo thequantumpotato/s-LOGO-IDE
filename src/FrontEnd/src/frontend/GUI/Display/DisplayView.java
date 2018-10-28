@@ -201,11 +201,7 @@ public class DisplayView implements SubView, Observer {
         if (arg != null) {
             System.out.println("Updating animations");
             //Change displayview settings based on info stored in turtle
-            setPenDown(((TurtleLeaf) o).getIsPenDown());
-            if(((TurtleLeaf) o).getIsShowing()){
-                showTurtle(String.valueOf(((TurtleLeaf) o).getId()));
-            }
-            
+            getSettings((TurtleLeaf) o);
             myTurtleManager.updateTurtles();
         } else {
             System.out.println("Received update");
@@ -219,5 +215,18 @@ public class DisplayView implements SubView, Observer {
             }
             myTurtleManager.moveTurtle(String.valueOf(((TurtleLeaf) o).getId()),newPosition);
         }
+    }
+
+    private void getSettings(TurtleLeaf o) {
+        setPenDown(o.getIsPenDown());
+        if(o.getIsShowing()){
+            showTurtle(String.valueOf(o.getId()));
+        }
+        else{
+            hideTurtle(String.valueOf(o.getId()));
+        }
+        changeBgColor(o.getBgColor());
+        changePenColor(o.getPenColor());
+        changePenSize(o.getSize());
     }
 }
