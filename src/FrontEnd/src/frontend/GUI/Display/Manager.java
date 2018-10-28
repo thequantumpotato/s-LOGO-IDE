@@ -1,17 +1,16 @@
 package frontend.GUI.Display;
 
-import javafx.scene.Group;
 import javafx.util.Duration;
 
-/** Super class for manager type objects that will handle time-based events */
+/** Super class for manager type objects that will handle time-based events
+ *  @author bpx*/
 public abstract class Manager {
-
-    public static final int DEFAULT_DURATION = 2;
 
     private Duration myDuration;
 
+    /** Default constructor*/
     public Manager(){
-        myDuration = Duration.seconds(DEFAULT_DURATION);
+        myDuration = Duration.seconds(TurtleManager.DEFAULT_DURATION);
     }
 
     /** Sets the duration in seconds for future animations
@@ -22,10 +21,12 @@ public abstract class Manager {
         }
     }
 
+    /** Returns the {@code Duration} of the {@code Manager} without providing access to the field*/
     public Duration getDuration(){
-        return Duration.valueOf(myDuration.toString());
+        return Duration.seconds(myDuration.toSeconds());
     }
 
+    /** Abstract method, reset the state of classes extending {@code Manager} to default*/
     public abstract void reset();
 
 }
