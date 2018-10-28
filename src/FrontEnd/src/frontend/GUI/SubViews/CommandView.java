@@ -6,7 +6,6 @@ import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -46,10 +45,11 @@ public class CommandView implements SubView {
         commandView.add(buttonBox, 1, 0);
     }
 
-    // TODO: 10/27/18 Test if the button works in loading file and adding them into the Input box 
+    // TODO: 10/27/18 Test if the button works in loading file and adding them into the Input box
     private void setUpLoadButton() {
         final FileChooser fileChooser = new FileChooser();
         loadButton = new Button("Load");
+        loadButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         loadButton.setOnAction((final ActionEvent e) -> {
             File file = fileChooser.showOpenDialog(myView.getMyStage());
             if (file != null && file.getName().endsWith(".logo")) {
