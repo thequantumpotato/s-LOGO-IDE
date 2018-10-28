@@ -43,6 +43,7 @@ public class TreeFactory {
         while (commands.size() != 0) {
             String command = commands.remove(0);
             Node myRoot;
+            //TODO: Refactor parenthesis
             if (isLeftParenthesis(command)) { //check if its a parenthesis FIRST
                 //make the NEXT item a command, not the current parenthesis
                 String nextCommand = commands.remove(0);

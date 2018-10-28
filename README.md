@@ -20,3 +20,5 @@ Assumptions:
 - When assigning variables in Make/Set or in loop functions, the variable name must start with " 
     - For example, to set 5 to a variable var, the command would be 'make "var 5'
 - In order to run a user defined function, the user needs to say "run" and then the name of their function
+- Unlimited parameters: We will create a parenthesis node, and it will act very similar to a 
+List node, where the parenthesis node will distribute the command to all of the arguments.

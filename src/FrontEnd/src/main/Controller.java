@@ -59,8 +59,9 @@ public class Controller {
      * Check function in the backend and display new one in the functionView
      */
     private void checkBackEndFuncUpdate() {
-        Map<String, String> newFunc = modelController.updateFunc();
-        if (!newFunc.isEmpty()) myView.addFunc(newFunc);
+        List<String> newFunc = modelController.updateFunc();
+//        if (!newFunc.isEmpty()) myView.addFunc(newFunc);
+        // TODO: 10/27/18
     }
 
     /**

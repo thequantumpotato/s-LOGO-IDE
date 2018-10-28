@@ -11,9 +11,7 @@ import java.util.Observer;
  * @author Jose San Martin
  */
 public class TurtleGroup implements Turtle {
-    private double direction;
-    private double size;
-    private Color color;
+
     private List<TurtleLeaf> turtles;
 
     public TurtleGroup() {
@@ -61,12 +59,19 @@ public class TurtleGroup implements Turtle {
 
     @Override
     public void penUp() {
+        for (TurtleLeaf leaf : turtles) {
+            leaf.penUp();
+            leaf.notifyObservers();
+        }
 
     }
 
     @Override
     public void penDown() {
-
+        for (TurtleLeaf leaf : turtles) {
+            leaf.penDown();
+            leaf.notifyObservers();
+        }
     }
 
     @Override
@@ -132,6 +137,7 @@ public class TurtleGroup implements Turtle {
         }
     }
 
+    //TODO: FIX THIS
     @Override
     public boolean getIsPenDown() {
         for (TurtleLeaf leaf : turtles) {
@@ -139,7 +145,7 @@ public class TurtleGroup implements Turtle {
         }
         return false;
     }
-
+    //TODO: FIX THIS
     @Override
     public boolean getIsShowing() {
         for (TurtleLeaf leaf : turtles) {
@@ -148,25 +154,47 @@ public class TurtleGroup implements Turtle {
         return false;
     }
 
-    //TODO: FINISH THE REST OF THESE
-    @Override
-    public void liftPenUp() {
 
-    }
-
-    @Override
-    public void putPenDown() {
-
-    }
-
-    @Override
     public void show() {
-
+        for (TurtleLeaf leaf : turtles) {
+            leaf.show();
+            leaf.notifyObservers();
+        }
     }
 
-    @Override
     public void hide() {
+        for (TurtleLeaf leaf : turtles) {
+            leaf.hide();
+            leaf.notifyObservers();
+        };
+    }
 
+    public void setBgColor(Color color){
+        for (TurtleLeaf leaf : turtles) {
+            leaf.setBgColor(color);
+            leaf.notifyObservers();
+        }
+    }
+
+    public void setPenColor(Color color){
+        for (TurtleLeaf leaf : turtles) {
+            leaf.setPenColor(color);
+            leaf.notifyObservers();
+        }
+    }
+
+    public void setPenSize(double size){
+        for (TurtleLeaf leaf : turtles) {
+            leaf.setPenSize(size);
+            leaf.notifyObservers();
+        }
+    }
+
+    public void setShape(int s){
+        for (TurtleLeaf leaf : turtles) {
+            leaf.setShape(s);
+            leaf.notifyObservers();
+        }
     }
 
     public void notifyAllObservers() {

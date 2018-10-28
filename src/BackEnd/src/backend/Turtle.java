@@ -1,5 +1,7 @@
 package backend;
 
+import javafx.scene.paint.Color;
+
 import java.util.Observer;
 
 /**
@@ -43,9 +45,12 @@ public interface Turtle {
 
     boolean getIsShowing();
 
-    void liftPenUp();
+    void setBgColor(Color color);
+    void setPenColor(Color color);
+    void setPenSize(double size);
+    void setShape(int shape);
 
-    void putPenDown();
+
 
     void addAnObserver(Observer o);
 
