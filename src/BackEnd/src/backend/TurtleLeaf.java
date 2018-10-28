@@ -126,6 +126,7 @@ public class TurtleLeaf extends Observable implements Turtle {
     }
 
 
+
     public void show() {
 
     }
@@ -137,5 +138,16 @@ public class TurtleLeaf extends Observable implements Turtle {
 
     public void hide() {
 
+    }
+
+    public Turtle getTurtleLeaf(Integer id){
+        return this;
+    }
+
+    public void notifyAllObservers(Object o){
+        return;
+    }
+    public void notifyAllObservers(){
+        return;
     }
 }
