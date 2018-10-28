@@ -42,6 +42,7 @@ public class TurtleGroup extends Observable implements Turtle {
         for (TurtleLeaf leaf : turtles) {
             leaf.setX(x + distance * Math.cos(direction));
             leaf.setY(y + distance * Math.sin(direction));
+            leaf.notifyObservers();
         }
     }
 
@@ -50,13 +51,15 @@ public class TurtleGroup extends Observable implements Turtle {
         for (TurtleLeaf leaf : turtles) {
             leaf.setX(x);
             leaf.setY(y);
+            leaf.notifyObservers();
         }
     }
 
     @Override
     public void turn(double angle) {
-        for (Turtle leaf : turtles) {
+        for (TurtleLeaf leaf : turtles) {
             leaf.turn(angle);
+            leaf.notifyObservers();
         }
     }
 
@@ -72,14 +75,14 @@ public class TurtleGroup extends Observable implements Turtle {
 
     @Override
     public void Changed() {
-        for (Turtle leaf : turtles) {
+        for (TurtleLeaf leaf : turtles) {
             leaf.Changed();
         }
     }
 
     @Override
     public void clear() {
-        for (Turtle leaf : turtles) {
+        for (TurtleLeaf leaf : turtles) {
             leaf.clear();
         }
     }
@@ -88,6 +91,7 @@ public class TurtleGroup extends Observable implements Turtle {
     public void setHeading(double angle) {
         for (TurtleLeaf leaf : turtles) {
             leaf.setDirection(angle);
+            leaf.notifyObservers();
         }
     }
 
@@ -97,6 +101,7 @@ public class TurtleGroup extends Observable implements Turtle {
         List<Double> directions = new ArrayList<>();
         for (TurtleLeaf leaf : turtles) {
             directions.add(leaf.getDirection());
+            leaf.notifyObservers();
         }
         return 1;
     }
@@ -151,16 +156,21 @@ public class TurtleGroup extends Observable implements Turtle {
 
     }
 
-    @Override
-    public void notifyObservers() {
+    public void notifyAllObservers() {
         for (TurtleLeaf leaf : turtles) {
             System.out.println("My turtle after running command: " + leaf);
             System.out.println("Observer is going to be notified by turtle's change");
             // pass the TurtleLeaf to the DisplayView
-            leaf.notifyObservers(leaf);
+            leaf.notifyObservers();
             System.out.println("Observer is already notified by turtle's change");
         }
     }
+    public void notifyAllObservers(Object o) {
+        for (TurtleLeaf leaf : turtles) {
+            leaf.notifyObservers(o);
+        }
+    }
+
 
     @Override
     public void addAnObserver(Observer o) {

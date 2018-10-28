@@ -48,4 +48,9 @@ public interface Turtle {
     void putPenDown();
 
     void addAnObserver(Observer o);
+
+    void notifyAllObservers(Object o);
+    void notifyAllObservers();
+
+    Turtle getTurtleLeaf(Integer id);
 }

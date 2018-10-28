@@ -19,7 +19,7 @@ public class Controller {
     public static final String LANG_PATH = "languages/";
     public static final String SYNTAX = "languages/Syntax";
     private ViewAPI myView;
-    private TurtleGroup myTurtle;
+    private Turtle myTurtle;
     private ViewControl viewControl;
     private ModelController modelController;
     private List<Map.Entry<String, Pattern>> mySymbols;
