@@ -61,20 +61,20 @@ public class TurtleManager extends Manager {
         }
     }
 
-    /** Render the turtle to the root, if it is not already */
+    /** Render the specified turtle to the root
+     *  @param id The identifier for the turtle to render */
     public void show(String id){
         mySpriteManager.getTurtle(id).show();
     }
 
+    /** Hide the specified turtle on the display
+     *  @param id The identifier for the turtle to hide */
     public void hide(String id){
         mySpriteManager.getTurtle(id).hide();
     }
 
-    private Coordinate adjustPosition(double x, double y, double theta) {
-        double newtheta = Math.toDegrees((2 * Math.PI) - theta);
-        return new Coordinate(x + ORIGIN_X, ORIGIN_Y - y, newtheta);
-    }
-
+    /** Sets duration of all time-based turtle operations
+     *  @param duration The duration in seconds for time-based operations to take*/
     @Override
     public void setDuration(double duration){
         super.setDuration(duration);
@@ -82,6 +82,7 @@ public class TurtleManager extends Manager {
         myPathManager.setDuration(duration);
     }
 
+    /** Resets the display */
     @Override
     public void reset() {
         mySpriteManager.killAllTurtles();

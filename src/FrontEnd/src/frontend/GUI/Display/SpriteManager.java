@@ -44,6 +44,7 @@ public class SpriteManager {
         }
     }
 
+    /** Returns a non-modifiable copy of the current sprite size */
     public double getSpriteSize(){
         return Double.valueOf(mySpriteSize);
     }

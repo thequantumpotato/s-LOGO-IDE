@@ -58,14 +58,18 @@ public class PathManager extends Manager{
     }
 
 
+    /** Sets the duration of the pen drawing animation
+     *  @param duration The duration in seconds for the animation to take*/
     public void setDuration(double duration){
         myPen.setDrawSpeed(Duration.seconds(duration));
     }
 
+    /** Stop drawing lines */
     public void penUp(){
         penDown = false;
     }
 
+    /** Start drawing lines */
     public void penDown(){
         penDown = true;
     }
