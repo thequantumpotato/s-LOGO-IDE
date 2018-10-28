@@ -14,7 +14,7 @@ public class TurtleManager extends Manager {
 
     public static final int DEFAULT_DURATION = 2;
     public static final double ORIGIN_X = 275;
-    public static final double ORIGIN_Y = 250;
+    public static final double ORIGIN_Y = 300;
 
     private Group myRenderTarget;
     private ArrayList<String> myTurtles;
@@ -32,7 +32,7 @@ public class TurtleManager extends Manager {
         mySpriteManager = new SpriteManager(renderTarget);
         myAnimationContainer = new AnimationContainer();
         myMovementManager = new MovementManager();
-        myPathManager =  new PathManager();
+        myPathManager =  new PathManager(myRenderTarget);
     }
 
     /** Create a new turtle with the current settings and place it at the origin
@@ -47,14 +47,15 @@ public class TurtleManager extends Manager {
      *  @param id The identifier for the turtle to move
      *  @param newPosition The {@code Coordinate} to move the turtle to */
     public void moveTurtle(String id, Coordinate newPosition){
+        myPathManager.addPath(id, new Line(mySpriteManager.getTurtle(id).getPosition().getX()+mySpriteManager.getSpriteSize()/2,mySpriteManager.getTurtle(id).getPosition().getY()+mySpriteManager.getSpriteSize()/2,
+                newPosition.getX()+mySpriteManager.getSpriteSize()/2,newPosition.getY()+mySpriteManager.getSpriteSize()/2));
         myMovementManager.addTurtleAnimation(id,mySpriteManager.getTurtle(id),mySpriteManager.getTurtle(id).getPosition(),newPosition);
-        myPathManager.addPath(id, new Line(mySpriteManager.getTurtle(id).getPosition().getX(),mySpriteManager.getTurtle(id).getPosition().getY(),
-                newPosition.getX(),newPosition.getY()));
     }
 
     /** Update the visual display of the turtle with animations after {@code moveTurtle()} has been run */
     public void updateTurtles(){
         for(String id: myTurtles){
+            mySpriteManager.getTurtle(id).toFront();
             myMovementManager.playTurtleAnimation(id);
             myPathManager.playPathDrawAnimation(id);
         }
@@ -67,6 +68,11 @@ public class TurtleManager extends Manager {
 
     public void hide(String id){
         mySpriteManager.getTurtle(id).hide();
+    }
+
+    private Coordinate adjustPosition(double x, double y, double theta) {
+        double newtheta = Math.toDegrees((2 * Math.PI) - theta);
+        return new Coordinate(x + ORIGIN_X, ORIGIN_Y - y, newtheta);
     }
 
     @Override

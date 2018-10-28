@@ -44,6 +44,10 @@ public class SpriteManager {
         }
     }
 
+    public double getSpriteSize(){
+        return Double.valueOf(mySpriteSize);
+    }
+
     /** Add a new {@code Sprite} using current settings
      *  @param id The identifier for the {@code Sprite} in the HashMap*/
     public void addTurtle(String id){

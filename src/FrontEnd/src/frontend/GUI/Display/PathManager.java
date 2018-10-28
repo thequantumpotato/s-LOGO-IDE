@@ -1,8 +1,11 @@
 package frontend.GUI.Display;
 
 import frontend.Util.*;
+import javafx.scene.Group;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Path;
+import javafx.util.Duration;
+
 import java.util.ArrayList;
 
 import static frontend.GUI.Display.TurtleManager.ORIGIN_X;
@@ -14,15 +17,18 @@ import static frontend.GUI.Display.TurtleManager.ORIGIN_Y;
 public class PathManager extends Manager{
 
     private boolean penDown;
+    private Group myRenderTarget;
     private Pen myPen;
     private ArrayList<Path> myPaths;
     private AnimationContainer myAnimationContainer;
 
     /** Default constructor */
-    public PathManager(){
+    public PathManager(Group root){
         super();
         penDown = true;
+        myRenderTarget = root;
         myPen = new Pen(new Coordinate(ORIGIN_X,ORIGIN_Y,0));
+        myPen.setRoot(myRenderTarget);
         myPaths =  new ArrayList<>();
         myAnimationContainer = new AnimationContainer();
     }
@@ -49,6 +55,11 @@ public class PathManager extends Manager{
      *  @param id The turtle to play the animation for */
     public void playPathDrawAnimation(String id){
         myAnimationContainer.play(id);
+    }
+
+
+    public void setDuration(double duration){
+        myPen.setDrawSpeed(Duration.seconds(duration));
     }
 
     public void penUp(){

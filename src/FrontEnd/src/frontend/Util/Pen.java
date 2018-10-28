@@ -2,6 +2,7 @@ package frontend.Util;
 
 import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
+import javafx.animation.SequentialTransition;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -12,6 +13,8 @@ import javafx.util.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
+import static frontend.GUI.Display.TurtleManager.DEFAULT_DURATION;
+
 /**
  * Auxiliary class functioning to provide line-drawing functionality
  * @author bpx
@@ -19,7 +22,6 @@ import java.util.List;
 public class Pen {
 
     public static final int DEFAULT_SIZE = 1;
-    public static final Duration DEFAULT_SPEED = Duration.seconds(1);
     public static final Color DEFAULT_COLOR = Color.WHITE;
 
     private Paint myColor;
@@ -32,7 +34,7 @@ public class Pen {
     /** Constructor for no {@code Duration}
      *  @param origin The starting point of the {@code Pen}*/
     public Pen(Coordinate origin) {
-        this(DEFAULT_SPEED, origin);
+        this(Duration.seconds(DEFAULT_DURATION), origin);
     }
 
     /** Full constructor
@@ -75,15 +77,18 @@ public class Pen {
 
     /** Creates a line drawing animation from a {@code LinePath}
      *  @param linePath The {@code LinePath} to use as reference when drawing the line*/
-    public ParallelTransition drawLinePath(LinePath linePath){
-        ParallelTransition pl = new ParallelTransition();
+    public SequentialTransition drawLinePath(LinePath linePath){
+        SequentialTransition st = new SequentialTransition();
+        System.out.println(myDrawSpeed.toSeconds()+" "+linePath.getLines().size());
         setDrawSpeed((Duration.seconds(myDrawSpeed.toSeconds()/linePath.getLines().size())));
         for(Line l : linePath.getLines()){
+            ParallelTransition pl = new ParallelTransition();
             movePen(new Coordinate(l.getStartX(),l.getStartY(),0));
             pl.getChildren().add(drawLine(new Coordinate(l.getEndX(),l.getEndY(),0)));
+            st.getChildren().add(pl);
         }
         setDrawSpeed(Duration.seconds(myDrawSpeed.toSeconds()*linePath.getLines().size()));
-        return pl;
+        return st;
     }
 
     /** Helper method that sets up a fully drawn line for animation by formatting the line and hiding it

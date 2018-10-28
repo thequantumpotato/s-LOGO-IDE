@@ -23,7 +23,7 @@ public abstract class Manager {
 
     /** Returns the {@code Duration} of the {@code Manager} without providing access to the field*/
     public Duration getDuration(){
-        return Duration.valueOf(myDuration.toString());
+        return Duration.seconds(myDuration.toSeconds());
     }
 
     /** Abstract method, reset the state of classes extending {@code Manager} to default*/
