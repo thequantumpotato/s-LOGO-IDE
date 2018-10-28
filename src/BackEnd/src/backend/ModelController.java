@@ -17,13 +17,13 @@ public class ModelController {
     private Interpreter interpreter;
     private List<Node> myCommands;
     private List<Map.Entry<String, Pattern>> mySymbols;
-    private TurtleGroup myTurtle;
+    private Turtle myTurtle;
     private TreeFactory myTreeFactory;
     private boolean hasNewVar;
     private boolean hasNewFunc;
     private Storage myStorage;
 
-    public ModelController(TurtleGroup turtle, List<Map.Entry<String, Pattern>> symbolList) {
+    public ModelController(Turtle turtle, List<Map.Entry<String, Pattern>> symbolList) {
         mySymbols = symbolList;
         interpreter = new Interpreter(symbolList);
         //commander = new Command(this, turtle);
@@ -42,11 +42,14 @@ public class ModelController {
         //Turn our command arraylist into a tree structure of command nodes
         myCommands = myTreeFactory.getRoots(commands);
         System.out.println("My turtle before running command: " + myTurtle.getTurtleLeaf(0));
+
+
         for (Node node : myCommands) {
             node.run();
         }
+        System.out.println("Turtle Ran!");
         myTurtle.Changed();
-        myTurtle.notifyObservers();
+        myTurtle.notifyAllObservers(true);
         myTurtle.clear();
     }
 

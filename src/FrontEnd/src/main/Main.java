@@ -14,6 +14,6 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         primaryStage.setResizable(false);
         Controller myController = new Controller(primaryStage, DEFAULT_LANGUAGE);
-        myController.runCommand("fd 50");
+        //myController.runCommand("fd 50");
     }
 }

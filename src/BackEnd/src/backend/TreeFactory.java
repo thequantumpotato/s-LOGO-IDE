@@ -154,7 +154,7 @@ public class TreeFactory {
             throw new IllegalCommandException(e);
         }
 
-        Class[] types = {Turtle.class};
+        Class[] types = {Storage.class, Turtle.class, List.class};
         Constructor constructor;
         try {
             constructor = myClass.getConstructor(types);
@@ -173,7 +173,6 @@ public class TreeFactory {
         } catch (InvocationTargetException e) {
             e.printStackTrace();
         }
-        //WORKS up to here
         return (Node) newInstance;
     }
 
