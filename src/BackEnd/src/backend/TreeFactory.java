@@ -1,8 +1,6 @@
 package backend;
 
-import backend.Commands.GetVariable;
-import backend.Commands.ListNode;
-import backend.Commands.Node;
+import backend.Commands.*;
 import backend.Commands.Number;
 import backend.Storage.Storage;
 
@@ -103,14 +101,15 @@ public class TreeFactory {
         Node newNode;
         if (isVariable(command)) {
             newNode = new GetVariable(myStorage, myTurtle, new ArrayList<>());
+            System.out.println("Command substring; " + command.substring(1));
             newNode.addChild(new Number(command.substring(1))); //Variables need to have a child to begin with
-            System.out.println(command.substring(1));
         } else if (!isNotCommand(command)) {
             newNode = reflect(command); //Use reflection to get our class
 
         } else {
             //If not command or variable, it is a LeafNode
             newNode = new Number(command);
+            System.out.println("variable value node: " + command);
         }
         return newNode;
     }

@@ -2,6 +2,7 @@ package frontend.ExternalAPI;
 
 import backend.Turtle;
 
+import java.util.List;
 import java.util.Map;
 
 public interface ViewAPI {
@@ -37,7 +38,7 @@ public interface ViewAPI {
      *
      * @param variable
      */
-    void addVar(Map<String, String> variable);
+    void displayVar(Map<String, String> variable);
 
     /**
      * Called by Controller
@@ -45,7 +46,7 @@ public interface ViewAPI {
      *
      * @param function
      */
-    void addFunc(Map<String, String> function);
+    void displayFunc(List<String> function);
 
     /**
      * Called by Controller

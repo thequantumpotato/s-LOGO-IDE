@@ -23,6 +23,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import main.Controller;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -31,8 +32,6 @@ import java.util.Map;
  * @author Vincent Liu
  */
 // TODO: 10/25/18 Make the windows expand and contract --- Accordion and TitlePane
-// TODO: 10/25/18 Load logo file and run them by line (How to run a file with multiple lines)
-// TODO: 10/25/18 Complete speakers add listeners
 // TODO: 10/25/18 Create controller and turtle for the different panes
 public class View implements ViewInternalAPI, ViewAPI {
     public static final String TITLE = "SLogo";
@@ -251,12 +250,12 @@ public class View implements ViewInternalAPI, ViewAPI {
     }
 
     @Override
-    public void addVar(Map<String, String> variable) {
+    public void displayVar(Map<String, String> variable) {
         myVariableView.updateVariable(variable);
     }
 
     @Override
-    public void addFunc(Map<String, String> function) {
+    public void displayFunc(List<String> function) {
         myFunctionView.updateFunction(function);
     }
 

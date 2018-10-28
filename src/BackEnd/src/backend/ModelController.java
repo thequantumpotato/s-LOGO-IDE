@@ -43,7 +43,6 @@ public class ModelController {
         myCommands = myTreeFactory.getRoots(commands);
         System.out.println("My turtle before running command: " + myTurtle.getTurtleLeaf(0));
 
-
         for (Node node : myCommands) {
             node.run();
         }
