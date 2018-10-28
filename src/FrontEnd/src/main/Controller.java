@@ -27,17 +27,36 @@ public class Controller {
     private ModelController modelController;
     private List<Map.Entry<String, Pattern>> mySymbols;
     private ResourceBundle myErrors;
+    private Stage myStage;
+    private String myLang;
 
     public Controller(Stage primaryStage, String language) {
+        myStage = primaryStage;
+        myLang = language;
+        myTurtle = new TurtleGroup();
+        myErrors = ResourceBundle.getBundle(commandError);
+        setUpFrontEnd(primaryStage, language);
+        setUpBackEnd(language);
+//        viewControl = new ViewControl(myView.getMyDisplayView());
+    }
+
+    public void setUpBackEnd(String language) {
         mySymbols = new ArrayList<>();
         addPatterns(LANG_PATH + language); // language syntax
         addPatterns(SYNTAX);
-        myTurtle = new TurtleGroup();
+        modelController = new ModelController(myTurtle, mySymbols);
+    }
+
+    private void setUpFrontEnd(Stage primaryStage, String language) {
         myView = new View(primaryStage, this, myTurtle, language);
         myView.registerDisplay(myTurtle);
-//        viewControl = new ViewControl(myView.getMyDisplayView());
-        modelController = new ModelController(myTurtle, mySymbols);
-        myErrors = ResourceBundle.getBundle(commandError);
+    }
+
+    public void addTab(){
+        Turtle temp = new TurtleGroup();
+        myView.addTab(temp, myLang);
+        myView.registerDisplay(temp);
+        modelController = new ModelController(temp, mySymbols);
     }
 
     // TODO: 10/25/18 Figure out how to render different error types for user command
