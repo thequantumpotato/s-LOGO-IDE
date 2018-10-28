@@ -14,6 +14,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 
 import java.io.File;
+import java.util.Scanner;
 
 /**
  * An HBox that contains a TextArea to allow user input command text. When the submit button is clicked,
@@ -53,6 +54,18 @@ public class CommandView implements SubView {
             File file = fileChooser.showOpenDialog(myView.getMyStage());
             if (file != null && file.getName().endsWith(".logo")) {
                 // add command to textarea
+                try {
+                    Scanner sc = new Scanner(file);
+                    String res = sc.next() + " ";
+                    while (sc.hasNext()){
+                        res = res + sc.next() + " ";
+                    }
+                    input.setText(res.substring(0, res.length()-1));
+                }
+                catch (Exception exception){
+                    System.out.println(exception);
+                }
+
             }
         });
     }
