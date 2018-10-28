@@ -1,8 +1,6 @@
 package backend;
 
-import backend.Commands.GetVariable;
-import backend.Commands.ListNode;
-import backend.Commands.Node;
+import backend.Commands.*;
 import backend.Commands.Number;
 import backend.Storage.Storage;
 
@@ -25,11 +23,12 @@ public class TreeFactory {
     private Turtle myTurtle;
     private Storage myStorage;
 
-    public TreeFactory(Turtle turtle) {
+    public TreeFactory(Turtle turtle, Storage storage) {
         myTurtle = turtle;
         mySymbols = new ArrayList<>();
         addPatterns(commandProps);
         myErrors = ResourceBundle.getBundle(commandError);
+        myStorage = storage;
     }
 
 
@@ -43,25 +42,19 @@ public class TreeFactory {
         while (commands.size() != 0) {
             String command = commands.remove(0);
             Node myRoot;
-            //TODO: Refactor parenthesis
             if (isLeftParenthesis(command)) { //check if its a parenthesis FIRST
-                //make the NEXT item a command, not the current parenthesis
-                String nextCommand = commands.remove(0);
-                myRoot = createRoot(nextCommand);
-            } else if (isRightParenthesis(command)) { //check if, basically, we shouldn't add anymore.
-                //Continue to the next commands, as this one is OVER darling!
+                unlimitedParams(commands, myRoots);
                 continue;
             } else {
                 myRoot = createRoot(command);
             }
             //If we haven't reached the max number of arguments required
-            int numArgs = getArgNum(command); //get the arg num for this command
-            while (myRoot.getNumChildren() != numArgs) {
+            while (myRoot.getNumChildren() != getArgNum(command)) {
                 //Check if the next item is an open bracket (because lists are ALWAYS children yes ma'am)
                 Node nextChild;
                 if (isOpenBracket(commands.get(0))) {
                     nextChild = generateList(commands);
-                    commands.remove(0); //Remove that ending parenthesis!
+                    commands.remove(0); //Remove that ending bracket!
                 } else {
                     nextChild = createChild(commands); //if not list, it is a command
                 }
@@ -76,7 +69,6 @@ public class TreeFactory {
         return myRoots;
     }
 
-    //TODO: Implement brackets and parenthesis
     private Node createChild(List<String> commands) throws IllegalCommandException {
         if (commands.size() == 0) {
             return null;
@@ -92,7 +84,12 @@ public class TreeFactory {
             //This child has its own arguments that we need to add. Use recursion!
             generateCommand(newChild, commands, getArgNum(nextChild));
         } else {
-            newChild = new Number(nextChild);
+            if(isVariable(nextChild)){
+                newChild = new Text(nextChild.substring(1));
+            }
+            else{
+                newChild = new Number(nextChild);
+            }
         }
 
         return newChild;
@@ -101,11 +98,11 @@ public class TreeFactory {
 
     private Node createRoot(String command) throws IllegalCommandException {
         Node newNode;
-        if (isVariable(command)) {
-            newNode = new GetVariable(myStorage, myTurtle, new ArrayList<>());
-            newNode.addChild(new Number(command.substring(1))); //Variables need to have a child to begin with
-            System.out.println(command.substring(1));
-        } else if (!isNotCommand(command)) {
+        //if (isVariable(command)) {
+        //    newNode = new GetVariable(myStorage, myTurtle, new ArrayList<>());
+        //    newNode.addChild(new Number(command.substring(1))); //Variables need to have a child to begin with
+        //    System.out.println(command.substring(1));}
+        if (!isNotCommand(command)) {
             newNode = reflect(command); //Use reflection to get our class
 
         } else {
@@ -145,7 +142,7 @@ public class TreeFactory {
     }
 
     /**
-     * Reflection baby
+     * Reflection
      */
     public Node reflect(String command) throws IllegalCommandException {
         Class myClass;
@@ -177,12 +174,24 @@ public class TreeFactory {
         return (Node) newInstance;
     }
 
+    public void unlimitedParams(List<String> commands, List<Node> myRoots) throws IllegalCommandException {
+        String rootCommand = commands.remove(0);
+        System.out.println("um");
+        while(!isRightParenthesis(commands.get(0))){
+            Node mainCommand = createRoot(rootCommand); //Create the top command every as long as there are new parameters
+            generateCommand(mainCommand, commands, getArgNum(rootCommand)); //generates a command
+            myRoots.add(mainCommand);
+        }
+        commands.remove(0); //remove the last parenthesis
+
+    }
+
     private boolean isVariable(String s) {
         return s.matches(":[a-zA-Z_]+");
     }
 
     private boolean isNotCommand(String s) {
-        return s.matches("[-+]?\\d*\\.?\\d+|\\\"[a-zA-Z]+|-[a-zA-Z_]+");
+        return s.matches("[-+]?\\d*\\.?\\d+|\\\"[a-zA-Z]+|:[a-zA-Z_]+");
     }
 
     private boolean isLeftParenthesis(String s) {

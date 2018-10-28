@@ -18,19 +18,21 @@ public class Storage {
     }
 
     public Object getVar(String name){
-        return vMap.get(name).getValue();
+        if(vMap.containsKey(name)){
+            return vMap.get(name).getValue();
+        }
+        return null;
     }
 
     public List<Node> getIns(String name){
-        return iMap.get(name).getInstruction();
+        if(iMap.containsKey(name)){
+            return iMap.get(name).getInstruction();
+        }
+        return null;
     }
 
-    public boolean makeVar(String name, Object val){
-        if(vMap.keySet().contains(name)){
-            return false;
-        }
+    public void makeVar(String name, Object val){
         vMap.put(name, new Variable(name, val));
-        return true;
     }
 
     public boolean makeIns(String name, List<Node> commands){
