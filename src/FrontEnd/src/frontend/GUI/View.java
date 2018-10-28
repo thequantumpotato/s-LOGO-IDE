@@ -39,7 +39,7 @@ public class View implements ViewInternalAPI, ViewAPI {
     public static final int SCREEN_WIDTH = 1000;
     public static final int SCREEN_HEIGHT = 700;
     public final int FRAMES_PER_SECOND = 60;
-    public final int DEFAULT_PEN_TIME = 1;
+    public final int DEFAULT_PEN_TIME = 10;
     public final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     public final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
     private final String myLang;

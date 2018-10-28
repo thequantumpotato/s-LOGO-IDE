@@ -1,6 +1,9 @@
 package main;
 
-import backend.*;
+import backend.IllegalCommandException;
+import backend.ModelController;
+import backend.Turtle;
+import backend.TurtleGroup;
 import frontend.ExternalAPI.ViewAPI;
 import frontend.GUI.View;
 import javafx.stage.Stage;
@@ -39,6 +42,10 @@ public class Controller {
 
     // TODO: 10/25/18 Figure out how to render different error types for user command
     public void runCommand(String input) {
+        if (input.isEmpty()) {
+            myView.displayErrors("Please enter a command!");
+            return;
+        }
         try {
             modelController.parseCommand(input);
             myView.updateHistory(input);
@@ -87,6 +94,7 @@ public class Controller {
 
     /**
      * Run the command to update variable name and value entered by the user in the VariableView
+     *
      * @param var
      */
     public void updateVar(Map<String, String> var) {
