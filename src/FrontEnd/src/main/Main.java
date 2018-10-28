@@ -13,6 +13,6 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setResizable(false);
-        Controller myController = new Controller(primaryStage, DEFAULT_LANGUAGE);
+        new Controller(primaryStage, DEFAULT_LANGUAGE);
     }
 }
