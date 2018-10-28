@@ -55,9 +55,14 @@ public class TreeFactory {
                 if (isOpenBracket(commands.get(0))) {
                     nextChild = generateList(commands);
                     commands.remove(0); //Remove that ending bracket!
-                } else {
+                }
+                else if(isVariable(commands.get(0)) & command.equals("MakeVariable")){ //the only way a child here would be a variable is if its a make/set
+                    nextChild = newVariable(commands);
+                }
+                else {
                     nextChild = createChild(commands); //if not list, it is a command
                 }
+
                 if (nextChild == null) {
                     throw new IllegalCommandException();
                 }
@@ -205,6 +210,12 @@ public class TreeFactory {
         }
         commands.remove(0); //remove the last parenthesis
 
+    }
+
+    private Node newVariable(List<String> commands){
+        String child = commands.remove(0);
+        myStorage.addVarName(child.substring(1));
+        return new Text(child.substring(1));
     }
 
     private boolean isVariable(String s) {
