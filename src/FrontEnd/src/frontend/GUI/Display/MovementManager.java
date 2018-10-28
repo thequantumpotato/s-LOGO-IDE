@@ -10,6 +10,7 @@ import javafx.util.Duration;
 /** Class for the management of movement animations of the sprites. Subclass of {@code Manager}
  *  @author bpx */
 public class MovementManager extends Manager{
+
     private AnimationContainer myAnimationContainer;
 
     /** Constructor initializes object with default fields */
@@ -36,7 +37,6 @@ public class MovementManager extends Manager{
         myAnimationContainer.addAnimation(id,combinedTransition);
     }
 
-
     /** Plays the queued animations for a specific sprite
      *  @param id The id of the turtle to play the animation*/
     public void playTurtleAnimation(String id){
@@ -46,7 +46,7 @@ public class MovementManager extends Manager{
     /** Resets the fields of the {@code MovementManager} back to default values*/
     @Override
     public void reset(){
-        super.setDuration(DEFAULT_DURATION);
+        super.setDuration(TurtleManager.DEFAULT_DURATION);
         myAnimationContainer.killAllAnimations();
     }
 }
