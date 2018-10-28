@@ -29,6 +29,7 @@ import java.util.Map;
 // TODO: 10/25/18 Make the windows expand and contract --- Accordion and TitlePane
 // TODO: 10/28/18 Add Palette
 public class View implements ViewInternalAPI, ViewAPI {
+    public static final double DEFAULT_PEN_SIZE = 1;
     public final int DEFAULT_PEN_TIME = 10;
     private final Turtle myTurtle;
     private DisplayView myDisplayView;
