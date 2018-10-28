@@ -13,7 +13,8 @@ public class Repeat extends RootNode {
     @Override
     public Object run() {
         List<Object> l = runChildren();
-        Integer times = (Integer)l.get(0);
+        Double reps = (Double) l.get(0);
+        Integer times = reps.intValue();
         List<Node> cList = (List<Node>)l.get(1);
         for(int i = 0; i < times; i++){
             for(Node c: cList){

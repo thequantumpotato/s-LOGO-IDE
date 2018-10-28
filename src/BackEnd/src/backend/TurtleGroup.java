@@ -10,7 +10,8 @@ import java.util.Observer;
 /**
  * @author Jose San Martin
  */
-public class TurtleGroup extends Observable implements Turtle {
+public class TurtleGroup implements Turtle {
+
     private List<TurtleLeaf> turtles;
 
     public TurtleGroup() {
@@ -33,8 +34,8 @@ public class TurtleGroup extends Observable implements Turtle {
     @Override
     public void move(double distance) {
         for (TurtleLeaf leaf : turtles) {
-            leaf.setX(x + distance * Math.cos(direction));
-            leaf.setY(y + distance * Math.sin(direction));
+            leaf.setX(leaf.getX() + distance * Math.cos(leaf.getDirection()));
+            leaf.setY(leaf.getY() + distance * Math.sin(leaf.getDirection()));
             leaf.notifyObservers();
         }
     }
@@ -58,12 +59,19 @@ public class TurtleGroup extends Observable implements Turtle {
 
     @Override
     public void penUp() {
-        penDown = false;
+        for (TurtleLeaf leaf : turtles) {
+            leaf.penUp();
+            leaf.notifyObservers();
+        }
+
     }
 
     @Override
     public void penDown() {
-        penDown = true;
+        for (TurtleLeaf leaf : turtles) {
+            leaf.penDown();
+            leaf.notifyObservers();
+        }
     }
 
     @Override
@@ -101,58 +109,92 @@ public class TurtleGroup extends Observable implements Turtle {
 
     @Override
     public double getX() {
-        return this.x;
+        for (TurtleLeaf leaf : turtles) {
+            return leaf.getX();
+        }
+        return 0;
     }
 
     @Override
     public void setX(double x) {
-        this.x = x;
+        for (TurtleLeaf leaf : turtles) {
+            leaf.setX(x);
+        }
     }
 
     @Override
     public double getY() {
-        return this.y;
+        for (TurtleLeaf leaf : turtles) {
+            return leaf.getY();
+        }
+        return 0;
     }
 
     @Override
     public void setY(double y) {
-        this.y = y;
+        for (TurtleLeaf leaf : turtles) {
+            leaf.setY(y);
+        }
     }
 
+    //TODO: FIX THIS
     @Override
     public boolean getIsPenDown() {
-        return this.penDown;
+        for (TurtleLeaf leaf : turtles) {
+            return leaf.getIsPenDown();
+        }
+        return false;
     }
-
+    //TODO: FIX THIS
     @Override
     public boolean getIsShowing() {
-        return this.showing;
+        for (TurtleLeaf leaf : turtles) {
+            return leaf.getIsShowing();
+        }
+        return false;
     }
 
-    @Override
+
     public void show() {
-        showing = true;
+        for (TurtleLeaf leaf : turtles) {
+            leaf.show();
+            leaf.notifyObservers();
+        }
     }
 
-    @Override
     public void hide() {
-        showing = false;
+        for (TurtleLeaf leaf : turtles) {
+            leaf.hide();
+            leaf.notifyObservers();
+        };
     }
 
     public void setBgColor(Color color){
-        this.bgColor = color;
+        for (TurtleLeaf leaf : turtles) {
+            leaf.setBgColor(color);
+            leaf.notifyObservers();
+        }
     }
 
     public void setPenColor(Color color){
-        this.penColor = color;
+        for (TurtleLeaf leaf : turtles) {
+            leaf.setPenColor(color);
+            leaf.notifyObservers();
+        }
     }
 
     public void setPenSize(double size){
-        this.penSize = size;
+        for (TurtleLeaf leaf : turtles) {
+            leaf.setPenSize(size);
+            leaf.notifyObservers();
+        }
     }
 
     public void setShape(int s){
-        this.shape = s;
+        for (TurtleLeaf leaf : turtles) {
+            leaf.setShape(s);
+            leaf.notifyObservers();
+        }
     }
 
     public void notifyAllObservers() {
@@ -166,15 +208,16 @@ public class TurtleGroup extends Observable implements Turtle {
     }
     public void notifyAllObservers(Object o) {
         for (TurtleLeaf leaf : turtles) {
+            System.out.println(leaf.getX());
             leaf.notifyObservers(o);
         }
     }
 
 
-    @Override
     public void addAnObserver(Observer o) {
         for (TurtleLeaf leaf : turtles) {
-            leaf.addObserver(o);
+            leaf.addAnObserver(o);
         }
     }
+
 }

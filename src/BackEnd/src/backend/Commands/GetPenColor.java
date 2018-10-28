@@ -13,6 +13,6 @@ public class GetPenColor extends RootNode {
 
     @Override
     public Object run() {
-
+        return null;
     }
 }

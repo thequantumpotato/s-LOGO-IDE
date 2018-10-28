@@ -42,7 +42,7 @@ abstract public class RootNode implements Node{
     protected List<Double> parseDoubles(List<Object> l){
         List<Double> res = new ArrayList<>();
         for(Object o: l){
-            res.add((Double) o);
+            res.add((double) o);
         }
         return res;
     }

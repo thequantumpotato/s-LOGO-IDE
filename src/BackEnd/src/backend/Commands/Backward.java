@@ -14,7 +14,9 @@ public class Backward extends RootNode {
     public Object run() {
         List<Double> l = parseDoubles(runChildren());
         Double d = l.get(0);
+        myTurtle.Changed();
         myTurtle.move(-1 * d);
+        myTurtle.clear();
         return d;
     }
 }
