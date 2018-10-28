@@ -11,13 +11,6 @@ import java.util.Observer;
  * @author Jose San Martin
  */
 public class TurtleGroup extends Observable implements Turtle {
-    private double direction;
-    private double size;
-    private Color color;
-    private double x;
-    private double y;
-    private boolean penDown;
-    private boolean showing;
     private List<TurtleLeaf> turtles;
 
     public TurtleGroup() {
@@ -65,12 +58,12 @@ public class TurtleGroup extends Observable implements Turtle {
 
     @Override
     public void penUp() {
-
+        penDown = false;
     }
 
     @Override
     public void penDown() {
-
+        penDown = true;
     }
 
     @Override
@@ -137,23 +130,29 @@ public class TurtleGroup extends Observable implements Turtle {
     }
 
     @Override
-    public void liftPenUp() {
-
-    }
-
-    @Override
-    public void putPenDown() {
-
-    }
-
-    @Override
     public void show() {
-
+        showing = true;
     }
 
     @Override
     public void hide() {
+        showing = false;
+    }
 
+    public void setBgColor(Color color){
+        this.bgColor = color;
+    }
+
+    public void setPenColor(Color color){
+        this.penColor = color;
+    }
+
+    public void setPenSize(double size){
+        this.penSize = size;
+    }
+
+    public void setShape(int s){
+        this.shape = s;
     }
 
     public void notifyAllObservers() {

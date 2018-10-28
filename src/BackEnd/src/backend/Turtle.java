@@ -43,10 +43,6 @@ public interface Turtle {
 
     boolean getIsShowing();
 
-    void liftPenUp();
-
-    void putPenDown();
-
     void addAnObserver(Observer o);
 
     void notifyAllObservers(Object o);
