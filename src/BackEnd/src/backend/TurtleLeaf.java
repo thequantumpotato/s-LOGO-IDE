@@ -120,11 +120,6 @@ public class TurtleLeaf extends Observable implements Turtle {
 
     }
 
-    //Manually add observers
-    public void addAnObserver(Observer o) {
-        addObserver(o);
-    }
-
 
 
     public void show() {
@@ -149,5 +144,9 @@ public class TurtleLeaf extends Observable implements Turtle {
     }
     public void notifyAllObservers(){
         return;
+    }
+
+    public void addAnObserver(Observer o){
+        this.addObserver(o);
     }
 }

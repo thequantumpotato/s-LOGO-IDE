@@ -10,14 +10,10 @@ import java.util.Observer;
 /**
  * @author Jose San Martin
  */
-public class TurtleGroup extends Observable implements Turtle {
+public class TurtleGroup implements Turtle {
     private double direction;
     private double size;
     private Color color;
-    private double x;
-    private double y;
-    private boolean penDown;
-    private boolean showing;
     private List<TurtleLeaf> turtles;
 
     public TurtleGroup() {
@@ -40,8 +36,8 @@ public class TurtleGroup extends Observable implements Turtle {
     @Override
     public void move(double distance) {
         for (TurtleLeaf leaf : turtles) {
-            leaf.setX(x + distance * Math.cos(direction));
-            leaf.setY(y + distance * Math.sin(direction));
+            leaf.setX(leaf.getX() + distance * Math.cos(leaf.getDirection()));
+            leaf.setY(leaf.getY() + distance * Math.sin(leaf.getDirection()));
             leaf.notifyObservers();
         }
     }
@@ -108,34 +104,51 @@ public class TurtleGroup extends Observable implements Turtle {
 
     @Override
     public double getX() {
-        return this.x;
+        for (TurtleLeaf leaf : turtles) {
+            return leaf.getX();
+        }
+        return 0;
     }
 
     @Override
     public void setX(double x) {
-        this.x = x;
+        for (TurtleLeaf leaf : turtles) {
+            leaf.setX(x);
+        }
     }
 
     @Override
     public double getY() {
-        return this.y;
+        for (TurtleLeaf leaf : turtles) {
+            return leaf.getY();
+        }
+        return 0;
     }
 
     @Override
     public void setY(double y) {
-        this.y = y;
+        for (TurtleLeaf leaf : turtles) {
+            leaf.setY(y);
+        }
     }
 
     @Override
     public boolean getIsPenDown() {
-        return this.penDown;
+        for (TurtleLeaf leaf : turtles) {
+            return leaf.getIsPenDown();
+        }
+        return false;
     }
 
     @Override
     public boolean getIsShowing() {
-        return this.showing;
+        for (TurtleLeaf leaf : turtles) {
+            return leaf.getIsShowing();
+        }
+        return false;
     }
 
+    //TODO: FINISH THE REST OF THESE
     @Override
     public void liftPenUp() {
 
@@ -167,15 +180,16 @@ public class TurtleGroup extends Observable implements Turtle {
     }
     public void notifyAllObservers(Object o) {
         for (TurtleLeaf leaf : turtles) {
+            System.out.println(leaf.getX());
             leaf.notifyObservers(o);
         }
     }
 
 
-    @Override
     public void addAnObserver(Observer o) {
         for (TurtleLeaf leaf : turtles) {
-            leaf.addObserver(o);
+            leaf.addAnObserver(o);
         }
     }
+
 }
