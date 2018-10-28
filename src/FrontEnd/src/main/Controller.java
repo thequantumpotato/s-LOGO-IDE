@@ -60,8 +60,8 @@ public class Controller {
      */
     private void checkBackEndFuncUpdate() {
         List<String> newFunc = modelController.updateFunc();
-//        if (!newFunc.isEmpty()) myView.addFunc(newFunc);
-        // TODO: 10/27/18
+        if (!newFunc.isEmpty()) myView.displayFunc(newFunc);
+
     }
 
     /**
@@ -69,7 +69,7 @@ public class Controller {
      */
     private void checkBackEndVarUpdate() {
         Map<String, String> newVar = modelController.updateVar();
-        if (!newVar.isEmpty()) myView.addVar(newVar);
+        if (!newVar.isEmpty()) myView.displayVar(newVar);
     }
 
     /**
