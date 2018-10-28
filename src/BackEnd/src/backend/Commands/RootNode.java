@@ -18,6 +18,10 @@ abstract public class RootNode implements Node{
         this.myStorage = storage;
     }
 
+    public List<Node> getChildren(){
+        return myChildren;
+    }
+
     @Override
     public void addChild(Node child) {
         myChildren.add(child);

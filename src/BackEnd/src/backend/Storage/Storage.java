@@ -24,6 +24,10 @@ public class Storage {
         return null;
     }
 
+    public boolean hasVar(String name){
+        return vMap.containsKey(name);
+    }
+
     public List<Node> getIns(String name){
         if(iMap.containsKey(name)){
             return iMap.get(name).getInstruction();

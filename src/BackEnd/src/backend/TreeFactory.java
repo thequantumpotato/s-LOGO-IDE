@@ -84,12 +84,7 @@ public class TreeFactory {
             //This child has its own arguments that we need to add. Use recursion!
             generateCommand(newChild, commands, getArgNum(nextChild));
         } else {
-            if(isVariable(nextChild)){
-                newChild = new Text(nextChild.substring(1));
-            }
-            else{
-                newChild = new Number(nextChild);
-            }
+            newChild = getLeafNode(nextChild);
         }
 
         return newChild;
@@ -107,7 +102,7 @@ public class TreeFactory {
 
         } else {
             //If not command or variable, it is a LeafNode
-            newNode = new Number(command);
+            newNode = getLeafNode(command);
         }
         return newNode;
     }
@@ -123,8 +118,10 @@ public class TreeFactory {
             //Create the new command and add all of it's children
             String nextCommand = Commands.remove(0);
             Node newChild = createRoot(nextCommand);
-            int numChild = getArgNum(nextCommand);
-            generateCommand(newChild, Commands, numChild);
+            if(newChild instanceof RootNode && !(newChild instanceof GetVariable)){
+                int numChild = getArgNum(nextCommand);
+                generateCommand(newChild, Commands, numChild);
+            }
             //Add this command to our ListNode
             commandList.addChild(newChild);
         }
@@ -141,6 +138,29 @@ public class TreeFactory {
         }
     }
 
+
+    /**
+     * Returns the correct type of LeafNode that should be instantiated
+     * That is either a Text that corresponds to a new number, a variable that we are grabbing,
+     * or a
+     */
+    //TODO: NOT WORKING!!!!!
+    public Node getLeafNode(String nextChild){
+        if(isVariable(nextChild) & !myStorage.hasVar(nextChild.substring(1))){
+            return new Text(nextChild.substring(1));
+        }
+        else if(myStorage.hasVar(nextChild.substring(1))){
+            //return new Number(myStorage.getVar(nextChild.substring(1)).toString());
+            var temp = new GetVariable(myStorage, myTurtle, new ArrayList<>());
+            temp.addChild(new Text(nextChild.substring(1)));
+            return temp;
+
+
+        }
+        else{
+            return new Number(nextChild);
+        }
+    }
     /**
      * Reflection
      */

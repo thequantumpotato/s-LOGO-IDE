@@ -13,7 +13,6 @@ public class MakeVariable extends RootNode {
     @Override
     public Object run() {
         List<Object> l = runChildren();
-        System.out.println("?");
         myStorage.makeVar((String)l.get(0), l.get(1));
         return l.get(1);
     }
