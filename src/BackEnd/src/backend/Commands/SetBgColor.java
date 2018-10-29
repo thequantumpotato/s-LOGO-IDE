@@ -6,8 +6,9 @@ import javafx.scene.paint.Color;
 
 import java.util.List;
 
-public class SetPenColor extends RootNode {
-    public SetPenColor(Storage storage, Turtle turtle, List<Node> children) {
+public class SetBgColor extends RootNode {
+
+    public SetBgColor(Storage storage, Turtle turtle, List<Node> children) {
         super(storage, turtle, children);
     }
 
@@ -15,7 +16,7 @@ public class SetPenColor extends RootNode {
     public Object run() {
         List<Object> l = runChildren();
         Color c = Color.web((String) l.get(0));
-        myTurtle.setPenColor(c);
+        myTurtle.setBgColor(c);
         return c;
     }
 }

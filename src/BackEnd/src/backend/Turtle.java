@@ -48,8 +48,10 @@ public interface Turtle {
     void setBgColor(Color color);
     void setPenColor(Color color);
     void setPenSize(double size);
-    void setShape(int shape);
 
+    Color getBgColor();
+    Color getPenColor();
+    double getPenSize();
 
 
     void addAnObserver(Observer o);
@@ -58,5 +60,7 @@ public interface Turtle {
     void notifyAllObservers();
 
     Turtle getTurtleLeaf(Integer id);
+
+    void clearScreen();
 
 }

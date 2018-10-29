@@ -5,16 +5,15 @@ import backend.Turtle;
 
 import java.util.List;
 
-public class SetPenSize extends RootNode {
+public class Return extends RootNode{
 
-    public SetPenSize(Storage storage, Turtle turtle, List<Node> children) {
+    public Return(Storage storage, Turtle turtle, List<Node> children) {
         super(storage, turtle, children);
     }
 
     @Override
     public Object run() {
-        List<Double> l = parseDoubles(runChildren());
-        myTurtle.setPenSize(l.get(0));
+        List<Object> l = runChildren();
         return l.get(0);
     }
 }

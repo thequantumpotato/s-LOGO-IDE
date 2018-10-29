@@ -5,14 +5,14 @@ import backend.Turtle;
 
 import java.util.List;
 
-public class ClearScreen extends RootNode{
-    public ClearScreen(Storage storage, Turtle turtle, List<Node> children) {
+public class Function extends RootNode {
+
+    public Function(Storage storage, Turtle turtle, List<Node> children) {
         super(storage, turtle, children);
     }
 
     @Override
     public Object run() {
-        myTurtle.clearScreen();
-        return 1;
+        return null;
     }
 }
