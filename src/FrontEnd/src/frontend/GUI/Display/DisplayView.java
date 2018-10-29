@@ -219,19 +219,16 @@ public class DisplayView implements SubView, Observer {
     }
 
     private void getSettings(TurtleLeaf o) {
-        setPenDown(o.getIsPenDown());
+        myView.changePenDown(o.getIsPenDown());
         if(o.getIsShowing()){
             showTurtle(String.valueOf(o.getId()));
         }
         else{
             hideTurtle(String.valueOf(o.getId()));
         }
-        changeBgColor(o.getBgColor());
-        System.out.println(o.getBgColor()==null);
-        changePenColor(o.getPenColor());
-        System.out.println(o.getPenColor().toString());
-        changePenSize(o.getPenSize());
-        System.out.println(o.getPenSize());
+        myView.changeBgColor(o.getBgColor());
+        myView.changePenColor(o.getPenColor());
+        myView.changePenSize(o.getPenSize());
     }
 
 }

@@ -119,21 +119,27 @@ public class View implements ViewInternalAPI, ViewAPI {
      **/
 
     @Override
-    public void changeBgColor(Color bgColor) { myDisplayView.changeBgColor(bgColor); }
+    public void changeBgColor(Color bgColor) {
+        myDisplayView.changeBgColor(bgColor);
+        mySettingView.setBackgroundColor(bgColor);
+    }
 
     @Override
     public void changePenColor(Color penColor) {
         myDisplayView.changePenColor(penColor);
+        mySettingView.setPenColor(penColor);
     }
 
     @Override
     public void changePenSize(double penSize) {
         myDisplayView.changePenSize(penSize);
+        mySettingView.setPenSize(penSize);
     }
 
     @Override
     public void changePenDown(boolean penDown) {
         myDisplayView.setPenDown(penDown);
+        mySettingView.setPenDown(penDown);
     }
 
     @Override
