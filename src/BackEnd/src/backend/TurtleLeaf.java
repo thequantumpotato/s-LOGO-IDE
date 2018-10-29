@@ -202,4 +202,8 @@ public class TurtleLeaf extends Observable implements Turtle {
         this.notifyObservers();
         this.clearScreen = false;
     }
+
+    public boolean getClearScreen(){
+        return this.clearScreen;
+    }
 }

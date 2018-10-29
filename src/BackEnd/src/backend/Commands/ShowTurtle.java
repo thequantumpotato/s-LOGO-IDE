@@ -12,7 +12,9 @@ public class ShowTurtle extends RootNode {
 
     @Override
     public Object run() {
+        myTurtle.Changed();
         myTurtle.show();
+        myTurtle.clear();
         return 1;
     }
 }

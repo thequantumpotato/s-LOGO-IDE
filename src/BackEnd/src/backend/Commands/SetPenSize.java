@@ -14,7 +14,9 @@ public class SetPenSize extends RootNode {
     @Override
     public Object run() {
         List<Double> l = parseDoubles(runChildren());
+        myTurtle.Changed();
         myTurtle.setPenSize(l.get(0));
+        myTurtle.clear();
         return l.get(0);
     }
 }

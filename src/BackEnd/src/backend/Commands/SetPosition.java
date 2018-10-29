@@ -16,7 +16,9 @@ public class SetPosition extends RootNode {
         List<Double> l = parseDoubles(runChildren());
         double oldx = myTurtle.getX();
         double oldy = myTurtle.getY();
+        myTurtle.Changed();
         myTurtle.setPosition(l.get(0), l.get(1));
+        myTurtle.clear();
         return Math.pow(oldx - l.get(0), 2) + Math.pow(oldy - l.get(1), 2);
     }
 }

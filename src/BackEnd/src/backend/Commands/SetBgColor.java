@@ -16,7 +16,9 @@ public class SetBgColor extends RootNode {
     public Object run() {
         List<Object> l = runChildren();
         Color c = Color.web((String) l.get(0));
+        myTurtle.Changed();
         myTurtle.setBgColor(c);
+        myTurtle.clear();
         return c;
     }
 }

@@ -12,7 +12,9 @@ public class ClearScreen extends RootNode{
 
     @Override
     public Object run() {
+        myTurtle.Changed();
         myTurtle.clearScreen();
+        myTurtle.clear();
         return 1;
     }
 }
