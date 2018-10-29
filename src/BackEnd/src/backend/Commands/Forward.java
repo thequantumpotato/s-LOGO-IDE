@@ -14,7 +14,6 @@ public class Forward extends RootNode{
     @Override
     public Object run() {
         List<Double> l = parseDoubles(runChildren());
-        System.out.println(l);
         myTurtle.Changed();
         myTurtle.move(l.get(0));
         myTurtle.clear();
