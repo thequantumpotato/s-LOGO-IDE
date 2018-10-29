@@ -13,10 +13,10 @@ import javafx.scene.text.Text;
 
 /**
  * The panel that shows all the information about the turtle and the pen.
- *
+ * <p>
  * When the mouse is not hovering above a turtle, the StateView will display just the attribute name
  * but not the content.
- *
+ * <p>
  * When the mouse is hovering above a turtle, StateView show turtle's x and y and direction,
  * its active state, and the pen's size, color, and whether the pen is up or down.
  *
@@ -26,7 +26,7 @@ public class StateView implements SubView {
     private VBox stateView = new VBox();
     private ListView stateList = new ListView();
 
-    public StateView(){
+    public StateView() {
         stateView.getChildren().addAll(new Label("Turtle State"), stateList);
         stateView.getStyleClass().add("stateView");
         showDefault();
@@ -36,20 +36,20 @@ public class StateView implements SubView {
      * Only show the attribute name but not the content.
      * This method is called when the mouse exits the Sprite.
      */
-    public void showDefault(){
+    public void showDefault() {
         stateList.getItems().clear();
         setUpTurtleFields();
         setUpPenFields();
     }
 
-    public void setUpPenFields(){
+    public void setUpPenFields() {
         Text penColorT = new Text("Pen Color: ");
         Text penDownT = new Text("Pen State ");
         Text penSizeT = new Text("Pen Size: ");
         stateList.getItems().addAll(penColorT, penDownT, penSizeT);
     }
 
-    public void setUpTurtleFields(){
+    public void setUpTurtleFields() {
         Text idT = new Text("ID: ");
         Text xT = new Text("x: ");
         Text yT = new Text("y: ");
@@ -60,11 +60,12 @@ public class StateView implements SubView {
     /**
      * This command is passed by View from the TurtleManager when the mouse is hovering above a Sprite.
      * It changes the information presented on the StateView
+     *
      * @param id
      * @param sprite
      * @param pathManager
      */
-    public void changeState(String id, Sprite sprite, PathManager pathManager){
+    public void changeState(String id, Sprite sprite, PathManager pathManager) {
         stateList.getItems().clear();
         updateTurtleVars(id, sprite);
         updatePenVars(pathManager);
@@ -73,6 +74,7 @@ public class StateView implements SubView {
     /**
      * After receiving information about the Sprite and the turtle id, extract necessary information to present,
      * including the x, y, direction, and of course, id itself
+     *
      * @param id
      * @param sprite
      */
@@ -86,6 +88,7 @@ public class StateView implements SubView {
     /**
      * After receiving information about the PathManager, extract necessary information to present, including
      * pen's state (down or up), color, and size
+     *
      * @param pathManager
      */
     private void updatePenVars(PathManager pathManager) {
@@ -96,14 +99,14 @@ public class StateView implements SubView {
         setUpdatedPenFields(penDown, penColor, penSize);
     }
 
-    public void setUpdatedPenFields(boolean penDown, Color penColor, double penSize){
+    public void setUpdatedPenFields(boolean penDown, Color penColor, double penSize) {
         Text penColorT = new Text("Pen Color: " + penColor);
         Text penDownT = new Text("Pen State " + (penDown ? "Down" : "Up"));
         Text penSizeT = new Text("Pen Size: " + penSize);
         stateList.getItems().addAll(penColorT, penDownT, penSizeT);
     }
 
-    public void setUpdatedTurtleFields(String id, double x, double y, double direction){
+    public void setUpdatedTurtleFields(String id, double x, double y, double direction) {
         Text idT = new Text("ID: " + id);
         Text xT = new Text("x: " + x);
         Text yT = new Text("y: " + y);

@@ -17,6 +17,14 @@ import javafx.stage.FileChooser;
 
 import java.io.File;
 
+/**
+ * UI ToolBar for the user to graphically manipulate turtle settings, including pen color, background color,
+ * language setting, animation speed, pen size, pen state (down or up), and turtle image
+ *
+ * @author Vincent LIu
+ * @author bpx
+ **/
+
 public class SettingView implements SubView {
     private ToolBar settingView;
     private ComboBox languageBox;
@@ -30,10 +38,6 @@ public class SettingView implements SubView {
                     "English", "Chinese", "French", "German",
                     "Italian", "Portuguese", "Russian", "Spanish", "Urdu");
 
-
-    /** UI tools for the user to graphically manipulate turtle settings
-     *  @author jl729
-     *  @author bpx */
     public SettingView(View myView_, String initLang) {
         myView = myView_;
         settingView = new ToolBar();
@@ -47,7 +51,7 @@ public class SettingView implements SubView {
         setUpLangComboBox(initLang);
         VBox speedBox = setUpTurtleSpeedBox();
 
-        settingView.getItems().addAll(bgBox, penBox, penDownCheckbox,penSizeBox, speedBox, turtleButton, languageBox);
+        settingView.getItems().addAll(bgBox, penBox, penDownCheckbox, penSizeBox, speedBox, turtleButton, languageBox);
     }
 
     private VBox setUpTurtleSpeedBox() {
@@ -73,7 +77,7 @@ public class SettingView implements SubView {
     }
 
     private VBox setUpPenSizeSlider() {
-        VBox speedBox = new VBox();
+        VBox sizeBox = new VBox();
         Label sizeLabel = new Label("Pen Size: " + myView.DEFAULT_PEN_SIZE);
         penSizeSlider = new Slider();
         penSizeSlider.setMin(1);
@@ -90,8 +94,8 @@ public class SettingView implements SubView {
         penSizeSlider.valueProperty().addListener((ov, old_val, new_val) -> {
             sizeLabel.setText("Pen Size: " + String.valueOf(new_val.doubleValue()));
         });
-        speedBox.getChildren().addAll(sizeLabel, penSizeSlider);
-        return speedBox;
+        sizeBox.getChildren().addAll(sizeLabel, penSizeSlider);
+        return sizeBox;
     }
 
     private void setUpLangComboBox(String initLang) {
@@ -156,31 +160,44 @@ public class SettingView implements SubView {
         return bgBox;
     }
 
-    /** External sync method to make sure pen {@code CheckBox} reflects actual pendown status
-     *  @param state True means pen is down, false means pen is up */
-    public void setPenDown(boolean state){
+    /**
+     * External sync method to make sure pen {@code CheckBox} reflects actual pendown status
+     *
+     * @param state True means pen is down, false means pen is up
+     */
+    public void setPenDown(boolean state) {
         penDownCheckbox.setSelected(state);
     }
 
-    /** External sync method to make sure pen {@code ColorPicker} reflects actual pen color
-     *  @param color The {@code Color} to set the {@code ColorPicker} to */
-    public void setPenColor(Color color){
+    /**
+     * External sync method to make sure pen {@code ColorPicker} reflects actual pen color
+     *
+     * @param color The {@code Color} to set the {@code ColorPicker} to
+     */
+    public void setPenColor(Color color) {
         penColorPicker.setValue(color);
     }
 
-    /** External sync method to make sure pen size {@code Slider} reflects actual pen size
-     *  @param size The size to set the pen size {@code Slider} to */
-    public void setPenSize(double size){
-        if(size>0){
+    /**
+     * External sync method to make sure pen size {@code Slider} reflects actual pen size
+     *
+     * @param size The size to set the pen size {@code Slider} to
+     */
+    public void setPenSize(double size) {
+        if (size > 0) {
             penSizeSlider.setValue(size);
         }
     }
 
-    /** External sync method to ensure background {@code ColorPicker} reflects actual background color
-     *  @param color The {@code Color} to set the {@code ColorPicker} to */
-    public void setBackgroundColor(Color color){
+    /**
+     * External sync method to ensure background {@code ColorPicker} reflects actual background color
+     *
+     * @param color The {@code Color} to set the {@code ColorPicker} to
+     */
+    public void setBackgroundColor(Color color) {
         bgColorPicker.setValue(color);
     }
+
     @Override
     public Node getView() {
         return settingView;
