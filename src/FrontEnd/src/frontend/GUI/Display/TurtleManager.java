@@ -146,6 +146,7 @@ public class TurtleManager extends Manager {
     /** Resets the display */
     @Override
     public void reset() {
+        myTurtles.clear();
         mySpriteContainer.killAllSprites();
         myAnimationContainer.killAllAnimations();
         myMovementManager.reset();

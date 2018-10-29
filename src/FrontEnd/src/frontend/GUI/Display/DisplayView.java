@@ -60,7 +60,7 @@ public class DisplayView implements SubView, Observer {
         myPen.eraseAll();
         myTurtleManager.reset();
         myTurtleManager.createTurtle("0");
-        //myView.registerDisplay(myView.getTurtle());
+        myView.registerDisplay(myView.getTurtle());
     }
 
     public void changeBgColor(Color bgColor) {
@@ -147,13 +147,14 @@ public class DisplayView implements SubView, Observer {
             }
         } else {
             System.out.println("Received update");
+            if(!myTurtleManager.contains(String.valueOf(((TurtleLeaf) o).getId()))){
+                System.out.println("creating new turtle "+String.valueOf(((TurtleLeaf) o).getId()));
+                myTurtleManager.createTurtle(String.valueOf(((TurtleLeaf) o).getId()));
+            }
             Coordinate newPosition = adjustPosition(((TurtleLeaf) o).getX(),((TurtleLeaf) o).getY(),((TurtleLeaf) o).getDirection());
             if (newPosition.getX() > bg.getX() + bg.getWidth() || newPosition.getX() < bg.getX() ||
                     newPosition.getY() > bg.getY() + bg.getHeight() || newPosition.getY() < bg.getY()) {
                 expandBackground(Math.max(Math.abs(newPosition.getX() - bg.getX()), Math.abs(newPosition.getY() - bg.getY())));
-            }
-            if(!myTurtleManager.contains(String.valueOf(((TurtleLeaf) o).getId()))){
-                myTurtleManager.createTurtle(String.valueOf(((TurtleLeaf) o).getId()));
             }
             myTurtleManager.moveTurtle(String.valueOf(((TurtleLeaf) o).getId()),newPosition);
         }
