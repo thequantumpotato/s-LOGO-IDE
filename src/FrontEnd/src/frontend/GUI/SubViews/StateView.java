@@ -4,6 +4,7 @@ import backend.Turtle;
 import frontend.API.SubView;
 import frontend.GUI.View;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -26,21 +27,15 @@ public class StateView implements SubView {
     private Color penColor;
     private boolean penDown;
     private double penSize;
-    private VBox container = new VBox();
-    private TitledPane stateView = new TitledPane();
+    private VBox stateView = new VBox();
 
     //state of a turtle (i.e., its ID, position, heading) and
     // its pen (i.e., up/down, color, thickness)
 
     public StateView(View myView_){
         myView = myView_;
-        stateView.setText("Turtle State");
-        setUpContainer();
-        stateView.setContent(container);
-    }
-
-    private void setUpContainer() {
-//        Text id = new Text(id.toString());
+        stateView.getStyleClass().add("stateView");
+        stateView.getChildren().addAll(new Label("Turtle State"));
     }
 
     public void receiveTurtle(Turtle turtle){
