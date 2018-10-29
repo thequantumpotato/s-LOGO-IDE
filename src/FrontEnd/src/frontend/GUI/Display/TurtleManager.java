@@ -1,6 +1,7 @@
 package frontend.GUI.Display;
 
 
+import frontend.GUI.View;
 import frontend.Util.AnimationContainer;
 import frontend.Util.Coordinate;
 import javafx.scene.Group;
@@ -24,11 +25,13 @@ public class TurtleManager extends Manager {
     private AnimationContainer myAnimationContainer;
     private MovementManager myMovementManager;
     private PathManager myPathManager;
+    private View myView;
 
     /** Initialize a new {@code TurtleManager} with the render target
      *  @param renderTarget The {@code Group} to render everything to */
-    public TurtleManager(Group renderTarget){
+    public TurtleManager(Group renderTarget, View myView_){
         super();
+        myView = myView_;
         myRenderTarget = renderTarget;
         myTurtles = new ArrayList<>();
         mySpriteContainer = new SpriteContainer(renderTarget);
@@ -42,6 +45,12 @@ public class TurtleManager extends Manager {
     public void createTurtle(String id){
         myTurtles.add(id);
         mySpriteContainer.addSprite(id);
+        mySpriteContainer.getSprite(id).setOnMouseEntered(
+                e -> myView.showState(id, mySpriteContainer.getSprite(id), myPathManager)
+        );
+        mySpriteContainer.getSprite(id).setOnMouseExited(
+                e -> myView.noShow()
+        );
         mySpriteContainer.getSprite(id).setPosition(new Coordinate(ORIGIN_X,ORIGIN_Y,0));
     }
 

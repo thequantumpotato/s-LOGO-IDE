@@ -26,6 +26,18 @@ public class Sprite extends ImageView {
         myAngle = 0;
     }
 
+    public double getMyX() {
+        return myX;
+    }
+
+    public double getMyY() {
+        return myY;
+    }
+
+    public double getMyAngle() {
+        return myAngle;
+    }
+
     /** Hide the {@code Sprite} by making the {@code Sprite} transparent*/
     public void hide(){
         this.setOpacity(0);

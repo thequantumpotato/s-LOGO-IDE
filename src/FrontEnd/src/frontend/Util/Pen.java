@@ -24,12 +24,20 @@ public class Pen {
     public static final int DEFAULT_SIZE = 1;
     public static final Color DEFAULT_COLOR = Color.WHITE;
 
-    private Paint myColor;
+    private Color myColor;
     private double mySize;
     private Group root;
     private List<Line> myLines;
     private Coordinate myPosition;
     private Duration myDrawSpeed;
+
+    public Color getMyColor() {
+        return myColor;
+    }
+
+    public double getMySize() {
+        return mySize;
+    }
 
     /** Constructor for no {@code Duration}
      *  @param origin The starting point of the {@code Pen}*/
@@ -115,7 +123,7 @@ public class Pen {
 
     /** Set the stroke color of the {@code Pen}
      *  @param newcolor The new {@code Paint} value for the color of the {@code Pen}*/
-    public void setPenColor(Paint newcolor) {
+    public void setPenColor(Color newcolor) {
         myColor = newcolor;
     }
 
