@@ -59,8 +59,8 @@ public class Controller {
             checkBackEndVarUpdate();
             checkBackEndFuncUpdate();
         } catch (Exception e) {
-            e.printStackTrace();
-            //throwErrorByType(e);
+            //e.printStackTrace();
+            throwErrorByType(e);
         }
     }
 
