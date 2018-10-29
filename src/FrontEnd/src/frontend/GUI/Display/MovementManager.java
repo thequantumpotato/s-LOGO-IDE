@@ -24,6 +24,9 @@ public class MovementManager extends Manager{
      *  @param currentPosition The current position of the sprite in the coordinate system
      *  @param newPosition The target position of the sprite in the coordinate system */
     public void addTurtleAnimation(String id, ImageView imageView, Coordinate currentPosition, Coordinate newPosition){
+        if(!myAnimationContainer.contains(id)){
+            myAnimationContainer.addAnimation(id,new SequentialTransition());
+        }
         TranslateTransition xt = new TranslateTransition(super.getDuration(),imageView);
         xt.setFromX(currentPosition.getX());
         xt.setFromY(currentPosition.getY());
@@ -34,7 +37,7 @@ public class MovementManager extends Manager{
         rt.setToAngle(newPosition.getAngle());
         ParallelTransition combinedTransition = new ParallelTransition();
         combinedTransition.getChildren().addAll(xt,rt);
-        myAnimationContainer.addAnimation(id,combinedTransition);
+        ((SequentialTransition)myAnimationContainer.get(id)).getChildren().add(combinedTransition);
     }
 
     /** Plays the queued animations for a specific sprite

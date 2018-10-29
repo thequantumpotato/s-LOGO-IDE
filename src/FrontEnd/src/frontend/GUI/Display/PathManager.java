@@ -1,6 +1,7 @@
 package frontend.GUI.Display;
 
 import frontend.Util.*;
+import javafx.animation.SequentialTransition;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
@@ -38,6 +39,9 @@ public class PathManager extends Manager{
      *  @param id The identifier for the turtle for which this path applies to
      *  @param lines The {@code Line} objects that will be added to the {@code Path}*/
     public void addPath(String id, Line...lines){
+        if(!myAnimationContainer.contains(id)){
+            myAnimationContainer.addAnimation(id,new SequentialTransition());
+        }
         if(penDown){
             System.out.println("Creating path for "+id);
             LinePath newpath = new LinePath();
@@ -45,12 +49,14 @@ public class PathManager extends Manager{
                 newpath.addLine(l);
             }
             if(penDown){
-                myAnimationContainer.addAnimation(id,myPen.drawLinePath(newpath));
+                ((SequentialTransition)myAnimationContainer.get(id)).getChildren().add(myPen.drawLinePath(newpath));
+                //myAnimationContainer.addAnimation(id,myPen.drawLinePath(newpath));
             }
             else{
                 myPen.movePen(new Coordinate(lines[lines.length-1].getEndX(),lines[lines.length-1].getEndY(),0));
             }
         }
+
     }
 
     /** Plays the {@code PathTracer} animation for the specified turtle
