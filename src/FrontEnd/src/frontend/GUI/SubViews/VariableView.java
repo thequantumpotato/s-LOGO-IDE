@@ -112,12 +112,12 @@ public class VariableView implements SubView {
             return varName.get();
         }
 
-        public String getVarVal() {
-            return varVal.get();
-        }
-
         public void setVarName(String varName) {
             this.varName.set(varName);
+        }
+
+        public String getVarVal() {
+            return varVal.get();
         }
 
         public void setVarVal(String varVal) {

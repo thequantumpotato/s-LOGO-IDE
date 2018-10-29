@@ -1,11 +1,11 @@
 package backend.Commands;
 
-import backend.Turtle;
 import backend.Storage.Storage;
+import backend.Turtle;
 
 import java.util.List;
 
-public class Forward extends RootNode{
+public class Forward extends RootNode {
 
     public Forward(Storage storage, Turtle turtle, List<Node> children) {
         super(storage, turtle, children);

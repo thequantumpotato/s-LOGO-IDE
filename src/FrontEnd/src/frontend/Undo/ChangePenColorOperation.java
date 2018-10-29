@@ -1,7 +1,6 @@
 package frontend.Undo;
 
 import frontend.GUI.View;
-import javafx.scene.control.Slider;
 import javafx.scene.paint.Color;
 
 public class ChangePenColorOperation extends Operation {
@@ -9,7 +8,7 @@ public class ChangePenColorOperation extends Operation {
     private Color myOldColor;
     private Color myNewColor;
 
-    public ChangePenColorOperation(View view, Color oldColor, Color newColor){
+    public ChangePenColorOperation(View view, Color oldColor, Color newColor) {
         this.myMoment = new Moment();
         this.myView = view;
         myOldColor = oldColor;

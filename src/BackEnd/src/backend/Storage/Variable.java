@@ -5,12 +5,12 @@ public class Variable {
     private Object value;
     private String name;
 
-    public Variable(String name, Object object){
+    public Variable(String name, Object object) {
         this.value = object;
         this.name = name;
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 
@@ -18,7 +18,7 @@ public class Variable {
         return value;
     }
 
-    public String toString(){
+    public String toString() {
         return value.toString();
     }
 }

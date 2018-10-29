@@ -1,11 +1,9 @@
 package backend;
 
-import backend.Commands.LeafNode;
 import backend.Commands.Node;
 import backend.Storage.Storage;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -38,7 +36,7 @@ public class ModelController {
     public List<String> parseCommand(String input) throws Exception {
         //returns a list of root nodes. e.g. [Forward, 50]
         List<String> commands = interpreter.parse(input);
-        for(String command:commands){
+        for (String command : commands) {
             System.out.println(command);
         }
         //Turn our command arraylist into a tree structure of command nodes
@@ -60,9 +58,9 @@ public class ModelController {
         return listString;
     }
 
-    private ArrayList<String> parseToString(List<Object> toParse){
+    private ArrayList<String> parseToString(List<Object> toParse) {
         ArrayList<String> toReturn = new ArrayList<>();
-        for(Object p :toParse){
+        for (Object p : toParse) {
             toReturn.add(p.toString());
         }
         return toReturn;

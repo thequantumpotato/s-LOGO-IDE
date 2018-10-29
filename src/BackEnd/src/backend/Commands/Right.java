@@ -5,7 +5,7 @@ import backend.Turtle;
 
 import java.util.List;
 
-public class Right extends RootNode{
+public class Right extends RootNode {
     public Right(Storage storage, Turtle turtle, List<Node> children) {
         super(storage, turtle, children);
     }

@@ -23,10 +23,6 @@ public class TurtleLeaf extends Observable implements Turtle {
     private boolean isActive;
     private boolean clearScreen;
 
-    public Integer getId() {
-        return id;
-    }
-
     public TurtleLeaf(Integer id) {
         this.id = id;
         this.isActive = true;
@@ -36,6 +32,10 @@ public class TurtleLeaf extends Observable implements Turtle {
         penColor = Color.WHITE;
         penSize = 1;
         isActive = true;
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     @Override
@@ -51,21 +51,21 @@ public class TurtleLeaf extends Observable implements Turtle {
     }
 
     public void move(double distance) {
-        if(!isActive)
+        if (!isActive)
             return;
         this.setX(x + distance * Math.cos(direction));
         this.setY(y + distance * Math.sin(direction));
     }
 
     public void setPosition(double x, double y) {
-        if(!isActive)
+        if (!isActive)
             return;
         this.setX(x);
         this.setY(y);
     }
 
     public void turn(double angle) {
-        if(!isActive)
+        if (!isActive)
             return;
         direction += angle / 360 * 2 * Math.PI;
         if (direction >= 2 * Math.PI) {
@@ -78,14 +78,14 @@ public class TurtleLeaf extends Observable implements Turtle {
 
     @Override
     public void penUp() {
-        if(!isActive)
+        if (!isActive)
             return;
         this.penDown = false;
     }
 
     @Override
     public void penDown() {
-        if(!isActive)
+        if (!isActive)
             return;
         this.penDown = true;
     }
@@ -99,7 +99,7 @@ public class TurtleLeaf extends Observable implements Turtle {
     }
 
     public void setHeading(double angle) {
-        if(!isActive)
+        if (!isActive)
             return;
         direction = angle;
     }
@@ -108,12 +108,16 @@ public class TurtleLeaf extends Observable implements Turtle {
         return direction;
     }
 
+    public void setDirection(double Direction) {
+        direction = Direction;
+    }
+
     public double getX() {
         return this.x;
     }
 
     public void setX(double x) {
-        if(!isActive)
+        if (!isActive)
             return;
         this.x = x;
     }
@@ -123,7 +127,7 @@ public class TurtleLeaf extends Observable implements Turtle {
     }
 
     public void setY(double y) {
-        if(!isActive)
+        if (!isActive)
             return;
         this.y = y;
     }
@@ -136,70 +140,67 @@ public class TurtleLeaf extends Observable implements Turtle {
         return this.showing;
     }
 
-
     public void show() {
-        if(!isActive)
+        if (!isActive)
             return;
         showing = true;
     }
 
-    public void setDirection(double Direction) {
-        direction = Direction;
-    }
-
-    public void setBgColor(Color color){
-        this.bgColor = color;
-    }
-    public void setPenColor(Color color){
-        this.penColor = color;
-    }
-    public void setPenSize(double size){
-        this.penSize = size;
-    }
-
-    public Color getPenColor(){
+    public Color getPenColor() {
         return penColor;
+    }
+
+    public void setPenColor(Color color) {
+        this.penColor = color;
     }
 
     public Color getBgColor() {
         return bgColor;
     }
 
+    public void setBgColor(Color color) {
+        this.bgColor = color;
+    }
+
     public double getPenSize() {
         return penSize;
     }
 
+    public void setPenSize(double size) {
+        this.penSize = size;
+    }
+
     public void hide() {
-        if(!isActive)
+        if (!isActive)
             return;
         showing = false;
     }
 
-    public void setActive(double idd){
-        this.isActive= true;
+    public void setActive(double idd) {
+        this.isActive = true;
     }
 
     public void setInactive(double idd) {
         this.isActive = false;
     }
 
-    public Turtle getTurtleLeaf(Integer id){
+    public Turtle getTurtleLeaf(Integer id) {
         return this;
     }
 
-    public void notifyAllObservers(Object o){
+    public void notifyAllObservers(Object o) {
         return;
     }
 
-    public void notifyAllObservers(){
+    public void notifyAllObservers() {
         return;
     }
 
-    public void addAnObserver(Observer o){
+    public void addAnObserver(Observer o) {
         this.addObserver(o);
     }
 
-    public void clearScreen(){
+    public void clearScreen() {
         this.clearScreen = true;
 
         this.clearScreen = false;

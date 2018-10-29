@@ -5,7 +5,7 @@ import backend.Turtle;
 
 import java.util.List;
 
-public class Or extends RootNode{
+public class Or extends RootNode {
     public Or(Storage storage, Turtle turtle, List<Node> children) {
         super(storage, turtle, children);
     }

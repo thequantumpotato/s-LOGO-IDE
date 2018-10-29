@@ -15,15 +15,14 @@ public class IfElse extends RootNode {
     public Object run() {
         List<Object> l = runChildren();
         Boolean b = (Boolean) l.get(0);
-        List<Node> l1 = (List<Node>)l.get(1);
-        List<Node> l2 = (List<Node>)l.get(2);
-        if(b){
-            for(Node n: l1){
+        List<Node> l1 = (List<Node>) l.get(1);
+        List<Node> l2 = (List<Node>) l.get(2);
+        if (b) {
+            for (Node n : l1) {
                 n.run();
             }
-        }
-        else{
-            for(Node n: l2){
+        } else {
+            for (Node n : l2) {
                 n.run();
             }
         }

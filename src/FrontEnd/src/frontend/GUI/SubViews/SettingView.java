@@ -26,6 +26,10 @@ import java.io.File;
  **/
 
 public class SettingView implements SubView {
+    private final ObservableList<String> list =
+            FXCollections.observableArrayList(
+                    "English", "Chinese", "French", "German",
+                    "Italian", "Portuguese", "Russian", "Spanish", "Urdu");
     VBox speedBox = new VBox();
     private ToolBar settingView;
     private ComboBox languageBox;
@@ -37,10 +41,6 @@ public class SettingView implements SubView {
     private ColorPicker bgColorPicker;
     private Button undoButton;
     private Button redoButton;
-    private final ObservableList<String> list =
-            FXCollections.observableArrayList(
-                    "English", "Chinese", "French", "German",
-                    "Italian", "Portuguese", "Russian", "Spanish", "Urdu");
 
     public SettingView(View myView_, String initLang) {
         myView = myView_;
@@ -60,7 +60,7 @@ public class SettingView implements SubView {
         redoButton = new Button("Redo");
         redoButton.setOnAction(event -> myView_.getMyGUIWrapper().redo());
 
-        settingView.getItems().addAll(bgBox, penBox, penDownCheckbox, penSizeBox, speedBox, turtleButton, languageBox,undoButton,redoButton);
+        settingView.getItems().addAll(bgBox, penBox, penDownCheckbox, penSizeBox, speedBox, turtleButton, languageBox, undoButton, redoButton);
     }
 
     private VBox setUpTurtleSpeedBox() {
@@ -85,7 +85,7 @@ public class SettingView implements SubView {
         return speedBox;
     }
 
-    public void resetTurtleSpeedBox(){
+    public void resetTurtleSpeedBox() {
         speedSlider.setValue(10.0);
         setUpTurtleSpeedBox();
     }

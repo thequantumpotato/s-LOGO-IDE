@@ -4,7 +4,7 @@ public class Text extends LeafNode {
 
     private String value;
 
-    public Text(String value){
+    public Text(String value) {
         this.value = value;
     }
 

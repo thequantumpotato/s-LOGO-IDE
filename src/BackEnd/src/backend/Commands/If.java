@@ -15,9 +15,9 @@ public class If extends RootNode {
     public Object run() {
         List<Object> l = runChildren();
         Boolean b = (Boolean) l.get(0);
-        List<Node> ln = (List<Node>)l.get(1);
-        if(b){
-            for(Node n: ln){
+        List<Node> ln = (List<Node>) l.get(1);
+        if (b) {
+            for (Node n : ln) {
                 n.run();
             }
         }

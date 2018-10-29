@@ -16,19 +16,19 @@ public class DoTimes extends RootNode {
     public Object run() {
         List<Object> l = runChildren();
         List<Object> nums = new ArrayList<>();
-        for(Node c: (List<Node>)l.get(0)){
+        for (Node c : (List<Node>) l.get(0)) {
             nums.add(c.run());
         }
         String varName = (String) nums.get(0);
-        int limit = ((Double)nums.get(1)).intValue();
+        int limit = ((Double) nums.get(1)).intValue();
 
         List<Node> cList = (List<Node>) l.get(1);
 
         Object finalcommand = null;
-        for(int i = 1; i <= limit; i++){
+        for (int i = 1; i <= limit; i++) {
             System.out.println("?");
             myStorage.makeVar(varName, i);// (Allow the command to use the current iteration number
-            for(Node c: cList){
+            for (Node c : cList) {
                 finalcommand = c.run();
             }
         }

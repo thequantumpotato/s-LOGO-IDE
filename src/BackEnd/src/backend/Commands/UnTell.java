@@ -17,11 +17,11 @@ public class UnTell extends RootNode {
         List<Object> children = runChildren();
         List<Node> nums = (List<Node>) children.get(0);
         List<Object> dList = new ArrayList<>();
-        for(Node c: nums){
+        for (Node c : nums) {
             dList.add(c.run());
         }
-        for(Object id:dList){
-            myTurtle.setInactive((Double)id);
+        for (Object id : dList) {
+            myTurtle.setInactive((Double) id);
         }
 
         return null;
