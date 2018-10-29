@@ -18,6 +18,7 @@ public class HistoryView implements SubView {
     private VBox historyView;
     private ListView historyList;
     private View myView;
+    private String lastestCommand;
 
     public HistoryView(View myView_) {
         myView = myView_;
@@ -29,7 +30,8 @@ public class HistoryView implements SubView {
     }
 
     public void updateHistory(String newHistory) {
-        var clickableHistory = new Hyperlink(newHistory);
+        lastestCommand = newHistory;
+        var clickableHistory = new Hyperlink(lastestCommand);
         clickableHistory.setOnAction(e -> runCommand(clickableHistory.getText()));
         historyList.getItems().add(clickableHistory);
     }
@@ -45,5 +47,9 @@ public class HistoryView implements SubView {
     @Override
     public Node getView() {
         return historyView;
+    }
+
+    public String getLastestCommand() {
+        return lastestCommand;
     }
 }

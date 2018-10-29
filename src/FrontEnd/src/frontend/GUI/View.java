@@ -146,6 +146,11 @@ public class View implements ViewInternalAPI, ViewAPI {
     }
 
     @Override
+    public String retrieveHistory() {
+        return myHistoryView.getLastestCommand();
+    }
+
+    @Override
     public void changeBgColor(Color bgColor) {
         myDisplayView.changeBgColor(bgColor);
         mySettingView.setBackgroundColor(bgColor);
