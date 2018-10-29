@@ -62,4 +62,9 @@ public interface ViewAPI {
      * @return GridPane
      */
     GridPane getMyGridPane();
+
+    /**
+     * Return the results to the View by the Controller after it completes the command
+     */
+    void returnValues(List<String> ret);
 }
