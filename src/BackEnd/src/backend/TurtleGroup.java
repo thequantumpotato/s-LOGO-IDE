@@ -213,6 +213,23 @@ public class TurtleGroup implements Turtle {
         }
     }
 
+    public void setActive(double id){
+        boolean changed = false;
+        for(TurtleLeaf leaf:turtles){
+            if(leaf.getId() == id){
+                leaf.setActive(id);
+                changed = true;
+            }
+        }
+        //Add new turtle
+        if(!changed){
+            addTurtle();
+            turtles.get(0).Changed();
+            turtles.get(0).notifyObservers("CHANGED!");
+            turtles.get(0).clear();
+        }
+    }
+
 
     public void addAnObserver(Observer o) {
         for (TurtleLeaf leaf : turtles) {

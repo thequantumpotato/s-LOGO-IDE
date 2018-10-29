@@ -190,6 +190,10 @@ public class TurtleLeaf extends Observable implements Turtle {
         showing = false;
     }
 
+    public void setActive(double id){
+        this.id = 1;
+    }
+
     public Turtle getTurtleLeaf(Integer id){
         return this;
     }

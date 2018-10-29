@@ -57,6 +57,7 @@ public interface Turtle {
     void notifyAllObservers(Object o);
     void notifyAllObservers();
 
+    void setActive(double id);
     Turtle getTurtleLeaf(Integer id);
 
 }

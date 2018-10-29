@@ -67,7 +67,7 @@ public class DisplayView implements SubView, Observer {
         scrollPane.setContent(root);
         myTurtleManager = new TurtleManager(root);
         myTurtleManager.createTurtle("0");
-        myTurtleManager.setActive("0",false);
+       // myTurtleManager.setActive("1",false);
         /*TurtleManager turtleManager = new TurtleManager(root);
         turtleManager.createTurtle("1");
         turtleManager.setDuration(10);
