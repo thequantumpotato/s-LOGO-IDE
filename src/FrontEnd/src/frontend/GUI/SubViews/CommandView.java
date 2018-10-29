@@ -70,7 +70,7 @@ public class CommandView implements SubView {
         resetButton = new Button("Reset");
         resetButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         resetButton.setOnAction((final ActionEvent e) -> {
-            myView.passCommand("cs");
+                    myView.passCommand("cs");
                 }
         );
     }
@@ -96,11 +96,17 @@ public class CommandView implements SubView {
             File file = fileChooser.showOpenDialog(myView.getMyStage());
             if (file != null && file.getName().endsWith(".logo")) {
                 try {
+                    String res = "";
                     Scanner sc = new Scanner(file);
-                    String res = sc.next() + " ";
-                    while (sc.hasNext()) {
-                        res = res + sc.next() + " ";
+                    var firstLine = sc.nextLine();
+                    if (!firstLine.startsWith("#"))
+                        res = firstLine + " ";
+                    while (sc.hasNextLine()) {
+                        var thisLine = sc.nextLine();
+                        if (!thisLine.startsWith("#"))
+                        res = res + thisLine + " ";
                     }
+                    System.out.println(res);
                     input.setText(res.substring(0, res.length() - 1));
                 } catch (Exception exception) {
                     System.out.println(exception);
