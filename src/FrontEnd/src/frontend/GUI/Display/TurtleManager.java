@@ -26,12 +26,13 @@ public class TurtleManager extends Manager {
     private AnimationContainer myAnimationContainer;
     private MovementManager myMovementManager;
     private PathManager myPathManager;
+    private View myView;
 
     /** Initialize a new {@code TurtleManager} with the render target
      *  @param renderTarget The {@code Group} to render everything to */
-    public TurtleManager(View view, Group renderTarget){
+    public TurtleManager(Group renderTarget, View myView_){
         super();
-        myView = view;
+        myView = myView_;
         myRenderTarget = renderTarget;
         myTurtles = new ArrayList<>();
         mySpriteContainer = new SpriteContainer(renderTarget);
@@ -45,6 +46,12 @@ public class TurtleManager extends Manager {
     public void createTurtle(String id){
         myTurtles.add(id);
         mySpriteContainer.addSprite(id);
+        mySpriteContainer.getSprite(id).setOnMouseEntered(
+                e -> myView.showState(id, mySpriteContainer.getSprite(id), myPathManager)
+        );
+        mySpriteContainer.getSprite(id).setOnMouseExited(
+                e -> myView.noShow()
+        );
         mySpriteContainer.getSprite(id).setPosition(new Coordinate(ORIGIN_X,ORIGIN_Y,0));
         mySpriteContainer.getSprite(id).setOnMousePressed(e -> {
             if(mySpriteContainer.isActive(id)){

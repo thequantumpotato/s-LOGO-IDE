@@ -1,6 +1,5 @@
 package frontend.GUI.Display;
 
-import backend.Turtle;
 import backend.TurtleLeaf;
 import frontend.Util.Coordinate;
 import frontend.Util.Pen;
@@ -55,7 +54,7 @@ public class DisplayView implements SubView, Observer {
         myPen.setRoot(root);
         root.getChildren().add(bg);
         scrollPane.setContent(root);
-        myTurtleManager = new TurtleManager(myView,root);
+        myTurtleManager = new TurtleManager(root, myView);
         myTurtleManager.createTurtle("0");
     }
 

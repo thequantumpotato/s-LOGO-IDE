@@ -4,7 +4,9 @@ import backend.Turtle;
 import frontend.API.ViewInternalAPI;
 import frontend.ExternalAPI.ViewAPI;
 import frontend.GUI.Display.DisplayView;
+import frontend.GUI.Display.PathManager;
 import frontend.GUI.SubViews.*;
+import frontend.Util.Sprite;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TitledPane;
@@ -97,7 +99,7 @@ public class View implements ViewInternalAPI, ViewAPI {
     }
 
     private void initializeElements(String initLang) {
-        myStateView = new StateView(this);
+        myStateView = new StateView();
         myDisplayView = new DisplayView(this);
         myCommandView = new CommandView(this);
         myVariableView = new VariableView(this);
@@ -128,6 +130,16 @@ public class View implements ViewInternalAPI, ViewAPI {
     /**
      * Internal ExternalAPI
      **/
+
+    @Override
+    public void showState(String id, Sprite sprite, PathManager pathManager){
+        myStateView.changeState(id, sprite, pathManager);
+    }
+
+    @Override
+    public void noShow(){
+        myStateView.showDefault();
+    }
 
     @Override
     public void changeBgColor(Color bgColor) {
