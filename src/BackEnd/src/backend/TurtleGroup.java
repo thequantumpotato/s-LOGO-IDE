@@ -190,13 +190,6 @@ public class TurtleGroup implements Turtle {
         }
     }
 
-    public void setShape(int s){
-        for (TurtleLeaf leaf : turtles) {
-            leaf.setShape(s);
-            leaf.notifyObservers();
-        }
-    }
-
     public void notifyAllObservers() {
         for (TurtleLeaf leaf : turtles) {
             System.out.println("My turtle after running command: " + leaf);
@@ -235,6 +228,22 @@ public class TurtleGroup implements Turtle {
         for (TurtleLeaf leaf : turtles) {
             leaf.addAnObserver(o);
         }
+    }
+
+    public Color getPenColor(){
+        return turtles.get(0).getPenColor();
+    }
+
+    public Color getBgColor(){
+        return turtles.get(0).getBgColor();
+    }
+
+    public double getPenSize(){
+        return turtles.get(0).getPenSize();
+    }
+
+    public void clearScreen(){
+        turtles.get(0).clearScreen();
     }
 
 }

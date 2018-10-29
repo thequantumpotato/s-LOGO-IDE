@@ -13,7 +13,6 @@ public class TurtleLeaf extends Observable implements Turtle {
 
     private double direction;
     private double size;
-    private Color color;
     private double x;
     private double y;
     private boolean penDown;
@@ -22,8 +21,8 @@ public class TurtleLeaf extends Observable implements Turtle {
     private Color bgColor;
     private Color penColor;
     private double penSize;
-    private int shape;
     private boolean isActive;
+    private boolean clearScreen;
 
     public Integer getId() {
         return id;
@@ -45,7 +44,6 @@ public class TurtleLeaf extends Observable implements Turtle {
         return "TurtleLeaf{" +
                 "direction=" + direction +
                 ", size=" + size +
-                ", color=" + color +
                 ", x=" + x +
                 ", y=" + y +
                 ", penDown=" + penDown +
@@ -160,9 +158,6 @@ public class TurtleLeaf extends Observable implements Turtle {
     public void setPenSize(double size){
         this.penSize = size;
     }
-    public void setShape(int shape){
-        this.shape = shape;
-    }
 
     public Color getPenColor(){
         return penColor;
@@ -178,10 +173,6 @@ public class TurtleLeaf extends Observable implements Turtle {
 
     public double getPenSize() {
         return penSize;
-    }
-
-    public int getShape() {
-        return shape;
     }
 
     public void hide() {
@@ -208,5 +199,15 @@ public class TurtleLeaf extends Observable implements Turtle {
 
     public void addAnObserver(Observer o){
         this.addObserver(o);
+    }
+
+    public void clearScreen(){
+        this.clearScreen = true;
+        this.notifyObservers();
+        this.clearScreen = false;
+    }
+
+    public boolean getClearScreen(){
+        return this.clearScreen;
     }
 }

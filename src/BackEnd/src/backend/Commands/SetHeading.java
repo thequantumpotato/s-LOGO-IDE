@@ -13,7 +13,9 @@ public class SetHeading extends RootNode {
     @Override
     public Object run() {
         List<Double> l = parseDoubles(runChildren());
+        myTurtle.Changed();
         myTurtle.setHeading(l.get(0));
+        myTurtle.clear();
         return l.get(0);
     }
 }
