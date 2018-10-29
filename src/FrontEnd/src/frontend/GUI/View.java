@@ -225,6 +225,11 @@ public class View implements ViewInternalAPI, ViewAPI {
     }
 
     @Override
+    public void returnValues(List<String> ret) {
+        myCommandView.returnValues(ret);
+    }
+
+    @Override
     public void displayErrors(String errorMessage) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");

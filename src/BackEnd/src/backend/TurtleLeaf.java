@@ -12,7 +12,6 @@ import java.util.Observer;
 public class TurtleLeaf extends Observable implements Turtle {
 
     private double direction;
-    private double size;
     private double x;
     private double y;
     private boolean penDown;
@@ -43,7 +42,6 @@ public class TurtleLeaf extends Observable implements Turtle {
     public String toString() {
         return "TurtleLeaf{" +
                 "direction=" + direction +
-                ", size=" + size +
                 ", x=" + x +
                 ", y=" + y +
                 ", penDown=" + penDown +
@@ -167,10 +165,6 @@ public class TurtleLeaf extends Observable implements Turtle {
         return bgColor;
     }
 
-    public double getSize() {
-        return size;
-    }
-
     public double getPenSize() {
         return penSize;
     }
@@ -209,9 +203,5 @@ public class TurtleLeaf extends Observable implements Turtle {
         this.clearScreen = true;
 
         this.clearScreen = false;
-    }
-
-    public boolean getClearScreen() {
-        return this.clearScreen;
     }
 }

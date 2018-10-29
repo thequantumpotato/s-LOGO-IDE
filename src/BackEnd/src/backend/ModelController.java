@@ -4,6 +4,7 @@ import backend.Commands.LeafNode;
 import backend.Commands.Node;
 import backend.Storage.Storage;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +35,7 @@ public class ModelController {
     /**
      * Parses the Command
      */
-    public void parseCommand(String input) throws Exception {
+    public List<String> parseCommand(String input) throws Exception {
         //returns a list of root nodes. e.g. [Forward, 50]
         List<String> commands = interpreter.parse(input);
         for(String command:commands){
@@ -44,13 +45,27 @@ public class ModelController {
         myCommands = myTreeFactory.getRoots(commands);
         System.out.println("My turtle before running command: " + myTurtle.getTurtleLeaf(0));
 
+        List<Object> returnList = new ArrayList<>();
         for (Node node : myCommands) {
-            node.run();
+            returnList.add(node.run());
         }
+
+
+        ArrayList<String> listString = parseToString(returnList);
         System.out.println("Turtle Ran!");
         myTurtle.Changed();
         myTurtle.notifyAllObservers(true);
         myTurtle.clear();
+
+        return listString;
+    }
+
+    private ArrayList<String> parseToString(List<Object> toParse){
+        ArrayList<String> toReturn = new ArrayList<>();
+        for(Object p :toParse){
+            toReturn.add(p.toString());
+        }
+        return toReturn;
     }
 
     public Map<String, String> updateVar() {

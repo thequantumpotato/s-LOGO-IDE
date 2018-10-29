@@ -14,6 +14,7 @@ import javafx.stage.FileChooser;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -46,7 +47,7 @@ public class CommandView implements SubView {
         addElements();
     }
 
-    public void setUpSaveButton() {
+    private void setUpSaveButton() {
         saveButton = new Button("Save");
         saveButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         saveButton.setOnAction((final ActionEvent e) -> {
@@ -66,9 +67,13 @@ public class CommandView implements SubView {
         );
     }
 
-    public void setUpReSetButton() {
+    private void setUpReSetButton() {
         resetButton = new Button("Reset");
         resetButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        resetButton.setOnAction((final ActionEvent e) -> {
+                    myView.passCommand("cs");
+                }
+        );
     }
 
     private void setUpButtonPaneRatio() {
@@ -90,17 +95,18 @@ public class CommandView implements SubView {
         loadButton.setOnAction((final ActionEvent e) -> {
             FileChooser fileChooser = new FileChooser();
             File file = fileChooser.showOpenDialog(myView.getMyStage());
-            if (file != null && file.getName().endsWith(".logo")) {
-                try {
-                    Scanner sc = new Scanner(file);
-                    String res = sc.next() + " ";
-                    while (sc.hasNext()) {
-                        res = res + sc.next() + " ";
-                    }
-                    input.setText(res.substring(0, res.length() - 1));
-                } catch (Exception exception) {
-                    System.out.println(exception);
+            try {
+                String res = "";
+                Scanner sc = new Scanner(file);
+                while (sc.hasNextLine()) {
+                    var thisLine = sc.nextLine();
+                    if (!thisLine.startsWith("#"))
+                        res = res + thisLine + " ";
                 }
+                System.out.println(res);
+                input.setText(res.substring(0, res.length() - 1));
+            } catch (Exception exception) {
+                System.out.println(exception);
             }
         });
     }
@@ -146,6 +152,12 @@ public class CommandView implements SubView {
             e.printStackTrace();
         }
         input.setText("");
+    }
+
+    // return values passed from backend to display in the promptText of the textArea
+    public void returnValues(List<String> ret) {
+        input.setPromptText("Your last output was: " + ret);
+
     }
 
     @Override

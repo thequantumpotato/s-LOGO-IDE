@@ -44,7 +44,7 @@ public class StateView implements SubView {
 
     public void setUpPenFields() {
         Text penColorT = new Text("Pen Color: ");
-        Text penDownT = new Text("Pen State ");
+        Text penDownT = new Text("Pen State: ");
         Text penSizeT = new Text("Pen Size: ");
         stateList.getItems().addAll(penColorT, penDownT, penSizeT);
     }
@@ -101,7 +101,7 @@ public class StateView implements SubView {
 
     public void setUpdatedPenFields(boolean penDown, Color penColor, double penSize) {
         Text penColorT = new Text("Pen Color: " + penColor);
-        Text penDownT = new Text("Pen State " + (penDown ? "Down" : "Up"));
+        Text penDownT = new Text("Pen State: " + (penDown ? "Down" : "Up"));
         Text penSizeT = new Text("Pen Size: " + penSize);
         stateList.getItems().addAll(penColorT, penDownT, penSizeT);
     }
