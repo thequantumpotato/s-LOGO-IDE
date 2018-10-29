@@ -16,19 +16,19 @@ public class Ask extends RootNode {
         List<Object> children = runChildren();
         List<Node> nums = (List<Node>) children.get(0);
         List<Object> dList = new ArrayList<>();
-        for(Node c: nums){
+        for (Node c : nums) {
             dList.add(c.run());
         }
-        for(Object id:dList){
-            myTurtle.setActive((Double)id);
+        for (Object id : dList) {
+            myTurtle.setActive((Double) id);
         }
         List<Node> cList = (List<Node>) children.get(1);
-        Object lastcom=null;
-        for(Node c: cList){
+        Object lastcom = null;
+        for (Node c : cList) {
             lastcom = c.run();
         }
-        for(Object id:dList){
-            myTurtle.setInactive((Double)id);
+        for (Object id : dList) {
+            myTurtle.setInactive((Double) id);
         }
 
         return lastcom;

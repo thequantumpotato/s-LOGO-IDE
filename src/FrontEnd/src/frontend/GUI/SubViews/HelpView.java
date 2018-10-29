@@ -20,11 +20,8 @@ import java.util.ResourceBundle;
  */
 
 public class HelpView implements SubView {
-    public static final String HELP_PATH = "CommandHelp";
     private VBox helpView;
     private ListView helpList;
-    private ResourceBundle commandHelpBundle;
-    private Enumeration commandHelpKeys;
 
     public HelpView() {
         helpView = new VBox();
@@ -37,8 +34,9 @@ public class HelpView implements SubView {
     }
 
     private void addCommandAndDesc() {
-        commandHelpBundle = ResourceBundle.getBundle(HELP_PATH);
-        commandHelpKeys = commandHelpBundle.getKeys();
+        String HELP_PATH = "CommandHelp";
+        ResourceBundle commandHelpBundle = ResourceBundle.getBundle(HELP_PATH);
+        Enumeration commandHelpKeys = commandHelpBundle.getKeys();
         while (commandHelpKeys.hasMoreElements()) {
             Hyperlink commandClickable = new Hyperlink();
             String commandName = commandHelpKeys.nextElement().toString().replaceAll("\\\\", "");

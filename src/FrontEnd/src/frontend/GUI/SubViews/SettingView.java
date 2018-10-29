@@ -26,17 +26,21 @@ import java.io.File;
  **/
 
 public class SettingView implements SubView {
+    private final ObservableList<String> list =
+            FXCollections.observableArrayList(
+                    "English", "Chinese", "French", "German",
+                    "Italian", "Portuguese", "Russian", "Spanish", "Urdu");
+    VBox speedBox = new VBox();
     private ToolBar settingView;
     private ComboBox languageBox;
     private View myView;
     private CheckBox penDownCheckbox;
     private ColorPicker penColorPicker;
     private Slider penSizeSlider;
+    private Slider speedSlider;
     private ColorPicker bgColorPicker;
-    private final ObservableList<String> list =
-            FXCollections.observableArrayList(
-                    "English", "Chinese", "French", "German",
-                    "Italian", "Portuguese", "Russian", "Spanish", "Urdu");
+    private Button undoButton;
+    private Button redoButton;
 
     public SettingView(View myView_, String initLang) {
         myView = myView_;
@@ -50,14 +54,19 @@ public class SettingView implements SubView {
         Button turtleButton = setUpTurtleImgChooser();
         setUpLangComboBox(initLang);
         VBox speedBox = setUpTurtleSpeedBox();
+        undoButton = new Button("Undo");
+        undoButton.setOnAction(event -> myView_.getMyGUIWrapper().undo());
 
-        settingView.getItems().addAll(bgBox, penBox, penDownCheckbox, penSizeBox, speedBox, turtleButton, languageBox);
+        redoButton = new Button("Redo");
+        redoButton.setOnAction(event -> myView_.getMyGUIWrapper().redo());
+
+        settingView.getItems().addAll(bgBox, penBox, penDownCheckbox, penSizeBox, speedBox, turtleButton, languageBox, undoButton, redoButton);
     }
 
     private VBox setUpTurtleSpeedBox() {
-        VBox speedBox = new VBox();
+        speedBox = new VBox();
         Label speedLabel = new Label("Animation Speed: " + myView.DEFAULT_PEN_TIME);
-        Slider speedSlider = new Slider();
+        speedSlider = new Slider();
         speedSlider.setMin(1);
         speedSlider.setMax(100);
         speedSlider.setValue(myView.DEFAULT_PEN_TIME);
@@ -75,6 +84,12 @@ public class SettingView implements SubView {
         speedBox.getChildren().addAll(speedLabel, speedSlider);
         return speedBox;
     }
+
+    public void resetTurtleSpeedBox() {
+        speedSlider.setValue(10.0);
+        setUpTurtleSpeedBox();
+    }
+
 
     private VBox setUpPenSizeSlider() {
         VBox sizeBox = new VBox();
@@ -127,7 +142,7 @@ public class SettingView implements SubView {
         Label penLabel = new Label("Pen Color:");
         penColorPicker.setPromptText("Pen Color");
         penColorPicker.setOnAction(e -> {
-            myView.changePenColor(penColorPicker.getValue());
+            myView.getMyGUIWrapper().changePenColor(penColorPicker.getValue());
         });
         penBox.getChildren().addAll(penLabel, penColorPicker);
         return penBox;

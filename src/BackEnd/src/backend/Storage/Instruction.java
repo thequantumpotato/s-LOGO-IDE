@@ -9,7 +9,7 @@ public class Instruction {
     private List<Node> ins;
     private String name;
 
-    public Instruction(String name, List<Node> commands){
+    public Instruction(String name, List<Node> commands) {
         this.name = name;
         this.ins = commands;
     }

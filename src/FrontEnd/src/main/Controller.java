@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 /**
  * This project is implemented using MVC model, and this Controller mediates the communications
  * between the Model and the View.
- *
+ * <p>
  * Controller is initialized when a tab is added inside TabView. Each controller contains an instance of
  * a generic Turtle turtle (initialized as the TurtleGroup type), ViewAPI (external API of our View),
  * and ModelController (our model that represents backend).
@@ -105,6 +105,7 @@ public class Controller {
 
     /**
      * Run the command to update variable name and value entered by the user in the VariableView
+     *
      * @param var
      */
     public void updateVar(Map<String, String> var) {

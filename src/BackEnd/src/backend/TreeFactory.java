@@ -56,11 +56,9 @@ public class TreeFactory {
                     System.out.println("Here");
                     nextChild = generateList(commands);
                     commands.remove(0); //Remove that ending bracket!
-                }
-                else if(isVariable(commands.get(0)) & command.equals("MakeVariable")){ //We are currently making/updating a var
+                } else if (isVariable(commands.get(0)) & command.equals("MakeVariable")) { //We are currently making/updating a var
                     nextChild = newVariable(commands);
-                }
-                else {
+                } else {
                     nextChild = createChild(commands); //if not list, it is a command
                 }
 
@@ -80,20 +78,16 @@ public class TreeFactory {
             return null;
         }
         Node newChild;
-        String nextChild = commands.remove(0);
-        //if (isLeftParenthesis(nextChild)) { //check if its a parenthesis FIRST
-        //    String nextCommand = commands.remove(0);
-        //    newChild = createRoot(nextCommand);
-        //    generateCommand(newChild, commands, getArgNum(nextCommand));}
-        if (isOpenBracket(nextChild)) {
+        if (isOpenBracket(commands.get(0))) {
             newChild = generateList(commands);
             commands.remove(0); //Remove that ending bracket!
-        }
-          else if (!isNotCommand(nextChild) & getArgNum(nextChild)!= 99) {
+        } else if (!isNotCommand(commands.get(0))) {
+            String nextChild = commands.remove(0);
             newChild = createRoot(nextChild);
             //This child has its own arguments that we need to add. Use recursion!
             generateCommand(newChild, commands, getArgNum(nextChild));
         } else {
+            String nextChild = commands.remove(0);
             newChild = getLeafNode(nextChild);
         }
 
@@ -128,7 +122,7 @@ public class TreeFactory {
             //Create the new command and add all of it's children
             String nextCommand = Commands.remove(0);
             Node newChild = createRoot(nextCommand);
-            if(newChild instanceof RootNode && !(newChild instanceof GetVariable)){
+            if (newChild instanceof RootNode && !(newChild instanceof GetVariable)) {
                 int numChild = getArgNum(nextCommand);
                 generateCommand(newChild, Commands, numChild);
             }
@@ -155,32 +149,30 @@ public class TreeFactory {
      * or a
      */
     //TODO: NOT WORKING!!!!!
-    public Node getLeafNode(String nextChild){
-        if(isVariable(nextChild) & !myStorage.hasVar(nextChild.substring(1))){
+    public Node getLeafNode(String nextChild) {
+        if (isVariable(nextChild) & !myStorage.hasVar(nextChild.substring(1))) {
             myStorage.addVarName(nextChild.substring(1));
             return new Text(nextChild.substring(1));
-        }
-        else if(myStorage.hasVar(nextChild.substring(1))){
+        } else if (myStorage.hasVar(nextChild.substring(1))) {
             //return new Number(myStorage.getVar(nextChild.substring(1)).toString());
             var temp = new GetVariable(myStorage, myTurtle, new ArrayList<>());
             temp.addChild(new Text(nextChild.substring(1)));
             return temp;
-        }
-        else if(isNumeric(nextChild)){
+        } else if (isNumeric(nextChild)) {
             return new Number(nextChild);
-        }
-        else{
+        } else {
             return new Text(nextChild);
         }
     }
+
     /**
      * Reflection
      */
     public Node reflect(String command) throws IllegalCommandException {
         Class myClass;
-        System.out.println(pathToNode+command);
+        System.out.println(pathToNode + command);
         try {
-            myClass = Class.forName(pathToNode+command);
+            myClass = Class.forName(pathToNode + command);
         } catch (ClassNotFoundException e) {
             throw new IllegalCommandException(e);
         }
@@ -210,7 +202,7 @@ public class TreeFactory {
     public void unlimitedParams(List<String> commands, List<Node> myRoots) throws IllegalCommandException {
         String rootCommand = commands.remove(0);
         System.out.println("um");
-        while(!isRightParenthesis(commands.get(0))){
+        while (!isRightParenthesis(commands.get(0))) {
             Node mainCommand = createRoot(rootCommand); //Create the top command every as long as there are new parameters
             generateCommand(mainCommand, commands, getArgNum(rootCommand)); //generates a command
             myRoots.add(mainCommand);
@@ -219,15 +211,17 @@ public class TreeFactory {
 
     }
 
-    private Node newVariable(List<String> commands){
+    private Node newVariable(List<String> commands) {
         String child = commands.remove(0);
         myStorage.addVarName(child.substring(1));
         return new Text(child.substring(1));
     }
 
+
     private boolean isNumeric(String s) {
         return s.matches("[-+]?\\d*\\.?\\d+");
     }
+
     private boolean isVariable(String s) {
         return s.matches(":[a-zA-Z_]+");
     }

@@ -45,22 +45,28 @@ public interface Turtle {
 
     boolean getIsShowing();
 
-    void setBgColor(Color color);
-    void setPenColor(Color color);
-    void setPenSize(double size);
-
     Color getBgColor();
+
+    void setBgColor(Color color);
+
     Color getPenColor();
+
+    void setPenColor(Color color);
+
     double getPenSize();
 
+    void setPenSize(double size);
 
     void addAnObserver(Observer o);
 
     void notifyAllObservers(Object o);
+
     void notifyAllObservers();
 
     void setActive(double id);
+
     void setInactive(double id);
+
     Turtle getTurtleLeaf(Integer id);
 
     void clearScreen();

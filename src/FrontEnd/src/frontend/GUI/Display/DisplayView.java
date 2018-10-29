@@ -1,10 +1,10 @@
 package frontend.GUI.Display;
 
 import backend.TurtleLeaf;
-import frontend.Util.Coordinate;
-import frontend.Util.Pen;
 import frontend.API.SubView;
 import frontend.GUI.View;
+import frontend.Util.Coordinate;
+import frontend.Util.Pen;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
@@ -68,16 +68,19 @@ public class DisplayView implements SubView, Observer {
     }
 
     public void setPenDown(boolean state) {
-        if(state){
+        if (state) {
             myTurtleManager.penDown();
-        }
-        else{
+        } else {
             myTurtleManager.penUp();
         }
     }
 
     public void changePenColor(Color penColor) {
         myTurtleManager.setPenColor(penColor);
+    }
+
+    public Color getPenColor() {
+        return myTurtleManager.getPenColor();
     }
 
     public void changePenSize(double size) {
@@ -98,7 +101,7 @@ public class DisplayView implements SubView, Observer {
     }
 
     public void changeTurtleSize(String id, double size) {
-        myTurtleManager.setTurtleSize(id,size);
+        myTurtleManager.setTurtleSize(id, size);
     }
 
     public void changeTurtleImg(Image image) {
@@ -129,46 +132,43 @@ public class DisplayView implements SubView, Observer {
     @Override
     public void update(Observable o, Object arg) {
         //TODO: update this method after turtle has new getID method
-        System.out.println("Updated Turtle received by DisplayView:"+ arg);
+        System.out.println("Updated Turtle received by DisplayView:" + arg);
         if (arg != null) {
-            if(arg instanceof String){
-                if(((String) arg).equalsIgnoreCase("CHANGED!")){
-                   myView.registerDisplay(myView.getTurtle());
-                   myTurtleManager.makeFake();
-                }
-                else if(((String) arg).equalsIgnoreCase("clear")){
+            if (arg instanceof String) {
+                if (((String) arg).equalsIgnoreCase("CHANGED!")) {
+                    myView.registerDisplay(myView.getTurtle());
+                    myTurtleManager.makeFake();
+                } else if (((String) arg).equalsIgnoreCase("clear")) {
                     clear();
                 }
-            }
-            else if(arg instanceof Boolean){
+            } else if (arg instanceof Boolean) {
                 getSettings((TurtleLeaf) o);
                 myTurtleManager.updateTurtles();
             }
         } else {
             myTurtleManager.hideFake();
-            if(!myTurtleManager.contains(String.valueOf(((TurtleLeaf) o).getId()))){
-                System.out.println("creating new turtle "+String.valueOf(((TurtleLeaf) o).getId()));
+            if (!myTurtleManager.contains(String.valueOf(((TurtleLeaf) o).getId()))) {
+                System.out.println("creating new turtle " + String.valueOf(((TurtleLeaf) o).getId()));
                 myTurtleManager.createTurtle(String.valueOf(((TurtleLeaf) o).getId()));
             }
-            Coordinate newPosition = adjustPosition(((TurtleLeaf) o).getX(),((TurtleLeaf) o).getY(),((TurtleLeaf) o).getDirection());
+            Coordinate newPosition = adjustPosition(((TurtleLeaf) o).getX(), ((TurtleLeaf) o).getY(), ((TurtleLeaf) o).getDirection());
             if (newPosition.getX() > bg.getX() + bg.getWidth() || newPosition.getX() < bg.getX() ||
                     newPosition.getY() > bg.getY() + bg.getHeight() || newPosition.getY() < bg.getY()) {
                 expandBackground(Math.max(Math.abs(newPosition.getX() - bg.getX()), Math.abs(newPosition.getY() - bg.getY())));
             }
-            myTurtleManager.moveTurtle(String.valueOf(((TurtleLeaf) o).getId()),newPosition);
+            myTurtleManager.moveTurtle(String.valueOf(((TurtleLeaf) o).getId()), newPosition);
         }
     }
 
     private void getSettings(TurtleLeaf o) {
         myView.changePenDown(o.getIsPenDown());
-        if(o.getIsShowing()){
+        if (o.getIsShowing()) {
             showTurtle(String.valueOf(o.getId()));
-        }
-        else{
+        } else {
             hideTurtle(String.valueOf(o.getId()));
         }
         myView.changeBgColor(o.getBgColor());
-        myView.changePenColor(o.getPenColor());
+        myView.getMyGUIWrapper().changePenColor(o.getPenColor());
         myView.changePenSize(o.getPenSize());
     }
 

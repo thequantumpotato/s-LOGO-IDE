@@ -4,7 +4,6 @@ import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
 import java.util.Observer;
 
 /**
@@ -27,7 +26,7 @@ public class TurtleGroup implements Turtle {
         turtles.remove(id);
     }
 
-    public Turtle getTurtleLeaf(Integer id){
+    public Turtle getTurtleLeaf(Integer id) {
         return turtles.get(id);
     }
 
@@ -145,6 +144,7 @@ public class TurtleGroup implements Turtle {
         }
         return false;
     }
+
     //TODO: FIX THIS
     @Override
     public boolean getIsShowing() {
@@ -166,28 +166,8 @@ public class TurtleGroup implements Turtle {
         for (TurtleLeaf leaf : turtles) {
             leaf.hide();
             leaf.notifyObservers();
-        };
-    }
-
-    public void setBgColor(Color color){
-        for (TurtleLeaf leaf : turtles) {
-            leaf.setBgColor(color);
-            leaf.notifyObservers();
         }
-    }
-
-    public void setPenColor(Color color){
-        for (TurtleLeaf leaf : turtles) {
-            leaf.setPenColor(color);
-            leaf.notifyObservers();
-        }
-    }
-
-    public void setPenSize(double size){
-        for (TurtleLeaf leaf : turtles) {
-            leaf.setPenSize(size);
-            leaf.notifyObservers();
-        }
+        ;
     }
 
     public void notifyAllObservers() {
@@ -199,6 +179,7 @@ public class TurtleGroup implements Turtle {
             System.out.println("Observer is already notified by turtle's change");
         }
     }
+
     public void notifyAllObservers(Object o) {
         for (TurtleLeaf leaf : turtles) {
             System.out.println(leaf.getX());
@@ -206,17 +187,17 @@ public class TurtleGroup implements Turtle {
         }
     }
 
-    public void setActive(double id){
+    public void setActive(double id) {
         boolean changed = false;
-        for(TurtleLeaf leaf:turtles){
-            if(leaf.getId() == id){
+        for (TurtleLeaf leaf : turtles) {
+            if (leaf.getId() == id) {
                 leaf.setActive(id);
                 leaf.notifyObservers();
                 changed = true;
             }
         }
         //Add new turtle
-        if(!changed){
+        if (!changed) {
             addTurtle();
             turtles.get(0).Changed();
             turtles.get(0).notifyObservers("CHANGED!");
@@ -224,48 +205,68 @@ public class TurtleGroup implements Turtle {
         }
     }
 
-
     public void addAnObserver(Observer o) {
         for (TurtleLeaf leaf : turtles) {
             leaf.addAnObserver(o);
         }
     }
 
-    public Color getPenColor(){
+    public Color getPenColor() {
         return turtles.get(0).getPenColor();
     }
 
-    public Color getBgColor(){
+    public void setPenColor(Color color) {
+        for (TurtleLeaf leaf : turtles) {
+            leaf.setPenColor(color);
+            leaf.notifyObservers();
+        }
+    }
+
+    public Color getBgColor() {
         return turtles.get(0).getBgColor();
     }
 
-    public double getPenSize(){
+    public void setBgColor(Color color) {
+        for (TurtleLeaf leaf : turtles) {
+            leaf.setBgColor(color);
+            leaf.notifyObservers();
+        }
+    }
+
+    public double getPenSize() {
         return turtles.get(0).getPenSize();
     }
 
+    public void setPenSize(double size) {
+        for (TurtleLeaf leaf : turtles) {
+            leaf.setPenSize(size);
+            leaf.notifyObservers();
+        }
+    }
+
     @Override
-    public void clearScreen(){
+    public void clearScreen() {
         turtles.get(0).clearScreen();
         turtles.get(0).notifyObservers("clear");
     }
 
-    public double numTurtles(){
+    public double numTurtles() {
         return turtles.size();
     }
 
-    public void setInactive(double id){
-        for(TurtleLeaf leaf:turtles){
-            if(leaf.getId() == id){
+    public void setInactive(double id) {
+        for (TurtleLeaf leaf : turtles) {
+            if (leaf.getId() == id) {
                 leaf.setInactive(id);
             }
         }
     }
 
-    public void reset(){
+    public void reset() {
         TurtleLeaf first = turtles.get(0); // remember first item
         turtles.clear(); // clear complete list
         turtles.add(first); // add first item
-        setPosition(0,0);
+        setPosition(0, 0);
     }
 
 }

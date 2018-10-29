@@ -17,11 +17,11 @@ public class Tell extends RootNode {
         List<Object> children = runChildren();
         List<Node> nums = (List<Node>) children.get(0);
         List<Object> dList = new ArrayList<>();
-        for(Node c: nums){
+        for (Node c : nums) {
             dList.add(c.run());
         }
-        for(Object id:dList){
-            myTurtle.setActive((Double)id);
+        for (Object id : dList) {
+            myTurtle.setActive((Double) id);
         }
 
 

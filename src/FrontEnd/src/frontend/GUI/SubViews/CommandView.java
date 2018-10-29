@@ -95,23 +95,18 @@ public class CommandView implements SubView {
         loadButton.setOnAction((final ActionEvent e) -> {
             FileChooser fileChooser = new FileChooser();
             File file = fileChooser.showOpenDialog(myView.getMyStage());
-            if (file != null && file.getName().endsWith(".logo")) {
-                try {
-                    String res = "";
-                    Scanner sc = new Scanner(file);
-                    var firstLine = sc.nextLine();
-                    if (!firstLine.startsWith("#"))
-                        res = firstLine + " ";
-                    while (sc.hasNextLine()) {
-                        var thisLine = sc.nextLine();
-                        if (!thisLine.startsWith("#"))
+            try {
+                String res = "";
+                Scanner sc = new Scanner(file);
+                while (sc.hasNextLine()) {
+                    var thisLine = sc.nextLine();
+                    if (!thisLine.startsWith("#"))
                         res = res + thisLine + " ";
-                    }
-                    System.out.println(res);
-                    input.setText(res.substring(0, res.length() - 1));
-                } catch (Exception exception) {
-                    System.out.println(exception);
                 }
+                System.out.println(res);
+                input.setText(res.substring(0, res.length() - 1));
+            } catch (Exception exception) {
+                System.out.println(exception);
             }
         });
     }
@@ -160,10 +155,11 @@ public class CommandView implements SubView {
     }
 
     // return values passed from backend to display in the promptText of the textArea
-    public void returnValues(List<String> ret){
+    public void returnValues(List<String> ret) {
         input.setPromptText("Your last output was: " + ret);
 
     }
+
     @Override
     public Node getView() {
         return commandView;
