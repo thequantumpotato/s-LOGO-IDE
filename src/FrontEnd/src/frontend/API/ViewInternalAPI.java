@@ -71,9 +71,27 @@ import java.util.Map;
       */
       void updateVar(Map<String, String> variable);
 
+     /**
+      * Called by TurtleManager to let View call StateView and show the turtle state
+      * @param id
+      * @param sprite
+      * @param pathManager
+      */
       void showState(String id, Sprite sprite, PathManager pathManager);
 
+     /**
+      * Called by TurtleManager when the mouse is not hovering above the turtle, thus showing nothing
+      */
       void noShow();
 
+     /**
+      * When clicking save button, it saves the latest command, which is stored in the HistoryView.
+      * @return
+      */
       String retrieveHistory();
+
+     /**
+      * Reset the turtle's speed and the path speed
+      */
+     void resetTurtle();
  }

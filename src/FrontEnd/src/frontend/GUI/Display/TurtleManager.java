@@ -19,7 +19,7 @@ import static frontend.GUI.Display.DisplayView.TURTLE_SIZE;
  *  @author bpx */
 public class TurtleManager extends Manager {
 
-    public static final int DEFAULT_DURATION = 2;
+    public static final double DEFAULT_DURATION = 0.2;
     public static final double ORIGIN_X = 275;
     public static final double ORIGIN_Y = 250;
 
@@ -172,5 +172,6 @@ public class TurtleManager extends Manager {
         myAnimationContainer.killAllAnimations();
         myMovementManager.reset();
         myPathManager.reset();
+        myView.resetTurtle(); // make the slider back to default value and set the path speed
     }
 }

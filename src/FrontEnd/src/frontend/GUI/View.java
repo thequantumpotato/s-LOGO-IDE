@@ -5,6 +5,7 @@ import frontend.API.ViewInternalAPI;
 import frontend.ExternalAPI.ViewAPI;
 import frontend.GUI.Display.DisplayView;
 import frontend.GUI.Display.PathManager;
+import frontend.GUI.Display.TurtleManager;
 import frontend.GUI.SubViews.*;
 import frontend.Util.Sprite;
 import javafx.scene.control.Accordion;
@@ -192,6 +193,12 @@ public class View implements ViewInternalAPI, ViewAPI {
     @Override
     public void updateVar(Map<String, String> variable) {
         myController.updateVar(variable);
+    }
+
+    @Override
+    public void resetTurtle(){
+        myDisplayView.changeAnimationSpeed(TurtleManager.DEFAULT_DURATION);
+        mySettingView.resetTurtleSpeedBox();
     }
 
     /**

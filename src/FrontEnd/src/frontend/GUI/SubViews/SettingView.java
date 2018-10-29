@@ -26,12 +26,14 @@ import java.io.File;
  **/
 
 public class SettingView implements SubView {
+    VBox speedBox = new VBox();
     private ToolBar settingView;
     private ComboBox languageBox;
     private View myView;
     private CheckBox penDownCheckbox;
     private ColorPicker penColorPicker;
     private Slider penSizeSlider;
+    private Slider speedSlider;
     private ColorPicker bgColorPicker;
     private final ObservableList<String> list =
             FXCollections.observableArrayList(
@@ -55,9 +57,9 @@ public class SettingView implements SubView {
     }
 
     private VBox setUpTurtleSpeedBox() {
-        VBox speedBox = new VBox();
+        speedBox = new VBox();
         Label speedLabel = new Label("Animation Speed: " + myView.DEFAULT_PEN_TIME);
-        Slider speedSlider = new Slider();
+        speedSlider = new Slider();
         speedSlider.setMin(1);
         speedSlider.setMax(100);
         speedSlider.setValue(myView.DEFAULT_PEN_TIME);
@@ -75,6 +77,12 @@ public class SettingView implements SubView {
         speedBox.getChildren().addAll(speedLabel, speedSlider);
         return speedBox;
     }
+
+    public void resetTurtleSpeedBox(){
+        speedSlider.setValue(10.0);
+        setUpTurtleSpeedBox();
+    }
+
 
     private VBox setUpPenSizeSlider() {
         VBox sizeBox = new VBox();
