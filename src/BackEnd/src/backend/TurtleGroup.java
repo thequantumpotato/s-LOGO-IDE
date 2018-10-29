@@ -211,6 +211,7 @@ public class TurtleGroup implements Turtle {
         for(TurtleLeaf leaf:turtles){
             if(leaf.getId() == id){
                 leaf.setActive(id);
+                leaf.notifyObservers();
                 changed = true;
             }
         }
