@@ -34,6 +34,7 @@ public class SettingView implements SubView {
     private Slider penSizeSlider;
     private ColorPicker bgColorPicker;
     private Button undoButton;
+    private Button redoButton;
     private final ObservableList<String> list =
             FXCollections.observableArrayList(
                     "English", "Chinese", "French", "German",
@@ -54,7 +55,10 @@ public class SettingView implements SubView {
         undoButton = new Button("Undo");
         undoButton.setOnAction(event -> myView_.getMyGUIWrapper().undo());
 
-        settingView.getItems().addAll(bgBox, penBox, penDownCheckbox, penSizeBox, speedBox, turtleButton, languageBox,undoButton);
+        redoButton = new Button("Redo");
+        redoButton.setOnAction(event -> myView_.getMyGUIWrapper().redo());
+
+        settingView.getItems().addAll(bgBox, penBox, penDownCheckbox, penSizeBox, speedBox, turtleButton, languageBox,undoButton,redoButton);
     }
 
     private VBox setUpTurtleSpeedBox() {
