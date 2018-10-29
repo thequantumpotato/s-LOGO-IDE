@@ -7,54 +7,49 @@ import java.util.*;
 public class Storage {
 
     private Map<String, Variable> vMap;
-    private Map<String, Instruction> iMap;
-    private HashSet<String> varNames;
+    private Map<String, Function> fMap;
+    private Stack<Function> stackFrame;
+    private Set<String> varSet;
 
     public Storage(){
         vMap = new HashMap<>();
-        iMap = new HashMap<>();
-        varNames = new HashSet<>();
+        stackFrame = new Stack<>();
+        fMap = new HashMap<>();
+        varSet = new HashSet<>();
     }
 
     public Object getVar(String name){
+        if(!stackFrame.isEmpty()){
+            Map<String, Object> tmpMap = stackFrame.peek().getArgsMap();
+            if(tmpMap.containsKey(name)){
+                return tmpMap.get(name);
+            }
+        }
         if(vMap.containsKey(name)){
             return vMap.get(name).getValue();
         }
         return null;
     }
 
-    public boolean hasVar(String name){
-
-        return (vMap.containsKey(name) || varNames.contains(name));
+    public void addVarName(String name){
+        varSet.add(name);
     }
 
-    public List<Node> getIns(String name){
-        if(iMap.containsKey(name)){
-            return iMap.get(name).getInstruction();
-        }
-        return null;
+    public boolean hasVar(String name){
+
+        return (vMap.containsKey(name)) || varSet.contains(name);
     }
 
     public void makeVar(String name, Object val){
-        varNames.add(name);
-        vMap.put(name, new Variable(name, val));
-    }
-
-    public boolean makeIns(String name, List<Node> commands){
-        if(iMap.keySet().contains(name)){
-            return false;
+        if(!stackFrame.isEmpty()){
+            stackFrame.peek().getArgsMap().put(name, val);
         }
-        iMap.put(name, new Instruction(name, commands));
-        return true;
+        varSet.add(name);
+        vMap.put(name, new Variable(name, val));
     }
 
     public void removeVar(String name){
         vMap.remove(name);
-        varNames.remove(name);
-    }
-
-    public void addVarName(String name){
-        varNames.add(name);
     }
 
     /**
@@ -75,9 +70,25 @@ public class Storage {
      */
     public List<String> getInsList(){
         List<String> res = new ArrayList<>();
-        for(String n: iMap.keySet()){
+        for(String n: fMap.keySet()){
             res.add(n);
         }
         return res;
+    }
+
+    public void makeFunction(String name, Function f){
+        fMap.put(name, f);
+    }
+
+    public Function getFunction(String name){
+        return fMap.get(name);
+    }
+
+    public void pushToStack(Function f){
+        stackFrame.push(f);
+    }
+
+    public void popFromStack(){
+        stackFrame.pop();
     }
 }

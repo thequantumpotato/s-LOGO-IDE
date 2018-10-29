@@ -89,7 +89,7 @@ public class TreeFactory {
             newChild = generateList(commands);
             commands.remove(0); //Remove that ending bracket!
         }
-          else if (!isNotCommand(nextChild)) {
+          else if (!isNotCommand(nextChild) & getArgNum(nextChild)!= 99) {
             newChild = createRoot(nextChild);
             //This child has its own arguments that we need to add. Use recursion!
             generateCommand(newChild, commands, getArgNum(nextChild));
@@ -223,10 +223,6 @@ public class TreeFactory {
         myStorage.addVarName(child.substring(1));
         return new Text(child.substring(1));
     }
-
-
-
-
 
     private boolean isNumeric(String s) {
         return s.matches("[-+]?\\d*\\.?\\d+");
