@@ -18,7 +18,9 @@ public class If extends RootNode {
         List<Node> ln = (List<Node>)l.get(1);
         if(b){
             Object res = runNodeList(ln);
+            System.out.println("res" + res);
+            return res;
         }
-        return null;
+        return 0;
     }
 }

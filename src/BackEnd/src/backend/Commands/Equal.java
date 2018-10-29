@@ -14,6 +14,8 @@ public class Equal extends RootNode {
     @Override
     public Object run() {
         List<Double> l = parseDoubles(runChildren());
-        return l.get(0) == l.get(1);
+        System.out.println("equal test" + l);
+        double e = 0.00000000001;
+        return Math.abs(l.get(0)-l.get(1)) < e;
     }
 }

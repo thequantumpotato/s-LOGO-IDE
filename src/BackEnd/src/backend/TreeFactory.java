@@ -78,16 +78,20 @@ public class TreeFactory {
             return null;
         }
         Node newChild;
-        if (isOpenBracket(commands.get(0))) {
+        String nextChild = commands.remove(0);
+        //if (isLeftParenthesis(nextChild)) { //check if its a parenthesis FIRST
+        //    String nextCommand = commands.remove(0);
+        //    newChild = createRoot(nextCommand);
+        //    generateCommand(newChild, commands, getArgNum(nextCommand));}
+        if (isOpenBracket(nextChild)) {
             newChild = generateList(commands);
             commands.remove(0); //Remove that ending bracket!
-        } else if (!isNotCommand(commands.get(0))) {
-            String nextChild = commands.remove(0);
+        }
+        else if (!isNotCommand(nextChild) & getArgNum(nextChild)!= 99) {
             newChild = createRoot(nextChild);
             //This child has its own arguments that we need to add. Use recursion!
             generateCommand(newChild, commands, getArgNum(nextChild));
         } else {
-            String nextChild = commands.remove(0);
             newChild = getLeafNode(nextChild);
         }
 
