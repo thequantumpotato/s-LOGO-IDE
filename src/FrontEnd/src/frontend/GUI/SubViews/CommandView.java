@@ -99,9 +99,6 @@ public class CommandView implements SubView {
                 try {
                     String res = "";
                     Scanner sc = new Scanner(file);
-                    var firstLine = sc.nextLine();
-                    if (!firstLine.startsWith("#"))
-                        res = firstLine + " ";
                     while (sc.hasNextLine()) {
                         var thisLine = sc.nextLine();
                         if (!thisLine.startsWith("#"))
