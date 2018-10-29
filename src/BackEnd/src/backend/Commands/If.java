@@ -17,10 +17,8 @@ public class If extends RootNode {
         Boolean b = (Boolean) l.get(0);
         List<Node> ln = (List<Node>)l.get(1);
         if(b){
-            for(Node n: ln){
-                n.run();
-            }
+            Object res = runNodeList(ln);
         }
-        return 1;
+        return null;
     }
 }

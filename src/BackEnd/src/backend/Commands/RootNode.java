@@ -39,9 +39,6 @@ abstract public class RootNode implements Node{
         List<Object> oList = new ArrayList<>();
         for(Node c: myChildren){
             oList.add(c.run());
-            if(c instanceof Return){
-                break;
-            }
         }
         return oList;
     }
@@ -65,6 +62,16 @@ abstract public class RootNode implements Node{
             res.add(d.intValue());
         }
         return res;
+    }
+
+    protected Object runNodeList(List<Node> l){
+        for(int i = 0; i < l.size(); i++){
+            Object result = l.get(i).run();
+            if(i == l.size() - 1 || l.get(i) instanceof Return){
+                return result;
+            }
+        }
+        return null;
     }
 
 }
