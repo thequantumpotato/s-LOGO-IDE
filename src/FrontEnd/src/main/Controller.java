@@ -54,7 +54,8 @@ public class Controller {
     public void runCommand(String input) {
         if (reportEmptyString(input)) return;
         try {
-            modelController.parseCommand(input);
+            List<String> ret = modelController.parseCommand(input);
+            myView.returnValues(ret);
             myView.updateHistory(input);
             checkBackEndVarUpdate();
             checkBackEndFuncUpdate();

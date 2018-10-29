@@ -14,6 +14,7 @@ import javafx.stage.FileChooser;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -46,7 +47,7 @@ public class CommandView implements SubView {
         addElements();
     }
 
-    public void setUpSaveButton() {
+    private void setUpSaveButton() {
         saveButton = new Button("Save");
         saveButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         saveButton.setOnAction((final ActionEvent e) -> {
@@ -66,7 +67,7 @@ public class CommandView implements SubView {
         );
     }
 
-    public void setUpReSetButton() {
+    private void setUpReSetButton() {
         resetButton = new Button("Reset");
         resetButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         resetButton.setOnAction((final ActionEvent e) -> {
@@ -158,6 +159,10 @@ public class CommandView implements SubView {
         input.setText("");
     }
 
+    public void returnValues(List<String> ret){
+        input.setPromptText("Your Last Output was: " + ret);
+
+    }
     @Override
     public Node getView() {
         return commandView;
