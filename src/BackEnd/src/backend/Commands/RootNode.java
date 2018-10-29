@@ -38,8 +38,10 @@ abstract public class RootNode implements Node{
     protected List<Object> runChildren(){
         List<Object> oList = new ArrayList<>();
         for(Node c: myChildren){
-            System.out.print("Once");
             oList.add(c.run());
+            if(c instanceof Return){
+                break;
+            }
         }
         return oList;
     }

@@ -46,9 +46,12 @@ public class ModelController {
         System.out.println("My turtle before running command: " + myTurtle.getTurtleLeaf(0));
 
         List<Object> returnList = new ArrayList<>();
+        System.out.println("My commands" + myCommands);
         for (Node node : myCommands) {
+            System.out.println("equal.run" + node.run());
             returnList.add(node.run());
         }
+        System.out.println("return list" + returnList);
 
 
         ArrayList<String> listString = parseToString(returnList);
