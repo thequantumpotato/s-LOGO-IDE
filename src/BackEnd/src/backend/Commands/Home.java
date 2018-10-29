@@ -14,7 +14,9 @@ public class Home extends RootNode{
     @Override
     public Object run() {
         double dist = calcDist(myTurtle.getX(), myTurtle.getY(), 0, 0);
+        myTurtle.Changed();
         myTurtle.setPosition(0, 0);
+        myTurtle.clear();
         return dist;
     }
 

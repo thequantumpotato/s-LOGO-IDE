@@ -13,7 +13,9 @@ public class HideTurtle extends RootNode {
 
     @Override
     public Object run() {
+        myTurtle.Changed();
         myTurtle.hide();
+        myTurtle.clear();
         return 1;
     }
 }

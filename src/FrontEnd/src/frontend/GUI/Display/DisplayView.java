@@ -13,11 +13,9 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
-import static frontend.GUI.Display.TurtleView.TURTLE_SIZE;
 
 /**
  * DisplayView contains the display of the turtle as well as the panel for the user to change the
@@ -33,6 +31,7 @@ public class DisplayView implements SubView, Observer {
     public static final String TURTLE_IMAGE = "turtle.png";
     public static final Color DEFAULT_BG_COLOR = Color.BLACK;
     public static final int TURTLE_DEFAULT_X = 275;
+    public static final int TURTLE_SIZE = 25;
     public static final int TURTLE_DEFAULT_Y = 250;
     public static final int DEFAULT_BG_WIDTH = 800;
     public static final int DEFAULT_BG_HEIGHT = 800;
@@ -47,7 +46,7 @@ public class DisplayView implements SubView, Observer {
     private Rectangle bg;
     private Pen myPen;
 
-    public DisplayView(View myView_,Turtle turtle) {
+    public DisplayView(View myView_) {
         myView = myView_;
         scrollPane = new ScrollPane();
         root = new Group();

@@ -5,7 +5,9 @@ import frontend.API.ViewInternalAPI;
 import frontend.ExternalAPI.ViewAPI;
 import frontend.GUI.Display.DisplayView;
 import frontend.GUI.SubViews.*;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.Alert;
+import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -31,7 +33,8 @@ import java.util.Map;
 public class View implements ViewInternalAPI, ViewAPI {
     public static final double DEFAULT_PEN_SIZE = 1;
     public final int DEFAULT_PEN_TIME = 10;
-    private final Turtle myTurtle;
+    private Accordion rightAccordion;
+    private StateView myStateView;
     private DisplayView myDisplayView;
     private CommandView myCommandView;
     private VariableView myVariableView;
@@ -43,10 +46,9 @@ public class View implements ViewInternalAPI, ViewAPI {
     private Stage myStage;
     private GridPane myGridPane;
 
-    public View(Stage primaryStage, Controller myController_, Turtle turtle, String initLang) {
+    public View(Stage primaryStage, Controller myController_, String initLang) {
         myStage = primaryStage;
         myController = myController_;
-        myTurtle = turtle;
         myGridPane = createGridPane(initLang);
     }
 
@@ -95,13 +97,22 @@ public class View implements ViewInternalAPI, ViewAPI {
     }
 
     private void initializeElements(String initLang) {
-        myDisplayView = new DisplayView(this, myTurtle);
+        myStateView = new StateView(this);
+        myDisplayView = new DisplayView(this);
         myCommandView = new CommandView(this);
         myVariableView = new VariableView(this);
         myFunctionView = new FunctionView(this);
         myHistoryView = new HistoryView(this);
         myHelpView = new HelpView();
         mySettingView = new SettingView(this, initLang);
+
+        setUpRightAccordion();
+    }
+
+    private void setUpRightAccordion() {
+        rightAccordion = new Accordion();
+        rightAccordion.getPanes().addAll((TitledPane) myVariableView.getView(), (TitledPane) myFunctionView.getView());
+        rightAccordion.setExpandedPane((TitledPane) myVariableView.getView());
     }
 
     private void addElements(GridPane gridPane) {
@@ -109,8 +120,8 @@ public class View implements ViewInternalAPI, ViewAPI {
         gridPane.add(myHelpView.getView(), 0, 1, 1, 1);
         gridPane.add(myHistoryView.getView(), 0, 2, 1, 1);
         gridPane.add(myDisplayView.getView(), 1, 1, 1, 2);
-        gridPane.add(myVariableView.getView(), 2, 1, 1, 1);
-        gridPane.add(myFunctionView.getView(), 2, 2, 1, 1);
+        gridPane.add(myStateView.getView(), 2, 1, 1, 1);
+        gridPane.add(rightAccordion, 2, 2, 1, 1);
         gridPane.add(myCommandView.getView(), 0, 3, 3, 1);
     }
 

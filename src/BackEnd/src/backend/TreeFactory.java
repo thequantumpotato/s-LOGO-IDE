@@ -53,10 +53,11 @@ public class TreeFactory {
                 //Check if the next item is an open bracket (because lists are ALWAYS children yes ma'am)
                 Node nextChild;
                 if (isOpenBracket(commands.get(0))) {
+                    System.out.println("Here");
                     nextChild = generateList(commands);
                     commands.remove(0); //Remove that ending bracket!
                 }
-                else if(isVariable(commands.get(0)) & command.equals("MakeVariable")){ //the only way a child here would be a variable is if its a make/set
+                else if(isVariable(commands.get(0)) & command.equals("MakeVariable")){ //We are currently making/updating a var
                     nextChild = newVariable(commands);
                 }
                 else {
@@ -80,11 +81,15 @@ public class TreeFactory {
         }
         Node newChild;
         String nextChild = commands.remove(0);
-        if (isLeftParenthesis(nextChild)) { //check if its a parenthesis FIRST
-            String nextCommand = commands.remove(0);
-            newChild = createRoot(nextCommand);
-            generateCommand(newChild, commands, getArgNum(nextCommand));
-        } else if (!isNotCommand(nextChild)) {
+        //if (isLeftParenthesis(nextChild)) { //check if its a parenthesis FIRST
+        //    String nextCommand = commands.remove(0);
+        //    newChild = createRoot(nextCommand);
+        //    generateCommand(newChild, commands, getArgNum(nextCommand));}
+        if (isOpenBracket(nextChild)) {
+            newChild = generateList(commands);
+            commands.remove(0); //Remove that ending bracket!
+        }
+          else if (!isNotCommand(nextChild)) {
             newChild = createRoot(nextChild);
             //This child has its own arguments that we need to add. Use recursion!
             generateCommand(newChild, commands, getArgNum(nextChild));
@@ -217,6 +222,11 @@ public class TreeFactory {
         myStorage.addVarName(child.substring(1));
         return new Text(child.substring(1));
     }
+
+
+
+
+
 
     private boolean isVariable(String s) {
         return s.matches(":[a-zA-Z_]+");
