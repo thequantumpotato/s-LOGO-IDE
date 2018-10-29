@@ -260,4 +260,11 @@ public class TurtleGroup implements Turtle {
         }
     }
 
+    public void reset(){
+        TurtleLeaf first = turtles.get(0); // remember first item
+        turtles.clear(); // clear complete list
+        turtles.add(first); // add first item
+        setPosition(0,0);
+    }
+
 }
