@@ -13,11 +13,9 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
-import static frontend.GUI.Display.TurtleView.TURTLE_SIZE;
 
 /**
  * DisplayView contains the display of the turtle as well as the panel for the user to change the
@@ -33,6 +31,7 @@ public class DisplayView implements SubView, Observer {
     public static final String TURTLE_IMAGE = "turtle.png";
     public static final Color DEFAULT_BG_COLOR = Color.BLACK;
     public static final int TURTLE_DEFAULT_X = 275;
+    public static final int TURTLE_SIZE = 25;
     public static final int TURTLE_DEFAULT_Y = 250;
     public static final int DEFAULT_BG_WIDTH = 800;
     public static final int DEFAULT_BG_HEIGHT = 800;
@@ -47,32 +46,17 @@ public class DisplayView implements SubView, Observer {
     private Rectangle bg;
     private Pen myPen;
 
-    public DisplayView(View myView_,Turtle turtle) {
+    public DisplayView(View myView_) {
         myView = myView_;
         scrollPane = new ScrollPane();
         root = new Group();
-        //create bg
         bg = new Rectangle(DEFAULT_BG_WIDTH, DEFAULT_BG_HEIGHT, DEFAULT_BG_COLOR);
-        //create pen
         myPen = new Pen(new Coordinate(TURTLE_DEFAULT_X + TURTLE_SIZE / 2, TURTLE_DEFAULT_Y + TURTLE_SIZE / 2, 0));
         myPen.setRoot(root);
-        //add turtle to scroll pane
         root.getChildren().add(bg);
-        //create turtle array and default turtle
-        /*myTurtleInfo = new ArrayList<>();
-        myTurtleInfo.add(turtle);
-        //create turtleview array and default turtleview
-        myTurtles = new ArrayList<>();
-        myTurtles.add(new TurtleView(myPen,root));*/
         scrollPane.setContent(root);
-        myTurtleManager = new TurtleManager(root);
+        myTurtleManager = new TurtleManager(myView,root);
         myTurtleManager.createTurtle("0");
-        myTurtleManager.setActive("0",false);
-        /*TurtleManager turtleManager = new TurtleManager(root);
-        turtleManager.createTurtle("1");
-        turtleManager.setDuration(10);
-        turtleManager.moveTurtle("1",new Coordinate(500,300,0));
-        turtleManager.updateTurtles();*/
     }
 
     public void clearBg() {
@@ -219,19 +203,16 @@ public class DisplayView implements SubView, Observer {
     }
 
     private void getSettings(TurtleLeaf o) {
-        setPenDown(o.getIsPenDown());
+        myView.changePenDown(o.getIsPenDown());
         if(o.getIsShowing()){
             showTurtle(String.valueOf(o.getId()));
         }
         else{
             hideTurtle(String.valueOf(o.getId()));
         }
-        changeBgColor(o.getBgColor());
-        System.out.println(o.getBgColor()==null);
-        changePenColor(o.getPenColor());
-        System.out.println(o.getPenColor().toString());
-        changePenSize(o.getPenSize());
-        System.out.println(o.getPenSize());
+        myView.changeBgColor(o.getBgColor());
+        myView.changePenColor(o.getPenColor());
+        myView.changePenSize(o.getPenSize());
     }
 
 }

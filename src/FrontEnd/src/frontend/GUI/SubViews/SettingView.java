@@ -12,6 +12,7 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 
 import java.io.File;
@@ -20,13 +21,19 @@ public class SettingView implements SubView {
     private ToolBar settingView;
     private ComboBox languageBox;
     private View myView;
+    private CheckBox penDownCheckbox;
+    private ColorPicker penColorPicker;
+    private Slider penSizeSlider;
+    private ColorPicker bgColorPicker;
     private final ObservableList<String> list =
             FXCollections.observableArrayList(
                     "English", "Chinese", "French", "German",
                     "Italian", "Portuguese", "Russian", "Spanish", "Urdu");
 
 
-    // TODO add option to change pen size and pen state?
+    /** UI tools for the user to graphically manipulate turtle settings
+     *  @author jl729
+     *  @author bpx */
     public SettingView(View myView_, String initLang) {
         myView = myView_;
         settingView = new ToolBar();
@@ -34,12 +41,13 @@ public class SettingView implements SubView {
 
         VBox bgBox = setUpBgColorPicker();
         VBox penBox = setUpPenColorPicker();
-        CheckBox penDownCheckbox = setUpPenDownCheckbox();
+        penDownCheckbox = setUpPenDownCheckbox();
+        VBox penSizeBox = setUpPenSizeSlider();
         Button turtleButton = setUpTurtleImgChooser();
         setUpLangComboBox(initLang);
         VBox speedBox = setUpTurtleSpeedBox();
 
-        settingView.getItems().addAll(bgBox, penBox, penDownCheckbox, speedBox, turtleButton, languageBox);
+        settingView.getItems().addAll(bgBox, penBox, penDownCheckbox,penSizeBox, speedBox, turtleButton, languageBox);
     }
 
     private VBox setUpTurtleSpeedBox() {
@@ -55,12 +63,34 @@ public class SettingView implements SubView {
         speedSlider.setSnapToTicks(true);
         speedSlider.setBlockIncrement(1);
         speedSlider.setOnMouseReleased(e -> {
-            myView.changeAnimationSpeed(1 / speedSlider.getValue());
+            myView.changeAnimationSpeed(2 / speedSlider.getValue());
         });
         speedSlider.valueProperty().addListener((ov, old_val, new_val) -> {
             speedLabel.setText("Animation Speed: " + String.valueOf(new_val.doubleValue()));
         });
         speedBox.getChildren().addAll(speedLabel, speedSlider);
+        return speedBox;
+    }
+
+    private VBox setUpPenSizeSlider() {
+        VBox speedBox = new VBox();
+        Label sizeLabel = new Label("Pen Size: " + myView.DEFAULT_PEN_SIZE);
+        penSizeSlider = new Slider();
+        penSizeSlider.setMin(1);
+        penSizeSlider.setMax(20);
+        penSizeSlider.setValue(myView.DEFAULT_PEN_SIZE);
+        penSizeSlider.setShowTickMarks(true);
+        penSizeSlider.setShowTickLabels(true);
+        penSizeSlider.setMajorTickUnit(1);
+        penSizeSlider.setSnapToTicks(true);
+        penSizeSlider.setBlockIncrement(1);
+        penSizeSlider.setOnMouseReleased(e -> {
+            myView.changePenSize(penSizeSlider.getValue());
+        });
+        penSizeSlider.valueProperty().addListener((ov, old_val, new_val) -> {
+            sizeLabel.setText("Pen Size: " + String.valueOf(new_val.doubleValue()));
+        });
+        speedBox.getChildren().addAll(sizeLabel, penSizeSlider);
         return speedBox;
     }
 
@@ -89,7 +119,7 @@ public class SettingView implements SubView {
 
     private VBox setUpPenColorPicker() {
         VBox penBox = new VBox();
-        ColorPicker penColorPicker = new ColorPicker();
+        penColorPicker = new ColorPicker();
         Label penLabel = new Label("Pen Color:");
         penColorPicker.setPromptText("Pen Color");
         penColorPicker.setOnAction(e -> {
@@ -115,7 +145,7 @@ public class SettingView implements SubView {
 
     private VBox setUpBgColorPicker() {
         VBox bgBox = new VBox();
-        ColorPicker bgColorPicker = new ColorPicker();
+        bgColorPicker = new ColorPicker();
         Label bgLabel = new Label("Background Color:");
         bgColorPicker.setPromptText("Background Color");
         bgColorPicker.setValue(DisplayView.DEFAULT_BG_COLOR);
@@ -126,6 +156,31 @@ public class SettingView implements SubView {
         return bgBox;
     }
 
+    /** External sync method to make sure pen {@code CheckBox} reflects actual pendown status
+     *  @param state True means pen is down, false means pen is up */
+    public void setPenDown(boolean state){
+        penDownCheckbox.setSelected(state);
+    }
+
+    /** External sync method to make sure pen {@code ColorPicker} reflects actual pen color
+     *  @param color The {@code Color} to set the {@code ColorPicker} to */
+    public void setPenColor(Color color){
+        penColorPicker.setValue(color);
+    }
+
+    /** External sync method to make sure pen size {@code Slider} reflects actual pen size
+     *  @param size The size to set the pen size {@code Slider} to */
+    public void setPenSize(double size){
+        if(size>0){
+            penSizeSlider.setValue(size);
+        }
+    }
+
+    /** External sync method to ensure background {@code ColorPicker} reflects actual background color
+     *  @param color The {@code Color} to set the {@code ColorPicker} to */
+    public void setBackgroundColor(Color color){
+        bgColorPicker.setValue(color);
+    }
     @Override
     public Node getView() {
         return settingView;

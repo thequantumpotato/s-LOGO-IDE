@@ -27,6 +27,16 @@ public class AnimationContainer {
         }
     }
 
+    /** Returns whether the {@code AnimationContainer} contains the specified identifier
+     *  @param id The key to check */
+    public boolean contains(String id){
+        return(myAnimations.containsKey(id));
+    }
+
+    public Animation get(String id){
+        return myAnimations.get(id);
+    }
+
     /** Remove key and value information for all animation queues*/
     public void killAllAnimations(){
         myAnimations.clear();
