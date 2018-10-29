@@ -144,6 +144,10 @@ public class TurtleManager extends Manager {
         myPathManager.setPenColor(color);
     }
 
+    public Color getPenColor(){
+        return myPathManager.getMyPen().getMyColor();
+    }
+
 
     public void makeFake(){
         if(!myRenderTarget.getChildren().contains(myFake)){

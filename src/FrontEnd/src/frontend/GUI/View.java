@@ -6,11 +6,17 @@ import frontend.ExternalAPI.ViewAPI;
 import frontend.GUI.Display.DisplayView;
 import frontend.GUI.Display.PathManager;
 import frontend.GUI.SubViews.*;
+import frontend.GUIWrapper;
 import frontend.Util.Sprite;
+import javafx.event.EventHandler;
+import javafx.scene.Group;
+import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
@@ -36,6 +42,9 @@ public class View implements ViewInternalAPI, ViewAPI {
     public static final double DEFAULT_PEN_SIZE = 1;
     public final int DEFAULT_PEN_TIME = 10;
     private Accordion rightAccordion;
+
+    private GUIWrapper myGUIWrapper;
+
     private StateView myStateView;
     private DisplayView myDisplayView;
     private CommandView myCommandView;
@@ -52,6 +61,7 @@ public class View implements ViewInternalAPI, ViewAPI {
         myStage = primaryStage;
         myController = myController_;
         myGridPane = createGridPane(initLang);
+        myGUIWrapper = new GUIWrapper(this);
     }
 
     /**
@@ -158,8 +168,14 @@ public class View implements ViewInternalAPI, ViewAPI {
 
     @Override
     public void changePenColor(Color penColor) {
+        System.out.println("Changing pen color to "+ penColor.toString());
         myDisplayView.changePenColor(penColor);
         mySettingView.setPenColor(penColor);
+        //passCommand("setpc "+penColor);
+    }
+
+    public Color getPenColor(){
+        return myDisplayView.getPenColor();
     }
 
     @Override
@@ -235,6 +251,10 @@ public class View implements ViewInternalAPI, ViewAPI {
     @Override
     public void updateHistory(String validInput) {
         myHistoryView.updateHistory(validInput);
+    }
+
+    public GUIWrapper getMyGUIWrapper(){
+        return myGUIWrapper;
     }
 
 }
