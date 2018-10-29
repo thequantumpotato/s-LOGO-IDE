@@ -13,7 +13,9 @@ public class Right extends RootNode{
     @Override
     public Object run() {
         List<Double> l = parseDoubles(runChildren());
+        myTurtle.Changed();
         myTurtle.turn(-1 * l.get(0));
+        myTurtle.clear();
         return l.get(0);
     }
 }
