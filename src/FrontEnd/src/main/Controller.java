@@ -6,6 +6,7 @@ import backend.Turtle;
 import backend.TurtleGroup;
 import frontend.ExternalAPI.ViewAPI;
 import frontend.GUI.View;
+import frontend.GUIWrapper;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 

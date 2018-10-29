@@ -35,6 +35,8 @@ public class SettingView implements SubView {
     private Slider penSizeSlider;
     private Slider speedSlider;
     private ColorPicker bgColorPicker;
+    private Button undoButton;
+    private Button redoButton;
     private final ObservableList<String> list =
             FXCollections.observableArrayList(
                     "English", "Chinese", "French", "German",
@@ -52,8 +54,13 @@ public class SettingView implements SubView {
         Button turtleButton = setUpTurtleImgChooser();
         setUpLangComboBox(initLang);
         VBox speedBox = setUpTurtleSpeedBox();
+        undoButton = new Button("Undo");
+        undoButton.setOnAction(event -> myView_.getMyGUIWrapper().undo());
 
-        settingView.getItems().addAll(bgBox, penBox, penDownCheckbox, penSizeBox, speedBox, turtleButton, languageBox);
+        redoButton = new Button("Redo");
+        redoButton.setOnAction(event -> myView_.getMyGUIWrapper().redo());
+
+        settingView.getItems().addAll(bgBox, penBox, penDownCheckbox, penSizeBox, speedBox, turtleButton, languageBox,undoButton,redoButton);
     }
 
     private VBox setUpTurtleSpeedBox() {
@@ -135,7 +142,7 @@ public class SettingView implements SubView {
         Label penLabel = new Label("Pen Color:");
         penColorPicker.setPromptText("Pen Color");
         penColorPicker.setOnAction(e -> {
-            myView.changePenColor(penColorPicker.getValue());
+            myView.getMyGUIWrapper().changePenColor(penColorPicker.getValue());
         });
         penBox.getChildren().addAll(penLabel, penColorPicker);
         return penBox;

@@ -7,8 +7,11 @@ import frontend.API.SubView;
 import frontend.GUI.View;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -78,6 +81,10 @@ public class DisplayView implements SubView, Observer {
 
     public void changePenColor(Color penColor) {
         myTurtleManager.setPenColor(penColor);
+    }
+
+    public Color getPenColor(){
+       return myTurtleManager.getPenColor();
     }
 
     public void changePenSize(double size) {
@@ -168,7 +175,7 @@ public class DisplayView implements SubView, Observer {
             hideTurtle(String.valueOf(o.getId()));
         }
         myView.changeBgColor(o.getBgColor());
-        myView.changePenColor(o.getPenColor());
+        myView.getMyGUIWrapper().changePenColor(o.getPenColor());
         myView.changePenSize(o.getPenSize());
     }
 
