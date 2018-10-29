@@ -159,8 +159,9 @@ public class CommandView implements SubView {
         input.setText("");
     }
 
+    // return values passed from backend to display in the promptText of the textArea
     public void returnValues(List<String> ret){
-        input.setPromptText("Your Last Output was: " + ret);
+        input.setPromptText("Your last output was: " + ret);
 
     }
     @Override
