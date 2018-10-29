@@ -18,6 +18,7 @@ public class Forward extends RootNode{
         myTurtle.Changed();
         myTurtle.move(l.get(0));
         myTurtle.clear();
+
         return l.get(0);
     }
 }
