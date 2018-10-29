@@ -165,11 +165,12 @@ public class TreeFactory {
             var temp = new GetVariable(myStorage, myTurtle, new ArrayList<>());
             temp.addChild(new Text(nextChild.substring(1)));
             return temp;
-
-
+        }
+        else if(isNumeric(nextChild)){
+            return new Number(nextChild);
         }
         else{
-            return new Number(nextChild);
+            return new Text(nextChild);
         }
     }
     /**
@@ -227,7 +228,9 @@ public class TreeFactory {
 
 
 
-
+    private boolean isNumeric(String s) {
+        return s.matches("[-+]?\\d*\\.?\\d+");
+    }
     private boolean isVariable(String s) {
         return s.matches(":[a-zA-Z_]+");
     }
