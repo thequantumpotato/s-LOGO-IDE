@@ -12,7 +12,9 @@ public class PenUp extends RootNode{
 
     @Override
     public Object run() {
+        myTurtle.Changed();
         myTurtle.penUp();
+        myTurtle.clear();
         return 1;
     }
 }
