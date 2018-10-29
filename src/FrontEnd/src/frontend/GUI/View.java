@@ -33,9 +33,7 @@ import java.util.Map;
 public class View implements ViewInternalAPI, ViewAPI {
     public static final double DEFAULT_PEN_SIZE = 1;
     public final int DEFAULT_PEN_TIME = 10;
-    private final Turtle myTurtle;
     private Accordion rightAccordion;
-    private Accordion leftAccordion;
     private StateView myStateView;
     private DisplayView myDisplayView;
     private CommandView myCommandView;
@@ -48,10 +46,9 @@ public class View implements ViewInternalAPI, ViewAPI {
     private Stage myStage;
     private GridPane myGridPane;
 
-    public View(Stage primaryStage, Controller myController_, Turtle turtle, String initLang) {
+    public View(Stage primaryStage, Controller myController_, String initLang) {
         myStage = primaryStage;
         myController = myController_;
-        myTurtle = turtle;
         myGridPane = createGridPane(initLang);
     }
 
@@ -101,7 +98,7 @@ public class View implements ViewInternalAPI, ViewAPI {
 
     private void initializeElements(String initLang) {
         myStateView = new StateView(this);
-        myDisplayView = new DisplayView(this, myTurtle);
+        myDisplayView = new DisplayView(this);
         myCommandView = new CommandView(this);
         myVariableView = new VariableView(this);
         myFunctionView = new FunctionView(this);
