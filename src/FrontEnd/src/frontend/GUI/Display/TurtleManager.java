@@ -146,7 +146,9 @@ public class TurtleManager extends Manager {
 
 
     public void makeFake(){
-        myRenderTarget.getChildren().add(myFake);
+        if(!myRenderTarget.getChildren().contains(myFake)){
+            myRenderTarget.getChildren().add(myFake);
+        }
     }
 
     public void hideFake(){
