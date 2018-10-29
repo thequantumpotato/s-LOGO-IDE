@@ -60,7 +60,7 @@ public class Controller {
             checkBackEndVarUpdate();
             checkBackEndFuncUpdate();
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             throwErrorByType(e);
         }
     }
