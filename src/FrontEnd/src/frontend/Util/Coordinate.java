@@ -12,7 +12,6 @@ public class Coordinate {
     private double y;
     private double angle;
 
-
     public Coordinate(double x_, double y_, double angle_) {
         x = x_;
         y = y_;

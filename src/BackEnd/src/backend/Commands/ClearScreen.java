@@ -14,6 +14,7 @@ public class ClearScreen extends RootNode{
     public Object run() {
         myTurtle.Changed();
         myTurtle.clearScreen();
+        myTurtle.setPosition(0, 0);
         myTurtle.clear();
         return 1;
     }

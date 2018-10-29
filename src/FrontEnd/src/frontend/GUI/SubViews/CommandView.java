@@ -46,7 +46,6 @@ public class CommandView implements SubView {
         commandView.add(buttonBox, 1, 0);
     }
 
-    // TODO: 10/27/18 Test if the button works in loading file and adding them into the Input box
     private void setUpLoadButton() {
         final FileChooser fileChooser = new FileChooser();
         loadButton = new Button("Load");
@@ -54,19 +53,16 @@ public class CommandView implements SubView {
         loadButton.setOnAction((final ActionEvent e) -> {
             File file = fileChooser.showOpenDialog(myView.getMyStage());
             if (file != null && file.getName().endsWith(".logo")) {
-                // add command to textarea
                 try {
                     Scanner sc = new Scanner(file);
                     String res = sc.next() + " ";
-                    while (sc.hasNext()){
+                    while (sc.hasNext()) {
                         res = res + sc.next() + " ";
                     }
-                    input.setText(res.substring(0, res.length()-1));
-                }
-                catch (Exception exception){
+                    input.setText(res.substring(0, res.length() - 1));
+                } catch (Exception exception) {
                     System.out.println(exception);
                 }
-
             }
         });
     }

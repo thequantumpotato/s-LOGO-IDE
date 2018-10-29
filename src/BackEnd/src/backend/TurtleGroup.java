@@ -245,6 +245,7 @@ public class TurtleGroup implements Turtle {
     @Override
     public void clearScreen(){
         turtles.get(0).clearScreen();
+        turtles.get(0).notifyObservers("clear");
     }
 
     public double numTurtles(){
