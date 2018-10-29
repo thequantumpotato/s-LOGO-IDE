@@ -9,10 +9,11 @@ import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.RowConstraints;
 import javafx.stage.FileChooser;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.util.Scanner;
 
 /**
@@ -21,36 +22,73 @@ import java.util.Scanner;
  *
  * @author Vincent Liu
  */
-// TODO: 10/25/18 Reset turtle button
-// TODO: 10/28/18 add Save Button 
 public class CommandView implements SubView {
-    private GridPane commandView;
+    private final GridPane commandView = new GridPane();
+    private final GridPane buttonBox = new GridPane();
     private TextArea input;
     private Button submitButton;
-    private View myView;
-    private final VBox buttonBox = new VBox();
     private Button loadButton;
+    private Button resetButton;
+    private Button saveButton;
+
+    private View myView;
 
     public CommandView(View myView_) {
+        buttonBox.getStyleClass().add("buttonBox");
         myView = myView_;
         setUpCommandView();
         setUpInput();
+        setUpButtonPaneRatio();
         setUpLoadButton();
         setUpRunButton();
+        setUpSaveButton();
+        setUpReSetButton();
         addElements();
     }
 
-    private void addElements() {
-        buttonBox.getChildren().addAll(submitButton, loadButton);
-        commandView.add(input, 0, 0);
-        commandView.add(buttonBox, 1, 0);
+    public void setUpSaveButton() {
+        saveButton = new Button("Save");
+        saveButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        saveButton.setOnAction((final ActionEvent e) -> {
+                    try {
+                        FileChooser fileChooser = new FileChooser();
+                        fileChooser.setInitialFileName("Command.logo");
+                        fileChooser.setTitle("Save Latest Command");
+                        File file = fileChooser.showSaveDialog(myView.getMyStage());
+                        if (file == null) return;
+                        FileWriter writer = new FileWriter(file);
+                        writer.write(myView.retrieveHistory());
+                        writer.close();
+                    } catch (Exception e1) {
+                        myView.displayErrors(e1.toString());
+                    }
+                }
+        );
+    }
+
+    public void setUpReSetButton() {
+        resetButton = new Button("Reset");
+        resetButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+    }
+
+    private void setUpButtonPaneRatio() {
+        var column1 = new ColumnConstraints();
+        column1.setPercentWidth(50);
+        var column2 = new ColumnConstraints();
+        column2.setPercentWidth(50);
+        var row1 = new RowConstraints();
+        row1.setPercentHeight(50);
+        var row2 = new RowConstraints();
+        row2.setPercentHeight(50);
+        buttonBox.getColumnConstraints().addAll(column1, column2);
+        buttonBox.getRowConstraints().addAll(row1, row2);
     }
 
     private void setUpLoadButton() {
-        final FileChooser fileChooser = new FileChooser();
         loadButton = new Button("Load");
         loadButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         loadButton.setOnAction((final ActionEvent e) -> {
+            FileChooser fileChooser = new FileChooser();
             File file = fileChooser.showOpenDialog(myView.getMyStage());
             if (file != null && file.getName().endsWith(".logo")) {
                 try {
@@ -74,12 +112,20 @@ public class CommandView implements SubView {
                 runCommand());
     }
 
+    private void addElements() {
+        buttonBox.add(loadButton, 1, 1);
+        buttonBox.add(submitButton, 0, 0);
+        buttonBox.add(saveButton, 1, 0);
+        buttonBox.add(resetButton, 0, 1);
+        commandView.add(input, 0, 0);
+        commandView.add(buttonBox, 1, 0);
+    }
+
     private void setUpCommandView() {
-        commandView = new GridPane();
         var column1 = new ColumnConstraints();
-        column1.setPercentWidth(90);
+        column1.setPercentWidth(70);
         var column2 = new ColumnConstraints();
-        column2.setPercentWidth(10);
+        column2.setPercentWidth(30);
         commandView.getColumnConstraints().addAll(column1, column2);
         commandView.getStyleClass().add("commandView");
     }

@@ -28,7 +28,7 @@ public class HelpView implements SubView {
 
     public HelpView() {
         helpView = new VBox();
-        Label title = new Label("Command help: ");
+        Label title = new Label("Command Help: ");
         helpList = new ListView();
         helpView.getChildren().addAll(title, helpList);
         helpView.getStyleClass().add("helpView");
