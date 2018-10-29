@@ -13,18 +13,18 @@ public class Repeat extends RootNode {
     @Override
     public Object run() {
         List<Object> l = runChildren();
-        System.out.println("test1");
         Double reps;
         if(l.get(0) instanceof Integer){
             reps = ((Integer) l.get(0)).doubleValue();
         }else{
             reps = (Double) l.get(0);
         }
-        System.out.println("test2");
         Integer times = reps.intValue();
         List<Node> cList = (List<Node>)l.get(1);
+        System.out.println(cList.size());
         for(int i = 0; i < times; i++){
             for(Node c: cList){
+                System.out.println(c);
                 c.run();
             }
         }
