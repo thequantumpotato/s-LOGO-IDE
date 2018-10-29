@@ -181,8 +181,12 @@ public class TurtleLeaf extends Observable implements Turtle {
         showing = false;
     }
 
-    public void setActive(double id){
+    public void setActive(double idd){
         this.id = 1;
+    }
+
+    public void setInactive(double idd) {
+        this.id = 0;
     }
 
     public Turtle getTurtleLeaf(Integer id){

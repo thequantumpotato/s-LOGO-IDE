@@ -8,7 +8,8 @@ import javafx.scene.image.ImageView;
 import java.util.HashMap;
 
 import static frontend.GUI.Display.DisplayView.TURTLE_IMAGE;
-import static frontend.GUI.Display.TurtleView.TURTLE_SIZE;
+import static frontend.GUI.Display.DisplayView.TURTLE_SIZE;
+
 
 /**
  * This class manages the sprites contained in {@code DisplayView}

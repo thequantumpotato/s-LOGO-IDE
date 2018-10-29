@@ -242,8 +242,21 @@ public class TurtleGroup implements Turtle {
         return turtles.get(0).getPenSize();
     }
 
+    @Override
     public void clearScreen(){
         turtles.get(0).clearScreen();
+    }
+
+    public double numTurtles(){
+        return turtles.size();
+    }
+
+    public void setInactive(double id){
+        for(TurtleLeaf leaf:turtles){
+            if(leaf.getId() == id){
+                leaf.setInactive(id);
+            }
+        }
     }
 
 }
