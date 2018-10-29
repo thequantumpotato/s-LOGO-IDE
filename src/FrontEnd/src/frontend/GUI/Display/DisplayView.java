@@ -131,7 +131,6 @@ public class DisplayView implements SubView, Observer {
     public void update(Observable o, Object arg) {
         //TODO: update this method after turtle has new getID method
         System.out.println("Updated Turtle received by DisplayView:"+ arg);
-        TurtleLeaf updatedTurtle = (TurtleLeaf) o;
         if (arg != null) {
             if(arg instanceof String){
                 if(((String) arg).equalsIgnoreCase("CHANGED!")){
