@@ -6,10 +6,14 @@ import frontend.Util.AnimationContainer;
 import frontend.Util.Coordinate;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
 import java.util.ArrayList;
+
+import static frontend.GUI.Display.DisplayView.TURTLE_IMAGE;
+import static frontend.GUI.Display.DisplayView.TURTLE_SIZE;
 
 /** Manages turtles on the display
  *  @author bpx */
@@ -21,6 +25,7 @@ public class TurtleManager extends Manager {
 
     private Group myRenderTarget;
     private View myView;
+    private ImageView myFake;
     private ArrayList<String> myTurtles;
     private SpriteContainer mySpriteContainer;
     private AnimationContainer myAnimationContainer;
@@ -32,6 +37,11 @@ public class TurtleManager extends Manager {
     public TurtleManager(Group renderTarget, View myView_){
         super();
         myView = myView_;
+        myFake = new ImageView(new Image(this.getClass().getClassLoader().getResourceAsStream(TURTLE_IMAGE)));
+        myFake.setFitWidth(TURTLE_SIZE);
+        myFake.setFitHeight(TURTLE_SIZE);
+        myFake.setTranslateX(ORIGIN_X);
+        myFake.setTranslateY(ORIGIN_Y);
         myRenderTarget = renderTarget;
         myTurtles = new ArrayList<>();
         mySpriteContainer = new SpriteContainer(renderTarget);
@@ -132,6 +142,15 @@ public class TurtleManager extends Manager {
 
     public void setPenColor(Color color){
         myPathManager.setPenColor(color);
+    }
+
+
+    public void makeFake(){
+        myRenderTarget.getChildren().add(myFake);
+    }
+
+    public void hideFake(){
+        myRenderTarget.getChildren().remove(myFake);
     }
 
     /** Sets duration of all time-based turtle operations

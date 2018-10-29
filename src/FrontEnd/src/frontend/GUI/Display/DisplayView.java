@@ -135,6 +135,7 @@ public class DisplayView implements SubView, Observer {
             if(arg instanceof String){
                 if(((String) arg).equalsIgnoreCase("CHANGED!")){
                    myView.registerDisplay(myView.getTurtle());
+                   myTurtleManager.makeFake();
                 }
                 else if(((String) arg).equalsIgnoreCase("clear")){
                     clear();
@@ -149,6 +150,7 @@ public class DisplayView implements SubView, Observer {
             System.out.println("Received update");
             if(!myTurtleManager.contains(String.valueOf(((TurtleLeaf) o).getId()))){
                 System.out.println("creating new turtle "+String.valueOf(((TurtleLeaf) o).getId()));
+                myTurtleManager.hideFake();
                 myTurtleManager.createTurtle(String.valueOf(((TurtleLeaf) o).getId()));
             }
             Coordinate newPosition = adjustPosition(((TurtleLeaf) o).getX(),((TurtleLeaf) o).getY(),((TurtleLeaf) o).getDirection());
