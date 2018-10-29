@@ -226,6 +226,7 @@ public class TurtleGroup implements Turtle {
 
     public void clearScreen(){
         turtles.get(0).clearScreen();
+        turtles.get(0).notifyObservers("clear");
     }
 
 }

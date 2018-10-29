@@ -37,9 +37,6 @@ public class DisplayView implements SubView, Observer {
     public static final int DEFAULT_BG_HEIGHT = 800;
 
     private TurtleManager myTurtleManager;
-    /*private ArrayList<Turtle> myTurtleInfo;
-    private ArrayList<TurtleView> myTurtles;*/
-
     private View myView;
     private ScrollPane scrollPane;
     private Group root;
@@ -59,8 +56,12 @@ public class DisplayView implements SubView, Observer {
         myTurtleManager.createTurtle("0");
     }
 
-    public void clearBg() {
+    public void clear() {
+        System.out.println("Clear screen!");
         myPen.eraseAll();
+        myTurtleManager.reset();
+        myTurtleManager.createTurtle("0");
+        //myView.registerDisplay(myView.getTurtle());
     }
 
     public void changeBgColor(Color bgColor) {
@@ -84,21 +85,10 @@ public class DisplayView implements SubView, Observer {
         myTurtleManager.setPenSize(size);
     }
 
-    /*public void hideTurtle() {
-        for(TurtleView turtle : myTurtles){
-            turtle.hide();
-        }
-    }*/
-
     public void hideTurtle(String id) {
         myTurtleManager.hide(id);
     }
 
-    /*public void showTurtle() {
-        for(TurtleView turtle : myTurtles){
-            turtle.show();
-        }
-    }*/
 
     public void showTurtle(String id) {
         myTurtleManager.show(id);
@@ -119,45 +109,6 @@ public class DisplayView implements SubView, Observer {
     public void changeAnimationSpeed(Double time) {
         myTurtleManager.setDuration(time);
     }
-
-    /*//TODO: REIMPLEMENT MOVEMENT SYSTEM TO BE RELATIVE RATHER THAN ABSOLUTE
-    public void updateTurtle(Coordinate newpos) {
-        //increase background size if needed
-        if (newpos.getX() > bg.getX() + bg.getWidth() || newpos.getX() < bg.getX() ||
-                newpos.getY() > bg.getY() + bg.getHeight() || newpos.getY() < bg.getY()) {
-            expandBackground(Math.max(Math.abs(newpos.getX() - bg.getX()), Math.abs(newpos.getY() - bg.getY())));
-        }
-        //move turtle
-        for(TurtleView turtle: myTurtles){
-            turtle.moveTo(newpos);
-        }
-    }*/
-
-    /*public void updateTurtle(int index, Coordinate newpos) {
-        //increase background size if needed
-        if (newpos.getX() > bg.getX() + bg.getWidth() || newpos.getX() < bg.getX() ||
-                newpos.getY() > bg.getY() + bg.getHeight() || newpos.getY() < bg.getY()) {
-            expandBackground(Math.max(Math.abs(newpos.getX() - bg.getX()), Math.abs(newpos.getY() - bg.getY())));
-        }
-        //move turtle
-        if(index>0 && index<myTurtles.size()){
-            myTurtles.get(index).moveTo(newpos);
-        }
-    }*/
-
-    /*public void playAnims() {
-        System.out.println("Playing anims");
-        for(TurtleView turtle : myTurtles){
-            turtle.playAnimation();
-        }
-    }
-
-    public void playAnims(int index) {
-        System.out.println("Playing anims");
-        if(index>0 && index<myTurtles.size()){
-            myTurtles.get(index).playAnimation();
-        }
-    }*/
 
     private void expandBackground(double amount) {
         System.out.println("Expanding bg by " + amount);
@@ -183,20 +134,28 @@ public class DisplayView implements SubView, Observer {
         System.out.println("Updated Turtle received by DisplayView:"+ arg);
         TurtleLeaf updatedTurtle = (TurtleLeaf) o;
         if (arg != null) {
-            System.out.println("Updating animations");
-            //Change displayview settings based on info stored in turtle
-            //getSettings((TurtleLeaf) o);
-            getSettings((TurtleLeaf) o);
-            myTurtleManager.updateTurtles();
+            if(arg instanceof String){
+                if(((String) arg).equalsIgnoreCase("CHANGED!")){
+                   myView.registerDisplay(myView.getTurtle());
+                }
+                else if(((String) arg).equalsIgnoreCase("clear")){
+                    clear();
+                }
+            }
+            else if(arg instanceof Boolean){
+                System.out.println("Updating animations");
+                getSettings((TurtleLeaf) o);
+                myTurtleManager.updateTurtles();
+            }
         } else {
             System.out.println("Received update");
-            /*myTurtleInfo.set(0,(Turtle)o);
-            System.out.println(myTurtleInfo.get(0).getX() + " " + myTurtleInfo.get(0).getY() + " " + myTurtleInfo.get(0).getDirection());
-            updateTurtle(adjustPosition(myTurtleInfo.get(0).getX(), myTurtleInfo.get(0).getY(), myTurtleInfo.get(0).getDirection()));*/
             Coordinate newPosition = adjustPosition(((TurtleLeaf) o).getX(),((TurtleLeaf) o).getY(),((TurtleLeaf) o).getDirection());
             if (newPosition.getX() > bg.getX() + bg.getWidth() || newPosition.getX() < bg.getX() ||
                     newPosition.getY() > bg.getY() + bg.getHeight() || newPosition.getY() < bg.getY()) {
                 expandBackground(Math.max(Math.abs(newPosition.getX() - bg.getX()), Math.abs(newPosition.getY() - bg.getY())));
+            }
+            if(!myTurtleManager.contains(String.valueOf(((TurtleLeaf) o).getId()))){
+                myTurtleManager.createTurtle(String.valueOf(((TurtleLeaf) o).getId()));
             }
             myTurtleManager.moveTurtle(String.valueOf(((TurtleLeaf) o).getId()),newPosition);
         }

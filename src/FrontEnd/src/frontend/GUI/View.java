@@ -60,6 +60,10 @@ public class View implements ViewInternalAPI, ViewAPI {
         return myStage;
     }
 
+    public Turtle getTurtle(){
+        return myController.getMyTurtle();
+    }
+
     /**
      * Helper methods
      **/

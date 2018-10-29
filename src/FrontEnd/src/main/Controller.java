@@ -118,4 +118,8 @@ public class Controller {
     public GridPane getMyView() {
         return myView.getMyGridPane();
     }
+
+    public Turtle getMyTurtle() {
+        return myTurtle;
+    }
 }

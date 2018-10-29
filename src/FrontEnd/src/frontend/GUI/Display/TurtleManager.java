@@ -40,6 +40,10 @@ public class TurtleManager extends Manager {
         myPathManager =  new PathManager(myRenderTarget);
     }
 
+    public boolean contains(String id){
+        return(myTurtles.contains(id));
+    }
+
     /** Create a new turtle with the current settings and place it at the origin
      *  @param id The identifier for the turtle being created */
     public void createTurtle(String id){
