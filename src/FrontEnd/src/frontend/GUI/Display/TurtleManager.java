@@ -26,7 +26,6 @@ public class TurtleManager extends Manager {
     private AnimationContainer myAnimationContainer;
     private MovementManager myMovementManager;
     private PathManager myPathManager;
-    private View myView;
 
     /** Initialize a new {@code TurtleManager} with the render target
      *  @param renderTarget The {@code Group} to render everything to */
