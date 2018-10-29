@@ -20,10 +20,11 @@ public class PathManager extends Manager{
 
     private boolean penDown;
     private Group myRenderTarget;
+
     private Pen myPen;
+
     private ArrayList<Path> myPaths;
     private AnimationContainer myAnimationContainer;
-
     /** Default constructor */
     public PathManager(Group root){
         super();
@@ -96,5 +97,13 @@ public class PathManager extends Manager{
         myPaths.clear();
         myPen.eraseAll();
         myAnimationContainer.killAllAnimations();
+    }
+
+    public Pen getMyPen() {
+        return myPen;
+    }
+
+    public boolean isPenDown() {
+        return penDown;
     }
 }

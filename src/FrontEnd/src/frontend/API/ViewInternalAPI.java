@@ -1,5 +1,7 @@
 package frontend.API;
 
+import frontend.GUI.Display.PathManager;
+import frontend.Util.Sprite;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
@@ -68,4 +70,8 @@ import java.util.Map;
       * Update the variable value after the user changes variable name/value through GUI
       */
       void updateVar(Map<String, String> variable);
+
+      void showState(String id, Sprite sprite, PathManager pathManager);
+
+      void noShow();
  }
