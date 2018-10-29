@@ -69,6 +69,10 @@ public class CommandView implements SubView {
     public void setUpReSetButton() {
         resetButton = new Button("Reset");
         resetButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        resetButton.setOnAction((final ActionEvent e) -> {
+            myView.passCommand("cs");
+                }
+        );
     }
 
     private void setUpButtonPaneRatio() {
