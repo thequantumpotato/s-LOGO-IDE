@@ -6,6 +6,7 @@ import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /** Extension to {@code Path} class to allow for adding {@code Line} objects easily to the {@code Path}
  *  @author bpx*/
@@ -26,7 +27,7 @@ public class LinePath extends Path {
     }
 
     /** Returns copy of {@code Line} objects contained in the {@code LinePath}*/
-    public ArrayList<Line> getLines(){
+    public List<Line> getLines(){
         return new ArrayList<>(myLines);
     }
 
