@@ -74,4 +74,6 @@ import java.util.Map;
       void showState(String id, Sprite sprite, PathManager pathManager);
 
       void noShow();
+
+      String retrieveHistory();
  }
