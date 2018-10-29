@@ -110,7 +110,6 @@ public class DisplayView implements SubView, Observer {
     }
 
     private void expandBackground(double amount) {
-        System.out.println("Expanding bg by " + amount);
         bg.setX(bg.getX() - amount);
         bg.setY(bg.getY() - amount);
         bg.setWidth(bg.getWidth() + 2 * amount);
@@ -142,15 +141,13 @@ public class DisplayView implements SubView, Observer {
                 }
             }
             else if(arg instanceof Boolean){
-                System.out.println("Updating animations");
                 getSettings((TurtleLeaf) o);
                 myTurtleManager.updateTurtles();
             }
         } else {
-            System.out.println("Received update");
+            myTurtleManager.hideFake();
             if(!myTurtleManager.contains(String.valueOf(((TurtleLeaf) o).getId()))){
                 System.out.println("creating new turtle "+String.valueOf(((TurtleLeaf) o).getId()));
-                myTurtleManager.hideFake();
                 myTurtleManager.createTurtle(String.valueOf(((TurtleLeaf) o).getId()));
             }
             Coordinate newPosition = adjustPosition(((TurtleLeaf) o).getX(),((TurtleLeaf) o).getY(),((TurtleLeaf) o).getDirection());
