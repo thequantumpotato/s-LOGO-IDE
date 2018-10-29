@@ -19,7 +19,9 @@ public class SetTowards extends RootNode {
         double y = l.get(1);
         double newDir = angleWithXAxis(x, y);
         double oldDir = myTurtle.getDirection();
+        myTurtle.Changed();
         myTurtle.setHeading(newDir);
+        myTurtle.clear();
         return Math.abs(newDir - oldDir);
     }
 

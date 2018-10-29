@@ -16,6 +16,7 @@ import static frontend.GUI.Display.DisplayView.TURTLE_SIZE;
 public class SpriteContainer {
     private Group myRenderTarget;
     private HashMap<String,Sprite> mySprites;
+    private HashMap<String, Boolean> myStates;
     private String mySpritePath;
     private double mySpriteSize;
 
@@ -23,6 +24,7 @@ public class SpriteContainer {
     public SpriteContainer(Group renderTarget){
         myRenderTarget = renderTarget;
         mySprites = new HashMap<>();
+        myStates = new HashMap<>();
         mySpritePath = TURTLE_IMAGE;
         mySpriteSize = TURTLE_SIZE;
     }
@@ -63,6 +65,7 @@ public class SpriteContainer {
         turtle.setFitWidth(mySpriteSize);
         turtle.setFitHeight(mySpriteSize);
         mySprites.put(id,turtle);
+        myStates.put(id,true);
         myRenderTarget.getChildren().add(turtle);
     }
 
@@ -83,17 +86,24 @@ public class SpriteContainer {
      *  @param state Active is true, inactive is false*/
     public void setActive(String id, boolean state){
         if(state){
+            myStates.put(id,true);
             mySprites.get(id).setActive();
         }
         else{
+            myStates.put(id,false);
             mySprites.get(id).setInactive();
         }
+    }
+
+    public boolean isActive(String id){
+        return myStates.get(id);
     }
 
     /** Remove all entries from the HashMap of sprites*/
     public void killAllSprites(){
         mySprites.forEach((s, imageView) -> myRenderTarget.getChildren().remove(imageView));
         mySprites.clear();
+        myStates.clear();
     }
 
 

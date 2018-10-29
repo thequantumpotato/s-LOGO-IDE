@@ -53,11 +53,6 @@ public class ModelController {
         myTurtle.clear();
     }
 
-
-    private boolean isNumeric(String s) {
-        return s.matches("[-+]?\\d*\\.?\\d+");
-    }
-
     public Map<String, String> updateVar() {
         return myStorage.getVarMap();
     }

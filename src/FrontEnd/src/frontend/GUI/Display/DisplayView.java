@@ -49,28 +49,13 @@ public class DisplayView implements SubView, Observer {
         myView = myView_;
         scrollPane = new ScrollPane();
         root = new Group();
-        //create bg
         bg = new Rectangle(DEFAULT_BG_WIDTH, DEFAULT_BG_HEIGHT, DEFAULT_BG_COLOR);
-        //create pen
         myPen = new Pen(new Coordinate(TURTLE_DEFAULT_X + TURTLE_SIZE / 2, TURTLE_DEFAULT_Y + TURTLE_SIZE / 2, 0));
         myPen.setRoot(root);
-        //add turtle to scroll pane
         root.getChildren().add(bg);
-        //create turtle array and default turtle
-        /*myTurtleInfo = new ArrayList<>();
-        myTurtleInfo.add(turtle);
-        //create turtleview array and default turtleview
-        myTurtles = new ArrayList<>();
-        myTurtles.add(new TurtleView(myPen,root));*/
         scrollPane.setContent(root);
         myTurtleManager = new TurtleManager(root, myView);
         myTurtleManager.createTurtle("0");
-        myTurtleManager.setActive("0",false);
-        /*TurtleManager turtleManager = new TurtleManager(root);
-        turtleManager.createTurtle("1");
-        turtleManager.setDuration(10);
-        turtleManager.moveTurtle("1",new Coordinate(500,300,0));
-        turtleManager.updateTurtles();*/
     }
 
     public void clearBg() {

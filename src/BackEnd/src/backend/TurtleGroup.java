@@ -190,13 +190,6 @@ public class TurtleGroup implements Turtle {
         }
     }
 
-    public void setShape(int s){
-        for (TurtleLeaf leaf : turtles) {
-            leaf.setShape(s);
-            leaf.notifyObservers();
-        }
-    }
-
     public void notifyAllObservers() {
         for (TurtleLeaf leaf : turtles) {
             System.out.println("My turtle after running command: " + leaf);
@@ -213,11 +206,44 @@ public class TurtleGroup implements Turtle {
         }
     }
 
+    public void setActive(double id){
+        boolean changed = false;
+        for(TurtleLeaf leaf:turtles){
+            if(leaf.getId() == id){
+                leaf.setActive(id);
+                changed = true;
+            }
+        }
+        //Add new turtle
+        if(!changed){
+            addTurtle();
+            turtles.get(0).Changed();
+            turtles.get(0).notifyObservers("CHANGED!");
+            turtles.get(0).clear();
+        }
+    }
+
 
     public void addAnObserver(Observer o) {
         for (TurtleLeaf leaf : turtles) {
             leaf.addAnObserver(o);
         }
+    }
+
+    public Color getPenColor(){
+        return turtles.get(0).getPenColor();
+    }
+
+    public Color getBgColor(){
+        return turtles.get(0).getBgColor();
+    }
+
+    public double getPenSize(){
+        return turtles.get(0).getPenSize();
+    }
+
+    public void clearScreen(){
+        turtles.get(0).clearScreen();
     }
 
 }

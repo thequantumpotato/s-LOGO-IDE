@@ -20,6 +20,7 @@ public class TurtleManager extends Manager {
     public static final double ORIGIN_Y = 250;
 
     private Group myRenderTarget;
+    private View myView;
     private ArrayList<String> myTurtles;
     private SpriteContainer mySpriteContainer;
     private AnimationContainer myAnimationContainer;
@@ -52,6 +53,16 @@ public class TurtleManager extends Manager {
                 e -> myView.noShow()
         );
         mySpriteContainer.getSprite(id).setPosition(new Coordinate(ORIGIN_X,ORIGIN_Y,0));
+        mySpriteContainer.getSprite(id).setOnMousePressed(e -> {
+            if(mySpriteContainer.isActive(id)){
+                myView.passCommand(String.format("untell [ %s ]",id));
+                mySpriteContainer.setActive(id,false);
+            }else{
+                myView.passCommand(String.format("tell [ %s ]",id));
+                mySpriteContainer.setActive(id,true);
+            }
+
+        });
     }
 
     /** Move the specified turtle to a new position through animation
