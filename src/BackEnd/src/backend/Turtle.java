@@ -60,8 +60,10 @@ public interface Turtle {
     void notifyAllObservers();
 
     void setActive(double id);
+    void setInactive(double id);
     Turtle getTurtleLeaf(Integer id);
 
     void clearScreen();
+
 
 }

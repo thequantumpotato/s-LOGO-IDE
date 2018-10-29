@@ -95,6 +95,7 @@ public class PathManager extends Manager{
     @Override
     public void reset(){
         myPaths.clear();
+        myPen.eraseAll();
         myAnimationContainer.killAllAnimations();
     }
 

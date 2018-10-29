@@ -24,14 +24,14 @@ import java.util.Map;
 /**
  * View is an aggregate of all the Nodes and is one level lower than Controller. It puts all the sub-components
  * together while specifying all the APIs needed for them to interact with each other or to the external world.
- *
+ * <p>
  * Multiple such gridPanes can be initialized inside TabView to be the content of a single tab and they will
  * be independent of each other.
+ * <p>
+ * It extends ViewInternalAPI, which includes all the methods that can be called by the internal Display
  *
  * @author Vincent Liu
  */
-// TODO: 10/25/18 Make the windows expand and contract --- Accordion and TitlePane
-// TODO: 10/28/18 Add Palette
 public class View implements ViewInternalAPI, ViewAPI {
     public static final double DEFAULT_PEN_SIZE = 1;
     public final int DEFAULT_PEN_TIME = 10;
@@ -60,6 +60,10 @@ public class View implements ViewInternalAPI, ViewAPI {
 
     public Stage getMyStage() {
         return myStage;
+    }
+
+    public Turtle getTurtle() {
+        return myController.getMyTurtle();
     }
 
     /**
@@ -132,13 +136,18 @@ public class View implements ViewInternalAPI, ViewAPI {
      **/
 
     @Override
-    public void showState(String id, Sprite sprite, PathManager pathManager){
+    public void showState(String id, Sprite sprite, PathManager pathManager) {
         myStateView.changeState(id, sprite, pathManager);
     }
 
     @Override
-    public void noShow(){
+    public void noShow() {
         myStateView.showDefault();
+    }
+
+    @Override
+    public String retrieveHistory() {
+        return myHistoryView.getLastestCommand();
     }
 
     @Override
@@ -195,7 +204,14 @@ public class View implements ViewInternalAPI, ViewAPI {
     }
 
     @Override
-    public GridPane getMyGridPane() { return myGridPane; }
+    public GridPane getMyGridPane() {
+        return myGridPane;
+    }
+
+    @Override
+    public void returnValues(List<String> ret) {
+        myCommandView.returnValues(ret);
+    }
 
     @Override
     public void displayErrors(String errorMessage) {

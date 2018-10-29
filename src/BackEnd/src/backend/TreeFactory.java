@@ -178,6 +178,7 @@ public class TreeFactory {
      */
     public Node reflect(String command) throws IllegalCommandException {
         Class myClass;
+        System.out.println(pathToNode+command);
         try {
             myClass = Class.forName(pathToNode+command);
         } catch (ClassNotFoundException e) {
@@ -232,7 +233,8 @@ public class TreeFactory {
     }
 
     private boolean isNotCommand(String s) {
-        return s.matches("[-+]?\\d*\\.?\\d+|\\\"[a-zA-Z]+|:[a-zA-Z_]+");
+        return s.matches(
+                "[-+]?\\d*\\.?\\d+|\\\"[a-zA-Z]+|:[a-zA-Z_]+|^@.*");
     }
 
     private boolean isLeftParenthesis(String s) {

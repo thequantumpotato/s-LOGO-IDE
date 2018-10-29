@@ -14,17 +14,16 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
 import main.Controller;
 
 /**
  * TabView class is created to make each tab separate in its functionality. By assigning each tab with a
  * Controller, each tab's communication between the frontend and the backend will be all contained in the Controller.
- *
+ * <p>
  * TabView simply represents an AnchorPane that contains a TabPane with a Button. When the buttons is clicked,
  * a new Controller will be initialized, and a new set of frontend and backend will be initialized as well.
  * Then, the View (i.e. GridPane) within the frontend will be added to the new tab.
- *
+ * <p>
  * In this way, whenever the setting changes in the frontend (e.g. Language) or when a new tab is added,
  * the existing tabs won't be affected.
  *

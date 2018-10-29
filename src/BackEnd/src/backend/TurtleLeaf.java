@@ -181,8 +181,12 @@ public class TurtleLeaf extends Observable implements Turtle {
         showing = false;
     }
 
-    public void setActive(double id){
-        this.id = 1;
+    public void setActive(double idd){
+        this.isActive= true;
+    }
+
+    public void setInactive(double idd) {
+        this.isActive = false;
     }
 
     public Turtle getTurtleLeaf(Integer id){
@@ -203,11 +207,11 @@ public class TurtleLeaf extends Observable implements Turtle {
 
     public void clearScreen(){
         this.clearScreen = true;
-        this.notifyObservers();
+
         this.clearScreen = false;
     }
 
-    public boolean getClearScreen(){
+    public boolean getClearScreen() {
         return this.clearScreen;
     }
 }

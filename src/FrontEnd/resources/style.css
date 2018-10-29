@@ -86,7 +86,7 @@
 
 .gridPane {
     -fx-background-color: #3c3f41;
-    -fx-padding: 15;
+    -fx-padding: 5;
     -fx-hgap: 10;
     -fx-vgap: 10;
     -fx-background-radius: 5.0;
@@ -134,6 +134,7 @@
 }
 
 .tool-bar{
+    -fx-alignment: CENTER;
     -fx-background-color: #3c3f41;
     -fx-border-color: #4b4b4b;
     -fx-text-fill: white;
@@ -143,4 +144,10 @@
 .helpView {
     -fx-border-color: black;
     -fx-border-width: 1px;
+}
+
+.buttonBox{
+    -fx-hgap: 4px;
+    -fx-vgap: 4px;
+    -fx-padding: 1px;
 }

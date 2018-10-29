@@ -211,6 +211,7 @@ public class TurtleGroup implements Turtle {
         for(TurtleLeaf leaf:turtles){
             if(leaf.getId() == id){
                 leaf.setActive(id);
+                leaf.notifyObservers();
                 changed = true;
             }
         }
@@ -242,8 +243,29 @@ public class TurtleGroup implements Turtle {
         return turtles.get(0).getPenSize();
     }
 
+    @Override
     public void clearScreen(){
         turtles.get(0).clearScreen();
+        turtles.get(0).notifyObservers("clear");
+    }
+
+    public double numTurtles(){
+        return turtles.size();
+    }
+
+    public void setInactive(double id){
+        for(TurtleLeaf leaf:turtles){
+            if(leaf.getId() == id){
+                leaf.setInactive(id);
+            }
+        }
+    }
+
+    public void reset(){
+        TurtleLeaf first = turtles.get(0); // remember first item
+        turtles.clear(); // clear complete list
+        turtles.add(first); // add first item
+        setPosition(0,0);
     }
 
 }

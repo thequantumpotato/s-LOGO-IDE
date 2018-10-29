@@ -6,16 +6,17 @@ import javafx.scene.paint.Color;
 
 import java.util.List;
 
-public class SetBgColor extends RootNode {
+public class SetBackground extends RootNode {
 
-    public SetBgColor(Storage storage, Turtle turtle, List<Node> children) {
+    public SetBackground(Storage storage, Turtle turtle, List<Node> children) {
         super(storage, turtle, children);
     }
 
     @Override
     public Object run() {
         List<Object> l = runChildren();
-        Color c = Color.web((String) l.get(0));
+        System.out.println("#"+((String)l.get(0)).substring(1));
+        Color c = Color.web( "#"+((String)l.get(0)).substring(1));
         myTurtle.Changed();
         myTurtle.setBgColor(c);
         myTurtle.clear();
