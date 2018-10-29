@@ -10,6 +10,7 @@ import javafx.scene.layout.VBox;
 
 /**
  * A ListView that displays all the previous valid commands
+ *
  * @author Vincent Liu
  */
 
@@ -29,7 +30,7 @@ public class HistoryView implements SubView {
 
     public void updateHistory(String newHistory) {
         var clickableHistory = new Hyperlink(newHistory);
-        clickableHistory.setOnAction( e -> runCommand(clickableHistory.getText()));
+        clickableHistory.setOnAction(e -> runCommand(clickableHistory.getText()));
         historyList.getItems().add(clickableHistory);
     }
 

@@ -4,13 +4,11 @@ import frontend.API.SubView;
 import frontend.GUI.View;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.scene.layout.VBox;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -44,6 +42,28 @@ public class VariableView implements SubView {
         setUpValCol();
     }
 
+    private void setUpBox(String title) {
+        variableView = new TitledPane();
+        variableView.setText(title);
+        variableView.setContent(variableList);
+        variableView.getStyleClass().add("variableView");
+    }
+
+    private void setUpNameCol() {
+        name = new TableColumn("Name");
+        name.setCellFactory(TextFieldTableCell.forTableColumn());
+        name.setCellValueFactory(new PropertyValueFactory<>("varName"));
+        name.setOnEditCommit((TableColumn.CellEditEvent<Variable, String> t) -> updateVarName(t));
+    }
+
+    private void setUpValCol() {
+        value = new TableColumn("Value");
+        value.setCellValueFactory(new PropertyValueFactory<>("varVal"));
+        value.setCellFactory(TextFieldTableCell.forTableColumn());
+        value.setOnEditCommit((TableColumn.CellEditEvent<Variable, String> t) -> updateVarVal(t));
+    }
+
+    // Triggered by edition on the TableView. Update the variable name in the backend and change in the frontend
     public void updateVarName(TableColumn.CellEditEvent<Variable, String> t) {
         String newName = t.getNewValue();
         var thisRow = t.getTableView().getItems().get(t.getTablePosition().getRow());
@@ -54,6 +74,7 @@ public class VariableView implements SubView {
         myView.updateVar(res);
     }
 
+    // Triggered by edition on the TableView. Update the variable value in the backend and change in the frontend
     public void updateVarVal(TableColumn.CellEditEvent<Variable, String> t) {
         String newVal = t.getNewValue();
         var thisRow = t.getTableView().getItems().get(t.getTablePosition().getRow());
@@ -64,30 +85,10 @@ public class VariableView implements SubView {
         myView.updateVar(res);
     }
 
-    private void setUpValCol() {
-        value = new TableColumn("Value");
-        value.setCellValueFactory(new PropertyValueFactory<>("varVal"));
-        value.setCellFactory(TextFieldTableCell.forTableColumn());
-        value.setOnEditCommit((TableColumn.CellEditEvent<Variable, String> t) -> updateVarVal(t));
-    }
-
-    private void setUpNameCol() {
-        name = new TableColumn("Name");
-        name.setCellFactory(TextFieldTableCell.forTableColumn());
-        name.setCellValueFactory(new PropertyValueFactory<>("varName"));
-        name.setOnEditCommit((TableColumn.CellEditEvent<Variable, String> t) -> updateVarName(t));
-    }
-
-    private void setUpBox(String title) {
-        variableView = new TitledPane();
-        variableView.setText(title);
-        variableView.setContent(variableList);
-        variableView.getStyleClass().add("variableView");
-    }
-
+    // Add all the variables from the backend to the frontend
     public void updateVariable(Map<String, String> var) {
         variableList.getItems().clear();
-        for (String myKey: var.keySet()) {
+        for (String myKey : var.keySet()) {
             variableList.getItems().add(new Variable(myKey, var.get(myKey)));
         }
     }
