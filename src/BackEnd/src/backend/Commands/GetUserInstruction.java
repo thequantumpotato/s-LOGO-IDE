@@ -18,6 +18,7 @@ public class GetUserInstruction extends RootNode {
         List<Object> l = runChildren();
         System.out.println("getuserinstruction:" + myChildren.toString());
         String name = (String) l.get(0);
+        System.out.println("l.get1:" + l.get(1));
         List<Node> argsList = (List<Node>) l.get(1);
         List<Object> argsVals = new ArrayList<>();
         for(Node n: argsList){

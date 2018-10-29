@@ -13,6 +13,7 @@ public class Return extends RootNode {
 
     @Override
     public Object run() {
+        System.out.println("return children" + myChildren);
         List<Object> l = runChildren();
         return l.get(0);
     }
