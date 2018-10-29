@@ -134,6 +134,7 @@
 }
 
 .tool-bar{
+    -fx-alignment: CENTER;
     -fx-background-color: #3c3f41;
     -fx-border-color: #4b4b4b;
     -fx-text-fill: white;
