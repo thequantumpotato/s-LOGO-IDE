@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 public class TreeFactory {
 
     /**
-     * @author Jose San Martin
+     * @author Jose San Martin (js665)
      * Factory for creating a list of trees from the input command
      */
     private static final String commandProps = "backend/resources/Command";

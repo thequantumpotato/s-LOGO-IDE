@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Observer;
 
 /**
- * @author Jose San Martin
+ * @author Jose San Martin (js665)
  */
 public class TurtleGroup implements Turtle {
 
