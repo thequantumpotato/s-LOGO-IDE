@@ -15,12 +15,12 @@ public class If extends RootNode {
     public Object run() {
         List<Object> l = runChildren();
         Boolean b = (Boolean) l.get(0);
-        List<Node> ln = (List<Node>) l.get(1);
-        if (b) {
-            for (Node n : ln) {
-                n.run();
-            }
+        List<Node> ln = (List<Node>)l.get(1);
+        if(b){
+            Object res = runNodeList(ln);
+            System.out.println("res" + res);
+            return res;
         }
-        return 1;
+        return 0;
     }
 }

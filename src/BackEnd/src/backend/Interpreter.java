@@ -60,7 +60,7 @@ public class Interpreter {
                 if (e.getKey().equals("Constant") | e.getKey().equals("Variable")) {
                     return text;
                 } else if (e.getKey().equals("commandName")) {
-                    return "-" + text;
+                    return "commandName";
                 } else {
                     return e.getKey();
                 }
