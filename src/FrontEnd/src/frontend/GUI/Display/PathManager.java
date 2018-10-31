@@ -104,10 +104,14 @@ public class PathManager extends Manager {
         penDown = true;
     }
 
+    /** Sets the pen drawing stroke width
+     *  @param size The new width in pixels for the pen's stroke*/
     public void setPenSize(double size) {
         myPen.setPenSize(size);
     }
 
+    /** Sets the pen's line color
+     *  @param color The new {@code Color} for the pen to use*/
     public void setPenColor(Color color) {
         myPen.setPenColor(color);
     }
@@ -122,10 +126,12 @@ public class PathManager extends Manager {
         myAnimationContainer.killAllAnimations();
     }
 
+    /** Returns the {@code Pen} object stored in the {@code PathManager}*/
     public Pen getMyPen() {
         return myPen;
     }
 
+    /** Returns whether the pen is currently down */
     public boolean isPenDown() {
         return penDown;
     }

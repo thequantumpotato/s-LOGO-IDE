@@ -113,6 +113,8 @@ public class SpriteContainer {
         }
     }
 
+    /** Returns whether the queried sprite is currently active or not
+     *  @param id The identifier for the sprite*/
     public boolean isActive(String id) {
         return myStates.get(id);
     }
