@@ -6,6 +6,13 @@ import javafx.scene.layout.GridPane;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Interface for external API of View.
+ *
+ * When initializing View in the Controller, its type would be ViewAPI but not simply View.
+ * In this way, Controller could only call the following external methods carried in View.
+ */
+
 public interface ViewAPI {
 
     /**
