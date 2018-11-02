@@ -14,6 +14,7 @@ public class SetPenColor extends RootNode {
     @Override
     public Object run() {
         List<Object> l = runChildren();
+        System.out.println("#" + ((String) l.get(0)).substring(1));
         Color c = Color.web("#" + ((String) l.get(0)).substring(1));
         myTurtle.Changed();
         myTurtle.setPenColor(c);

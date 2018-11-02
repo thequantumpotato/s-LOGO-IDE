@@ -61,7 +61,7 @@ public class Controller {
             checkBackEndFuncUpdate();
         } catch (Exception e) {
             e.printStackTrace();
-//            throwErrorByType(e);
+            throwErrorByType(e);
         }
     }
 
