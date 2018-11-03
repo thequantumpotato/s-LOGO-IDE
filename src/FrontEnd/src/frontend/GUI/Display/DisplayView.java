@@ -42,6 +42,8 @@ public class DisplayView implements SubView, Observer {
     private Rectangle bg;
     private Pen myPen;
 
+    /** Constructor takes in the {@code View} that contains it
+     *  @param myView_ The {@code View} that is holding the {@code DisplayView}*/
     public DisplayView(View myView_) {
         myView = myView_;
         scrollPane = new ScrollPane();
@@ -55,6 +57,7 @@ public class DisplayView implements SubView, Observer {
         myTurtleManager.createTurtle("0");
     }
 
+    /** Clears the display of lines and all turtles except default, which will appear at origin*/
     public void clear() {
         System.out.println("Clear screen!");
         myPen.eraseAll();
@@ -63,10 +66,14 @@ public class DisplayView implements SubView, Observer {
         myView.registerDisplay(myView.getTurtle());
     }
 
+    /** Change the background color
+     *  @param bgColor The {@code Color} representing the new background color*/
     public void changeBgColor(Color bgColor) {
         bg.setFill(bgColor);
     }
 
+    /** Sets the pen to be up or down
+     *  @param state True means pen is down, false means pen is up */
     public void setPenDown(boolean state) {
         if (state) {
             myTurtleManager.penDown();
@@ -75,43 +82,62 @@ public class DisplayView implements SubView, Observer {
         }
     }
 
+    /** Changes the color of the pen
+     *  @param penColor The {@code Color} to change the pen to */
     public void changePenColor(Color penColor) {
         myTurtleManager.setPenColor(penColor);
     }
 
+    /** Returns the current {@code Color} being used by the pen */
     public Color getPenColor() {
         return myTurtleManager.getPenColor();
     }
 
+    /** Changes the size of the pen
+     *  @param size The new stroke width of the pen*/
     public void changePenSize(double size) {
         myTurtleManager.setPenSize(size);
     }
 
+    /** Hides the turtle with the given ID
+     *  @param id THe identifier for the turtle */
     public void hideTurtle(String id) {
         myTurtleManager.hide(id);
     }
 
-
+    /** Shows the turtle with the given ID
+     *  @param id THe identifier for the turtle */
     public void showTurtle(String id) {
         myTurtleManager.show(id);
     }
 
+    /** Changes the size of all turtles to the specified size
+     *  @param size The new size of all turtles*/
     public void changeTurtleSize(double size) {
         myTurtleManager.setTurtleSize(size);
     }
 
+    /** Changes the size of only a specified turtle by ID
+     *  @param id The identifier for the turtle
+     *  @param size The new size of the turtle */
     public void changeTurtleSize(String id, double size) {
         myTurtleManager.setTurtleSize(id, size);
     }
 
+    /** Change the sprite for all turtles
+     *  @param image The new {@code Image} to use as the turtle sprite*/
     public void changeTurtleImg(Image image) {
         myTurtleManager.setTurtleImage(image);
     }
 
+    /** Changes the speed of all turtle animations
+     *  @param time The length of time in seconds for the turtle to carry out an action*/
     public void changeAnimationSpeed(Double time) {
         myTurtleManager.setDuration(time);
     }
 
+    /** Expand the background uniformly by a specified amount in both the X and Y direction
+     *  @param amount The amount in pixels to expand the background by*/
     private void expandBackground(double amount) {
         bg.setX(bg.getX() - amount);
         bg.setY(bg.getY() - amount);
@@ -119,16 +145,23 @@ public class DisplayView implements SubView, Observer {
         bg.setHeight(bg.getHeight() + 2 * amount);
     }
 
+    /** Convert coordinates from Cartesian to JavaFX and returns a {@code Coordinate} object
+     *  @param x The Cartesian X position
+     *  @param y The Cartesian Y position
+     *  @param theta The Cartesian angle */
     private Coordinate adjustPosition(double x, double y, double theta) {
         double newtheta = Math.toDegrees((2 * Math.PI) - theta);
         return new Coordinate(x + TURTLE_DEFAULT_X, TURTLE_DEFAULT_Y - y, newtheta);
     }
 
+    /** Returns the {@code ScrollPane} holding all the graphics */
     @Override
     public Node getView() {
         return scrollPane;
     }
 
+    /** Update method which responds upon being notified by the backend
+     *  Updates settings and turtle positions with animations based on backend information*/
     @Override
     public void update(Observable o, Object arg) {
         //TODO: update this method after turtle has new getID method
@@ -160,6 +193,7 @@ public class DisplayView implements SubView, Observer {
         }
     }
 
+    /** Helper method for processing and handling settings retrieved from a {@code TurtleLeaf}*/
     private void getSettings(TurtleLeaf o) {
         myView.changePenDown(o.getIsPenDown());
         if (o.getIsShowing()) {

@@ -59,6 +59,9 @@ public class TabView {
         display();
     }
 
+    /**
+     * Set up the anchorPane that will contain the AddButton and TabPane
+     */
     private void initializeAnchorPane() {
         anchorPane = new AnchorPane();
         anchorPane.setPadding(Insets.EMPTY);
@@ -75,12 +78,20 @@ public class TabView {
         });
     }
 
+    /**
+     * Add a new tab inside the View from the Controller to the GUI
+     * @param controller
+     */
     public void addTab(Controller controller) {
         GridPane newGridPane = controller.getMyView();
         newGridPane.setMaxHeight(SCREEN_HEIGHT - TAB_PANE_HEIGHT);
         addToTabPane(newGridPane);
     }
 
+    /**
+     * A helper method to add the new tab to the tabPane
+     * @param gridPane
+     */
     private void addToTabPane(GridPane gridPane) {
         Tab tab = new Tab();
         tab.setText("Tab " + (tabPane.getTabs().size() + 1));
@@ -88,17 +99,26 @@ public class TabView {
         tabPane.getTabs().add(tab);
     }
 
+    /**
+     * Add the TabPane to the AnchorPane
+     */
     private void addTabToAnchorPane() {
         anchorPane.getChildren().addAll(tabPane, addButton);
         root.getChildren().add(anchorPane);
     }
 
+    /**
+     * Start showing the application
+     */
     private void display() {
         myScene = new Scene(root, SCREEN_WIDTH, SCREEN_HEIGHT);
         myScene.getStylesheets().add(STYLESHEET);
         startView();
     }
 
+    /**
+     * helper method to play the animation
+     */
     public void startView() {
         myStage.setScene(myScene);
         myStage.setTitle(TITLE);

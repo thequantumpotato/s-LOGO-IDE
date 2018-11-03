@@ -56,6 +56,8 @@ public class TurtleManager extends Manager {
         myPathManager = new PathManager(myRenderTarget);
     }
 
+    /** Returns whether the {@code TurtleManager} currently contains a turtle with the specified ID
+     *  @param id The identifier for the turtle */
     public boolean contains(String id) {
         return (myTurtles.contains(id));
     }
@@ -139,44 +141,59 @@ public class TurtleManager extends Manager {
         mySpriteContainer.setActive(id, state);
     }
 
+    /** Sets the size of all turtles
+     *  @param size The new size to set the turtles to */
     public void setTurtleSize(double size) {
         mySpriteContainer.setSpriteSize(size);
     }
 
+    /** Sets the size of a specific turtle
+     *  @param id The identifier for the turtle*/
     public void setTurtleSize(String id, double size) {
         mySpriteContainer.setSpriteSize(id, size);
     }
 
+    /** Change the sprite of all turtles
+     *  @param image The new {@code Image} to set the turtle sprites to */
     public void setTurtleImage(Image image) {
         mySpriteContainer.setSpriteImage(image);
     }
 
+    /** Set the pen to be down */
     public void penDown() {
         myPathManager.penDown();
     }
 
+    /** Set the pen to be up*/
     public void penUp() {
         myPathManager.penUp();
     }
 
+    /** Set the size of the pen
+     *  @param size The new width in pixels of the pen*/
     public void setPenSize(double size) {
         myPathManager.setPenSize(size);
     }
 
+    /** Returns the current {@code Color} of the pen */
     public Color getPenColor() {
         return myPathManager.getMyPen().getMyColor();
     }
 
+    /** Sets the color of the pen
+     *  @param color The new {@code Color} for the pen to use*/
     public void setPenColor(Color color) {
         myPathManager.setPenColor(color);
     }
 
+    /** Create a temporary rendering of a turtle at the origin*/
     public void makeFake() {
         if (!myRenderTarget.getChildren().contains(myFake)) {
             myRenderTarget.getChildren().add(myFake);
         }
     }
 
+    /** Hide the temporary rendering of the turtle at the origin*/
     public void hideFake() {
         myRenderTarget.getChildren().remove(myFake);
     }
