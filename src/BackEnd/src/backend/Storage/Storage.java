@@ -1,9 +1,16 @@
 package backend.Storage;
 
-import backend.Commands.Node;
-
 import java.util.*;
 
+/**
+ * The storage class stores the custom variables, functions, and stackframe when a function is ran.
+ * It also provides necessary variable and function information to the front-end.
+ * Stackframe is used in recursion so that we can access variables with the same name but are inside different functions.
+ * This is a well-designed class because it is extensible: if we want to implement additional data strcutures, we
+ *   can easily store them here as well.
+ *
+ * @author Harry Xie
+ */
 public class Storage {
 
     private Map<String, Variable> vMap;
@@ -19,6 +26,19 @@ public class Storage {
     }
 
     public Object getVar(String name){
+        System.out.println("stackFrame isempty:" + stackFrame.isEmpty());
+        System.out.println("fMap:" + fMap);
+        if(fMap.containsKey("sumrecurse")){
+            System.out.println("fmap:"+fMap.get("sumrecurse").getName());
+        }
+        if(!stackFrame.isEmpty()){
+            System.out.println("stackFrame peek():" + stackFrame.peek());
+            System.out.println("function variable map:" + stackFrame.peek().getArgsMap());
+            System.out.println("function variable list:" + stackFrame.peek().getArgsList());
+            System.out.println("function name:" + stackFrame.peek().getName());
+            System.out.println("function nodeList:" + stackFrame.peek().getNodeList());
+        }
+        System.out.println("variable Map - expected empty: "+vMap);
         if(!stackFrame.isEmpty()){
             Map<String, Object> tmpMap = stackFrame.peek().getArgsMap();
             if(tmpMap.containsKey(name)){

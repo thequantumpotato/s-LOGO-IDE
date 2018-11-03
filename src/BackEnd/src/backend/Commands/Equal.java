@@ -13,6 +13,7 @@ public class Equal extends RootNode {
 
     @Override
     public Object run() {
+        System.out.println("equal children: " + myChildren.get(0));
         List<Double> l = parseDoubles(runChildren());
         System.out.println("equal test" + l);
         double e = 0.00000000001;

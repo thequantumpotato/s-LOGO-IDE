@@ -1,0 +1,7 @@
+to echo [ :n ] [ ifelse equalp :n 1 [ return 1 ] [ return sum :n run echo [ difference :n 1 ] ] ]
+
+to echo [ :n ] [ return :n ]
+
+to echo [ :n ] [ return sum :n run echo [ difference :n 1 ] ]
+
+return run echo [ 1 ]

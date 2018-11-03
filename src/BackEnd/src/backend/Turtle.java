@@ -5,7 +5,7 @@ import javafx.scene.paint.Color;
 import java.util.Observer;
 
 /**
- * @author Jose San Martin
+ * @author Jose San Martin, Harry Xie
  * An interface for our turtles
  * Implements the Composite design pattern
  */

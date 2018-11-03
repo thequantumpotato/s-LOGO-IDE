@@ -7,6 +7,11 @@ import backend.Turtle;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class is very similar to the getuserInstruction class and is included to complete the
+ *   recursion feature.
+ * It is well-designed due to similar reasons in getuserInstruction.
+ */
 public class MakeUserInstruction extends RootNode {
 
     public MakeUserInstruction(Storage storage, Turtle turtle, List<Node> children) {
@@ -17,6 +22,7 @@ public class MakeUserInstruction extends RootNode {
     public Object run() {
         List<Object> l = runChildren();
         String name = (String) l.get(0);
+        System.out.println("name of function:"+name);
         Function f = new Function(name);
         List<Node> argsList = (List<Node>) l.get(1);
         for(Node n: argsList){

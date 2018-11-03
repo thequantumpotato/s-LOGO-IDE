@@ -6,6 +6,18 @@ import backend.Storage.Storage;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * super class for all commands.
+ * This super class implements the node interface and provides a myriad of protected helper methods that
+ *   reduces repetitive code in its subclasses.
+ * This is well-designed because it is very flexible.
+ * All the commands benefit from this design more or less, and it works well for both math operations and
+ *   turtle operations.
+ * Unfortunately, it has to take in turtle and storage as argument even if the command doesn't them due to
+ *   the reflection mechanism.
+ *
+ * @author Harry Xie
+ */
 abstract public class RootNode implements Node{
 
     protected List<Node> myChildren;
