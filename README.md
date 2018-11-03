@@ -7,7 +7,10 @@ A development environment that helps users write SLogo programs.
         * Nearly all the view components in frontend except for animation
         * Connecting backend with the frontend through external API
     * Harry Xie
-        * ?
+        * Command classes
+        * Storage system
+        * Recursion
+        * Turtle
     * Ben Xu
         * Turtle Display window
         * Multiple Turtle manipulation/management framework
