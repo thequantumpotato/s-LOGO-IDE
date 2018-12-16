@@ -11,6 +11,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import static frontend.GUI.Display.DisplayView.TURTLE_IMAGE;
 import static frontend.GUI.Display.DisplayView.TURTLE_SIZE;
@@ -157,6 +158,14 @@ public class TurtleManager extends Manager {
      *  @param image The new {@code Image} to set the turtle sprites to */
     public void setTurtleImage(Image image) {
         mySpriteContainer.setSpriteImage(image);
+    }
+
+    public void setTurtleImage(String id, Image image){
+        mySpriteContainer.setSpriteImage(id,image);
+    }
+
+    public HashMap<String,Image> getSprites(){
+        return mySpriteContainer.getSprites();
     }
 
     /** Set the pen to be down */

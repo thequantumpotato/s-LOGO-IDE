@@ -8,12 +8,16 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 import java.io.File;
 
@@ -31,6 +35,7 @@ public class SettingView implements SubView {
                     "English", "Chinese", "French", "German",
                     "Italian", "Portuguese", "Russian", "Spanish", "Urdu");
     VBox speedBox = new VBox();
+    private Stage turtleImagesWindow;
     private ToolBar settingView;
     private ComboBox languageBox;
     private View myView;
@@ -44,6 +49,7 @@ public class SettingView implements SubView {
 
     public SettingView(View myView_, String initLang) {
         myView = myView_;
+        turtleImagesWindow = setUpTurtleImagesWindow();
         settingView = new ToolBar();
         settingView.getStyleClass().add("settingView");
 
@@ -61,6 +67,30 @@ public class SettingView implements SubView {
         redoButton.setOnAction(event -> myView_.getMyGUIWrapper().redo());
 
         settingView.getItems().addAll(bgBox, penBox, penDownCheckbox, penSizeBox, speedBox, turtleButton, languageBox, undoButton, redoButton);
+    }
+
+    private Stage setUpTurtleImagesWindow() {
+        Group root = new Group();
+        Scene scene = new Scene(root);
+        Stage window = new Stage();
+        window.setScene(scene);
+        VBox imageBox = new VBox(5.0);
+        ScrollPane imagesHolder = new ScrollPane(imageBox);
+        final FileChooser fileChooser = new FileChooser();
+        for(String id : myView.getTurtleImages().keySet()){
+            Button button = new Button();
+            button.setGraphic(new ImageView(myView.getTurtleImages().get(id)));
+            imageBox.getChildren().add(button);
+            button.setOnMousePressed(event -> {
+                File file = fileChooser.showOpenDialog(myView.getMyStage());
+                if (file != null) {
+                    myView.changeTurtleImg(id,new Image(file.toURI().toString()));
+                    button.setGraphic(new ImageView(new Image(file.toURI().toString())));
+                }
+            });
+        }
+        root.getChildren().add(imagesHolder);
+        return window;
     }
 
     private VBox setUpTurtleSpeedBox() {
@@ -128,10 +158,8 @@ public class SettingView implements SubView {
         final FileChooser fileChooser = new FileChooser();
         final Button turtleButton = new Button("Turtle Image");
         turtleButton.setOnAction((final ActionEvent e) -> {
-            File file = fileChooser.showOpenDialog(myView.getMyStage());
-            if (file != null) {
-                myView.changeTurtleImg(new Image(file.toURI().toString()));
-            }
+            turtleImagesWindow = setUpTurtleImagesWindow();
+            turtleImagesWindow.show();
         });
         return turtleButton;
     }

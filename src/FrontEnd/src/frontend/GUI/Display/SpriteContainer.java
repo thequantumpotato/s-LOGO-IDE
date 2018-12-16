@@ -4,6 +4,7 @@ import frontend.Util.Sprite;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import static frontend.GUI.Display.DisplayView.TURTLE_IMAGE;
@@ -36,6 +37,10 @@ public class SpriteContainer {
         for (String s : mySprites.keySet()) {
             mySprites.get(s).setImage(image);
         }
+    }
+
+    public void setSpriteImage(String id, Image image){
+        mySprites.get(id).setImage(image);
     }
 
     /**
@@ -95,6 +100,14 @@ public class SpriteContainer {
             return new Sprite(new Image(this.getClass().getClassLoader().getResourceAsStream(mySpritePath)));
         }
 
+    }
+
+    public HashMap<String,Image> getSprites(){
+        HashMap<String,Image> result = new HashMap<>();
+        for(String s : mySprites.keySet()){
+            result.put(s,mySprites.get(s).getImage());
+        }
+        return result;
     }
 
     /**

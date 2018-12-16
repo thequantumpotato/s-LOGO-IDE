@@ -20,6 +20,8 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import main.Controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -193,6 +195,10 @@ public class View implements ViewInternalAPI, ViewAPI {
         myDisplayView.changeTurtleImg(image);
     }
 
+    public void changeTurtleImg(String id, Image image){
+        myDisplayView.changeTurtleImg(id,image);
+    }
+
     @Override
     public void changeAnimationSpeed(Double time) {
         myDisplayView.changeAnimationSpeed(time);
@@ -266,4 +272,7 @@ public class View implements ViewInternalAPI, ViewAPI {
         return myGUIWrapper;
     }
 
+    public HashMap<String, Image> getTurtleImages(){
+        return myDisplayView.getTurtleImages();
+    }
 }

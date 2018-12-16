@@ -12,6 +12,8 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -128,6 +130,14 @@ public class DisplayView implements SubView, Observer {
      *  @param image The new {@code Image} to use as the turtle sprite*/
     public void changeTurtleImg(Image image) {
         myTurtleManager.setTurtleImage(image);
+    }
+
+    public void changeTurtleImg(String id, Image image){
+        myTurtleManager.setTurtleImage(id,image);
+    }
+
+    public HashMap<String, Image> getTurtleImages(){
+        return myTurtleManager.getSprites();
     }
 
     /** Changes the speed of all turtle animations
