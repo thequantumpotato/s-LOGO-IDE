@@ -250,6 +250,18 @@ public class TurtleGroup implements Turtle {
         turtles.get(0).notifyObservers("clear");
     }
 
+    @Override
+    public void stamp() {
+        turtles.get(0).stamp();
+        turtles.get(0).notifyObservers("stamp");
+    }
+
+    @Override
+    public void clearStamp() {
+        turtles.get(0).clearStamp();
+        turtles.get(0).notifyObservers("clearStamp");
+    }
+
     public double numTurtles() {
         return turtles.size();
     }

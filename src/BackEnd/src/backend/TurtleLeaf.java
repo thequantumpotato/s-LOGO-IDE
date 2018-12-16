@@ -23,6 +23,9 @@ public class TurtleLeaf extends Observable implements Turtle {
     private boolean isActive;
     private boolean clearScreen;
 
+    private boolean clearStamp = false;
+    private boolean stamp = false;
+
     public TurtleLeaf(Integer id) {
         this.id = id;
         this.isActive = true;
@@ -202,7 +205,16 @@ public class TurtleLeaf extends Observable implements Turtle {
 
     public void clearScreen() {
         this.clearScreen = true;
-
         this.clearScreen = false;
+    }
+
+    public void clearStamp(){
+        this.clearStamp = true;
+        this.clearStamp = false;
+    }
+
+    public void stamp(){
+        this.stamp = true;
+        this.stamp = false;
     }
 }

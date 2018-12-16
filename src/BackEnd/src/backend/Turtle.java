@@ -186,5 +186,9 @@ public interface Turtle {
 
     void clearScreen();
 
+    void stamp();
+
+    void clearStamp();
+
 
 }
