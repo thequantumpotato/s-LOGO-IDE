@@ -1,11 +1,22 @@
 package backend.Storage;
 
 import backend.Commands.Node;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+
+/**
+ * This is the function class that stores the definition of a function.
+ * It contains its name, a list of commands, a list of argument names, and an argument map.
+ * It is well designed because it is encapsulated, flexible, and very readable.
+ * It has a newinstance() method that returns a new instance of itself so an instance of the function can be run
+ *   without modifying the original copy of the function.
+ * The function is used in storage class to implement recursion and user defined functions.
+ *
+ * @author Harry Xie
+ */
 
 public class Function {
     private String name;
@@ -50,6 +61,7 @@ public class Function {
         this.nodeList = l;
     }
 
+    // this method returns a new separate function object; essentially a deep copy
     public Function newInstance(){
         return new Function(this.name, this.argsList, this.nodeList);
     }

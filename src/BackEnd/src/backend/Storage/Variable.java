@@ -1,5 +1,10 @@
 package backend.Storage;
 
+/**
+ * class that represents user defined variable
+ *
+ * @author Harry Xie
+ */
 public class Variable {
 
     private Object value;

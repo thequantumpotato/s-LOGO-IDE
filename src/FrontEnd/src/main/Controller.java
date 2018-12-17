@@ -32,6 +32,11 @@ public class Controller {
     private List<Map.Entry<String, Pattern>> mySymbols;
     private ResourceBundle myErrors;
 
+    /**
+     * Create an instance of the Controller
+     * @param primaryStage
+     * @param language
+     */
     public Controller(Stage primaryStage, String language) {
         myTurtle = new TurtleGroup();
         myErrors = ResourceBundle.getBundle(COMMAND_ERROR);
@@ -39,11 +44,20 @@ public class Controller {
         setUpBackEnd(language);
     }
 
+    /**
+     * Set up the frontend by initiating a View class and register turtle as the observables
+     * @param primaryStage
+     * @param language
+     */
     private void setUpFrontEnd(Stage primaryStage, String language) {
         myView = new View(primaryStage, this, language);
         myView.registerDisplay(myTurtle);
     }
 
+    /**
+     * Set up the backend elements such as the syntax for parsing and the modelController
+     * @param language
+     */
     public void setUpBackEnd(String language) {
         mySymbols = new ArrayList<>();
         addPatterns(LANG_PATH + language); // language syntax
@@ -51,6 +65,11 @@ public class Controller {
         modelController = new ModelController(myTurtle, mySymbols);
     }
 
+    /**
+     * Called by the View when a command is received.
+     * Run the command and throw errors when appropriate
+     * @param input
+     */
     public void runCommand(String input) {
         if (reportEmptyString(input)) return;
         try {
@@ -65,6 +84,11 @@ public class Controller {
         }
     }
 
+    /**
+     * Check empty string from the command
+     * @param input
+     * @return
+     */
     private boolean reportEmptyString(String input) {
         if (input.isEmpty()) {
             myView.displayErrors("Please enter a command!");
@@ -73,6 +97,10 @@ public class Controller {
         return false;
     }
 
+    /**
+     * Throw errors according to the exception type from the backend
+     * @param e
+     */
     private void throwErrorByType(Exception e) {
         if (e instanceof IllegalCommandException) {
             myView.displayErrors(myErrors.getString("commandError"));
@@ -117,10 +145,18 @@ public class Controller {
         }
     }
 
+    /**
+     * getter for the GridPane inside View
+     * @return
+     */
     public GridPane getMyView() {
         return myView.getMyGridPane();
     }
 
+    /**
+     * getter for the turtle
+      * @return
+     */
     public Turtle getMyTurtle() {
         return myTurtle;
     }

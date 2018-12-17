@@ -7,6 +7,12 @@ import backend.Turtle;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This is the get function class that runs a function when the user input "run [function_name] [arguments]"
+ * This is well-designed because it uses well-encapsulated methods in storage and takes care
+ *   of recursion by running its children.
+ * The method is exactly 20 lines, which is great considering the many things this command has to do.
+ */
 public class GetUserInstruction extends RootNode {
 
     public GetUserInstruction(Storage storage, Turtle turtle, List<Node> children) {

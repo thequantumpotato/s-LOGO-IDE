@@ -7,7 +7,7 @@ import java.util.Observer;
 
 
 /**
- * @author Jose San Martin
+ * @author Jose San Martin, Harry Xie
  */
 public class TurtleLeaf extends Observable implements Turtle {
 

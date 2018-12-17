@@ -14,7 +14,9 @@ public class GetVariable extends RootNode {
 
     @Override
     public Object run() {
+        System.out.println("get variable children: " + myChildren.get(0).run());
         List<Object> l = runChildren();
+        System.out.println("myStorage.getVar: " + myStorage.getVar((String)l.get(0)));
         return myStorage.getVar((String) l.get(0));
     }
 }

@@ -31,6 +31,8 @@ import java.util.Map;
  * be independent of each other.
  * <p>
  * It extends ViewInternalAPI, which includes all the methods that can be called by the internal Display
+ *<p>
+ * Comments of classes are included in the APIs
  *
  * @author Vincent Liu
  */

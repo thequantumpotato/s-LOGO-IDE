@@ -7,6 +7,11 @@ import javafx.scene.paint.Color;
 
 import java.util.Map;
 
+/**
+ * All the internal methods of View that will be called by SubViews or other components.
+ *
+ * @author Vincent Liu
+ */
 public interface ViewInternalAPI {
 
     /**
@@ -88,7 +93,7 @@ public interface ViewInternalAPI {
     /**
      * When clicking save button, it saves the latest command, which is stored in the HistoryView.
      *
-     * @return
+     * @return latest command as a string
      */
     String retrieveHistory();
 

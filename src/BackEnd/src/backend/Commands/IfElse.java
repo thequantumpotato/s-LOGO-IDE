@@ -12,6 +12,7 @@ public class IfElse extends RootNode {
 
     @Override
     public Object run() {
+        System.out.println("ifelse children: " + myChildren);
         List<Object> l = runChildren();
         System.out.println("llllllllllllll: " + l);
         Boolean b = (Boolean) l.get(0);
