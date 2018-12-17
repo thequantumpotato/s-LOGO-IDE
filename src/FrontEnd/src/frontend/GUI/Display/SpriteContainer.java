@@ -81,6 +81,9 @@ public class SpriteContainer {
         mySprites.put(id, turtle);
         myStates.put(id, true);
         myRenderTarget.getChildren().add(turtle);
+        if(!id.equals("0")){
+            turtle.setPosition(mySprites.get(String.valueOf(Integer.parseInt(id)-1)).getPosition());
+        }
     }
 
     /**

@@ -22,6 +22,7 @@ public class TurtleLeaf extends Observable implements Turtle {
     private double penSize;
     private boolean isActive;
     private boolean clearScreen;
+    private boolean stamp;
 
     public TurtleLeaf(Integer id) {
         this.id = id;
@@ -32,6 +33,7 @@ public class TurtleLeaf extends Observable implements Turtle {
         penColor = Color.WHITE;
         penSize = 1;
         isActive = true;
+        stamp = false;
     }
 
     public Integer getId() {
@@ -204,5 +206,17 @@ public class TurtleLeaf extends Observable implements Turtle {
         this.clearScreen = true;
 
         this.clearScreen = false;
+    }
+
+    public void stamp(){
+        this.stamp = true;
+    }
+
+    public void removeStamp(){
+        this.stamp = false;
+    }
+
+    public boolean isStamped(){
+        return this.stamp;
     }
 }

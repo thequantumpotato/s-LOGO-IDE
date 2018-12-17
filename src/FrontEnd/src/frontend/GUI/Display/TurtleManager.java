@@ -131,6 +131,9 @@ public class TurtleManager extends Manager {
         mySpriteContainer.getSprite(id).hide();
     }
 
+    public void stamp(String id) { mySpriteContainer.addSprite(id+1);
+    }
+
     /**
      * Sets the active or inactive state of a sprite
      *

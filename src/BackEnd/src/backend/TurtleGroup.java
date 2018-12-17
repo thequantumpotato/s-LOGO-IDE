@@ -269,4 +269,26 @@ public class TurtleGroup implements Turtle {
         setPosition(0, 0);
     }
 
+    public void stamp(){
+        for (TurtleLeaf leaf : turtles) {
+            leaf.stamp();
+            leaf.notifyObservers();
+        }
+    }
+
+
+    public void removeStamp(){
+        for (TurtleLeaf leaf : turtles) {
+            leaf.removeStamp();
+            leaf.notifyObservers();
+        }
+    }
+    public boolean isStamped(){
+        for (TurtleLeaf leaf : turtles) {
+            leaf.isStamped();
+            leaf.notifyObservers();
+        }
+        return true;
+    }
+
 }

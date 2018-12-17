@@ -111,6 +111,8 @@ public class DisplayView implements SubView, Observer {
         myTurtleManager.show(id);
     }
 
+    public void stampTurtle(String id){ myTurtleManager.stamp(id);}
+
     /** Changes the size of all turtles to the specified size
      *  @param size The new size of all turtles*/
     public void changeTurtleSize(double size) {
@@ -200,6 +202,9 @@ public class DisplayView implements SubView, Observer {
             showTurtle(String.valueOf(o.getId()));
         } else {
             hideTurtle(String.valueOf(o.getId()));
+        }
+        if(o.isStamped()){
+            stampTurtle(String.valueOf(o.getId()));
         }
         myView.changeBgColor(o.getBgColor());
         myView.getMyGUIWrapper().changePenColor(o.getPenColor());

@@ -186,5 +186,11 @@ public interface Turtle {
 
     void clearScreen();
 
+    void stamp();
+
+    void removeStamp();
+
+    boolean isStamped();
+
 
 }
