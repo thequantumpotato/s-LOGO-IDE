@@ -18,7 +18,9 @@ public class Interpreter {
 
     private static final String WHITESPACE = "\\s+";
     private static final String commandError = "backend/resources/Errors";
-    public ResourceBundle myErrors;
+    private static final String CONSTANT = "Constant";
+    private static final String VARIABLE = "Variable";
+    private ResourceBundle myErrors;
     private List<Map.Entry<String, Pattern>> mySymbols;
     private List<String> myCommands;
 
@@ -35,7 +37,7 @@ public class Interpreter {
     /**
      * Return the arrayList<String></String> back to the ModelController of all of the commands
      */
-    public List<String> parse(String text) throws Exception {
+    public List<String> parse(String text){
 
         String[] textArr = text.split(WHITESPACE);
         for (var t : textArr) {
@@ -43,21 +45,18 @@ public class Interpreter {
                 myCommands.add(getSymbol(t));
             }
         }
-        //reflection();
-        //commands are in an arraylist, now create our tree structure
         return myCommands;
 
     }
 
-
     /**
      * Returns language's type associated with the given text if one exists
      */
-    private String getSymbol(String text) //throws IllegalCommandException
+    private String getSymbol(String text)
     {
         for (var e : mySymbols) {
             if (match(text, e.getValue())) {
-                if (e.getKey().equals("Constant") | e.getKey().equals("Variable")) {
+                if (e.getKey().equals(CONSTANT) | e.getKey().equals(VARIABLE)) {
                     return text;
                 } else if (e.getKey().equals("commandName")) {
                     return "commandName";
@@ -74,7 +73,6 @@ public class Interpreter {
      * Returns true if the given text matches the given regular expression pattern
      */
     private boolean match(String text, Pattern regex) {
-        // THIS IS THE IMPORTANT LINE
         return regex.matcher(text).matches();
     }
 

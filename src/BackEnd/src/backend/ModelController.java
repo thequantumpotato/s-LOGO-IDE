@@ -8,6 +8,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
+
+/**
+ * This class is a good design in my opinion because of how simple it is yet how much it does. Its purpose is to essentially
+ * be the controller of the BackEnd module, and it is just that. This class acts as the communicator with the FrontEnd, and it
+ * also acts as a data pipeline for the String recieved by the FrontEnd.
+ */
+
 /**
  * @author Jose San Martin, Henry Xie
  * A controller class that performs reflection on a list of trees to move the turtle.
@@ -18,8 +25,6 @@ public class ModelController {
     private List<Map.Entry<String, Pattern>> mySymbols;
     private Turtle myTurtle;
     private TreeFactory myTreeFactory;
-    private boolean hasNewVar;
-    private boolean hasNewFunc;
     private Storage myStorage;
 
     public ModelController(Turtle turtle, List<Map.Entry<String, Pattern>> symbolList) {
@@ -29,38 +34,27 @@ public class ModelController {
         myStorage = new Storage();
         myTreeFactory = new TreeFactory(myTurtle, myStorage);
     }
-
     /**
-     * Parses the Command
+     * My main Data Pipeline
      */
-    public List<String> parseCommand(String input) throws Exception {
-        //returns a list of root nodes. e.g. [Forward, 50]
+    public List<String> Pipeline(String input) throws Exception {
         List<String> commands = interpreter.parse(input);
         for (String command : commands) {
             System.out.println(command);
         }
-        //Turn our command arraylist into a tree structure of command nodes
         myCommands = myTreeFactory.getRoots(commands);
-        System.out.println("My turtle before running command: " + myTurtle.getTurtleLeaf(0));
 
         List<Object> returnList = new ArrayList<>();
-        System.out.println("My commands" + myCommands);
         for (Node node : myCommands) {
-            System.out.println("equal.run" + node.run());
             returnList.add(node.run());
         }
-        System.out.println("return list" + returnList);
-
-
         ArrayList<String> listString = parseToString(returnList);
-        System.out.println("Turtle Ran!");
         myTurtle.Changed();
         myTurtle.notifyAllObservers(true);
         myTurtle.clear();
 
         return listString;
     }
-
     private ArrayList<String> parseToString(List<Object> toParse) {
         ArrayList<String> toReturn = new ArrayList<>();
         for (Object p : toParse) {
@@ -68,11 +62,16 @@ public class ModelController {
         }
         return toReturn;
     }
-
+    /**
+     * Part of the External backend API. Allows the FrontEnd access to the stored Variables
+     */
     public Map<String, String> updateVar() {
         return myStorage.getVarMap();
     }
 
+    /**
+     * Part of the External backend API. Allows the FrontEnd access to the stored Functions
+     */
     public List<String> updateFunc() {
         return myStorage.getInsList();
     }

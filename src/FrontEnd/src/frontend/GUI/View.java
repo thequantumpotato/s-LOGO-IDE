@@ -209,7 +209,7 @@ public class View implements ViewInternalAPI, ViewAPI {
     @Override
     public void resetTurtle() {
         myDisplayView.changeAnimationSpeed(TurtleManager.DEFAULT_DURATION);
-        mySettingView.resetTurtleSpeedBox();
+        //mySettingView.resetTurtleSpeedBox();
     }
 
     /**

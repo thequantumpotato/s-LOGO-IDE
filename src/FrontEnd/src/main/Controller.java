@@ -54,7 +54,7 @@ public class Controller {
     public void runCommand(String input) {
         if (reportEmptyString(input)) return;
         try {
-            List<String> ret = modelController.parseCommand(input);
+            List<String> ret = modelController.Pipeline(input);
             myView.returnValues(ret);
             myView.updateHistory(input);
             checkBackEndVarUpdate();
@@ -111,7 +111,7 @@ public class Controller {
     public void updateVar(Map<String, String> var) {
         String key = var.keySet().toArray()[0].toString();
         try {
-            modelController.parseCommand("make " + ":" + key + " " + var.get(key));
+            modelController.Pipeline("make " + ":" + key + " " + var.get(key));
         } catch (Exception e) {
             throwErrorByType(e);
         }
