@@ -15,6 +15,18 @@ import java.util.Map;
 public interface ViewInternalAPI {
 
     /**
+     * change one turtle's image in the displayView
+     * @param img
+     */
+    void changeOneTurtleImage(Image img, int id);
+
+    /**
+     * add image into TurtleImageView to be displayed
+     * @param image
+     */
+    void addImage(Image image);
+
+    /**
      * Called by SettingView
      * Change the background color of the display
      *

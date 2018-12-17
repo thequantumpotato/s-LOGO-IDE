@@ -50,6 +50,7 @@ public class View implements ViewInternalAPI, ViewAPI {
     private FunctionView myFunctionView;
     private HistoryView myHistoryView;
     private SettingView mySettingView;
+    private TurtleImageView myTurtleImageView;
     private HelpView myHelpView;
     private Controller myController;
     private Stage myStage;
@@ -112,6 +113,7 @@ public class View implements ViewInternalAPI, ViewAPI {
 
     private void initializeElements(String initLang) {
         myStateView = new StateView();
+        myTurtleImageView = new TurtleImageView(this);
         myDisplayView = new DisplayView(this);
         myCommandView = new CommandView(this);
         myVariableView = new VariableView(this);
@@ -125,8 +127,9 @@ public class View implements ViewInternalAPI, ViewAPI {
 
     private void setUpRightAccordion() {
         rightAccordion = new Accordion();
-        rightAccordion.getPanes().addAll((TitledPane) myVariableView.getView(), (TitledPane) myFunctionView.getView());
-        rightAccordion.setExpandedPane((TitledPane) myVariableView.getView());
+        rightAccordion.getPanes().addAll((TitledPane) myVariableView.getView(), (TitledPane) myFunctionView.getView(),
+                (TitledPane) myTurtleImageView.getView());
+        rightAccordion.setExpandedPane((TitledPane) myTurtleImageView.getView());
     }
 
     private void addElements(GridPane gridPane) {
@@ -142,6 +145,16 @@ public class View implements ViewInternalAPI, ViewAPI {
     /**
      * Internal ExternalAPI
      **/
+
+    @Override
+    public void changeOneTurtleImage(Image img, int id){
+        myDisplayView.changeOneTurtleImg(img, id);
+    }
+
+    @Override
+    public void addImage(Image sprite){
+        myTurtleImageView.addImage(sprite);
+    }
 
     @Override
     public void showState(String id, Sprite sprite, PathManager pathManager) {

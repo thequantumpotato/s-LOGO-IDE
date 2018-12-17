@@ -112,6 +112,11 @@
     -fx-border-width: 1px;
 }
 
+.imageView{
+    -fx-border-color: black;
+    -fx-border-width: 1px;
+}
+
 .variableView {
     -fx-border-color: black;
     -fx-border-width: 1px;

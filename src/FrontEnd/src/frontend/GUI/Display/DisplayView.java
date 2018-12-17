@@ -124,6 +124,10 @@ public class DisplayView implements SubView, Observer {
         myTurtleManager.setTurtleSize(id, size);
     }
 
+    public void changeOneTurtleImg(Image image, int id){
+        myTurtleManager.setOneTurtleImage(image, id);
+    }
+
     /** Change the sprite for all turtles
      *  @param image The new {@code Image} to use as the turtle sprite*/
     public void changeTurtleImg(Image image) {

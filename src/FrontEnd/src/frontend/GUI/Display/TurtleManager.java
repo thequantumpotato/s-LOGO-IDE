@@ -4,6 +4,7 @@ package frontend.GUI.Display;
 import frontend.GUI.View;
 import frontend.Util.AnimationContainer;
 import frontend.Util.Coordinate;
+import frontend.Util.Sprite;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -70,6 +71,8 @@ public class TurtleManager extends Manager {
     public void createTurtle(String id) {
         myTurtles.add(id);
         mySpriteContainer.addSprite(id);
+        Sprite newSprite = mySpriteContainer.getSprite(id);
+        myView.addImage(newSprite.getImage());
         mySpriteContainer.getSprite(id).setOnMouseEntered(
                 e -> myView.showState(id, mySpriteContainer.getSprite(id), myPathManager)
         );
@@ -152,6 +155,8 @@ public class TurtleManager extends Manager {
     public void setTurtleSize(String id, double size) {
         mySpriteContainer.setSpriteSize(id, size);
     }
+
+    public void setOneTurtleImage(Image image, int id){ mySpriteContainer.getSprite(String.valueOf(id)).setImage(image);}
 
     /** Change the sprite of all turtles
      *  @param image The new {@code Image} to set the turtle sprites to */
